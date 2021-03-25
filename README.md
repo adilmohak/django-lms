@@ -59,6 +59,6 @@ First Clone the repo with `git clone https://github.com/adilmohak/django_sms_and
 
 Run the following commands
 `pip install -r requirements.txt`
-`python setup.py install`
+`python manage.py runserver`
 
 # Thank You!!
