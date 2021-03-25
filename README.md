@@ -1,10 +1,11 @@
 # Advanced student management and e-learning system
 My portfolio website -> https://ezop.herokuapp.com
 
-I build this student management and e-learning system using django and Bootstrap for the front-end. You can check the video to figur it out how it works in real time
+I build this student management and e-learning system using django and Bootstrap for the front-end. You can watch the video on YouTube to find out how the video works in real time https://youtu.be/ytP-k95F0ug
 for the quiz part I refer from this github repo -> https://github.com/tomwalker/django_quiz
 
 Quizzs
+![Uploading Screenshot (123).png…]()
 
 ![Screenshot (124)](https://user-images.githubusercontent.com/60693922/89736599-32681e80-da73-11ea-8f41-a75554f37e32.png)
 
