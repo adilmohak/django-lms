@@ -6,6 +6,7 @@ I build this student management and e-learning system using django and Bootstrap
 for the quiz part I refer from this github repo -> https://github.com/tomwalker/django_quiz
 
 Quizzes
+
 ![Screenshot (123)](https://user-images.githubusercontent.com/60693922/112447687-a802cf80-8d62-11eb-85f5-aebf9164d03a.png)
 
 Current features
@@ -41,13 +42,14 @@ Current features
 * A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
 
 ![Screenshot (124)](https://user-images.githubusercontent.com/60693922/112449252-3f1c5700-8d64-11eb-8549-bfe52122adf3.png)
+
 ![Screenshot (118)](https://user-images.githubusercontent.com/60693922/112449489-7d197b00-8d64-11eb-9ed2-ed7dcd2fe89d.png)
+
 ![Screenshot (126)](https://user-images.githubusercontent.com/60693922/112449542-8b679700-8d64-11eb-8ff8-4320a720a3d7.png)
 
 ![Screenshot (122)](https://user-images.githubusercontent.com/60693922/112449435-6ecb5f00-8d64-11eb-9d34-4dc3473a5312.png)
 
-
-and the following picture is how the final quiz result is shown to the user, it caculates the score and then display.
+After the student finished the quiz, here is how the result display
 
 ![Screenshot (127)](https://user-images.githubusercontent.com/60693922/89736959-1d40bf00-da76-11ea-98a8-b9e95db4da77.png)
 
