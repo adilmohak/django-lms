@@ -60,5 +60,6 @@ First Clone the repo with `git clone https://github.com/adilmohak/django_sms_and
 Run the following commands
 `pip install -r requirements.txt`
 `python manage.py runserver`
+Finaly go to this address http://127.0.0.1:8000
 
 # Thank You!!
