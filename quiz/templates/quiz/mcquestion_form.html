@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'programs' %}" class="primary1"> Programs</a> <i>&rsaquo;</i> 
+    <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
+    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> <i>&rsaquo;</i> 
+    <a href="{% url 'quiz_index' course.slug %}" class="primary1">Quiz list</a> <i>&rsaquo;</i> MC Question add for {{ quiz_obj }}</div>
+
+<div class="container">
+
+    <div class="header-title-xl text-center mt-4">Questions form for {{ quiz_obj }}</div>
+    <div class="title-line mb-5"></div>
+
+    <div class="info-text bg-orange mb-3">{{ quizQuestions }} question added</div>
+
+    <form action="#" method="POST">{% csrf_token %}
+        {% if form.errors %}<p class="alert alert-danger">Correct the error(s) below.</p>{% endif %}
+        <div class="row">
+            <div class="col mx-3 py-4 border bg-white">
+                <div class="form-group" hidden>
+                    <label for="title">{{ form.quiz.label }}</label> {{ form.quiz }}
+                    <span class="danger">{{ form.quiz.errors }}</span>
+                    <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                </div>
+                <div class="form-group">
+                    <label for="content">{{ form.content.label }}</label> {{ form.content }}
+                    <span class="danger">{{ form.content.errors }}</span>
+                    <small class="d-block text-muted">Enter the question text that you want displayed.</small>
+                </div>
+                <div class="form-group">
+                    <label for="figure">{{ form.figure.label }}</label> {{ form.figure }}
+                    <span class="danger">{{ form.figure.errors }}</span>
+                    <small class="d-block text-muted">Add an image for the question if it's necessary.</small>
+                </div>
+                <div class="form-group">
+                    <label for="explanation">{{ form.explanation.label }}</label> {{ form.explanation }}
+                    <span class="danger">{{ form.explanation.errors }}</span>
+                    <small class="d-block text-muted">Explanation to be shown after the question has been answered.</small>
+                </div>
+            </div>
+            <div class="col mx-3 py-4 border bg-white">
+                <div class="form-group">
+                    <label for="choice_order">{{ form.choice_order.label }}</label> {{ form.choice_order }}
+                    <span class="danger">{{ form.choice_order.errors }}</span>
+                    <small class="d-block text-muted">The order in which multichoice choice options are displayed to the user.</small>
+                </div>
+                <div class="border py-3">
+                    <div class="lead text-center">Choices</div>
+                {{ formset.management_form }}
+                {% for fs in formset %}
+                    <label for="username">{{ fs.label }}</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ fs.correct }} <small class="ml-1">Correct</small></span>
+                        </div>
+                        {{ fs.choice }}
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ fs.DELETE }} <small class="ml-1">Delete</small></span>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <center>
+            <button type="submit" formnovalidate name="another" class="btn btn-lg btn-outline-primary">
+                Save and add another
+            </button>
+            <button class="btn btn-lg btn-primary my-4" type="submit">Save</button>
+        </center>
+
+        <!-- <h3>FormSet example</h3>
+        {{ myformset.management_form }}
+        <div id="form_set">
+            {% for form in myformset.forms %}
+                {{form.non_field_errors}}
+                {{form.errors}}
+                <table class='no_error'>
+                    {{ form }}
+                </table>
+            {% endfor %}
+        </div>
+        <input type="button" value="Add More" id="add_more">
+        <div id="empty_form" style="display:none">
+            <table class='no_error'>
+                {{ myformset.empty_form }}
+            </table>
+        </div> -->
+
+    </form>
+
+    <!-- <form method="POST" action="">{% csrf_token %}
+        {% if form.errors %}<h1>Error {{ formset.errors }}</h1>{% endif %}
+        {{ formset.management_form }}
+        {% for form in formset.forms %}
+            {{form.non_field_errors}}
+            {{form.errors}}
+            <table class='no_error'>
+                {{ form }}
+            </table>
+        {% endfor %}
+        {% if formset.errors %}<h1>Formset error</h1>{% endif %}
+        <input type="button" value="Add More" id="add_more">
+        <div id="empty_form" style="display:none">
+            <table class='no_error'>
+                {{ formset.empty_form }}
+            </table>
+        </div>
+    </form> -->
+    
+    <!-- <div class="body">
+        {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+        {% for form in formset.forms %}
+        <div class="inline-form prefix">
+            {{ form }}
+        </div>
+        {% endfor %}
+        <div class="new-inline">
+            <input type="button" class="add-inline" value="Add another form" />
+        </div>
+    </div> -->
+
+</div>
+
+{% endblock %}
+
+<!-- {% block js %}
+<script>
+    function add_inline_form(prefix) {
+        var count = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val(), 10);
+        var last_form = $('.' + prefix + ':last');
+
+        var new_form = last_form.clone(false).html(last_form.html().replace(
+            new RegExp(prefix + '-\\\\d-', 'g'), prefix + '-' + count + '-'));
+        new_form.find('input[type="text"], textarea').each(function () {
+            $(this).val('');
+        });
+        new_form.hide().insertAfter(last_form).slideDown(300);
+
+        // Update the total form count
+        $('#id_' + prefix + '-TOTAL_FORMS').val(count + 1);
+
+        // re-initialise triggers
+
+        return false;
+    }
+
+    var regex = /(?:inline\-form) ([\\w\-]*) (?:add|existing)/;
+    $('.add-inline').each(function () {
+        var match = regex.exec($(this).closest('.body').find('.inline-form').attr('class'));
+        if (match && match.length > 1) {
+            $(this).click(function () {
+                return add_inline_form(match[1]);
+            });
+        }
+    });
+</script>
+{% endblock js %} -->

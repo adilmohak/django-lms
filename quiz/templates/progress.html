@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Progress Page" %} {% endblock %}
+{% block description %} {% trans "User Progress Page" %} {% endblock %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Progress Page</div>
+
+  {% if cat_scores %}
+
+  <div class="header-title text-center">{% trans "Question Category Scores" %}</div>
+  <div class="title-line"></div>
+
+  <table class="table table-bordered table-striped">
+
+	<thead>
+	  <tr>
+		<th>{% trans "Category" %}</th>
+		<th>{% trans "Correctly answererd" %}</th>
+		<th>{% trans "Incorrect" %}</th>
+		<th>%</th>
+	  </tr>
+	</thead>
+
+	<tbody>
+
+
+	  {% for cat, value in cat_scores.items %}
+	  <tr>
+		<td>{{ cat }}</td>
+		<td>{{ value.0 }}</td>
+		<td>{{ value.1 }}</td>
+		<td>{{ value.2 }}</td>
+	  </tr>
+
+	  {% endfor %}
+
+	</tbody>
+
+  </table>
+
+
+  {% endif %}
+
+  {% if exams %}
+
+  <hr>
+
+  <div class="header-title-xl">{% trans "Previous exam papers" %}</div>
+  <p class="lead text-muted">
+	{% trans "Below are the results of exams that you have sat." %}
+  </p>
+  <div class="info-text bg-danger mb-2">Total complete exams: {{ exams_counter }}</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+
+	<thead>
+	  <tr>
+		<th>#</th>
+		<th>{% trans "Quiz Title" %}</th>
+		<th>{% trans "Score" %}</th>
+		<th>{% trans "Possible Score" %}</th>
+		<th>Out of 100%</th>
+	  </tr>
+	</thead>
+
+	<tbody>
+
+	  {% for exam in exams %}
+
+	  <tr>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ exam.quiz.title }}</td>
+		<td>{{ exam.current_score }}</td>
+		<td>{{ exam.get_max_score }}</td>
+		<td>{{ exam.get_percent_correct }}%</td>
+	  </tr>
+
+	  {% endfor %}
+
+	</tbody>
+
+  </table>
+</div>
+  {% endif %}
+  {% if not cat_scores and not exams %}
+ 	<div class="col-12 p-4 text-center"><h3><i class="far fa-frown"></i></h3> No recordes yet. to get a good recorde, try to do some quizzes in your course.</div> 
+  {% endif %}
+
+{% endblock %}

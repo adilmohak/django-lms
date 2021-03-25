@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Session list</div>
+
+{% if request.user.is_superuser %}
+<a class="add-button" href="{% url 'add_session' %}"><i class="fas fa-plus"></i>Add New Session</a>
+{% endif %}
+
+<div class="title-1"><i class="fas fa-calendar-week"></i>Session List</div>
+<div class="title-line"></div>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="table-responsive table-shadow p-0 mt-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> Session </th>
+                <th> Is Current Session </th>
+                <th> Next Session Begins </th>
+                {% if request.user.is_superuser %}
+                <th> Actions </th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td>{{ forloop.counter }}.</td>
+                <td>{{ session.session }}</td>
+                <th>
+                    {% if session.is_current_session == True %}
+                    <i class="fas fa-check-circle fa-1-5x"></i>
+                    {% else %}
+                    <i class="fas fa-times-circle fa-1-5x danger"></i>
+                    {% endif %}
+                </th>
+                <td>{{ session.next_session_begins }}</td>
+
+                {% if request.user.is_superuser %}
+                <td> <div class="update-delete">
+                    <a href="{% url 'edit_session' pk=session.pk %}" class="update" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{% url 'delete_session' pk=session.pk %}" class="delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
+                {% endif %}
+                
+                {% empty %}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                  <span class="text-danger">
+                    <i class="far fa-frown"></i>No Session.
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'add_session' %}">
+                    <i class="primary" style="font-size: 22px;">
+                       Add Session Now.
+                    </i>
+                    {% endif %}
+                    </a>
+                  </span>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

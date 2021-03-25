@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'programs' %}" class="primary1"> Programs</a> <i>&rsaquo;</i> 
+    <a href="{% url 'program_detail' pk=1 %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
+    <a href="{{ course.get_absolute_url }}" class="primary1"> {{ course }}</a> <i>&rsaquo;</i> Quiz List</div>
+
+<div class="container">
+
+    {% if messages %}
+        <div id="popup-box-messages">
+            <div class="box-messages">
+                <a id="popup-btn-messages" class="btn btn-light"><i class="fas fa-times"></i></a><br><br>
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <style>.bg-light-warning{background-color: rgb(252, 217, 111) !important;}</style>
+
+    <div class="header-title-xl text-center">Quiz list of {{ course }}</div>
+    <div class="title-line mb-5"></div>
+
+    {% if request.user.is_superuser or request.user.is_lecturer %}
+    <a class="btn btn-outline-primary br-2 mb-4" href="{% url 'quiz_create' course.slug %}">&plus; Add Quiz</a>
+    {% endif %}
+
+    <div class="row">
+        {% for quiz in quizzes %}
+        <div class="col-md-4 mb-4 mx-auto text-center">
+            <div class="card p-2 quiz-wrapper">
+                {% if request.user.is_superuser or request.user.is_lecturer %}
+                <div class="update-delete-wrapper">
+                    <div class="navbar">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle-split" href="#" id="dropdown01" data-toggle="dropdown"><i class="fas fa-ellipsis-v text-white"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                                <a href="{% url 'quiz_update' slug=course.slug pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                <a href="{% url 'quiz_delete' slug=course.slug pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row text-success mb-4">
+                    <em class="col-6 text-left">{{ quiz.category|title }} Quiz</em>
+                    <div class="col-6 text-right info-text bg-danger" style="border-bottom-right-radius: 1px; border-top-right-radius: 1px;">
+                        {{ quiz.get_questions.count }} Questions
+                    </div>
+                </div>
+                <!-- <p>{{ quiz.category|title }} Quiz</p> -->
+                <div class="card-title header-title-md">{{ quiz.title|title }}</div>
+                <!-- <div class="col-md-4 info-text bg-danger" style="float: right; width: auto;">
+                    {{ quiz.get_questions.count }} Questions
+                </div> -->
+                {% if quiz.single_attempt %}
+                <p class="p-2 bg-light-warning">{% trans "You will only get one attempt at this quiz" %}.</p>
+                {% endif %}
+                <p class="text-muted">{{ quiz.description }} here is the description of this quiz...</p>
+                <!-- <p class="lead">{{ quiz.get_questions.count }} Questions</p> -->
+                <!-- <div class="row text-success mb-4">
+                    <small class="col-6 text-left">{% trans "Category" %}: <b>{{ quiz.category }}</b></small>
+                    <small class="col-6 text-right">Time set: <b>1:30</b></small>
+                </div> -->
+                <a class="btn btn-block btn-secondary" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Start quiz" %} &raquo;</a>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    // #####################################
+    // loader
+    // document.getElementById('progress-main').style.display = 'none';
+    var timer = setInterval(function(){
+        document.getElementById('progress-card').style.display = 'none';
+        document.getElementById('progress-main').style.display = 'block';
+        clearInterval(timer)
+    }, 8000);           
+</script>
+{% endblock js %}

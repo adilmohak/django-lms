@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'student_list' %}" class="primary1">Students</a> <i>&rsaquo;</i> Add</div>
+<br>
+<div class="title-1"><i class="fas fa-user-graduate"></i>Student Add Form</div>
+<div class="title-line"></div><br>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<form action="" method="POST">{% csrf_token %}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+            <p class="form-title">Login Info</p>
+
+            <div class="p-3">
+
+                <div class="form-group">
+                    <b>ID No.</b>{{ form.username }}
+                    <span class="danger">{{ form.username.errors }}</span>
+                    <p class="text-muted-xs">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.password1.label }}</b>{{ form.password1 }}
+                    <span class="danger">{{ form.password1.errors }}</span>
+                    <p class="text-muted-xs">
+                        The password can't be too similar to other personal information.<br>
+                        The password must contain at least 8 characters.<br>
+                        The password can't be a commonly used password.<br>
+                        The password can't be entirely numeric.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.password2.label }}</b>{{ form.password2 }}
+                    <span class="danger">{{ form.password2.errors }}</span>
+                    <p class="text-muted-xs">Enter the same password as before, for verification.</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+            <p class="form-title">Personal Info</p>
+            <div class="container">
+                
+                <div class="form-group">
+                    <b>{{ form.first_name.label }}</b>{{ form.first_name }}
+                    <span class="danger">{{ form.first_name.errors }}</span>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.last_name.label }}</b>{{ form.last_name }}
+                    <span class="danger">{{ form.last_name.errors }}</span>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.email.label }}</b>{{ form.email }}
+                    <span class="danger">{{ form.email.errors }}</span>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.address.label }}</b>{{ form.address }}
+                    <span class="danger">{{ form.address.errors }}</span>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.phone.label }}</b>{{ form.phone }}
+                    <span class="danger">{{ form.phone.errors }}</span>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 mr-auto">
+            <div class="card">
+            <p class="form-title">Others</p>
+            <div class="p-3">
+                <div class="form-group">
+                    <b>{{ form.department.label }}</b>{{ form.department }}
+                    <span class="danger">{{ form.department.errors }}</span>
+                </div>
+                <div class="form-group">
+                    <b>{{ form.level.label }}</b>{{ form.level }}
+                    <span class="danger">{{ form.level.errors }}</span>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <center><input class="btn btn-outline-primary" type="submit" value="Save"></center>
+</form>
+
+{% endblock content %}

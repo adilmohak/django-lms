@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'course_allocation_view' %}" class="primary1">Allocations</a> <i>&rsaquo;</i> Add</div>
+<br>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <p class="form-title">Course Allocation Form</p>
+            <div class="p-3">
+                <form action="" method="POST">{% csrf_token %}
+                    <!-- {{ form|crispy }} -->
+                        <div class="form-group">
+                            {{ form.lecturer.label }}{{ form.lecturer }}
+                            <span class="danger">{{ form.lecturer.errors }}</span>
+                        </div>
+                        <div class="form-group">
+                            {{ form.courses.label }}{{ form.courses }}
+                            <span class="danger">{{ form.courses.errors }}</span>
+                        </div>
+                        
+                    {% for course in form.courses.all %}{{ course }}{% endfor %}
+
+                    <input class="btn btn-outline-primary" type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

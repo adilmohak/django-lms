@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'semester_list' %}" class="primary1">Semester List</a> <i>&rsaquo;</i> Semester Add & update</div>
+<br>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card pb-3">
+            <p class="form-title">Semester Add & update Form</p>
+            <div class="container"><br>
+                <form action="" method="POST">{% csrf_token %}
+                    {% for f in form %}{{ f.label }}{{ f }}<hr>{% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

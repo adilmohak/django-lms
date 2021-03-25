@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}DjangoSMS{% endblock title %}</title>
+
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}">
+
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/black.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    
+</head>
+<body>
+
+    <div id="side-nav">
+        <div class="top-side" style="height: 130px;">
+            <div class="desktop-hide">
+                <div class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <center>
+                <div class="logo">
+                    <img src="{% static 'img/you-logo-here.png' %}" alt="">
+                </div>
+                <p class="text-orange p-2"><i class="far fa-hand-point-right"></i>
+                    {{ request.user.get_user_role }}
+                </p>
+            </center>
+        </div>
+        {% url 'home' as hom %} {% url 'profile' as prof %} {% url 'lecturer_list' as lec %} 
+        {% url 'student_list' as stu %} {% url 'course_allocation_view' as cav %}  
+        {% url 'programs' as pro %} {% url 'session_list' as sess %} {% url 'semester_list' as sem %} 
+        {% url 'add_score' as ascore %} {% url 'grade_results' as vr %}{% url 'ass_results' as ar %} 
+        {% url 'course_registration' as cr %} {% url 'edit_profile' as ep %} {% url 'change_password' as cp %}
+        {% url 'quiz_progress' as qpr %} {% url 'quiz_marking' as qce %} {% url 'user_course_list' as ucl %}
+        {% url 'admin_panel' as admin_p %}
+        <ul>
+            <li class="{% if request.path == hom %}active{% endif %}">
+                <a href="{% url 'home' %}"><i class="fas fa-home"></i>Home</a>
+            </li>
+            <li class="{% if request.path == prof %}active{% endif %}">
+                <a href="{% url 'profile' %}"><i class="fas fa-user"></i>Profile</a>
+            </li>
+            
+            {% if request.user.is_superuser %}
+            <li class="{% if request.path == admin_p %}active{% endif %}">
+                <a href="{% url 'admin_panel' %}"><i class="fas fa-user-tie"></i>Admin Panel</a>
+            </li>
+            <li class="{% if request.path == lec %}active{% endif %}">
+                <a href="{% url 'lecturer_list' %}"><i class="fas fa-chalkboard-teacher"></i>Lecturers</a>
+            </li>
+            <li class="{% if request.path == stu %}active{% endif %}">
+                <a href="{% url 'student_list' %}"><i class="fas fa-user-graduate"></i>Students</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.is_lecturer or request.user.is_student %}
+            <li class="{% if request.path == ucl %}active{% endif %}">
+                <a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>My Courses</a>
+            </li>
+            {% endif %}
+
+            <li class="{% if request.path == pro %}active{% endif %}">
+                <a href="{% url 'programs' %}"><i class="fas fa-book-open"></i>All Programs & Courses</a>
+            </li>
+
+            {% if request.user.is_superuser or request.user.is_lecturer %}
+            <li class="{% if request.path == qce %}active{% endif %}">
+                <a href="{% url 'quiz_marking' %}"><i class="fas fa-check-double"></i>Complete Exams</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.is_superuser %}
+            <li class="{% if request.path == qpr %}active{% endif %}">
+                <a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>Quiz Progress Rec</a>
+            </li>
+            <li class="{% if request.path == cav %}active{% endif %}">
+                <a href="{% url 'course_allocation_view' %}"><i class="fas fa-tasks"></i>Course Allocation</a>
+            </li>
+            <li class="{% if request.path == sess %}active{% endif %}">
+                <a href="{% url 'session_list' %}"><i class="fas fa-calendar-week"></i>Manage Session</a>
+            </li>
+            <li class="{% if request.path == sem %}active{% endif %}">
+                <a href="{% url 'semester_list' %}"><i class="fas fa-calendar-alt"></i>Manage Semester</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.is_lecturer %}
+            <li class="{% if request.path == ascore %}active{% endif %}">
+                <a href="{% url 'add_score' %}"><i class="fas fa-table"></i>Manage Score</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.is_student %}
+            <li class="{% if request.path == qpr %}active{% endif %}">
+                <a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>Quiz Progress Rec</a>
+            </li>
+            <li class="{% if request.path == vr %}active{% endif %}">
+                <a href="{% url 'grade_results' %}"><i class="fab fa-page4"></i>Grade Results</a>
+            </li>
+            <li class="{% if request.path == ar %}active{% endif %}">
+                <a href="{% url 'ass_results' %}"><i class="fa fa-spell-check"></i>Assesment Results</a>
+            </li>
+            <li class="{% if request.path == cr %}active{% endif %}">
+                <a href="{% url 'course_registration' %}"><i class="fas fa-plus"></i>Add & Drop Course</a>
+            </li>
+            {% endif %}
+            <br/>
+            <p class="ml-3">others</p>
+            <hr/>
+            <li class="{% if request.path == ep %}active{% endif %}">
+                <a href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>Account Setting</a>
+            </li>
+            <li class="{% if request.path == cp %}active{% endif %}">
+                <a href="{% url 'change_password' %}"><i class="fas fa-key"></i>Change Password</a>
+            </li>
+            <!-- <div class="navbar">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"><i class="fas fa-cogs"></i>Account Setting</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <a href="#"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <a href="#"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </div>
+                </li>
+            </div> -->
+        </ul>
+    </div>
+    <div id="main">
+        <div id="top-navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="toggle-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </div>
+
+                    <form class="form-header" action="{% url 'query' %}" method="GET">
+                        <input class="au-input au-input--xl" type="text" name="q" value="{{ request.GET.q }}" placeholder="Search All... #course, #program, #Quiz, #News, #Events" required/>
+                        <button class="au-btn--submit" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="profile-pic" src="{{ request.user.picture.url }}">
+                            {{ request.user.get_full_name|truncatechars:15 }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <p class="container text-muted-xs text-center"> Last login: {{ request.user.last_login|date }}</p>
+
+                          {% if request.user.is_lecturer or request.user.is_student %}
+                          <a class="dropdown-item" href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>My Courses</a>
+                          {% endif %}
+
+                          {% if request.user.is_superuser %}
+                          <a class="dropdown-item" href="{% url 'admin_panel' %}"><i class="fas fa-user-tie"></i>Admin Panel</a>
+                          {% endif %}
+
+                          <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user"></i>Profile</a>
+                          <a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>Setting</a>
+                          <hr>
+                          <div  style="display: flex; justify-content: center; align-items: center;">
+                              <a class="btn btn-secondary" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Signout
+                              </a>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
+
+        <footer class="card-footer mt-5">
+            <div class="container-fluid py-5">
+                <div class="text-center">
+                    Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Powered by <a href="https://ezop.herokuapp.com" class="btn-sm btn-secondary" target="_blank">Ezod</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    
+    <script type="text/javascript" src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    {% block js %}
+    {% endblock js %}
+</body>
+</html>
+
+<!-- {% if request.user.is_superuser %}
+    <a href="{% url 'admin_panel' %}" class="text-orange"><i class="fas fa-user-tie"></i> Admin Panel</a>
+{% endif %} -->
+
+<!-- <div class="drop-down" id="drop-down">
+    
+    <a href="#">
+        <img class="profile-pic" src="{{ request.user.picture.url }}">
+        {{ request.user.get_full_name|truncatechars:15 }}<i class="fas fa-angle-down ml-2"></i>
+    </a>
+    
+    <div class="content" id="content">
+        <p class="container text-muted-xs text-center"> Last login: {{ request.user.last_login|date }}</p>
+        <div class="content-a">
+
+            {% if request.user.is_lecturer or request.user.is_student %}
+            <a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>My Courses</a>
+            {% endif %}
+
+            {% if request.user.is_superuser %}
+            <a href="{% url 'admin_panel' %}"><i class="fas fa-user-tie"></i>Admin Panel</a>
+            {% endif %}
+
+            <a href="{% url 'profile' %}"><i class="fas fa-user"></i>Profile</a>
+
+            <a href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>Setting</a>
+            
+        </div><hr>
+        <div class="sign-out">
+            <a href="{% url 'logout' %}" class="btn btn-light">
+                <i class="fas fa-sign-out-alt"></i>Signout
+            </a>
+        </div>
+    </div>
+</div> -->

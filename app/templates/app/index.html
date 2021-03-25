@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div id="input-nav" class="p-2">Home</div>
+
+{% if request.user.is_superuser %}
+<a class="add-button" href="{% url 'add_item' %}"><i class="fas fa-plus"></i>Add New Post</a>
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}<br>
+
+<div class="title-1">News & Events</div>
+<div class="title-line mb-4"></div>
+
+{% if items %}
+<div class="row">
+    {% for item in items %}
+    <div class="col-md-4 mb-4 mx-auto">
+        <div class="card bs-md">
+        <div class="{% if item.posted_as == 'News' %}news{% else %}events{% endif %} pl-5 pr-2">{{ item.title|title }}</div>
+        <div class="news-events-wrapper">
+            <span class="info-text">{{ item.posted_as }}</span>
+        </div>
+        {% if request.user.is_superuser %}
+        <!-- <div class="update-delete-wrapper">
+            <div class="drop-down">
+                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                <div class="content">
+                    <div class="content-a">
+                        <a href="{% url 'edit_post' pk=item.id %}" class="update" title="Edit"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <a href="{% url 'delete_post' pk=item.id %}" class="delete" title="Delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="update-delete-wrapper">
+          <div class="dropdown">
+            <button class="btn btn-sm " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-ellipsis-v text-white"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{% url 'edit_post' pk=item.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
+              <a class="dropdown-item" href="{% url 'delete_post' pk=item.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
+              <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+            </div>
+          </div>
+        </div>
+        <!-- <div class="update-delete-wrapper">
+            <div class="navbar">
+                <li class="dropdown">
+                    <a class="dropdown-toggle-split" href="#" id="dropdown01" data-toggle="dropdown"><i class="fas fa-ellipsis-v text-white"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <a href="{% url 'edit_post' pk=item.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <a href="{% url 'delete_post' pk=item.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </div>
+                </li>
+            </div>
+        </div> -->
+        {% endif %}
+        <div class="card-subtitle m-2">{{ item.summary }}</div><br><br><br>
+        <div class="date-wrapper"><i class="fa fa-calendar mr-2"></i>{{ item.updated_date|timesince }} ago</div>
+        {% if forloop.counter|divisibleby:3 %}</div></div></div><div class="row">
+        {% else %}
+        </div>
+    </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="col-md-12">
+    <div class="form-title"><i class="far fa-frown fa-2x"></i>No News & Events yet.</div>
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
+     <i>&rsaquo;</i> <a href="{% url 'programs' %}" class="primary1">Programs</a> <i>&rsaquo;</i> 
+     <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
+     <a href="{% url 'course_detail' course.slug %}" class="primary1">{{ course }}</a>
+      <i>&rsaquo;</i> Video upload</div>
+
+<p class="title-1">Video upload for {{ course }}</p>
+<div class="title-line"></div><br>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+<div class="col-md-8 p-0 mx-auto">
+    <div class="card">
+    <p class="form-title">Video Upload Form</p><br>
+    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="container">
+            
+            <div class="form-group">
+                <b>Video Name</b>{{ form.title }}
+                <span class="danger">{{ form.title.errors }}</span>
+            </div>
+            <div class="form-group">
+                <b>Video</b><br>{{ form.video }}
+                <span class="danger">{{ form.video.errors }}</span>
+            </div>
+            <p class="text-orange"><b>Valid video formats: </b>'mp4', 'mkv', 'wmv', '3gp', 'f4v', 'avi', 'mp3'</p>
+            <div class="form-group">
+                <select hidden name="course" required="" id="id_course">
+                    <option value="{{ course.pk }}" selected>{{ course }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Upload</button>
+                <a class="btn btn-danger" href="{% url 'course_detail' course.slug %}" style="float: right;">Cancel</a>
+            </div>
+
+        </div>
+        <br>
+        <div class="card">
+    </form>
+</div>
+</div>
+
+{% endblock content %}

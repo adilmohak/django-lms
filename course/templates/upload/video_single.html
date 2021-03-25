@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ video.title }} | DjangoSMS{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
+    <i>&rsaquo;</i> <a href="{% url 'programs' %}" class="primary1">Programs</a> <i>&rsaquo;</i> 
+    <a href="{% url 'program_detail' video.course.program.id %}" class="primary1"> {{ video.course.program }}</a> <i>&rsaquo;</i> 
+    <a href="{% url 'course_detail' video.course.slug %}" class="primary1">{{ video.course }}</a>
+     <i>&rsaquo;</i> {{ video.title }}</div>
+
+<p class="title-1">{{ video.title }}</p>
+<div class="title-line"></div><br>
+
+<p class="text-orange text-center">Video tutorial for course {{ video.course }}</p>
+
+<style>
+    video{
+        max-width: 100%; 
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16), 0px 2px 10px 0px rgba(0,0,0,0.12);
+    }
+</style>
+
+<div class="col-md-10 mx-auto d-block">
+    <p><i class="fas fa-calendar"></i> {{ video.timestamp|timesince }} ago</p>
+    <div class=""><video src="{{ video.video.url }}" controls ></video></div>
+</div>
+
+<p class="text-orange text-center">{{ video.summary }}</p>
+
+{% endblock content %}

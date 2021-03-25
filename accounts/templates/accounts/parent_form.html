@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<form method="POST">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" name="" value="Save">
+</form>
+
+{% endblock %}

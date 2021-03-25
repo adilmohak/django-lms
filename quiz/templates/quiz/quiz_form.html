@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+    <a href="{% url 'programs' %}" class="primary1"> Programs</a> <i>&rsaquo;</i> 
+    <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
+    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> <i>&rsaquo;</i> 
+    <a href="{% url 'quiz_index' course.slug %}" class="primary1">Quizzes</a> <i>&rsaquo;</i> Add Quiz</div>
+
+<div class="container">
+    <div class="header-title-xl text-center">Quiz form for {{ course }}</div>
+    <div class="title-line mb-5"></div>
+
+    <!-- <form method="POST" action="">{% csrf_token %}
+        <div class="card p-4">
+            {% for f in form %}
+            <label for="{{ f.label }}">{{ f.label }}</label>{{ f }}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </form> -->
+    <!-- <form action="" method="POST">{% csrf_token %}
+        <div class="row">
+            <div class="col mx-3 p-3 bg-white">
+                <div class="container">
+                    <div class="form-group">
+                        <label for="course">{{ form.course.label }}</label> {{ form.course }}
+                        <span class="danger">{{ form.course.errors }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">{{ form.title.label }}</label> {{ form.title }}
+                        <span class="danger">{{ form.title.errors }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">{{ form.category.label }}</label> {{ form.category }}
+                        <span class="danger">{{ form.category.errors }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_questions">{{ form.max_questions.label }}</label> {{ form.max_questions }}
+                        <span class="danger">{{ form.max_questions.errors }}</span>
+                        <small class="d-block text-muted">Number of questions to be answered on each attempt.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass_mark">{{ form.pass_mark.label }}</label> {{ form.pass_mark }}
+                        <span class="danger">{{ form.pass_mark.errors }}</span>
+                        <small class="d-block text-muted">Percentage required to pass exam.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">{{ form.description.label }}</label> {{ form.description }}
+                        <span class="danger">{{ form.description.errors }}</span>
+                        <small class="d-block text-muted">a description of the quiz</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-3 p-3 bg-white">
+                <div class="container">
+                    <div class="form-group">
+                        <label for="questions">{{ form.questions.label }}</label> {{ form.questions }}
+                        <span class="danger">{{ form.questions.errors }}</span>
+                        <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="random_order">{{ form.random_order.label }}</label> {{ form.random_order }}
+                        <span class="danger">{{ form.random_order.errors }}</span>
+                        <small class="d-block text-muted">Display the questions in a random order or as they are set?</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="answers_at_end">{{ form.answers_at_end.label }}</label> {{ form.answers_at_end }}
+                        <span class="danger">{{ form.answers_at_end.errors }}</span>
+                        <small class="d-block text-muted">Correct answer is NOT shown after question. Answers displayed at the end.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exam_paper">{{ form.exam_paper.label }}</label> {{ form.exam_paper }}
+                        <span class="danger">{{ form.exam_paper.errors }}</span>
+                        <small class="d-block text-muted">If yes, the result of each attempt by a user will be stored. Necessary for marking.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="single_attempt">{{ form.single_attempt.label }}</label> {{ form.single_attempt }}
+                        <span class="danger">{{ form.single_attempt.errors }}</span>
+                        <small class="d-block text-muted">If yes, only one attempt by a user will be permitted. Non users cannot sit this exam.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="draft">{{ form.draft.label }}</label> {{ form.draft }}
+                        <span class="danger">{{ form.draft.errors }}</span>
+                        <small class="d-block text-muted">If yes, the quiz is not displayed in the quiz list and can only be taken by users who can edit quizzes.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center>
+            <button class="btn btn-primary my-4" type="submit">Save & Continue</button>
+        </center>
+    </form> -->
+
+    <form action="" method="POST">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-2">
+                <!-- <div class="container"> -->
+                    <div class="form-group" hidden>
+                        <label for="course">{{ form.course.label }}</label><br> {{ form.course }}
+                        <span class="danger">{{ form.course.errors }}</span>
+                        <span class="danger">{{ form.course.errors }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">{{ form.category.label }}</label> {{ form.category }}
+                        <span class="danger">{{ form.category.errors }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">{{ form.title.label }}</label>
+                        {{ form.title }}
+                        <!-- <input type="text" name="title" value="{{ form.title }}" maxlength="60" required id="id_title" class="form-control"> -->
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="max_questions">{{ form.max_questions.label }}</label>
+                        <input class="form-control" type="number" name="max_questions" min="0" id="id_max_questions">
+                        <span class="danger">{{ form.max_questions.errors }}</span>
+                        <small class="d-block text-muted">Number of questions to be answered on each attempt.</small>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="pass_mark">{{ form.pass_mark.label }}</label>
+                        {{ form.pass_mark }}
+                        <!-- <input class="form-control" type="number" name="pass_mark" value="50" id="id_pass_mark"> -->
+                        <span class="danger">{{ form.pass_mark.errors }}</span>
+                        <small class="d-block text-muted">Percentage required to pass exam.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">{{ form.description.label }}</label><br>
+                        {{ form.description }}
+                        <!-- <textarea name="description" class="form-control" id="id_description"></textarea> -->
+                        <span class="danger">{{ form.description.errors }}</span>
+                        <small class="d-block text-muted">a description of the quiz</small>
+                    </div>
+                <!-- </div> -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3">
+                <!-- <div class="container"> -->
+                    <div class="form-group" hidden>
+                        <label for="questions">{{ form.questions.label }}</label><br> {{ form.questions }}
+                        <span class="danger">{{ form.questions.errors }}</span>
+                        <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="random_order">{{ form.random_order.label }}</label>
+                        {{ form.random_order }}
+                        <!-- <input class="custom-checkbox" type="checkbox" name="random_order" id="id_random_order"> -->
+                        <span class="danger">{{ form.random_order.errors }}</span>
+                        <small class="d-block text-muted">Display the questions in a random order or as they are set?</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="answers_at_end">{{ form.answers_at_end.label }}</label>
+                        {{ form.answers_at_end }}
+                        <!-- <input class="custom-checkbox" type="checkbox" name="answers_at_end" id="id_answers_at_end"> -->
+                        <span class="danger">{{ form.answers_at_end.errors }}</span>
+                        <small class="d-block text-muted">Correct answer is NOT shown after question. Answers displayed at the end.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exam_paper">{{ form.exam_paper.label }}</label>
+                        {{ form.exam_paper }}
+                        <!-- <input class="custom-checkbox" type="checkbox" name="exam_paper" id="id_exam_paper"> -->
+                        <span class="danger">{{ form.exam_paper.errors }}</span>
+                        <small class="d-block text-muted">If yes, the result of each attempt by a user will be stored. Necessary for marking.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="single_attempt">{{ form.single_attempt.label }}</label>
+                        {{ form.single_attempt }}
+                        <!-- <input class="custom-checkbox" type="checkbox" name="single_attempt" id="id_single_attempt"> -->
+                        <span class="danger">{{ form.single_attempt.errors }}</span>
+                        <small class="d-block text-muted">If yes, only one attempt by a user will be permitted. Non users cannot sit this exam.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="draft">{{ form.draft.label }}</label>
+                        {{ form.draft }}
+                        <!-- <input class="custom-checkbox" type="checkbox" name="draft" id="id_draft"> -->
+                        <span class="danger">{{ form.draft.errors }}</span>
+                        <small class="d-block text-muted">If yes, the quiz is not displayed in the quiz list and can only be taken by users who can edit quizzes.</small>
+                    </div>
+                <!-- </div> -->
+                </div>
+            </div>
+        </div>
+        <center>
+            <button class="btn btn-lg btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">Save & Continue</button>
+        </center>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    const transitionButton = document.getElementById('btn-transition');
+    transitionButton.addEventListener('click', () => {
+        document.getElementById('card-transition').style.animation = 'card-transition 5s ease-in-out forwards';
+    })
+</script>
+{% endblock js %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "All Quizzes" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Complete Exams</div>
+
+<div class="header-title-xl text-center">{% trans "List of complete exams" %}</div>
+<div class="title-line"></div>
+
+{% for student in students %}<h3>{{ student.student.user.get_full_name }}</h3>{% endfor %}
+{% for marking in marking_list %}<h3>{{ marking }} <small>{{ forloop.counter }}</small></h3>{% endfor %}
+
+<form action="" method="GET" class="form-inline justify-content-center bg-white p-4 my-3">
+	<input type="text" name="user_filter" class="form-control" placeholder="User" value="{{ request.GET.user_filter }}">
+	<input type="text" name="quiz_filter" class="form-control" placeholder="Quiz" value="{{ request.GET.quiz_filter }}">
+	<button type="submit" class="btn btn-outline-secondary">{% trans "Filter"%}</button>
+</form>
+
+{% if sitting_list %}
+
+	<div class="info-text bg-danger my-2">Total complete exams: {{ sitting_list.count }}</div>
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{% trans "User" %}</th>
+				<th>{% trans "Course" %}</th>
+				<th>{% trans "Quiz" %}</th>
+				<th>{% trans "Completed" %}</th>
+				<th>{% trans "Score" %}(%)</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for sitting in sitting_list %}
+		<tr>
+			<td>{{ forloop.counter }}</td>
+			<td>{{ sitting.user }}</td>
+			<td>{{ sitting.quiz.course }}</td>
+			<td>{{ sitting.quiz }}</td>
+			<td>{{ sitting.end|date }}</td>
+			<td>{{ sitting.get_percent_correct }}%</td>
+			<td>
+			<a href="{% url 'quiz_marking_detail' pk=sitting.id %}">
+				{% trans "View details" %}
+			</a>
+		</tr>
+		{% endfor %}
+		</tbody>
+
+	</table>
+{% else %}
+	<p class="p-3 bg-light">{% trans "There are no matching results for your search..." %}.</p>
+{% endif %}
+</div>
+{% endblock %}
