@@ -58,7 +58,7 @@ After the student finished the quiz, here is how the result display
 First Clone the repo with `git clone https://github.com/adilmohak/django_sms_and_e-learning.git`
 
 Run the following commands
-`pip install -r requirements.txt.
-python setup.py install`
+`pip install -r requirements.txt`
+`python setup.py install`
 
 # Thank You!!
