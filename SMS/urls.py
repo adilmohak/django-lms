@@ -15,6 +15,10 @@ urlpatterns = [
     url(r'^search/', include('search.urls')),
     url(r'^quiz/', include('quiz.urls')),
 
+    url(r'^payments/', include('payments.urls')),
+
+    url('accounts/api/', include('accounts.api.urls', namespace='accounts-api')),
+
     url(r'^admin/', admin.site.urls),
 ]
 

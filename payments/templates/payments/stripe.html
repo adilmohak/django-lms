@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Stripe{% endblock title %}
+{% load static %}
+
+{% block header %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<center>
+		<h1>Stripe</h1>
+		<button id="checkout-button">Checkout</button>
+	</center>
+</div>
+{% endblock content %}

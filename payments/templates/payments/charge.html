@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}PayPal{% endblock title %}
+{% load static %}
+
+{% block header %}
+<script src="https://use.fontawesome.com/aade6c6330.js"></script>
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+	.counter-wrapper {
+		background-color: #d1e5e1;
+		padding: 10px 20px;
+	}
+	.bg-counter {
+		padding: 5px 10px;
+		border-radius: 5px;
+		background-color: #aae9df;
+	}
+</style>
+<div class="container">
+	<center>
+		<h3><i class="fa fa-check-circle-o text-success" aria-hidden="true"></i> Payment Succeed, You has been make payment successfuly.</h3>
+		<div class="counter-wrapper">Redirect to your dashboard in </span><span class="bg-counter" id="counter">8</div>
+	</center>
+
+</div>
+{% endblock content %}
+
+{% block js %}
+
+<script type="text/javascript">
+	var counterEl = document.getElementById('counter');
+	var num = parseInt(counterEl.innerText);
+
+	setInterval(counter, 1000)
+	function counter() {
+		num = num - 1;
+		if (num < 0) { return }
+		counterEl.innerText = num;
+	}
+	setTimeout(changeWindowLocation, 9000)
+	function changeWindowLocation() {
+		window.location = "/";
+	}
+</script>
+
+{% endblock %}

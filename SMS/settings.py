@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'result.apps.ResultConfig',
     'search.apps.SearchConfig',
     'quiz.apps.QuizConfig',
-    'crispy_forms'
+    'payments',
+
+    'crispy_forms',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +160,21 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    # ],
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.JSONParser',
+    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ]
+}
+STRIPE_SECRET_KEY = "sk_test_51IcEVZHbzY4cUA9T3BZdDayN4gmbJyXuaLCzpLT15HZoOmC17G7CxeEdXeIHSWyhYfxpljsclzzjsFukYNqJTbrW00tv3qIbN2"
+STRIPE_PUBLISHABLE_KEY = "pk_test_51IcEVZHbzY4cUA9TrKHqyHkUQqQRRMoilwYgwSJaMjfis6rN6KZPmjcbGX6LUHpIkUV2i06JBnplberIbHtYcdfv00Tu8eMXHj"

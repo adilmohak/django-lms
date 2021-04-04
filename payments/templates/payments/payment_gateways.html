@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block title %}Choose a gateway{% endblock title %}
+{% load static %}
+
+{% block header %}
+<script src="https://use.fontawesome.com/aade6c6330.js"></script>
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+	.card-payment {
+		border-top: 10px solid #ddd;
+		border-radius: 0px;
+		padding: 10px;
+		margin: 0;
+		/*background: #fff;*/
+		text-align: center;
+		width: 300px;
+		transition: .5s;
+	}
+	.card-payment:hover {
+		background: #f4f4f4;
+	}
+	.card-payment h4 {
+		font-weight: 200;
+	}
+	.card-payment p {
+		margin: 5px;
+		font-weight: 300;
+	}
+	.card-payment.paypal {
+		border-top-color: #ffc439;
+		/*transform: translateY(-50px);*/
+	}
+	.card-payment.stripe {
+		border-top-color: #62b8ea;
+	}
+	.card-payment.coinbase {
+		border-top-color: #1652f0;
+	}
+	.card-payment.paylike {
+		border-top-color: #60a65d;
+	}
+	.btn {
+		width: 100%;
+		border-radius: 1px;
+		padding: 10px;
+		color: #fff!important;
+		transition: .5s;
+	}
+	.btn:hover {
+		transform: scale(.95);
+	}
+	.btn:focus {
+		box-shadow: none!important;
+	}
+	.stripe .btn {
+		background: #6869d4;
+	}
+	.coinbase .btn {
+		background: #1652f0;
+	}
+	.paylike .btn {
+		background: #60a65d;
+	}
+</style>
+<div class="container">
+	<h1 class="display-4">Payment GateWays</h1>
+	<div class="row">
+		<div class="col-12 d-flex justify-content-center">
+			<div class="card-payment paypal">
+				<h4>Paypal</h4>
+				<div id="smart-button-container">
+					<div style="text-align: center;">
+						<div id="paypal-button-container"></div>
+					</div>
+				</div>
+			</div>
+			<div class="card-payment stripe">
+				<h4>Stripe</h4>
+				<form action="{% url 'charge' %}" method="POST">
+				  {% csrf_token %}
+				  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			          data-key="{{ key }}"
+			          data-description="{{ description }}"
+			          data-amount="{{ amount }}"
+			          data-locale="auto">
+				  </script>
+				</form>
+				<!-- <a href="{% url 'stripe' %}" class="btn"><i class="fa fa-cc-stripe" aria-hidden="true"></i> Stripe</a> -->
+				<p>
+					Make payment with stripe and get jobs done.
+				</p>
+			</div>
+			<div class="card-payment coinbase">
+				<h4>CoinBase</h4>
+				<a href="{% url 'coinbase' %}" class="btn"><span style="font-weight: 1000">C</span> CoinBase</a>
+				<p>
+					Make payment with stripe and get jobs done.
+				</p>
+			</div>
+			<div class="card-payment paylike">
+				<h4>Paylike</h4>
+				<a href="{% url 'paylike' %}" class="btn">Paylike</a>
+				<p>
+					Make payment with stripe and get jobs done.
+				</p>
+			</div>
+			<!-- <a href="{% url 'paypal' %}" class="btn btn-lg btn-secondary mx-3">PayPal</a>
+			<a href="{% url 'stripe' %}" class="btn btn-lg btn-secondary mx-3">Stripe</a>
+			<a href="{% url 'coinbase' %}" class="btn btn-lg btn-secondary mx-3">CoinBase</a>
+			<a href="{% url 'paylike' %}" class="btn btn-lg btn-secondary mx-3">Paylike</a> -->
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR" data-sdk-integration-source="button-factory"></script>
+  <script>
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"EUR","value":1}}]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+  </script>
+{% endblock js %}
