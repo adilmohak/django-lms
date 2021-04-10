@@ -3,6 +3,9 @@
 {% load static %}
 
 {% block header %}
+<!-- Add meta tags for mobile and IE -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <script src="https://use.fontawesome.com/aade6c6330.js"></script>
 {% endblock %}
 
@@ -68,13 +71,16 @@
 	<h1 class="display-4">Payment GateWays</h1>
 	<div class="row">
 		<div class="col-12 d-flex justify-content-center">
+
+			  <form method="POST" action="{% url 'gopay_payment' %}">
+				{% csrf_token %}
+				<button name="pay" type="submit" class="btn btn-primary">Zaplatit</button>
+			  </form>
+			  <script type="text/javascript" src="https://gw.sandbox.gopay.com/gp-gw/js/embed.js"></script>
+
 			<div class="card-payment paypal">
 				<h4>Paypal</h4>
-				<div id="smart-button-container">
-					<div style="text-align: center;">
-						<div id="paypal-button-container"></div>
-					</div>
-				</div>
+    			<div id="paypal-button-container"></div>
 			</div>
 			<div class="card-payment stripe">
 				<h4>Stripe</h4>
@@ -87,7 +93,6 @@
 			          data-locale="auto">
 				  </script>
 				</form>
-				<!-- <a href="{% url 'stripe' %}" class="btn"><i class="fa fa-cc-stripe" aria-hidden="true"></i> Stripe</a> -->
 				<p>
 					Make payment with stripe and get jobs done.
 				</p>
@@ -106,10 +111,6 @@
 					Make payment with stripe and get jobs done.
 				</p>
 			</div>
-			<!-- <a href="{% url 'paypal' %}" class="btn btn-lg btn-secondary mx-3">PayPal</a>
-			<a href="{% url 'stripe' %}" class="btn btn-lg btn-secondary mx-3">Stripe</a>
-			<a href="{% url 'coinbase' %}" class="btn btn-lg btn-secondary mx-3">CoinBase</a>
-			<a href="{% url 'paylike' %}" class="btn btn-lg btn-secondary mx-3">Paylike</a> -->
 		</div>
 	</div>
 </div>
@@ -119,35 +120,85 @@
 
 {% block js %}
 
-  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR" data-sdk-integration-source="button-factory"></script>
-  <script>
-    function initPayPalButton() {
-      paypal.Buttons({
-        style: {
-          shape: 'rect',
-          color: 'gold',
-          layout: 'vertical',
-          label: 'paypal',
-          
-        },
+	<!-- Paypal setup -->
 
-        createOrder: function(data, actions) {
-          return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":"EUR","value":1}}]
-          });
-        },
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AabPcZJCP3oBL_2GTVXO58VnsyvVEzUrWORwilbX9fA5ywWdR9YSaIdu4v-nDVMIszpI1PEy9K-76jlW&currency=USD"></script>
 
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            alert('Transaction completed by ' + details.payer.name.given_name + '!');
-          });
-        },
+    <script>
+    	// django cookie
+    	function getCookie(name) {
+		    let cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        const cookies = document.cookie.split(';');
+		        for (let i = 0; i < cookies.length; i++) {
+		            const cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		const csrftoken = getCookie('csrftoken');
 
-        onError: function(err) {
-          console.log(err);
-        }
-      }).render('#paypal-button-container');
-    }
-    initPayPalButton();
-  </script>
+    	// approve the payment complete for the invoice
+    	function completeOrder() {
+    		var invoice = '{{ invoice_session }}'
+    		var url = "{% url 'complete' %}";
+
+    		fetch(url, {
+    			method: 'POST',
+    			headers: {
+    				'Content-type': 'application/json',
+    				'X-CSRFToken': csrftoken,
+    			},
+    			body: JSON.stringify({
+    				'invoice': invoice
+    			})
+    		})
+    	}
+
+
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '1.44'
+                        }
+                    }]
+                });
+            },
+
+            // style: {
+            //     color:  'blue',
+            //     shape:  'rect',
+            //     label:  'pay',
+            //     height: 40
+            // },
+
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    // call the create function
+                    completeOrder();
+					window.location = "/payments/payment-succeed";
+                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+
+    </script>
+
+
 {% endblock js %}

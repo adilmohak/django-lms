@@ -1,45 +1,56 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
 </head>
 
 <body>
-<style>
-.w3-container {
-  font-size: 14px;
-}
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
 
-.center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AabPcZJCP3oBL_2GTVXO58VnsyvVEzUrWORwilbX9fA5ywWdR9YSaIdu4v-nDVMIszpI1PEy9K-76jlW&currency=USD"></script>
 
-<div class="center">
-  <h3 class="donate">
-    <div class="w3-card-4">
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
 
-    <header class="w3-container w3-blue">
-    <h1>DONATE</h1>
-    </header>
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '88.44'
+                        }
+                    }]
+                });
+            },
 
-    <div class="w3-container">
-    <p>Donate for a great cause. Be a hero.</p>
+            style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
 
-    <!-- PAYPAL BUTTONS HERE -->
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
 
 
-    </div>
+        }).render('#paypal-button-container');
 
-    <footer class="w3-container w3-blue">
-    <h5>&copy Professional Cipher</h5>
-    </footer>
-
-    </div>
-  </h3>
-</div>
-
+    </script>
 </body>
+
+</html>

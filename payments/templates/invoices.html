@@ -1,0 +1,13 @@
+<h1>Invoices</h1>
+
+<form method="POST">{% csrf_token %}
+	<input type="number" name="amount" required="true">
+	<button type="submit">Pay now</button>
+</form>
+
+{% for invoice in invoices %}
+<h3>{{ invoice.user }}</h3>
+<h3>{{ invoice.amount }}</h3>
+<h3>{{ invoice.total }}</h3>
+<h3>{{ invoice.payment_complete }}</h3>
+{% endfor %}
