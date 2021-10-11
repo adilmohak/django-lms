@@ -290,3 +290,7 @@ def semester_delete_view(request, pk):
 #     response.status_code = 400
 
 #     return response
+
+
+def dashboard_view(request):
+    return render(request, 'app/dashboard.html')

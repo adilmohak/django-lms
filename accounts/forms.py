@@ -66,6 +66,7 @@ class StudentAddForm(UserCreationForm):
             attrs={
                 'type': 'text',
                 'class': 'form-control',
+                'id': 'username_id'
             }
         ),
         label="Username",

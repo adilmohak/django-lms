@@ -313,7 +313,7 @@ class Sitting(models.Model):
         if self.check_if_passed:
             return f"You have passed this quiz, congratulation"
         else:
-            return f"You failed this quiz, don't give up! try until you have passed."
+            return f"You failed this quiz, give it one chance again."
 
     def add_user_answer(self, question, guess):
         current = json.loads(self.user_answers)

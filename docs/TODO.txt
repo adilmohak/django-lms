@@ -1,0 +1,40 @@
+New features to add:- 
+	- News that publicly available
+		- it can be about the highest scorer of the year from all branch of the college:
+		  	this motivate other students
+		- privacy and policy update 
+	
+	- course add and drop should offer by the department head
+
+Long term TODOs 
+	- Payments integration
+
+
+Dashboard: -
+	Chart.js or d3.js
+
+	containes: -
+		Overall attendance (doughnut)
+
+		- School Demographics
+			gender (pie)
+			Race/Ethnicity
+			Home language
+			new/all students
+			new/all lecturers
+
+		- Recent activities
+			- added videos, courses, documentations
+		- Students Online Quiz Status
+			- ongoing, pass, fail
+		- Overall Course Resources
+			- Total number of videos, courses, documentations
+		- Event calender
+		- Enrollments per course (vertical bar)
+	
+	- Message
+	- Notification
+	- Survey
+	- Polls
+	- Website Traffic
+	- Recent activities

@@ -4,41 +4,44 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
-    <a href="{% url 'programs' %}" class="primary1">Programs</a> <i>&rsaquo;</i> {{ program.title }}</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i>
+    <a href="{% url 'programs' %}" class="primary1">Programs</a> <i>&rsaquo;</i> {{ program.title }}
+</div>
 
 {% if request.user.is_superuser %}
-<a class="add-button" href="{% url 'course_add' pk=program.pk %}"><i class="fas fa-plus"></i>Add Course</a>
+<div class="manage-wrap">
+    <a class="btn btn-sm btn-primary" href="{% url 'course_add' pk=program.pk %}"><i class="fas fa-plus"></i>Add
+        Course</a>
+</div>
 {% endif %}
 
 
 {% if program %}
-    <div class="title-1">{{ program.title }}</div>
-    <div class="title-line"></div>
-    {% if program.summary %}
-    <p class="program-description">{{ program.summary }}</p>
-    {% endif %}
+<div class="title-1">{{ program.title }}</div>
+{% if program.summary %}
+<p class="program-description">{{ program.summary }}</p>
+{% endif %}
 {% endif %}
 
 {% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-circle"></i>{{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    <i class="fas fa-check-circle"></i>{{ message }}
+</div>
+{% endif %}
+{% endfor %}
 {% endif %}
 
 <div class="content-center">
     <form class="search-form" action="" method="GET">
-        <input class="au-input" type="text" name="name" placeholder="Course Name" value="{{ request.GET.name }}"/>
-        <input class="au-input" type="text" name="code" placeholder="Course Code" value="{{ request.GET.code }}"/>
-        <input class="au-input" type="number" name="year" placeholder="Course Year" value="{{ request.GET.year }}"/>
+        <input class="au-input" type="text" name="name" placeholder="Course Name" value="{{ request.GET.name }}" />
+        <input class="au-input" type="text" name="code" placeholder="Course Code" value="{{ request.GET.code }}" />
+        <input class="au-input" type="number" name="year" placeholder="Course Year" value="{{ request.GET.year }}" />
         <button class="btn btn-light" type="submit">
             <i class="fas fa-search"></i> filter
         </button>
@@ -47,7 +50,7 @@
 
 <div class="table-responsive p-0 px-2 mt-5">
     <div class="table-shadow">
-        <table class="table">
+        <table class="table table-light table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -66,22 +69,36 @@
             <tbody>
                 {% for course in courses %}
                 <tr>
-                    <td>{{ forloop.counter }}.</td> 
+                    <td>{{ forloop.counter }}.</td>
                     <td><a href="{{ course.get_absolute_url }}">
-                        {{ course.title }}</a></td>
+                            {{ course.title }}</a></td>
                     <td>{{ course.code }}</td>
                     <td>{{ course.credit }}</td>
                     <td>{{ course.level }}</td>
                     <td>{{ course.year }}</td>
                     <td>{{ course.semester }}</td>
-                    <th>{% if course.is_current_semester == False %}<i class="fas fa-times-circle fa-1-5x danger"></i>
-                        {% elif course.is_current_semester == True %}<i class="fas fa-check-circle fa-1-5x"></i>
+                    <th>
+                        {% if course.is_current_semester == False %}
+                        <i class="fas fa-times-circle fa-1-5x danger"></i>
+                        {% elif course.is_current_semester == True %}
+                        <i class="fas fa-check-circle fa-1-5x"></i>
                         {% endif %}
                     </th>
                     {% if request.user.is_superuser %}
-                    <td> <div class="update-delete">
-                        <a href="{% url 'edit_course' slug=course.slug %}" class="update"><i class="fas fa-edit"></i></a> 
-                        <a href="{% url 'delete_course' slug=course.slug %}" class="delete"><i class="fas fa-trash-alt"></i></a>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'edit_course' slug=course.slug %}">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </a>
+                                <a class="dropdown-item" href="{% url 'delete_course' slug=course.slug %}">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                            </div>
                         </div>
                     </td>
                     {% endif %}
@@ -97,11 +114,11 @@
     <div class="pagination">
         <a href="?page=1">&laquo;</a>
         {% for i in courses.paginator.page_range %}
-            {% if i == courses.number %}
-                <a class="pagination-active" href="?page={{ i }}"><b>{{ i }}</b></a>
-            {% else %}
-                <a href="?page={{ i }}">{{ i }}</a>
-            {% endif %}
+        {% if i == courses.number %}
+        <a class="pagination-active" href="?page={{ i }}"><b>{{ i }}</b></a>
+        {% else %}
+        <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
         {% endfor %}
         <a href="?page={{ courses.paginator.num_pages }}">&raquo;</a>
     </div>

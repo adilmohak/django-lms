@@ -1,0 +1,727 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard | Ezod System {% endblock title %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+<div id="input-nav" class="p-2"><a href="/"> Home </a> Dashboard</div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger">
+	<i class="fas fa-exclamation-circle"></i>{{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+	<i class="fas fa-check-circle"></i>{{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<style>
+	.chart-wrap {
+		position: relative;
+		padding: 1rem;
+		transition: .5s;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+
+	.fa-expand-alt {
+		display: none;
+		position: absolute;
+		top: .5rem;
+		right: .5rem;
+		padding: .5rem;
+		cursor: pointer;
+		transition: .3s;
+	}
+
+	.fa-expand-alt:hover {
+		background-color: #f1f1f1;
+	}
+
+	.chart-wrap:hover {
+		box-shadow: 0 0 0 1px inset #666;
+	}
+
+	.chart-wrap:hover .fa-expand-alt {
+		display: block;
+	}
+
+	.full-screen {
+		transform: translateY(100%);
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 999;
+		max-width: 100%;
+		max-height: 100%;
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		background-color: #fff;
+		/* For Internet Explorer */
+		box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.5) !important;
+		/* For other browsers */
+		box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5) !important;
+		transform-origin: bottom left;
+		animation: popupAnim forwards alternate .5s ease-in-out;
+		overflow: auto;
+	}
+
+	.full-screen .fa-expand-alt {
+		display: block;
+	}
+
+	@keyframes popupAnim {
+		from {
+			transform: translateY(100%);
+		}
+
+		to {
+			transform: translateY(0);
+		}
+	}
+
+	.users-count .card-count {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #fff;
+	}
+
+	.users-count .card-count h2 {
+		font-weight: 1000;
+	}
+
+	.users-count .card-count h3 {
+		flex: 0 0 40%;
+		border-right: 1px solid rgb(230, 230, 230);
+	}
+
+	.users-count .card-count h3 i {
+		display: inline-flex;
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+	}
+
+	.bg-light-aqua {
+		background-color: rgba(86, 224, 224, 0.5);
+		box-shadow: 0 0 0 10px rgba(86, 224, 224, 0.1);
+		color: #fff;
+	}
+
+	.bg-light-orange {
+		background-color: rgba(253, 174, 28, 0.5);
+		box-shadow: 0 0 0 10px rgba(253, 174, 28, 0.1);
+		color: #fff;
+	}
+
+	.bg-light-purple {
+		background-color: rgba(203, 31, 255, 0.5);
+		box-shadow: 0 0 0 10px rgba(203, 31, 255, 0.1);
+		color: #fff;
+	}
+
+	.bg-light-red {
+		background-color: rgba(255, 19, 157, 0.5);
+		box-shadow: 0 0 0 10px rgba(255, 19, 157, 0.1);
+		color: #fff;
+	}
+
+	.activities ul {
+		padding-left: .5rem;
+	}
+
+	.activities ul li {
+		list-style-type: disc;
+	}
+</style>
+
+<div class="page-header">
+	<h1 class="title-1 mb-5">Dashboard</h1>
+	<div class="btn-group">
+		<button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">
+			<i class="fas fa-cog"></i>
+		</button>
+		<div class="dropdown-menu dropdown-menu-right">
+			<h6 class="dropdown-header">Dashboard settings</h6>
+			<button class="dropdown-item" type="button">Display row</button>
+			<button class="dropdown-item" type="button">Display column</button>
+			<button class="dropdown-item" type="button">Display table</button>
+			<hr>
+			<button class="dropdown-item" type="button">Manage dashboard</button>
+		</div>
+	</div>
+</div>
+
+<div class="row users-count px-3">
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-aqua"></i></h3>
+			<div class="text-right">
+				Students
+				<h2>12,040</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-orange"></i></h3>
+			<div class="text-right">
+				Lecturers
+				<h2>1,350</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-purple"></i></h3>
+			<div class="text-right">
+				Lab Assistance
+				<h2>500</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-red"></i></h3>
+			<div class="text-right">
+				Administrators
+				<h2>125</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-red"></i></h3>
+			<div class="text-right">
+				Librarian
+				<h2>300</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-purple"></i></h3>
+			<div class="text-right">
+				Supervisors
+				<h2>660</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-orange"></i></h3>
+			<div class="text-right pl-2">
+				Office Assistance
+				<h2>1,700</h2>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 mb-3 px-2">
+		<div class="card-count p-3">
+			<h3><i class="fas fa-users bg-light-aqua"></i></h3>
+			<div class="text-right">
+				Others
+				<h2>1,250</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row px-2">
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart"></canvas>
+		</div>
+	</div>
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart2"></canvas>
+		</div>
+	</div>
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart3"></canvas>
+		</div>
+	</div>
+	<div class="col-md-6 px-3">
+		<div class="row">
+			<div class="col-md-6 p-2">
+				<div class="card p-3 activities">
+					<h5>Your recent activities</h5>
+					<ul class="small">
+						<li>Created a survey of something</li>
+						<li>Added new admin user</li>
+						<li><span class="text-danger">Deleted</span> 1 video from CSE course</li>
+						<li>New documentation <span class="text-success">attached</span> for Arch</li>
+						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+						<li>Veniam magnam reiciendis modi explicabo sed aliquid natus</li>
+						<li>molestias corrupti suscipit similique ex adipisci praesentium</li>
+						<li>sint dolore, quo quibusdam ea, neque cupiditate.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6 p-2">
+				<div class="card p-3 activities">
+					<h5>Overall recent activities</h5>
+					<ul class="small">
+						<li>Created a survey of something</li>
+						<li>Added new admin user</li>
+						<li><span class="text-danger">Deleted</span> 1 video from CSE course</li>
+						<li>New documentation <span class="text-success">attached</span> for Arch</li>
+						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+						<li>Veniam magnam reiciendis modi explicabo sed aliquid natus</li>
+						<li>molestias corrupti suscipit similique ex adipisci praesentium</li>
+						<li>sint dolore, quo quibusdam ea, neque cupiditate.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="attendance"></canvas>
+		</div>
+	</div>
+	<div class="col-md-4 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="quiz_status"></canvas>
+		</div>
+	</div>
+	<div class="col-md-4 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="other1"></canvas>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<h5>Event Calender</h5>
+	</div>
+	<div class="col-md-6 p-2">
+		<h5>School Demographics</h5>
+		<div class="row">
+			<div class="col-md-6">
+				<i class="fas fa-expand-alt"></i>
+				<canvas id="gender"></canvas>
+			</div>
+			<div class="col-md-6">
+				<i class="fas fa-expand-alt"></i>
+				<canvas id="ethnicity"></canvas>
+			</div>
+			<div class="col-md-6">
+				<i class="fas fa-expand-alt"></i>
+				<canvas id="language"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart7"></canvas>
+		</div>
+	</div>
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart8"></canvas>
+		</div>
+	</div>
+	<!-- <div class="col-md-6 p-2">
+		<div class="chart-wrap">
+		<i class="fas fa-expand-alt"></i>
+		<canvas id="myChart9"></canvas></div>
+	</div> -->
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="myChart9"></canvas>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+	$(document).ready(function () {
+
+		// Setup
+		const labels = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+		];
+		const data = {
+			labels: labels,
+			datasets: [{
+				label: 'Students',
+				backgroundColor: 'rgba(86, 224, 224, 0.5)',
+				borderColor: 'rgb(86, 224, 224)',
+				hoverBorderWidth: 3,
+				data: [0, 10, 5, 2, 20, 30, 45]
+			}, {
+				label: 'Teachers',
+				backgroundColor: 'rgba(253, 174, 28, 0.5)',
+				borderColor: 'rgb(253, 174, 28)',
+				hoverBorderWidth: 3,
+				data: [20, 0, 15, 4, 6, 4, 60],
+			}, {
+				label: 'Admins',
+				backgroundColor: 'rgba(203, 31, 255, 0.5)',
+				borderColor: 'rgb(203, 31, 255)',
+				hoverBorderWidth: 3,
+				data: [85, 30, 34, 20, 20, 55, 45],
+			}, {
+				label: 'Stuffs',
+				backgroundColor: 'rgba(255, 19, 157, 0.5)',
+				borderColor: 'rgb(255, 19, 157)',
+				hoverBorderWidth: 3,
+				data: [45, 75, 70, 80, 20, 30, 90],
+			}]
+		};
+
+		var myChart = document.getElementById('myChart');
+		var chart = new Chart(myChart, {
+			type: 'line',
+			data: data,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Website Traffic',
+						padding: 15
+					}
+				}
+			}
+		});
+
+		// Setup
+		const labelsEnrollment = [
+			'2016',
+			'2017',
+			'2018',
+			'2019',
+			'2020',
+			'2021',
+		];
+		const dataEnrollment = {
+			labels: labelsEnrollment,
+			datasets: [{
+				label: 'Comp.S',
+				backgroundColor: 'rgba(86, 224, 224, 0.5)',
+				borderColor: 'rgb(86, 224, 224)',
+				hoverBorderWidth: 3,
+				data: [0, 10, 5, 2, 20, 30, 45]
+			}, {
+				label: 'Architecture',
+				backgroundColor: 'rgba(253, 174, 28, 0.5)',
+				borderColor: 'rgb(253, 174, 28)',
+				hoverBorderWidth: 3,
+				data: [20, 0, 15, 4, 6, 4, 60],
+			}, {
+				label: 'Civil Eng',
+				backgroundColor: 'rgba(203, 31, 255, 0.5)',
+				borderColor: 'rgb(203, 31, 255)',
+				hoverBorderWidth: 3,
+				data: [85, 30, 34, 20, 20, 55, 45],
+			}, {
+				label: 'Accounting',
+				backgroundColor: 'rgba(255, 19, 157, 0.5)',
+				borderColor: 'rgb(255, 19, 157)',
+				hoverBorderWidth: 3,
+				data: [45, 75, 70, 80, 20, 30, 90],
+			}, {
+				label: 'Business Man',
+				backgroundColor: 'rgba(0, 0, 0, 0.5)',
+				borderColor: 'rgb(0, 0, 0)',
+				hoverBorderWidth: 3,
+				data: [15, 75, 45, 90, 60, 30, 90],
+			}]
+		};
+
+		var myChart2 = document.getElementById('myChart2');
+		var chart = new Chart(myChart2, {
+			type: 'bar',
+			data: dataEnrollment,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Enrollment per course',
+						padding: 20
+					}
+				}
+			}
+		});
+		var myChart3 = document.getElementById('myChart3');
+		var chart = new Chart(myChart3, {
+			type: 'radar',
+			data: data,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Custom Chart Title',
+						padding: 20
+					}
+				}
+			}
+		});
+		var attendance = document.getElementById('attendance');
+		var chart = new Chart(attendance, {
+			type: 'doughnut',
+			data: data,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Overall Attendance',
+						padding: 20
+					}
+				}
+			}
+		});
+		var quiz_status = document.getElementById('quiz_status');
+		var chart = new Chart(quiz_status, {
+			type: 'pie',
+			data: data,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Students Online Quiz Status',
+						padding: 20
+					}
+				}
+			}
+		});
+		var other1 = document.getElementById('other1');
+		var chart = new Chart(other1, {
+			type: 'pie',
+			data: data,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Students Online Quiz Status',
+						padding: 20
+					}
+				}
+			}
+		});
+
+		const dataGender = {
+			labels: ['Man', 'Women'],
+			datasets: [{
+				label: 'Man',
+				backgroundColor: 'rgba(86, 224, 224, 0.5)',
+				borderColor: 'rgb(86, 224, 224)',
+				hoverBorderWidth: 3,
+				data: [56]
+			}, {
+				label: 'Women',
+				backgroundColor: 'rgba(253, 174, 28, 0.5)',
+				borderColor: 'rgb(253, 174, 28)',
+				hoverBorderWidth: 3,
+				data: [44],
+			}]
+		};
+
+		var gender = document.getElementById('gender');
+		var chart = new Chart(gender, {
+			type: 'polarArea',
+			data: dataGender,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Students Gender',
+						padding: 20
+					}
+				}
+			}
+		});
+		var ethnicity = document.getElementById('ethnicity');
+		var chart = new Chart(ethnicity, {
+			type: 'polarArea',
+			data: dataGender,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Race/Ethinicity',
+						padding: 20
+					}
+				}
+			}
+		});
+		var language = document.getElementById('language');
+		var chart = new Chart(language, {
+			type: 'polarArea',
+			data: dataGender,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Home Language',
+						padding: 20
+					}
+				}
+			}
+		});
+
+		const dataBubble = {
+			datasets: [{
+				label: 'First Dataset',
+				data: [{
+					x: 20,
+					y: 30,
+					r: 15
+				}, {
+					x: 40,
+					y: 10,
+					r: 10
+				}],
+				backgroundColor: 'rgb(255, 99, 132)'
+			}]
+		};
+		var myChart7 = document.getElementById('myChart7');
+		var chart = new Chart(myChart7, {
+			type: 'bubble',
+			data: dataBubble,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Custom Chart Title',
+						padding: 20
+					}
+				}
+			}
+		});
+
+		const dataScatter = {
+			datasets: [{
+				label: 'Scatter Dataset',
+				data: [{
+					x: -10,
+					y: 0
+				}, {
+					x: 0,
+					y: 10
+				}, {
+					x: 10,
+					y: 5
+				}, {
+					x: 0.5,
+					y: 5.5
+				}],
+				backgroundColor: 'rgb(255, 99, 132)'
+			}],
+		};
+
+		var myChart8 = document.getElementById('myChart8');
+		var chart = new Chart(myChart8, {
+			type: 'scatter',
+			data: dataScatter,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Custom Chart Title',
+						padding: 20
+					}
+				},
+				scales: {
+					x: {
+						type: 'linear',
+						position: 'bottom'
+					}
+				}
+			}
+		});
+
+		const dataMixed = {
+			labels: [
+				'January',
+				'February',
+				'March',
+				'April'
+			],
+			datasets: [{
+				type: 'bar',
+				label: 'Bar Dataset',
+				data: [10, 20, 30, 40],
+				borderColor: 'rgb(255, 99, 132)',
+				backgroundColor: 'rgba(255, 99, 132, 0.2)'
+			}, {
+				type: 'line',
+				label: 'Line Dataset',
+				data: [50, 50, 50, 50],
+				fill: false,
+				borderColor: 'rgb(54, 162, 235)'
+			}]
+		};
+
+		var myChart9 = document.getElementById('myChart9');
+		var chart = new Chart(myChart9, {
+			type: 'mixed',
+			data: dataMixed,
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Custom Chart Title',
+						padding: 20
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+	})
+
+</script>
+
+<script>
+	$('.fa-expand-alt').click(function () {
+		if ($(this).parent('.chart-wrap').parent('.col-md-6').hasClass('full-screen')) {
+			$('.col-md-6.full-screen').removeClass('full-screen');
+		}
+		else {
+			$('.col-md-6.full-screen')?.removeClass('full-screen');
+			$(this).parent('.chart-wrap').parent('.col-md-6').addClass('full-screen');
+		}
+	})
+</script>
+
+{% endblock %}

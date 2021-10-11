@@ -2,20 +2,19 @@
 {% block title %}DjangoSMS - Login{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
+
 <div id="login">
   <div class="login-title blue-gradient"><i class="fas fa-lock"></i>Sign in</div>
 
   <form action="" method="POST" id="login-form">{% csrf_token %}
-      <!-- {{ form|crispy }} -->
     <div class="form-group px-3">
-        <label for="username"><i class="fas fa-address-card"></i>ID Number</label>
-        <!-- {{ form.username }} -->
-        <input type="text" name="username" id="username" class="form-control" required>
+        <label for="username_id"><i class="fas fa-address-card"></i>ID Number</label>
+        <input type="text" name="username" id="username_id" class="form-control" required>
+        <div id="message-wrapper"></div>
     </div>
     <div class="form-group px-3">
-        <label for="password"><i class="fas fa-key"></i>Password</label>
-        <!-- {{ form.password }} -->
-        <input type="password" name="password" id="password" class="form-control" required>
+        <label for="password_id"><i class="fas fa-key"></i>Password</label>
+        <input type="password" name="password" id="password_id" class="form-control" required>
     </div>
     {% if form.errors %}
           <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Invalid ID & Password.</span><br>
@@ -26,61 +25,37 @@
   <br>
   <a href="{% url 'password_reset' %}" class="link">Forgot password ?</a>
 </div>
+{% endblock content %}
+
+{% block js %}
 
 <script>
-  const loginFormEl = document.getElementById('login-form');
-  const loginBtnEl = document.getElementById('login-btn');
-  // const method = 'POST';
-
-  loginFormEl.addEventListener('submit', ()=>{
-    // console.log(loginBtnEl);
-    loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in . . .';
-    loginBtnEl.classList.add("disabled");
+  $('#login-form').submit(function (e) {
+    // e.preventDefault();
+    $('#login-btn').addClass('disabled')
+    $('#login-btn').html(`<i class="fas fa-sign-in-alt"></i> Signining you in . . .`)
   })
-  // function replaceHTML(){
-  //   // loginBtnEl.classList.add('disabled');
-  //   // loginBtnEl.style.cursor = 'not-allowed';
-  //   loginBtnEl.setAttribute("disabled")
-  //   console.log(loginBtnEl)
-  //   loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in . . .';
-  // }
-  // loginBtnEl.addEventListener('click', ()=>{
-  //   loginBtnEl.classList.add('disabled');
-  //   loginBtnEl.style.cursor = 'not-allowed';
-  //   loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in &point . . .';
-  // })
-    // console.log(FormData)
-  // const xhr = new XMLHttpRequest()
-  // console.log(xhr)
-  // console.log(xhr.response)
-  // console.log(xhr.response.username)
-  // console.log(xhr.response.password)
-  // if (xhr.method == 'POST'){
-  //   console.log(xhr.response)
-  //   console.log("Hey there")
-  //   function replaceHTML(){
-  //     loginBtnEl.classList.add('disabled');
-  //     loginBtnEl.style.cursor = 'not-allowed';
-  //     loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in . . .';
-  //   }
-  // }
-  // xhr.onload = function replaceHTML(){
-  //   loginBtnEl.addEventListener('click', ()=>{
-  //     loginBtnEl.classList.add('disabled');
-  //     loginBtnEl.style.cursor = 'not-allowed';
-  //     loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in . . .';
-  //   })
-  // }
-  // xhr.send()
-  // const method = 'GET'
-  // const url = "/accounts/login/"
-  // const responseType = "json"
 
-  // xhr.responseType = responseType
-  // xhr.open(method, url)
-  // xhr.onload = function() {
-  //   console.log(xhr.response)
-  // }
-  // xhr.send()
+  $("#username").on("input", function () {
+    username = $(this).val();
+
+    $.ajax({
+      url: "/accounts/ajax/validate-username/",
+      data: {
+        username: username
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          console.log(data.is_taken);
+          $('#message-wrapper').html(`<p class="my-2 text-danger"><span class="bg-error p-2"><b>${username}</b> already taken :( try another one </span></p>`)
+        }
+        else {
+          $('#message-wrapper').html(`<p class="my-2 text-success"><span class="bg-correct p-2"><b>${username}</b> is valid </span></p>`)
+        }
+      }
+
+    })
+  })
 </script>
-{% endblock content %}
+{% endblock %}

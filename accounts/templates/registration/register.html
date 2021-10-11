@@ -1,0 +1,111 @@
+{% extends 'registration/registration_base.html' %}
+{% block title %} Register - DjangoSMS {% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container py-5">
+	
+  <div class="blue-gradient text-light p-3 mb-5">
+	  <h1 class="lead my-0">
+		<i class="fas fa-lock mr-2"></i>Create Your Account
+	  </h1>
+  </div>
+
+  <form action="" method="POST" id="login-form">
+	  {% csrf_token %}
+	  <div class="row">
+		  <div class="col-lg-6">
+			<h1 class="lead p-2 bg-light">Login Form</h1>
+			<div class="mb-3">
+				<label for="username_id" class="form-label">{{ form.username.label }}</label>
+				{{ form.username }}
+				<div id="message-wrapper"></div>
+			</div>
+			<div class="mb-3">
+				<label for="email_id" class="form-label">{{ form.email.label }}</label>
+				{{ form.email }}
+			</div>
+			<div class="mb-3">
+				<label for="password1_id" class="form-label">{{ form.password1.label }}</label>
+				{{ form.password1 }}
+			</div>
+			<div class="mb-3">
+				<label for="password2_id" class="form-label">{{ form.password2.label }}</label>
+				{{ form.password2 }}
+			</div>
+		  </div>
+		  <div class="col-lg-6">
+			<h1 class="lead p-2 bg-light">Personal Info</h1>
+			<div class="mb-3">
+				<label for="address_id" class="form-label">{{ form.address.label }}</label>
+				{{ form.address }}
+			</div>
+			<div class="mb-3">
+				<label for="phone_id" class="form-label">{{ form.phone.label }}</label>
+				{{ form.phone }}
+			</div>
+			<div class="mb-3">
+				<label for="first_name_id" class="form-label">{{ form.first_name.label }}</label>
+				{{ form.first_name }}
+			</div>
+			<div class="mb-3">
+				<label for="last_name_id" class="form-label">{{ form.last_name.label }}</label>
+				{{ form.last_name }}
+			</div>
+			<div class="mb-3">
+				<label for="level_id" class="form-label">{{ form.level.label }}</label>
+				{{ form.level }}
+			</div>
+			<div class="mb-3">
+				<label for="department_id" class="form-label">{{ form.department.label }}</label>
+				{{ form.department }}
+			</div>
+		  </div>
+	  </div>
+
+    {% if form.errors %}
+          <p class="text-danger my-2"><i class="fas fa-exclamation-circle"></i> Invalid ID & Password.</p><br>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small> SIGN UP</small></button>
+  </form>
+  <br>
+  <span> Already Registered ? </span><a href="{% url 'login' %}" class="link">Login</a>
+</div>
+{% endblock content %}
+
+{% block js %}
+
+<script>
+  const loginFormEl = document.getElementById('login-form');
+  const loginBtnEl = document.getElementById('login-btn');
+
+  loginFormEl.addEventListener('submit', () => {
+    loginBtnEl.innerHTML = '<i class="fas fa-sign-in-alt"></i> Signining you in . . .';
+    loginBtnEl.classList.add("disabled");
+  })
+
+  $("#username_id").on("input", function () {
+    username = $(this).val();
+
+    $.ajax({
+      url: "/accounts/ajax/validate-username/",
+      data: {
+        username: username
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          console.log(data.is_taken);
+          $('#message-wrapper').html(`<p class="my-2 text-danger"><span class="bg-error p-2"><b>${username}</b> already taken :( try another one </span></p>`)
+        }
+        else {
+          $('#message-wrapper').html(`<p class="my-2 text-success"><span class="bg-correct p-2"><b>${username}</b> is valid </span></p>`)
+        }
+      }
+
+    })
+  })
+</script>
+{% endblock %}

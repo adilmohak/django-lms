@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, 
     PasswordResetCompleteView, LoginView, LogoutView
@@ -10,12 +10,14 @@ from .views import (
         LecturerListView, StudentListView, 
         staff_add_view, edit_staff, 
         delete_staff, student_add_view, 
-        edit_student, delete_student, ParentAdd
+        edit_student, delete_student, ParentAdd, validate_username, register
     )
 from .forms import EmailValidationOnForgotPassword
 
 
 urlpatterns = [
+    path('', include('django.contrib.auth.urls')),
+
     url(r'^admin_panel/$', admin_panel, name='admin_panel'),
 
     url(r'^profile/$', profile, name='profile'),
@@ -34,6 +36,10 @@ urlpatterns = [
     url(r'^students/(?P<pk>\d+)/delete/$', delete_student, name='student_delete'),
 
     url(r'^parents/add/$', ParentAdd.as_view(), name='add_parent'),
+
+    url(r'^ajax/validate-username/$', validate_username, name='validate_username'),
+
+    url(r'^register/$', register, name='register'),
 
     # url(r'^add-student/$', StudentAddView.as_view(), name='add_student'),
 

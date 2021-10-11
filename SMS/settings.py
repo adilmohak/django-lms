@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # custom apps
     'app.apps.AppConfig',
     'accounts.apps.AccountsConfig',
+    'coursemanagement',
     'course.apps.CourseConfig',
     'result.apps.ResultConfig',
     'search.apps.SearchConfig',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'rest_framework',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -91,17 +93,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SMS.wsgi.application'
 
+ASGI_APPLICATION = "SMS.asgi.application"
+
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# connect to postgresql database
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_sms_data',
+        'USER': 'postgres',
+        'PASSWORD': 'testing321',
+        'HOST': 'localhost',
+        'POST': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

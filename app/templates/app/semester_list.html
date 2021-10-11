@@ -13,17 +13,17 @@
 <div class="title-line"></div>
 
 {% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-circle"></i>{{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    <i class="fas fa-check-circle"></i>{{ message }}
+</div>
+{% endif %}
+{% endfor %}
 {% endif %}
 
 <div class="table-responsive table-shadow p-0 mt-5">
@@ -45,43 +45,48 @@
             <tr>
                 <td> {{ forloop.counter }}.</td>
                 <td>{{ semester.semester }}</td>
-                <th>{% if semester.is_current_semester == False %}<i class="fas fa-times-circle fa-1-5x danger"></i>
-                    {% else %}<i class="fas fa-check-circle fa-1-5x"></i>
-                    <i class="icon-times-circle">
-                    
-                    </i>{% endif %}
+                <th>
+                    {% if semester.is_current_semester == False %}
+                    <i class="fas fa-times-circle fa-1-5x danger"></i>
+                    {% else %}
+                    <i class="fas fa-check-circle fa-1-5x"></i>
+                    <i class="icon-times-circle"></i>
+                    {% endif %}
                 </th>
                 <td>{{ semester.session }}</td>
                 <td>{{ semester.next_semester_begins }}</td>
 
                 {% if request.user.is_superuser %}
-                <td> <div class="update-delete">
-                    <a href="{% url 'edit_semester' pk=semester.pk %}" class="update" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                    <a href="{% url 'delete_semester' pk=semester.pk %}" class="delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                <td>
+                    <div class="update-delete">
+                        <a href="{% url 'edit_semester' pk=semester.pk %}" class="update" title="Edit"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a href="{% url 'delete_semester' pk=semester.pk %}" class="delete" title="Delete"><i
+                                class="fas fa-trash-alt"></i></a>
                     </div>
                 </td>
                 {% endif %}
-                
+
                 {% empty %}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>
-                  <span class="text-danger">
-                    <i class="far fa-frown"></i>No Semester.
-                    {% if request.user.is_superuser %}
-                    <a href="{% url 'add_semester' %}">
-                    <i class="primary" style="font-size: 22px;">
-                       Add Semester Now.
-                    </i>
-                    {% endif %}
-                    </a>
-                  </span>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="text-danger">
+                        <i class="far fa-frown"></i>No Semester.
+                        {% if request.user.is_superuser %}
+                        <a href="{% url 'add_semester' %}">
+                            <i class="primary" style="font-size: 22px;">
+                                Add Semester Now.
+                            </i>
+                            {% endif %}
+                        </a>
+                    </span>
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
-                </tr>
+            </tr>
 
             </tr>
             {% endfor %}

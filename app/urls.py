@@ -4,7 +4,8 @@ from django.urls import path
 from .views import (
     home_view, post_add, edit_post, delete_post, 
     session_list_view, session_add_view, session_update_view, session_delete_view, 
-    semester_list_view, semester_add_view, semester_update_view, semester_delete_view
+    semester_list_view, semester_add_view, semester_update_view, semester_delete_view,
+    dashboard_view
 ) 
 
 
@@ -24,4 +25,6 @@ urlpatterns = [
     url(r'^semester/add/$', semester_add_view, name="add_semester"),
     url(r'^semester/(?P<pk>\d+)/edit/$', semester_update_view, name="edit_semester"),
     url(r'^semester/(?P<pk>\d+)/delete/$', semester_delete_view, name="delete_semester"),
+
+    url(r'^dashboard/$', dashboard_view, name="dashboard"),
 ]

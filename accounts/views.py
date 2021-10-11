@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib import messages
@@ -15,6 +16,27 @@ from result.models import TakenCourse
 from app.models import Session, Semester
 from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
 from .models import User, Student, Parent
+
+
+def validate_username(request):
+    username = request.GET.get("username", None)
+    data = {
+        "is_taken": User.objects.filter(username__iexact = username).exists()
+    }
+    return JsonResponse (data)
+
+
+def register(request):
+    if request.method == 'POST':
+        form = StudentAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Account created successfuly.')
+        else:
+            messages.error(request, f'Somthing is not correct, please fill all fields correctly.')
+    else:
+        form = StudentAddForm(request.POST)
+    return render(request, "registration/register.html", {'form': form})
 
 
 @login_required

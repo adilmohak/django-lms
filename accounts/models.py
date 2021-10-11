@@ -56,6 +56,7 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_lecturer = models.BooleanField(default=False)
     is_parent = models.BooleanField(default=False)
+    is_dep_head = models.BooleanField(default=False)
     phone = models.CharField(max_length=60, blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
     picture = models.ImageField(upload_to='profile_pictures/%y/%m/%d/', default='default.png', null=True)
@@ -159,3 +160,15 @@ class Parent(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class DepHead(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    department = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "{}".format(self.user)
+
+    # def save(self, *args, **kwarg):
+    #     pass
+    # dep
+    # 
