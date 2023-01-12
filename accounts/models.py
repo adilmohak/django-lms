@@ -88,10 +88,10 @@ class User(AbstractUser):
             return "Parent"
 
     def get_picture(self):
-        no_picture = settings.MEDIA_URL + 'default.png'
         try:
             return self.picture.url
         except:
+            no_picture = settings.MEDIA_URL + 'default.png'
             return no_picture
 
     def get_absolute_url(self):
@@ -144,31 +144,28 @@ class Student(models.Model):
         super().delete(*args, **kwargs)
 
 
-# class Parent(models.Model):
-#     parent = models.
-
-
 class Parent(models.Model):
+    """
+    Connect student with their parent, parents can 
+    only view their connected students information
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student = models.OneToOneField(Student, null=True, on_delete=models.SET_NULL)
-    # first_name = models.CharField(max_length=120)
-    # last_name = models.CharField(max_length=120)
-    # phone = models.CharField(max_length=60, blank=True, null=True)
-    # address = models.CharField(max_length=60, blank=True, null=True)
-    # email = models.EmailField(blank=True, null=True)
+    first_name = models.CharField(max_length=120)
+    last_name = models.CharField(max_length=120)
+    phone = models.CharField(max_length=60, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+
+    # What is the relationship between the student and the parent (i.e. father, mother, brother, sister)
     relation_ship = models.TextField(choices=RELATION_SHIP, blank=True)
 
     def __str__(self):
         return self.user.username
 
-class DepHead(models.Model):
+
+class DepartmentHead(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "{}".format(self.user)
-
-    # def save(self, *args, **kwarg):
-    #     pass
-    # dep
-    # 

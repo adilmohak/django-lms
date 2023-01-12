@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Admin Panel</div>
+<!-- <br> -->
+<div class="title-1"><i class="fas fa-user-tie"></i>Admin Panel</div>
+<br>
+<br>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="admin-panel">
+    <div class="row">
+        <div class="col-md-6 p-5 bg-gradient-light">
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'lecturer_list' %}"> Lecturers &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) lecturers</p><hr>
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'student_list' %}"> Students &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) students</p><hr>
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'session_list' %}"> Session &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) sessions</p><hr>
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'semester_list' %}"> Semester &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) semesters</p>
+        </div>
+        <div class="col-md-6 p-5 bg-gradient-light">
+            Course Add & Drop
+            <label class="switch switch-text switch-success switch-pill" style="float: right;">
+              <input type="checkbox" class="switch-input" checked="true">
+              <span data-on="On" data-off="Off" class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+            <p><span>&LongRightArrow;</span> Switch 
+                <i class="info-text bg-success">ON</i> or <i class="info-text bg-danger">OFF</i>
+            </p><hr>
+
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'programs' %}"> Programs & Courses &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) programs</p>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) courses</p><hr>
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'course_allocation_view' %}"> Course Allocations &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) course allocations</p><hr>
+            Manage<a class="btn btn-sm btn-secondary" href="{% url 'home' %}"> News & Events &raquo;</a>
+            <p><span>&LongRightArrow;</span> CRUD (Create, Retriev, Update & Delete) News & Events</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

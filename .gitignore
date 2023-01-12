@@ -90,4 +90,6 @@ local_settings.py
 db.sqlite3
 
 media
-static
+docs
+datadump.json
+local_note.txt

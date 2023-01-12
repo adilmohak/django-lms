@@ -17,6 +17,7 @@ from .forms import (
     EditCourseAllocationForm, UploadFormFile, UploadFormVideo
 )
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
+from coursemanagement.models import CourseSetting
 
 
 # ########################################################
@@ -421,6 +422,7 @@ def course_registration(request):
         for i in registered_courses:
             total_registered_credit += int(i.credit)
         context = {
+            "is_calender_on": True,
             "all_courses_are_registered": all_courses_are_registered,
             "no_course_is_registered": no_course_is_registered,
             "current_semester": current_semester,

@@ -1,10 +1,15 @@
 from django.db import models
 from course.models import Course
-from accounts.models import DepHead
+from accounts.models import DepartmentHead
 
 
 class CourseOffer(models.Model):
-	dep_head = models.ForeignKey(DepHead, on_delete=models.CASCADE)
+	"""Only department head can offer a course"""
+	dep_head = models.ForeignKey(DepartmentHead, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return "{}".format(self.dep_head)
+
+
+class CourseSetting(models.Model):
+	add_drop = models.BooleanField(default=False)

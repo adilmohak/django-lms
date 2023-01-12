@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %} {{ title }} | DjangoSMS{% endblock title %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> {{ user.get_full_name }}</div>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if request.user.is_superuser %}
+<div class="btn-flex">
+    {% if user.is_student %}
+    <a class="edit-btn" href="{% url 'student_edit' pk=user.id %}">
+        <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
+    </a>
+    {% endif %}
+    {% if user.is_lecturer %}
+    <a class="edit-btn" href="{% url 'staff_edit' pk=user.id %}">
+        <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
+    </a>
+    {% endif %}
+    <!-- <a class="edit-btn" href="{% url 'change_password' %}"><i class="fas fa-lock"></i><span class="mobile-hide">
+        Change password</span>
+    </a> -->
+</div>
+{% endif %}
+
+<div class="row justify-content-between">
+
+    <div class="col-md-3 mx-auto">
+        <div class="card">
+            <img src="{{ user.get_picture }}" class="dashboard-img">
+            <div class="program-description">
+                <p><strong>Last login: </strong>{{ user.last_login|date }}</p>
+                <p><strong>Full Name: </strong>{{ user.get_full_name|title }}</p>
+                <p><strong>Role: </strong>{{ user_type }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+
+            {% if user.is_lecturer %}
+            <p class="form-title"><i class="fas fa-book-open"></i>My Courses</p>
+            <div class="dashboard-description">
+                {% if courses %}
+                    <div class="flex">
+                        {% for course in courses %}
+                            <div class="flex"><a class="edit-btn" href="{{ course.get_absolute_url }}">{{ course }}</a></div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                        <div class="text-danger"><i class="far fa-frown"></i>No courses!</div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <p class="title-info"><i class="fas fa-user"></i>Personal Info</p>
+            <div class="dashboard-description">
+                <p><strong>First Name:</strong> {{ user.first_name|title }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name|title }}</p>
+                <p><strong>ID No.:</strong> {{ user.username }}</p>
+            </div>
+            {% if user.is_student %}
+            <p class="title-info"><i class="fas fa-graduation-cap"></i>Applicant Info</p>
+            <div class="dashboard-description">
+                <p><strong>School: </strong>{{ student.get_student_school }}</p>
+                <p><strong>Department: </strong>{{ student.department }}</p>
+                <p><strong>Level: </strong>{{ student.level }}</p>
+            </div>
+            {% endif %}
+                
+            <p class="title-info"><i class="fas fa-phone-square-alt"></i>Contact Info</p>
+            <div class="dashboard-description">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Tel No.:</strong> {{ user.phone }}</p>
+                <p><strong>Address/city:</strong> {{ user.address }}</p>
+            </div>
+            
+            <p class="title-info"><i class="fa fa-calendar-day"></i>Important Dates</p>
+            <div class="dashboard-description">
+                <p><strong>Last login:</strong> {{ user.last_login }}</p>
+                <p><strong>Academic Year:</strong> {{ current_semester }} Semester {{ current_session }}</p>
+                <p><strong>Registered Date:</strong> {{ user.date_joined|date }}</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3 mx-auto"></div>
+
+</div>
+{% endblock content %}

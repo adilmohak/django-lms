@@ -1,0 +1,26 @@
+TODO:
+	- Course add and drop should offer by only the department head of the course
+	- Payment integration: Integrating Paypal and Stripe for students to pay there fee
+
+	- Create a dashboard for the school admin only: The dashboard will contain: -
+			- Overall attendance
+			- School demographics
+				gender
+				Home language
+				new/all students
+				new/all lecturers
+			- Recent CUD(create, update, and delete) activities
+				For example, Added videos, courses, documentations
+			- Students average grade per course:
+				This one helps the school admin to identify the students performance very quickly :)
+			- Overall Course Resources
+				- Total number of videos, courses, documentations
+			- Event calender:
+				- A calender that shows upcoming events
+			- Enrollments per course
+				- How many students enroll each course
+			- Website traffic over a specific user type (Admin, Student, Lecturer, etc.)
+	- Admin Panel:
+			- Implement course add and drop calendar switching: If it is on, then students can able to add or drop courses.
+	- Apply Filtering and exporting for all tables.
+			- Consider using jQuery libraries

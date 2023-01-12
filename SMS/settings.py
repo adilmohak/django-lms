@@ -34,7 +34,6 @@ AUTH_USER_MODEL = 'accounts.User'
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,8 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
+]
 
-    # custom apps
+# Thired party apps
+INSTALLED_APPS += [
+    'crispy_forms',
+    'rest_framework',
+    'channels',
+]
+
+# Custom apps
+INSTALLED_APPS += [
     'app.apps.AppConfig',
     'accounts.apps.AccountsConfig',
     'coursemanagement',
@@ -52,10 +60,6 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     'quiz.apps.QuizConfig',
     'payments',
-
-    'crispy_forms',
-    'rest_framework',
-    'channels',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +103,7 @@ ASGI_APPLICATION = "SMS.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# Uncomment this if you want to use sqlite db
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -106,16 +111,15 @@ ASGI_APPLICATION = "SMS.asgi.application"
 #     }
 # }
 
-# connect to postgresql database
-
+# postgresql db configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_sms_data',
-        'USER': 'postgres',
-        'PASSWORD': 'testing321',
+        'NAME': '[db_name]',
+        'USER': '[db_user]',
+        'PASSWORD': '[user_password]',
         'HOST': 'localhost',
-        'POST': '',
+        'PORT': '',
     }
 }
 
@@ -156,16 +160,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['staticfiles']))
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['staticfiles']))
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com' # Here i'm using gmail as the email host, but you can change it
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('USER_EMAIL')
@@ -174,16 +178,9 @@ EMAIL_HOST_PASSWORD = os.environ.get('USER_PASSWORD')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
-
 LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    # ],
-    # 'DEFAULT_PARSER_CLASSES': [
-    #     'rest_framework.parsers.JSONParser',
-    # ]
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -192,5 +189,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'
     ]
 }
-STRIPE_SECRET_KEY = "sk_test_51IcEVZHbzY4cUA9T3BZdDayN4gmbJyXuaLCzpLT15HZoOmC17G7CxeEdXeIHSWyhYfxpljsclzzjsFukYNqJTbrW00tv3qIbN2"
-STRIPE_PUBLISHABLE_KEY = "pk_test_51IcEVZHbzY4cUA9TrKHqyHkUQqQRRMoilwYgwSJaMjfis6rN6KZPmjcbGX6LUHpIkUV2i06JBnplberIbHtYcdfv00Tu8eMXHj"
+
+
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')

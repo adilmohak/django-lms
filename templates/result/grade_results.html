@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>></i> Grade Results</div>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="title-1"><i class="fas fa-table"></i>Grade Results</div>
+<div class="title-line"></div>
+
+<center>{{ student.level }} Result</center>
+
+<style>
+  .session-wrapper{position: relative;}
+  .session{position: absolute; top: -15px; right: 25px;}
+</style>
+<br>
+
+<div class="table-responsive p-0 mt-3">
+  <div class="table-title"><u>First Semester:</u></div>
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Course Title</th>
+        <th>Course Code</th>
+        <th>Cr.Hr</th>
+        <th>Grade</th>
+        <th>Points</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    {% for course in courses %}
+    {% if course.course.semester == "First" %}
+    <tbody>
+      <tr class="{% if forloop.counter|divisibleby:2 %}bg-gray{% endif %}">
+        <th>{{ forloop.counter }}</th>
+        <td><a href="{{ course.course.get_absolute_url }}">{{ course.course.title }}</a></td>
+        <td>{{ course.course.code }}</td>
+        <td>{{ course.course.credit }}</td>
+
+        <td class="{% if course.grade == 'F' %}danger{% else %}success{% endif %}">{{ course.grade }}</td>
+        <td>{{ course.point }}</td>
+
+        {% if course.comment == 'PASS' %}
+          <td class="success"><i class="fas fa-check-circle"></i> PASS</td>
+        {% elif course.comment == 'FAIL' %}
+          <td class="danger"><i class="fas fa-exclamation-circle"></i> FAIL</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+
+      </tr>
+    </tbody>
+    {% endif %}
+    {% endfor %}
+
+    {% for result in results %}
+    {% if result.semester == "First" %}
+    <tr style="background: #f3f2f2;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total first semester credit: {{ total_first_semester_credit }}</th>
+    </tr>
+    <tr class="bg-orange text-white">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>First Semester GPA: {{ result.gpa }}</th>
+    </tr>
+    {% endif %}
+    {% endfor %}
+
+  </table>
+</div>
+  
+<div class="table-responsive p-0 px-2 mt-3">
+  <div class="table-title"><u>Second Semester:</u></div>
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Course Title</th>
+        <th>Course Code</th>
+        <th>Cr.Hr</th>
+        <th>GRADE</th>
+        <th>Points</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    {% for course in courses %}
+    {% if course.course.semester == "Second" %}
+    <tbody>
+      <tr>
+        <th>{{ forloop.counter }}</th>
+        <td><a href="{{ course.course.get_absolute_url }}">{{ course.course.title }}</a></td>
+        <td>{{ course.course.code }}</td>
+        <td>{{ course.course.credit }}</td>
+        
+        <td class="{% if course.grade == 'F' %}danger{% else %}success{% endif %}">{{ course.grade }}</td>
+        <td>{{ course.point }}</td>
+        
+        {% if course.comment == 'PASS' %}
+          <td class="success"><i class="fas fa-check-circle"></i> PASS</td>
+        {% elif course.comment == 'FAIL' %}
+          <td class="danger"><i class="fas fa-exclamation-circle"></i> FAIL</td>
+        {% else %}
+          <td></td>
+        {% endif %}
+
+      </tr>
+    </tbody>
+    {% endif %}
+    {% endfor %}
+    
+    {% for result in results %}
+    {% if result.semester == "Second" %}
+    <tr style="background: #f3f2f2;">
+      <th></th>
+      <th>Total second semester credit: {{ total_sec_semester_credit }}</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total Credit: {{ total_first_and_second_semester_credit }}</th>
+    </tr>
+    <tr style="background: #f3f2f2;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Second Semester GPA: {{ result.gpa }}</th>
+    </tr>
+    <tr style="background: #fd7e14; color: #fff;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Previous CGPA: {{ previousCGPA }}</th>
+    </tr>
+    {% endif %}
+    {% endfor %}
+
+  </table>
+</div>
+
+<br>
+<tbody>
+  {% for result in results %}
+  {% if result.semester == "First" %}
+  <tr>
+    <th></th>
+    <th></th>
+    <th><label>First Semester GPA:</label> {{ result.gpa }}</th>
+  </tr>
+  <br>
+  {% elif result.semester == "Second" %}
+    <tr>
+    <th></th>
+    <th></th>
+    <th><label>Second Semester GPA:</label> {{ result.gpa }}</th>
+  </tr>
+  <br>
+  {% endif %}
+  {% endfor %}
+  <tr>
+    <th></th>
+    <th></th>
+    <th><label>Previous CGPA:</label> {{ previousCGPA }}</th>
+  </tr>
+</tbody>
+<br>
+{% endblock %}

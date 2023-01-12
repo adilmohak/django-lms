@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} | DjangoSMS{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home </a>
+        <a href="{% url 'programs' %}" class="primary1">Programs </a>
+        <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a>
+        {{ course }}
+    </div>
+
+    <div class="manage-wrap">
+        <div class="row">
+            <div class="col ml-auto">
+                {% if request.user.is_superuser or request.user.is_lecturer %}
+                <a class="add-button" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                    Upload new file
+                </a>
+                <a class="add-button" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
+                    Upload new video
+                </a>
+                {% endif %}
+            </div>
+            <div class="col text-right">
+                <a class="btn btn-lg btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
+                    Take a Quiz
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="title-1">{{ course }}</div>
+    <p class="program-description">{{ course.summary }}</p>
+
+    {% if request.user.is_superuser %}
+    <div class="btn-flex">
+        <a class="edit-btn" href="{% url 'edit_course' course.slug %}">
+            <i class="fas fa-pencil-alt"></i><span class="mobile-hide">Edit This course</span>
+        </a>
+    </div>
+    {% endif %}
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>{{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i>{{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <div class="row mb-5">
+        <div class="col-md-12 p-0">
+            <p class="form-title m-0">Video Tutorials</p>
+            <div class="table-responsive">
+                <table class="table table-shadow table-light table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Video Title</th>
+                            <th>Uploaded Date</th>
+                            <th>Get Started</th>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for video in videos %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{{ video.get_absolute_url }}" title="{{ video }}">
+                                    <i style="font-size: 20px; padding-right: 10px;" class="fas fa-video"></i>
+                                    {{ video.title|title }}
+                                </a>
+                            </td>
+                            <td>{{ video.timestamp|date }}</td>
+                            <th>
+                                <div>
+                                    <a class="download-btn" href="{{ video.get_absolute_url }}"
+                                        title="Download to your device">
+                                        <i class="fas fa-download"></i>Get Started</a>
+                                </div>
+                            </th>
+
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <td>
+                                <div class="update-delete">
+                                    <a href="{% url 'upload_video_edit' slug=course.slug video_slug=video.slug %}"
+                                        class="update" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="{% url 'upload_video_delete' slug=course.slug video_slug=video.slug %}"
+                                        class="delete" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            {% endif %}
+
+                            {% empty %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <span class="text-danger">
+                                    <i class="far fa-frown fa-1x"></i> No video Uploaded.
+                                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                                    <a href="{% url 'upload_video' course.slug %}">
+                                        <i class="primary" style="font-size: 22px;">
+                                            Upload now.
+                                        </i>
+                                        {% endif %}
+                                    </a>
+                                </span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 p-0">
+            <p class="form-title m-0">Documentations</p>
+            <div class="table-responsive">
+                <table class="table table-shadow table-light table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File name</th>
+                            <th>Uploaded Date</th>
+                            <th>Updated Date</th>
+                            <th>Downloads</th>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{{ file.file.url }}" title="{{ file }}">
+                                    <i style="font-size: 20px; padding-right: 10px;"
+                                        class="fas fa-file-{{ file.get_extension_short }}"></i>
+                                    {{ file.title|title }}
+                                </a>
+                            </td>
+                            <td>{{ file.upload_time|date }}</td>
+                            <td>{{ file.updated_date|date }}</td>
+                            <th>
+                                <div>
+                                    <a class="download-btn" href="{{ file.file.url }}" title="Download to your device">
+                                        <i class="fas fa-download"></i>Download</a>
+                                </div>
+                            </th>
+
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <td>
+                                <div class="update-delete">
+                                    <a href="{% url 'upload_file_edit' slug=course.slug file_id=file.pk %}"
+                                        class="update" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="{% url 'upload_file_delete' slug=course.slug file_id=file.pk %}"
+                                        class="delete" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            {% endif %}
+
+                            {% empty %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <span class="text-danger">
+                                    <i class="far fa-frown fa-1x"></i> No File Uploaded.
+                                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                                    <a href="{% url 'upload_file_view' course.slug %}">
+                                        <i class="primary" style="font-size: 22px;">
+                                            Upload now.
+                                        </i>
+                                        {% endif %}
+                                    </a>
+                                </span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="site-section">
+    <div class="title-1">Instructor(s)</div>
+    <br>
+    <div class="container marketing">
+        <div class="row">
+            {% for lecturer in lecturers %}
+            <div class="col-lg-4 mx-auto" style="background: transparent; box-shadow: none;">
+                {% if lecturer.lecturer.picture %}
+                <img class="" src="{{ lecturer.lecturer.picture.url }}" alt="" style="width:140px;">
+                {% endif %}
+                <h2>{{ lecturer|title }}</h2>
+                <p style="color: #6c757d;">{{ lecturer.lecturer.email }}</p>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                    vehicula ut id elit.</p>
+                <p>
+                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
+                            class="fab fa-twitter"></i></a>
+                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </p>
+                <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

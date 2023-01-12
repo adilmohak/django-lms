@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %} My Courses | DjangoSMS{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> My Courses</div>
+
+{% if request.user.is_student %}
+    <div class="title-1">{{ student.department.title }}</div>
+    <div class="title-line"></div>
+    {% if student.department.summary %}
+        <p class="program-description">{{ student.department.summary }}</p>
+    {% endif %}
+{% endif %}
+
+{% if request.user.is_lecturer %}
+    <div class="title-1">My Courses</div>
+    <div class="title-line"></div>
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if request.user.is_student %}
+<div class="table-responsive p-3 mt-3">
+    <div class="table-title"><u>Taken Courses:</u></div>
+    <div class="table-shadow">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th> Course Name </th>
+                    <th> Course Code </th>
+                    <th> Cr.Hr </th>
+                    <th> Year </th>
+                    <th> Semester </th>
+                    <th> Current Semester </th>
+                    <th> Taken </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in taken_courses %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td> 
+                    <td><a href="{{ course.get_absolute_url }}">
+                        {{ course.course.title }}</a></td>
+                    <td>{{ course.course.code }}</td>
+                    <td>{{ course.course.credit }}</td>
+                    <td>{{ course.course.year }}</td>
+                    <td>{{ course.course.semester }}</td>
+                    <th>
+                        {% if course.course.is_current_semester == False %}
+                        <i class="fas fa-times-circle fa-1-5x danger"></i>
+                        {% else %}
+                        <i class="fas fa-check-circle"></i>
+                        {% endif %}
+                    </th>
+                    <td class="success">
+                        <i class="fas fa-check-circle"></i> Taken
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<div class="table-responsive p-3">
+    <div class="table-title"><u>All Courses:</u></div>
+    <div class="table-shadow">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th> Course Name </th>
+                    <th> Course Code </th>
+                    <th> Cr.Hr </th>
+                    <th> Year </th>
+                    <th> Semester </th>
+                    <th> Current Semester </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td> 
+                    <td><a href="{{ course.get_absolute_url }}">
+                        {{ course.title }}</a></td>
+                    <td>{{ course.code }}</td>
+                    <td>{{ course.credit }}</td>
+                    <td>{{ course.year }}</td>
+                    <td>{{ course.semester }}</td>
+                    <th>
+                        {% if course.is_current_semester == False %}
+                        <i class="fas fa-times-circle fa-1-5x danger"></i>
+                        {% else %}
+                        <i class="fas fa-check-circle"></i>
+                        {% endif %}
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if courses.paginator.page_range|length > 1 %}
+<div class="content-center">
+    <div class="pagination">
+        <a href="?page=1">&laquo;</a>
+        {% for i in courses.paginator.page_range %}
+            {% if i == courses.number %}
+                <a class="pagination-active" href="?page={{ i }}"><b>{{ i }}</b></a>
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        <a href="?page={{ courses.paginator.num_pages }}">&raquo;</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div id="input-nav" class="p-2">Home</div>
+
+    {% if request.user.is_superuser %}
+    <div class="manage-wrap">
+        <a class="btn btn-primary" href="{% url 'add_item' %}"><i class="fas fa-plus"></i>Add New Post</a>
+    </div>
+    {% endif %}
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>{{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i>{{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <style>
+        .color-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        .bg-purple {
+            background-color: #6f42c1;
+        }
+    </style>
+
+    <div class="title-1">News & Events</div>
+
+    <ul class="col-md-2 ml-auto d-flex">
+        <li class="mr-3">
+            <span class="color-indicator bg-primary"></span> News
+        </li>
+        <li>
+            <span class="color-indicator bg-purple"></span> Events
+        </li>
+    </ul>
+    <style>
+        .card-header-ne {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header-ne .title {
+            vertical-align: middle;
+        }
+    </style>
+    {% if items %}
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="bg-white border">
+                <div class="card-header-ne {% if item.posted_as == 'News' %}news{% else %}events{% endif %} p-2">
+                    <span class="p-0">
+                        {{ item.title|title }}
+                    </span>
+                    {% if request.user.is_superuser %}
+                    <div class="dropdown">
+                        <button class="btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fas fa-ellipsis-v text-white"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{% url 'edit_post' pk=item.id %}"><i
+                                    class="fas fa-pencil-alt"></i> Edit</a>
+                            <a class="dropdown-item" href="{% url 'delete_post' pk=item.id %}"><i
+                                    class="fas fa-trash-alt"></i> Delete</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="p-2">{{ item.summary }}</div>
+
+                <div class="date-wrapper">
+                    <i class="fa fa-calendar mr-2"></i>
+                    {{ item.updated_date|timesince }} ago
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p>
+        <i class="far fa-frown fa-2x"></i>So empty.
+    </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

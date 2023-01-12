@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Programs</div>
+
+{% if request.user.is_superuser %}
+<a class="add-button" href="{% url 'add_program' %}"><i class="fas fa-plus"></i>Add Program</a>
+{% endif %}
+
+<div class="title-1"><i class="fas fa-book-open"></i>Program List</div>
+<div class="title-line"></div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-circle"></i>{{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    <i class="fas fa-check-circle"></i>{{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="content-center">
+    <form class="search-form mx-auto" action="" method="GET">{% csrf_token %}
+        <input class="au-input" type="text" name="program_filter" placeholder="Program name"
+            value="{{ request.GET.program_filter }}" />
+        <button class="btn btn-light" type="submit">
+            <i class="fas fa-search"></i> Filter
+        </button>
+    </form>
+</div>
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button> -->
+
+<!-- Modal -->
+{% for program in programs %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <p class="p-4">
+                Are you sure you want to delete this item?
+            </p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-danger" href="{% url 'program_delete' pk=program.pk %}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+<div class="table-responsive table-shadow table-light table-striped m-0 mt-5">
+    <div class="table-shadow">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Program Name</th>
+                    <th>Summary</th>
+                    {% if request.user.is_superuser %}
+                    <th>Action</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in programs %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td><a class="a-list" href="{{ program.get_absolute_url }}">
+                            {{ program.title}}</a></td>
+                    <td>{{ program.summary }} </td>
+                    {% if request.user.is_superuser %}
+
+                    <td>
+                        <div class="update-delete">
+                            <a href="{% url 'edit_program' pk=program.pk %}" class="update"><i
+                                    class="fas fa-edit"></i></a>
+                            <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <p class="p-4">
+                                        Are you sure you want to delete this program?
+                                    </p>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <a class="btn btn-danger"
+                                            href="{% url 'program_delete' pk=program.pk %}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <td> <div class="update-delete">
+                    <a href="{% url 'edit_program' pk=program.pk %}" class="update"><i class="fas fa-edit"></i></a> 
+                    <a href="{% url 'program_delete' pk=program.pk %}" class="delete"><i class="fas fa-trash-alt"></i></a>
+                    </div> -->
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

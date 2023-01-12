@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i>
+    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> <i>&rsaquo;</i> Manage Score</div>
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ course }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for course in courses %}
+            <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
+        {% empty %}
+            <p class="dropdown-item"><i class="far fa-frown fa-1x"></i> No course.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- <div style="margin-left: 75%; margin-right: 0;" class="drop-down">
+    <a class="add-button" href="#">Select another course<i class="fas fa-angle-down fa-pull-right"></i></a>
+
+    <div class="content">
+        <div class="content-a">
+            {% for course in courses %}
+                <a href="{% url 'add_score_for' course.id %}" title="{{ course.title }}">{{ course.code }}</a>
+            {% empty %}
+                <p><i class="far fa-frown"></i>No course.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div> -->
+
+<h1>{{ myclass.lecturer }}</h1>
+
+<div class="flex">
+    {% for i in myclass.student.all %}
+        <div class="flex"><a class="edit-btn" href="{{ i.get_absolute_url }}">{{ i }}</a></div>
+    {% endfor %}
+</div>
+
+<p class="title-1">Submit score for {{ course }} Students</p>
+<div class="title-line"></div>
+<p class="program-description">{{ course.summary }}</p>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="btn-flex">
+        <button title="Save Score" type="submit" class="btn btn-primary">Save</button>
+        <span title="Allow editing" class="btn btn-success"><i class="fas fa-pencil-alt"></i>Edit</span>
+        <a target="_blank" href="{% url 'result_sheet_pdf_view' id=course.id %}">
+            <span data-toggle="tooltip" title="Print Result sheet" class="btn btn-warning">
+                <i class="far fa-file-pdf"></i>Generat PDF
+            </span>
+        </a>
+    </div>
+
+    <h4>{{ current_semester }} Semester <i class="info-text bg-danger">{{ current_session }}</i></h4>
+    <div class="table-responsive">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Assignment</th>
+                    <th>Mid exam</th>
+                    <th>Quiz</th>
+                    <th>Attendance</th>
+                    <th>Final exam</th>
+                    <th>Total</th>
+                    <th>Point</th>
+                    <th>Grade</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{{ student.student.student.get_absolute_url }}">{{ student.student.student.username }}</a></td>
+                    <td>
+                        <input id="assignment" type="number" name="{{ student.id }}" value="{{ student.assignment }}" width="20px">
+                    </td>
+                    <td>
+                        <input id="mid_exam" type="number" name="{{ student.id }}" value="{{ student.mid_exam }}">
+                    </td>
+                    <td>
+                        <input id="quiz" type="number" name="{{ student.id }}" value="{{ student.quiz }}">
+                    </td>
+                    <td>
+                        <input id="attendance" type="number" name="{{ student.id }}" value="{{ student.attendance }}">
+                    </td>
+                    <td>
+                        <input id="final_exam" type="number" name="{{ student.id }}" value="{{ student.final_exam }}">
+                    </td>
+                    <td>{{ student.total }}</td>
+
+                    <td>{{ student.point }}</td>
+                    <td class="{% if student.grade == 'F' %}danger{% else %}success{% endif %}">{{ student.grade }}</td>
+                    {% if student.comment == 'PASS' %}
+                    <td class="success"><i class="fas fa-check-circle"></i> {{ student.comment }}</td>
+                    {% elif student.comment == 'FAIL' %}
+                    <td class="danger"><i class="fas fa-exclamation-circle"></i> {{ student.comment }}</td>
+                    {% else %}<td></td>
+                    {% endif %}
+
+                    {% empty %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="text-danger">
+                                <i class="far fa-frown"></i> No Student.
+                            </span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+{% endblock content %}

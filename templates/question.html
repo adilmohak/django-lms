@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load i18n%}
+
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
+	<a href="{% url 'programs' %}" class="primary1">Programs </a> <i>&rsaquo;</i> 
+	<a href="{% url 'program_detail' course.program.id %}" class="primary1">{{ course.program }} </a> <i>&rsaquo;</i> 
+	<a href="{{ course.get_absolute_url }}" class="primary1">{{ course }} </a> <i>&rsaquo;</i> 
+	<a href="{% url 'quiz_index' course.slug %}" class="primary1">Quizzes</a> <i>&rsaquo;</i> {{ quiz.title|title }}</div>
+
+<div class="container">
+
+    <div class="header-title-xl text-center">{{ quiz.title|title }}</div>
+    <div class="title-line mb-2"></div>
+
+	{% if previous.answers %}
+
+	<p class="muted"><small>{% trans "The previous question" %}:</small></p>
+	<p>{{ previous.previous_question }}</p>
+
+	{% if previous.previous_outcome %}
+		<div class="alert alert-success">
+	{% else %}
+		<div class="alert alert-warning">
+	{% endif %}
+		<p><small>
+			{% trans "Your answer was" %} </small>
+			<strong>
+			{{ previous.previous_outcome|yesno:"correct,incorrect" }}
+			</strong>
+		</p>
+
+		</div>
+		
+        {% load i18n %}
+        {% if previous.answers %}
+
+          {% if user_was_incorrect %}
+            <div class="alert alert-error">
+              <strong>{% trans "You answered the above question incorrectly" %}</strong>
+            </div>
+          {% endif %}
+
+          <table class="table table-striped table-bordered">
+            <tbody>
+              {% for answer in previous.answers %}
+                {% if answer.correct %}
+                  <tr class="success">
+                    <td>{{ answer }}</td>
+                  <td><strong>{% trans "This is the correct answer" %}</strong></td>
+                {% else %}
+                  <tr>
+                    <td>{{ answer }}</td>
+                    <td>
+                    {% if previous.question_type.MCQuestion %}
+                      {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
+                        {% trans "This was your answer." %}
+                      {% endif %}
+                    {% endif %}
+                    </td>
+                  {% endif %}
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+		
+
+        <p><strong>{% trans "Explanation" %}:</strong></p>
+        <p class="p-2" style="background-color: #fcf8e3;">
+          {% if previous.previous_question.explanation %}
+            {{ previous.previous_question.explanation }}
+          {% else %}
+            {% trans "No explanation set to this question." %}
+          {% endif %}
+		</p>
+		
+		<!-- <p><strong>{% trans "Explanation" %}:</strong></p>
+		<div class="well " style="background-color: #fcf8e3;">
+		<p>{{ previous.previous_question.explanation }}</p>
+		</div> -->
+
+		<hr>
+
+	{% endif %}
+
+	<br />
+
+	{% if question %}
+
+	{% if progress.0|add:1 == 1 %}
+
+    <div id="popup-box-messages">
+        <div class="box-messages">
+            <a id="popup-btn-messages" class="btn btn-light"><i class="fas fa-times"></i></a>
+			<div class="lead">Quiz instractions</div>
+			<div class="alert alert-warning">
+				<p>
+					You can't go back to the previous question after you submit it, 
+					so double check your answer before proceeding to the next one!
+				</p>
+			</div>
+			<button id="popup-btn-messages" type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
+        </div>
+	</div>
+	{% endif %}
+
+	{% if progress %}
+	<div class="info-text bg-danger" style="float: right;">
+	{% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
+	</div>
+	{% endif %}
+
+	<p>
+		<small class="muted">{% trans "Quiz category" %}:</small>
+		<strong>{{ quiz.category }}</strong>
+	</p>
+
+	<div class="card">
+		<div class="card-title lead bg-light p-2">{{ question.content }}</div>
+
+		{% if question.figure %}
+		<div class="col-md-8 mx-auto">
+			<img class="q-img" src="{{ question.figure.url }}" alt="{{ question.content }}" style="max-width: 100%;"/>
+		</div>
+		{% endif %}
+		<div class="card-subtitle p-4">
+			<form action="" method="POST">{% csrf_token %}
+				<input type=hidden name="question_id" value="{{ question.id }}">
+
+				<ul class="list-group">
+
+					{% for answer in form.answers %}
+					<li class="list-group-item">
+						{{ answer }}
+					</li>
+					{% endfor %}
+
+				</ul>
+				<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-primary" >
+				<!-- <input type="submit" value={% trans "Previous" %} class="btn btn-large btn-block btn-outline-primary" > -->
+			</form>
+		</div>
+
+		{% endif %}
+	</div>
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+const popupMessagesButtons = document.querySelectorAll('#popup-btn-messages');
+
+for (const button of popupMessagesButtons) {
+    button.addEventListener('click', () => {
+        document.getElementById('popup-box-messages').style.display = 'none';
+    })
+} 
+
+</script>
+{% endblock js %}
