@@ -247,22 +247,16 @@
 	<div class="col-md-6 p-2">
 		<div class="chart-wrap">
 			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart"></canvas>
+			<canvas id="traffic"></canvas>
 		</div>
 	</div>
 	<div class="col-md-6 p-2">
 		<div class="chart-wrap">
 			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart2"></canvas>
+			<canvas id="enrollement"></canvas>
 		</div>
 	</div>
 	<div class="col-md-6 p-2">
-		<div class="chart-wrap">
-			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart3"></canvas>
-		</div>
-	</div>
-	<div class="col-md-6 px-3">
 		<div class="row">
 			<div class="col-md-6 p-2">
 				<div class="card p-3 activities">
@@ -281,7 +275,7 @@
 			</div>
 			<div class="col-md-6 p-2">
 				<div class="card p-3 activities">
-					<h5>Overall recent activities</h5>
+					<h5>Overall activities</h5>
 					<ul class="small">
 						<li>Created a survey of something</li>
 						<li>Added new admin user</li>
@@ -296,65 +290,34 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6 p-2">
+		<div class="chart-wrap">
+			<i class="fas fa-expand-alt"></i>
+			<canvas id="students_grade"></canvas>
+		</div>
+	</div>
 	<div class="col-md-4 p-2">
 		<div class="chart-wrap">
 			<i class="fas fa-expand-alt"></i>
 			<canvas id="attendance"></canvas>
 		</div>
 	</div>
-	<div class="col-md-4 p-2">
-		<div class="chart-wrap">
+</div>
+<br>
+<div class="bg-white p-3">
+	<h5>School Demographics</h5>
+	<div class="row">
+		<div class="col-md-4">
 			<i class="fas fa-expand-alt"></i>
-			<canvas id="quiz_status"></canvas>
+			<canvas id="gender"></canvas>
 		</div>
-	</div>
-	<div class="col-md-4 p-2">
-		<div class="chart-wrap">
+		<div class="col-md-4">
 			<i class="fas fa-expand-alt"></i>
-			<canvas id="other1"></canvas>
+			<canvas id="ethnicity"></canvas>
 		</div>
-	</div>
-	<div class="col-md-6">
-		<h5>Event Calender</h5>
-	</div>
-	<div class="col-md-6 p-2">
-		<h5>School Demographics</h5>
-		<div class="row">
-			<div class="col-md-6">
-				<i class="fas fa-expand-alt"></i>
-				<canvas id="gender"></canvas>
-			</div>
-			<div class="col-md-6">
-				<i class="fas fa-expand-alt"></i>
-				<canvas id="ethnicity"></canvas>
-			</div>
-			<div class="col-md-6">
-				<i class="fas fa-expand-alt"></i>
-				<canvas id="language"></canvas>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6 p-2">
-		<div class="chart-wrap">
+		<div class="col-md-4">
 			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart7"></canvas>
-		</div>
-	</div>
-	<div class="col-md-6 p-2">
-		<div class="chart-wrap">
-			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart8"></canvas>
-		</div>
-	</div>
-	<!-- <div class="col-md-6 p-2">
-		<div class="chart-wrap">
-		<i class="fas fa-expand-alt"></i>
-		<canvas id="myChart9"></canvas></div>
-	</div> -->
-	<div class="col-md-6 p-2">
-		<div class="chart-wrap">
-			<i class="fas fa-expand-alt"></i>
-			<canvas id="myChart9"></canvas>
+			<canvas id="language"></canvas>
 		</div>
 	</div>
 </div>
@@ -406,8 +369,8 @@
 			}]
 		};
 
-		var myChart = document.getElementById('myChart');
-		var chart = new Chart(myChart, {
+		var traffic = document.getElementById('traffic');
+		var chart = new Chart(traffic, {
 			type: 'line',
 			data: data,
 			options: {
@@ -465,8 +428,8 @@
 			}]
 		};
 
-		var myChart2 = document.getElementById('myChart2');
-		var chart = new Chart(myChart2, {
+		var enrollement = document.getElementById('enrollement');
+		var chart = new Chart(enrollement, {
 			type: 'bar',
 			data: dataEnrollment,
 			options: {
@@ -479,20 +442,7 @@
 				}
 			}
 		});
-		var myChart3 = document.getElementById('myChart3');
-		var chart = new Chart(myChart3, {
-			type: 'radar',
-			data: data,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Custom Chart Title',
-						padding: 20
-					}
-				}
-			}
-		});
+
 		var attendance = document.getElementById('attendance');
 		var chart = new Chart(attendance, {
 			type: 'doughnut',
@@ -507,34 +457,74 @@
 				}
 			}
 		});
-		var quiz_status = document.getElementById('quiz_status');
-		var chart = new Chart(quiz_status, {
-			type: 'pie',
-			data: data,
+
+		// Average grade setup
+		const labelsGrade = [
+			'2017',
+			'2018',
+			'2019',
+			'2020',
+			'2022',
+		];
+		const dataGrade = {
+			labels: labelsGrade,
+			datasets: [{
+				label: 1,
+				backgroundColor: 'rgba(86, 224, 224, 0.5)',
+				borderColor: 'rgb(86, 224, 224)',
+				hoverBorderWidth: 3,
+				data: [0, 10, 5, 2, 20, 30, 45]
+			}, {
+				label: 2,
+				backgroundColor: 'rgba(253, 174, 28, 0.5)',
+				borderColor: 'rgb(253, 174, 28)',
+				hoverBorderWidth: 3,
+				data: [20, 0, 15, 4, 6, 4, 60],
+			}, {
+				label: 3,
+				backgroundColor: 'rgba(203, 31, 255, 0.5)',
+				borderColor: 'rgb(203, 31, 255)',
+				hoverBorderWidth: 3,
+				data: [85, 30, 34, 20, 20, 55, 45],
+			}, {
+				label: 4,
+				backgroundColor: 'rgba(255, 19, 157, 0.5)',
+				borderColor: 'rgb(255, 19, 157)',
+				hoverBorderWidth: 3,
+				data: [45, 75, 70, 80, 20, 30, 90],
+			}]
+		};
+		
+		var students_grade = document.getElementById('students_grade');
+		var chart = new Chart(students_grade, {
+			type: 'bar',
+			data: dataGrade,
 			options: {
 				plugins: {
 					title: {
 						display: true,
-						text: 'Students Online Quiz Status',
+						text: 'Students average grade (performance)',
 						padding: 20
 					}
 				}
 			}
 		});
-		var other1 = document.getElementById('other1');
-		var chart = new Chart(other1, {
-			type: 'pie',
-			data: data,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Students Online Quiz Status',
-						padding: 20
-					}
-				}
-			}
-		});
+
+
+		// var students_grade = document.getElementById('students_grade');
+		// var chart = new Chart(students_grade, {
+		// 	type: 'pie',
+		// 	data: data,
+		// 	options: {
+		// 		plugins: {
+		// 			title: {
+		// 				display: true,
+		// 				text: 'Students average grade',
+		// 				padding: 20
+		// 			}
+		// 		}
+		// 	}
+		// });
 
 		const dataGender = {
 			labels: ['Man', 'Women'],
@@ -591,119 +581,6 @@
 						display: true,
 						text: 'Home Language',
 						padding: 20
-					}
-				}
-			}
-		});
-
-		const dataBubble = {
-			datasets: [{
-				label: 'First Dataset',
-				data: [{
-					x: 20,
-					y: 30,
-					r: 15
-				}, {
-					x: 40,
-					y: 10,
-					r: 10
-				}],
-				backgroundColor: 'rgb(255, 99, 132)'
-			}]
-		};
-		var myChart7 = document.getElementById('myChart7');
-		var chart = new Chart(myChart7, {
-			type: 'bubble',
-			data: dataBubble,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Custom Chart Title',
-						padding: 20
-					}
-				}
-			}
-		});
-
-		const dataScatter = {
-			datasets: [{
-				label: 'Scatter Dataset',
-				data: [{
-					x: -10,
-					y: 0
-				}, {
-					x: 0,
-					y: 10
-				}, {
-					x: 10,
-					y: 5
-				}, {
-					x: 0.5,
-					y: 5.5
-				}],
-				backgroundColor: 'rgb(255, 99, 132)'
-			}],
-		};
-
-		var myChart8 = document.getElementById('myChart8');
-		var chart = new Chart(myChart8, {
-			type: 'scatter',
-			data: dataScatter,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Custom Chart Title',
-						padding: 20
-					}
-				},
-				scales: {
-					x: {
-						type: 'linear',
-						position: 'bottom'
-					}
-				}
-			}
-		});
-
-		const dataMixed = {
-			labels: [
-				'January',
-				'February',
-				'March',
-				'April'
-			],
-			datasets: [{
-				type: 'bar',
-				label: 'Bar Dataset',
-				data: [10, 20, 30, 40],
-				borderColor: 'rgb(255, 99, 132)',
-				backgroundColor: 'rgba(255, 99, 132, 0.2)'
-			}, {
-				type: 'line',
-				label: 'Line Dataset',
-				data: [50, 50, 50, 50],
-				fill: false,
-				borderColor: 'rgb(54, 162, 235)'
-			}]
-		};
-
-		var myChart9 = document.getElementById('myChart9');
-		var chart = new Chart(myChart9, {
-			type: 'mixed',
-			data: dataMixed,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Custom Chart Title',
-						padding: 20
-					}
-				},
-				scales: {
-					y: {
-						beginAtZero: true
 					}
 				}
 			}

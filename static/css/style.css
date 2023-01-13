@@ -976,9 +976,8 @@ hr {
 }
 
 #side-nav ul li.active a {
-  background: rgba(0, 111, 255, 0.05);
-  color: #006fff;
-  text-shadow: 0 0 30px #006fff;
+  background: #006fff;
+  color: #fff;
 }
 
 #side-nav.toggle-active {

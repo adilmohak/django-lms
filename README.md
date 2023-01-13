@@ -1,7 +1,10 @@
-# Advanced student management and e-learning system
-My portfolio website -> https://ezop.herokuapp.com
+# Learning management system
 
-I build this student management and e-learning system using django and Bootstrap for the front-end. You can watch the video on YouTube to find out how the app works in real time https://youtu.be/ytP-k95F0ug
+### I would love to see you contributing :)
+
+Feel free to contribute!!
+
+Learning management system using django and Bootstrap. You can watch the video on YouTube to find out how the app works in real time https://youtu.be/ytP-k95F0ug
 
 For the quiz part, I used this repo as a reference -> https://github.com/tomwalker/django_quiz
 
@@ -16,14 +19,12 @@ Current features
 * The admin can Add Lecturers
 * Students can Add and Drop courses
 * Lecturers submit students score (Attendance, Mid exam, Final exam, assignment)
-* The system calculates the Total, Avarage, point, and grade of each student then save it
+* The system calculat students Total, Avarage, point, and grade automaticaly
 * Also, the system tells the student whether he/she pass, fail or pass with a warning
 * Assessment result
 * Grade result
-* Documentations
-* Video Tutorials
-* PDF generator for students registration slip
-* PDF generator for students result
+* Upload video and documentations for each course
+* PDF generator for students registration slip and grade result
 * Storing of quiz results under each user
 * Question order randomisation
 * Previous quiz scores can be viewed on category page
@@ -41,8 +42,6 @@ Current features
 * Custom permission (view_sittings) added, allowing users with that permission to view quiz results from users
 * A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
 
-* Another cool feature of the app is, unnecessary files are removed automatically for memory efficiency
-
 ![Screenshot (124)](https://user-images.githubusercontent.com/60693922/112449252-3f1c5700-8d64-11eb-8549-bfe52122adf3.png)
 
 ![Screenshot (118)](https://user-images.githubusercontent.com/60693922/112449489-7d197b00-8d64-11eb-9ed2-ed7dcd2fe89d.png)
@@ -57,12 +56,14 @@ After the student finished the quiz, here is how the result display
 
 # Installation
 
-First Clone the repo with `git clone https://github.com/adilmohak/django_sms_and_e-learning.git`
+First Clone the repo with `git clone https://github.com/adilmohak/django_lms.git`
 
 Run the following commands
 `pip install -r requirements.txt`
 `python manage.py runserver`
 
 Finally go to this address http://127.0.0.1:8000
+
+### Give it a star
 
 # Thank You!!

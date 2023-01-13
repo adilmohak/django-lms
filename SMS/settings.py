@@ -103,7 +103,9 @@ ASGI_APPLICATION = "SMS.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# -----------------------------
 # Uncomment this if you want to use sqlite db
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -116,10 +118,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': '[db_name]',
-        'USER': '[db_user]',
-        'PASSWORD': '[user_password]',
+        'USER': '[username]',
+        'PASSWORD': '[password]',
         'HOST': 'localhost',
-        'PORT': '',
+        'POST': '',
     }
 }
 

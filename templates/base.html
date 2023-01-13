@@ -61,39 +61,3 @@
 </body>
 
 </html>
-
-<!-- {% if request.user.is_superuser %}
-    <a href="{% url 'admin_panel' %}" class="text-orange"><i class="fas fa-user-tie"></i> Admin Panel</a>
-{% endif %} -->
-
-<!-- <div class="drop-down" id="drop-down">
-    
-    <a href="#">
-        <img class="profile-pic" src="{{ request.user.picture.url }}">
-        {{ request.user.get_full_name|truncatechars:15 }}<i class="fas fa-angle-down ml-2"></i>
-    </a>
-    
-    <div class="content" id="content">
-        <p class="container text-muted-xs text-center"> Last login: {{ request.user.last_login|date }}</p>
-        <div class="content-a">
-
-            {% if request.user.is_lecturer or request.user.is_student %}
-            <a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>My Courses</a>
-            {% endif %}
-
-            {% if request.user.is_superuser %}
-            <a href="{% url 'admin_panel' %}"><i class="fas fa-user-tie"></i>Admin Panel</a>
-            {% endif %}
-
-            <a href="{% url 'profile' %}"><i class="fas fa-user"></i>Profile</a>
-
-            <a href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>Setting</a>
-            
-        </div><hr>
-        <div class="sign-out">
-            <a href="{% url 'logout' %}" class="btn btn-light">
-                <i class="fas fa-sign-out-alt"></i>Signout
-            </a>
-        </div>
-    </div>
-</div> -->
