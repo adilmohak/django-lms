@@ -52,7 +52,7 @@ Then open your `settings.py` file and setup your database (name, username, passw
 
 `python manage.py runserver`
 
-Finally go to this address http://127.0.0.1:8000
+Last but not least, go to this address http://127.0.0.1:8000
 
 ### Don't forget to give it a star ✨✨
 # Thank You!!
