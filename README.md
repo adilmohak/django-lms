@@ -1,12 +1,7 @@
-# Learning management system
+# Learning management system using Django and Bootstrap
 
-### I would love to see you contribute 👩‍💻👩‍💻 Feel free to contribute!!
-
-Learning management system using Django and Bootstrap. 
-
-Watch the demo video to find out how the app works https://youtu.be/KKIeRXwZ-Sw
-
-For the quiz part, I used this repo as a reference -> https://github.com/tomwalker/django_quiz
+### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute :)
+### Demo video: https://youtu.be/KKIeRXwZ-Sw
 
 ![dj-lms-dashboard](https://user-images.githubusercontent.com/60693922/212262964-5b5f2cb9-59b6-4be8-bf29-63a5265a7a9e.png)
 
@@ -53,6 +48,9 @@ Then open your `settings.py` file and setup your database (name, username, passw
 `python manage.py runserver`
 
 Last but not least, go to this address http://127.0.0.1:8000
+
+### References
+- Quiz part: https://github.com/tomwalker/django_quiz
 
 # Connect with me
 
