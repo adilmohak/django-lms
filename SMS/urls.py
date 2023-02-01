@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.conf.urls import url
 from django.urls import path, include
 from django.conf.urls import handler404, handler500, handler400
 from django.conf import settings
@@ -7,18 +6,18 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^', include('app.urls')),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^programs/', include('course.urls')),
-    url(r'^result/', include('result.urls')),
-    url(r'^search/', include('search.urls')),
-    url(r'^quiz/', include('quiz.urls')),
+    path('', include('app.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('programs/', include('course.urls')),
+    path('result/', include('result.urls')),
+    path('search/', include('search.urls')),
+    path('quiz/', include('quiz.urls')),
 
-    url(r'^payments/', include('payments.urls')),
+    path('payments/', include('payments.urls')),
 
-    url('accounts/api/', include('accounts.api.urls', namespace='accounts-api')),
+    path('accounts/api/', include('accounts.api.urls', namespace='accounts-api')),
 
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
