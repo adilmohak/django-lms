@@ -37,15 +37,19 @@ Current features
 
 # Installation
 
-First Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
+- First Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
 
-Run the following command inside the root directory
+- Create and activate a python virtual environment
 
-`pip install -r requirements.txt`
+- `pip install -r requirements.txt`
 
-Then open your `settings.py` file and setup your database (name, username, password)
+- Create `.env` file inside the root directory and setup your database (DB_NAME, DB_USER, DB_PASSWORD, DB_PORT)
 
-`python manage.py runserver`
+- `python manage.py makemigrations`
+
+- `python manage.py migrate`
+
+- `python manage.py runserver`
 
 Last but not least, go to this address http://127.0.0.1:8000
 
