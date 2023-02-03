@@ -1,6 +1,6 @@
 # Learning management system using Django and Bootstrap
 
-### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute :)
+### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute and get awesome GitHub achievements :)
 ### Demo video: https://youtu.be/KKIeRXwZ-Sw
 ### Setup video: https://youtu.be/gMJfENDEyUs
 
