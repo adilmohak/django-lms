@@ -2,6 +2,7 @@
 
 ### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute :)
 ### Demo video: https://youtu.be/KKIeRXwZ-Sw
+### Setup video: https://youtu.be/gMJfENDEyUs
 
 ![dj-lms-dashboard](https://user-images.githubusercontent.com/60693922/212262964-5b5f2cb9-59b6-4be8-bf29-63a5265a7a9e.png)
 
@@ -43,7 +44,7 @@ Current features
 
 - `pip install -r requirements.txt`
 
-- Create `.env` file inside the root directory and setup your database (DB_NAME, DB_USER, DB_PASSWORD, DB_PORT)
+- Create `.env` file inside the root directory and setup your database (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
 
 - `python manage.py makemigrations`
 
