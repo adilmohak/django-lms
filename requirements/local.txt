@@ -1,0 +1,36 @@
+-r base.txt
+
+Werkzeug[watchdog]==2.2.2 # https://github.com/pallets/werkzeug
+ipdb==0.13.11  # https://github.com/gotcha/ipdb
+psycopg2-binary==2.9.5  # https://github.com/psycopg/psycopg2
+
+# Testing
+# ------------------------------------------------------------------------------
+mypy==0.982  # https://github.com/python/mypy
+django-stubs==1.13.1  # https://github.com/typeddjango/django-stubs
+pytest==7.2.0  # https://github.com/pytest-dev/pytest
+pytest-sugar==0.9.6  # https://github.com/Frozenball/pytest-sugar
+djangorestframework-stubs==1.8.0  # https://github.com/typeddjango/djangorestframework-stubs
+
+# Documentation
+# ------------------------------------------------------------------------------
+sphinx==5.3.0  # https://github.com/sphinx-doc/sphinx
+sphinx-autobuild==2021.3.14 # https://github.com/GaretJax/sphinx-autobuild
+
+# Code quality
+# ------------------------------------------------------------------------------
+flake8==6.0.0  # https://github.com/PyCQA/flake8
+flake8-isort==5.0.3  # https://github.com/gforcada/flake8-isort
+coverage==7.0.0  # https://github.com/nedbat/coveragepy
+black==22.12.0  # https://github.com/psf/black
+pylint-django==2.5.3  # https://github.com/PyCQA/pylint-django
+pre-commit==2.20.0  # https://github.com/pre-commit/pre-commit
+
+# Django
+# ------------------------------------------------------------------------------
+factory-boy==3.2.1  # https://github.com/FactoryBoy/factory_boy
+
+django-debug-toolbar==3.8.1  # https://github.com/jazzband/django-debug-toolbar
+django-extensions==3.2.1  # https://github.com/django-extensions/django-extensions
+django-coverage-plugin==3.0.0  # https://github.com/nedbat/django_coverage_plugin
+pytest-django==4.5.2  # https://github.com/pytest-dev/pytest-django
