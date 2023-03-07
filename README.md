@@ -74,5 +74,4 @@ Last but not least, go to this address http://127.0.0.1:8000
 </a>
 </div>
 
-
-# Support me with your mighty star ✨🤩
+# Useful? Give that star ⭐️ a click! 😊
