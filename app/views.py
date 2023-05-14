@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from accounts.decorators import lecturer_required
+from accounts.decorators import admin_required, lecturer_required
 from .forms import SessionForm, SemesterForm, NewsAndEventsForm
 from .models import *
 
@@ -284,6 +284,7 @@ def semester_delete_view(request, pk):
 
 #     return response
 
-
+@login_required
+@admin_required
 def dashboard_view(request):
     return render(request, 'app/dashboard.html')
