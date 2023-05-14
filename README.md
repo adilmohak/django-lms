@@ -1,7 +1,8 @@
 # Learning management system using Django and Bootstrap
 
-### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute :)
+### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute and get awesome GitHub achievements :)
 ### Demo video: https://youtu.be/KKIeRXwZ-Sw
+### Setup video: https://youtu.be/gMJfENDEyUs
 
 ![dj-lms-dashboard](https://user-images.githubusercontent.com/60693922/212262964-5b5f2cb9-59b6-4be8-bf29-63a5265a7a9e.png)
 
@@ -37,15 +38,19 @@ Current features
 
 # Installation
 
-First Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
+- First Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
 
-Run the following command inside the root directory
+- Create and activate a python virtual environment
 
-`pip install -r requirements.txt`
+- `pip install -r requirements.txt`
 
-Then open your `settings.py` file and setup your database (name, username, password)
+- Create `.env` file inside the root directory and setup your database (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
 
-`python manage.py runserver`
+- `python manage.py makemigrations`
+
+- `python manage.py migrate`
+
+- `python manage.py runserver`
 
 Last but not least, go to this address http://127.0.0.1:8000
 
@@ -69,5 +74,4 @@ Last but not least, go to this address http://127.0.0.1:8000
 </a>
 </div>
 
-
-# Support me with your mighty star ✨🤩
+# Useful? Give that star ⭐️ a click! 😊
