@@ -7,7 +7,7 @@
 	}
 </style>
 
-<div id="side-nav" draggable="true" dropzone="">
+<div id="side-nav">
 	<div class="main-menu">
 		<div class="top-side text-center py-4" style="background-image: url({% static 'img/dotted.jpg' %});">
 			<div class="desktop-hide">
@@ -15,13 +15,12 @@
 					<i class="fas fa-times"></i>
 				</div>
 			</div>
-			<!-- <h1 style="font-weight: 1000; font-size: 40px;">
-				<span class="text-warning">Dj</span> LMS
-			</h1> -->
-			<img src="{% static 'img/logo.png' %}" width="200px" alt="Logo Django LMS">
+			<img src="{% static 'img/logo.png' %}" width="150px" alt="Logo Django LMS">
 			<p class="text-orange">
-				<i class="far fa-hand-point-right"></i>
-				{{ request.user.get_user_role }}
+				<mark>
+					<i class="far fa-hand-point-right"></i>
+					{{ request.user.get_user_role }}
+				</mark>
 			</p>
 		</div>
 		{% url 'home' as hom %} {% url 'dashboard' as dash %} {% url 'profile' as prof %}
@@ -114,28 +113,21 @@
 			<li class="{% if request.path == cp %}active{% endif %}">
 				<a href="{% url 'change_password' %}"><i class="fas fa-key"></i>Change Password</a>
 			</li>
-			<!-- <div class="navbar">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"><i class="fas fa-cogs"></i>Account Setting</a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                        <a href="#"><i class="fas fa-pencil-alt"></i> Edit</a>
-                        <a href="#"><i class="fas fa-trash-alt"></i> Delete</a>
-                    </div>
-                </li>
-            </div> -->
 		</ul>
 	</div>
 
-	<footer class="card-footer mt-5 py-3 px-2">
+	<footer class="card-footer mt-5 pt-3 pb-5 px-2">
 		<div class="col-12">
-			<p class="small">
-				Read our <a href="#"> Privacy </a> · <a href="#"> Terms. </a>
-				CodeAdil Admin &copy;
-				<script>document.write(new Date().getFullYear());</script>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit.
+			<p class="small m-0">
+				Read our <a href="#"> Privacy </a> and <a href="#"> Terms of use. </a>
+				<br />Django LMS &copy; <script>document.write(new Date().getFullYear());</script>
+				<br />
 			</p>
-			<a href="https://adilmohak.github.io/adil" class="btn btn-sm btn-primary mx-auto" target="_blank">
-				CodeAdil
+			<p>
+				<a href="https://adilmohak.github.io/adil/" target="_blank">By Adil Mohammed</a>
+			</p>
+			<a href="https://github.com/adilmohak/django-lms" class="btn btn-sm btn-dark mx-auto" target="_blank">
+				⭐️ Star on GitHub
 			</a>
 		</div>
 	</footer>
