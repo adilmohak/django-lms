@@ -21,6 +21,8 @@ TODO:
 				- How many students enroll each course
 			- Website traffic over a specific user type (Admin, Student, Lecturer, etc.)
 	- Admin Panel:
-			- Implement course add and drop calendar switching: If it is on, then students can able to add or drop courses.
-	- Apply Filtering and exporting for all tables.
-			- Consider using jQuery libraries
+		- Restrict course add and drop by date range (start and end date)
+	- Apply Filtering for all tables.
+		- This can be done using `django-filter` and other jQuery libraries
+	- Apply data exporting for all tables
+		- This can be done only using jQuery libraries
