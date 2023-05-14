@@ -1,26 +1,18 @@
-
-from django.shortcuts import render
-from django.conf import settings
-
-
-from django.http import JsonResponse
-from .models import Invoice
-
 import stripe
 import uuid
 import json
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-# stripe.ApplePayDomain.create(
-#   domain_name='example.com',
-# )
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.conf import settings
+from django.shortcuts import redirect
+from django.views.generic.base import TemplateView
 
-# def payment_gateways(request):
-# 	print(settings.STRIPE_PUBLISHABLE_KEY)
-# 	context = {
-# 		'key': settings.STRIPE_PUBLISHABLE_KEY
-# 	}
-# 	return render(request, 'payments/payment_gateways.html', context)
+from django.http import JsonResponse
+
+import gopay
+from gopay.enums import Recurrence, PaymentInstrument, BankSwiftCode, Currency, Language
+from .models import Invoice
 
 
 def payment_paypal(request):
@@ -43,26 +35,10 @@ def payment_succeed(request):
 	return render(request, 'payments/payment_succeed.html', context={})
 
 
-# def charge(request):
-# 	if request.method == 'POST':
-# 		charge = stripe.Charge.create(
-# 			amount=500,
-# 			currency='eur',
-# 			description='Payment GetWays',
-# 			source=request.POST['stripeToken']
-# 		)
-# 		return render(request, 'payments/charge.html')
-
-
-
-
-from django.shortcuts import redirect
-from django.views.generic.base import TemplateView
-
 class PaymentGetwaysView(TemplateView):
     template_name = 'payments/payment_gateways.html'
 
-    def get_context_data(self, **kwargs): # new
+    def get_context_data(self, **kwargs):
         context = super(PaymentGetwaysView, self).get_context_data(**kwargs)
         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
         context['amount'] = 500
@@ -72,8 +48,9 @@ class PaymentGetwaysView(TemplateView):
         return context
 
 
+def stripe_charge(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
-def charge(request): # new
     if request.method == 'POST':
         charge = stripe.Charge.create(
             amount=500,
@@ -90,87 +67,14 @@ def charge(request): # new
         # return render(request, 'payments/charge.html')
 
 
-def create_invoice(request):
-    print(request.is_ajax())
-    if request.method == 'POST':
-        invoice = Invoice.objects.create(
-            user = request.user,
-            amount = request.POST.get('amount'),
-            total=26,
-            invoice_code=str(uuid.uuid4()),
-        )
-        request.session['invoice_session'] = invoice.invoice_code
-        return redirect('payment_gateways')
-    # if request.is_ajax():
-    #     invoice = Invoice.objects.create(
-    #         user = request.user,
-    #         amount = 15,
-    #         total=26,
-    #     )
-    #     return JsonResponse({'invoice': invoice}, status=201) # created
-
-    return render(request, 'invoices.html', context={
-        'invoices': Invoice.objects.filter(user=request.user)
-    })
-
-
-def invoice_detail(request, slug):
-    return render(request, 'invoice_detail.html', context={
-        'invoice': Invoice.objects.get(invoice_code=slug)
-    })
-
-
-def paymentComplete(request):
-    print(request.is_ajax())
-    if request.is_ajax() or request.method == 'POST':
-        invoice_id = request.session['invoice_session']
-        invoice = Invoice.objects.get(id=invoice_id)
-        invoice.payment_complete = True
-        invoice.save()
-        # return redirect('invoice', invoice.invoice_code)
-    body = json.loads(request.body)
-    print('BODY:', body)
-    return JsonResponse('Payment completed!', safe=False)
-
-
-from django.http import JsonResponse
-
-import gopay
-from gopay.enums import Recurrence, PaymentInstrument, BankSwiftCode, Currency, Language
-
-
-def gopay_payment(request):
-    print("\nrequest \n", request.method)
-    # api = gopay.payments({
-    #     'goid': '8302931681',
-    #     'clientId': '1061399163',
-    #     'clientSecret': 'stDTmVXF',
-    #     'isProductionMode': False,
-    #     'scope': gopay.TokenScope.ALL,
-    #     'language': gopay.Language.ENGLISH,
-    #     'timeout': 30
-    # })
-    # # token is retrieved automatically, you don't have to call some method `get_token`
-
-    # response = api.get_status('3000006542')
-    # if response.has_succeed():
-    #     print("hooray, API returned " + str(response))
-    # else:
-    #     print("oops, API returned " + str(response.status_code) + ": " + str(response))
-
-    # payments = gopay.payments({
-    #     'goid': 'my goid',
-    #     'clientId': 'my id',
-    #     'clientSecret': 'my secret',
-    #     'isProductionMode': False
-    # })
+def gopay_charge(request):
     if request.method == 'POST':
         user = request.user
 
         payments = gopay.payments({
-            'goid': '8302931681',
-            'clientId': '1061399163',
-            'clientSecret': 'stDTmVXF',
+            'goid': '[PAYMENT_ID]',
+            'clientId': '[GOPAY_CLIENT_ID]',
+            'clientSecret': '[GOPAY_CLIENT_SECRET]',
             'isProductionMode': False,
             'scope': gopay.TokenScope.ALL,
             'language': gopay.Language.ENGLISH,
@@ -207,16 +111,6 @@ def gopay_payment(request):
                     'postal_code': '373 01',
                     'country_code': 'CZE',
                 },
-                # 'contact': {
-                #     'first_name': 'Zbynek',
-                #     'last_name': 'Zak',
-                #     'email': 'zbynek.zak@gopay.cz',
-                #     'phone_number': '+420777456123',
-                #     'city': 'C.Budejovice',
-                #     'street': 'Plana 67',
-                #     'postal_code': '373 01',
-                #     'country_code': 'CZE',
-                # },
             },
             'amount': 150,
             'currency': Currency.CZECH_CROWNS,
@@ -245,3 +139,46 @@ def gopay_payment(request):
         return JsonResponse({"message": str(response)})
             
     return JsonResponse({"message": "GET requested"})
+
+
+def paymentComplete(request):
+    print(request.is_ajax())
+    if request.is_ajax() or request.method == 'POST':
+        invoice_id = request.session['invoice_session']
+        invoice = Invoice.objects.get(id=invoice_id)
+        invoice.payment_complete = True
+        invoice.save()
+        # return redirect('invoice', invoice.invoice_code)
+    body = json.loads(request.body)
+    print('BODY:', body)
+    return JsonResponse('Payment completed!', safe=False)
+
+
+def create_invoice(request):
+    print(request.is_ajax())
+    if request.method == 'POST':
+        invoice = Invoice.objects.create(
+            user = request.user,
+            amount = request.POST.get('amount'),
+            total=26,
+            invoice_code=str(uuid.uuid4()),
+        )
+        request.session['invoice_session'] = invoice.invoice_code
+        return redirect('payment_gateways')
+    # if request.is_ajax():
+    #     invoice = Invoice.objects.create(
+    #         user = request.user,
+    #         amount = 15,
+    #         total=26,
+    #     )
+    #     return JsonResponse({'invoice': invoice}, status=201) # created
+
+    return render(request, 'invoices.html', context={
+        'invoices': Invoice.objects.filter(user=request.user)
+    })
+
+
+def invoice_detail(request, slug):
+    return render(request, 'invoice_detail.html', context={
+        'invoice': Invoice.objects.get(invoice_code=slug)
+    })

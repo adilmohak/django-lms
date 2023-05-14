@@ -17,7 +17,6 @@ from .forms import (
     EditCourseAllocationForm, UploadFormFile, UploadFormVideo
 )
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
-from coursemanagement.models import CourseSetting
 
 
 # ########################################################

@@ -13,6 +13,15 @@
 # from flask import Flask, render_template, jsonify, request, send_from_directory
 # from dotenv import load_dotenv, find_dotenv
 
+# # Set your secret key. Remember to switch to your live secret key in production.
+# # See your keys here: https://dashboard.stripe.com/account/apikeys
+# stripe.api_key = "sk_test_51IcEVZHbzY4cUA9T3BZdDayN4gmbJyXuaLCzpLT15HZoOmC17G7CxeEdXeIHSWyhYfxpljsclzzjsFukYNqJTbrW00tv3qIbN2"
+
+# intent = stripe.PaymentIntent.create(
+#   amount=1099,
+#   currency='usd',
+# )
+
 # # Setup Stripe python client library
 # load_dotenv(find_dotenv())
 # stripe.api_key = os.getenv('STRIPE_SECRET_KEY')

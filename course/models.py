@@ -3,13 +3,11 @@ from django.urls import reverse
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db.models.signals import pre_save
-
 from django.db.models import Q
 
-from app.models import Session
+# project import
 from .utils import *
 
-User = settings.AUTH_USER_MODEL
 
 YEARS = (
         (1, '1'),
@@ -117,9 +115,9 @@ pre_save.connect(course_pre_save_receiver, sender=Course)
 
 
 class CourseAllocation(models.Model):
-    lecturer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='allocated_lecturer')
+    lecturer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='allocated_lecturer')
     courses = models.ManyToManyField(Course, related_name='allocated_course')
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, blank=True, null=True)
+    session = models.ForeignKey("app.Session", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.lecturer.get_full_name
@@ -182,3 +180,11 @@ def video_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(video_pre_save_receiver, sender=UploadVideo)
+
+
+class CourseOffer(models.Model):
+	"""NOTE: Only department head can offer semester courses"""
+	dep_head = models.ForeignKey("accounts.DepartmentHead", on_delete=models.CASCADE)
+
+	def __str__(self):
+		return "{}".format(self.dep_head)

@@ -131,6 +131,8 @@ dmypy.json
 # Custome 
 datadump.json
 local_note.txt
-
 docs/
-media/
+media/course_files/
+media/course_videos/
+media/profile_pictures/
+media/uploads/

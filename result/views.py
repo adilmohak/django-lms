@@ -12,8 +12,6 @@ from course.models import Course
 from accounts.decorators import lecturer_required, student_required
 from .models import TakenCourse, Result
 
-User = settings.AUTH_USER_MODEL
-
 #pdf
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, JsonResponse
@@ -24,12 +22,10 @@ from reportlab.lib.enums import TA_JUSTIFY,TA_LEFT,TA_CENTER,TA_RIGHT
 from reportlab.platypus.tables import Table
 from reportlab.lib.units import inch
 from reportlab.lib import colors
+from .models import *
+
 cm = 2.54
 
-from SMS.settings import MEDIA_ROOT, BASE_DIR, STATIC_URL
-import os
-
-from .models import *
 # ########################################################
 # Score Add & Add for
 # ########################################################
@@ -251,7 +247,9 @@ def result_sheet_pdf_view(request, id):
     # im_logo.__setattr__("_offs_y", -60)
     # Story.append(im_logo)
 
-    logo = settings.MEDIA_ROOT + "/logo/you-logo-here.png"
+    print("\nsettings.MEDIA_ROOT", settings.MEDIA_ROOT)
+    print("\nsettings.STATICFILES_DIRS[0]", settings.STATICFILES_DIRS[0])
+    logo = settings.STATICFILES_DIRS[0] + "/img/logo.png"
     im = Image(logo, 1*inch, 1*inch)
     im.__setattr__("_offs_x", -200)
     im.__setattr__("_offs_y", -45)
@@ -550,13 +548,13 @@ def course_registration_form(request):
 
     # FIRST SEMESTER ENDS HERE
 
-    logo = MEDIA_ROOT + "/logo/you-logo-here.png"
+    logo = settings.STATICFILES_DIRS[0] + "/img/logo.png"
     im_logo = Image(logo, 1*inch, 1*inch)
     im_logo.__setattr__("_offs_x", -218)
     im_logo.__setattr__("_offs_y", 480)
     Story.append(im_logo)
 
-    picture =  BASE_DIR + request.user.get_picture()
+    picture =  settings.BASE_DIR + request.user.get_picture()
     im = Image(picture, 1.0*inch, 1.0*inch)
     im.__setattr__("_offs_x", 218)
     im.__setattr__("_offs_y", 550)

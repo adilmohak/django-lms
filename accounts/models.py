@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
 
 from django.db.models import Q
@@ -9,7 +9,6 @@ from PIL import Image
 from course.models import Program
 from .validators import ASCIIUsernameValidator
 
-User = settings.AUTH_USER_MODEL
 
 # LEVEL_COURSE = "Level course"
 BACHLOAR_DEGREE = "Bachloar"
@@ -39,17 +38,17 @@ RELATION_SHIP  = (
     (OTHER, "Other"),
 )
 
-# class UserManager(models.Manager):
-#     def search(self, query=None):
-#         qs = self.get_queryset()
-#         if query is not None:
-#             or_lookup = (Q(username__icontains=query) | 
-#                          Q(first_name__icontains=query)| 
-#                          Q(last_name__icontains=query)| 
-#                          Q(email__icontains=query)
-#                         )
-#             qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
-#         return qs
+class UserManager(UserManager):
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (Q(username__icontains=query) | 
+                         Q(first_name__icontains=query)| 
+                         Q(last_name__icontains=query)| 
+                         Q(email__icontains=query)
+                        )
+            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+        return qs
 
 
 class User(AbstractUser):
@@ -64,7 +63,7 @@ class User(AbstractUser):
 
     username_validator = ASCIIUsernameValidator()
 
-    # objects = UserManager()
+    objects = UserManager()
 
     @property
     def get_full_name(self):

@@ -14,6 +14,7 @@ import os
 import posixpath
 import environ
 
+# Environment variables
 env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -35,7 +36,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,23 +47,25 @@ INSTALLED_APPS = [
 ]
 
 # Thired party apps
-INSTALLED_APPS += [
+THIRED_PARTY_APPS = [
     'crispy_forms',
     'rest_framework',
     'channels',
 ]
 
 # Custom apps
-INSTALLED_APPS += [
+PROJECT_APPS = [
     'app.apps.AppConfig',
     'accounts.apps.AccountsConfig',
-    'coursemanagement',
     'course.apps.CourseConfig',
     'result.apps.ResultConfig',
     'search.apps.SearchConfig',
     'quiz.apps.QuizConfig',
-    'payments',
+    'payments.apps.PaymentsConfig',
 ]
+
+# Combine all apps
+INSTALLED_APPS = DJANGO_APPS + THIRED_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,7 +116,8 @@ ASGI_APPLICATION = "SMS.asgi.application"
 # }
 
 # -----------------------------
-# Some model fields may not work on sqlite db, so configure your postgresql
+# NOTE: Some model fields may not work on sqlite db, 
+# so consider using postgresql instead
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -173,18 +177,23 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['staticfiles']))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# -----------------------------------
+# E-mail configuration
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' # Here i'm using gmail as the email host, but you can change it
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('USER_EMAIL')
-EMAIL_HOST_PASSWORD = os.environ.get('USER_PASSWORD')
+EMAIL_HOST_USER = env('USER_EMAIL')
+EMAIL_HOST_PASSWORD = env('USER_PASSWORD')
 
+# crispy config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+# DRF setup
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -195,6 +204,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+# Strip payment config
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')

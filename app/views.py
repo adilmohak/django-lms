@@ -1,19 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
-from django.views.generic import CreateView, ListView
-from django.core.paginator import Paginator
 from django.conf import settings
-from django.utils.decorators import method_decorator
 
-from accounts.decorators import lecturer_required, student_required
+from accounts.decorators import lecturer_required
 from .forms import SessionForm, SemesterForm, NewsAndEventsForm
 from .models import *
 
-User = settings.AUTH_USER_MODEL
 
 # ########################################################
 # News & Events

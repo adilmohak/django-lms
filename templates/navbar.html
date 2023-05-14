@@ -7,7 +7,7 @@
 			</div>
 
 			<form class="form-header" action="{% url 'query' %}" method="GET">
-				<input class="au-input au-input--xl" type="text" name="q" value="{{ request.GET.q }}"
+				<input id="primary-search" class="au-input au-input--xl" type="text" name="q" value="{{ request.GET.q }}"
 					placeholder="Search All... #course, #program, #Quiz, #News, #Events" required />
 				<button class="au-btn--submit" type="submit">
 					<i class="fas fa-search"></i>
@@ -18,9 +18,9 @@
 				<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					<img class="profile-pic" src="{{ request.user.picture.url }}">
-					{{ request.user.get_full_name|truncatechars:15 }}
+					<!-- {{ request.user.get_full_name|truncatechars:15 }} -->
 				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu" style="min-width: 14rem !important;" aria-labelledby="dropdownMenuButton">
 					<p class="container text-muted-xs text-center">
 						Last login: {{ request.user.last_login|date }}</p>
 

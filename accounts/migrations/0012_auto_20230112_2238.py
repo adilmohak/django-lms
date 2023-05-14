@@ -6,7 +6,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coursemanagement', '0002_coursesetting'),
         ('course', '0004_auto_20200822_2238'),
         ('accounts', '0011_auto_20210823_0825'),
     ]
