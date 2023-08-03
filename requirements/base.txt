@@ -21,3 +21,7 @@ djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.13.0 # https://github.com/adamchainz/django-cors-headers
 # DRF-spectacular for api documentation
 drf-spectacular==0.25.1  # https://github.com/tfranzel/drf-spectacular
+
+reportlab==4.0.4
+stripe==5.5.0
+gopay==2.0.1
