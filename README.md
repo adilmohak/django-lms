@@ -86,4 +86,4 @@ Last but not least, go to this address http://127.0.0.1:8000
 </a>
 </div>
 
-# Useful? Give that star ⭐️ a click! 😊
+### Show your support by ⭐️ this project!
