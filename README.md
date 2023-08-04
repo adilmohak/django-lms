@@ -1,4 +1,4 @@
-# Learning management system using Django and Bootstrap
+# Learning management system using django web framework
 
 ### I would love to see you contribute 👩‍💻👩‍💻, feel free to contribute and get awesome GitHub achievements :)
 ### Demo video: https://youtu.be/KKIeRXwZ-Sw
@@ -38,14 +38,13 @@ Current features
 
 # Installation
 
-- First Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
+- Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
 
 - Create and activate a python virtual environment
 
 - `pip install -r requirements.txt`
 
-- Create `.env` file inside the root directory and include config variables
-- NOTE: Your `.env` file should contain the following variables
+- Create `.env` file inside the root directory and include the following variables
 ```config
 DB_NAME=[YOUR_DB_NAME]
 DB_USER=[DB_ADMIN_NAME]
