@@ -36,6 +36,13 @@ Current features
 * Custom permission (view_sittings) added, allowing users with that permission to view quiz results from users
 * A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
 
+# Pre-requisites:
+
+> The following programs are required to run the project
+
+- [Any Python-3 version](https://www.python.org/downloads/)
+- [PostgreSQL database](https://www.postgresql.org/download/)
+
 # Installation
 
 - Clone the repo with `git clone https://github.com/adilmohak/django-lms.git`
