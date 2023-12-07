@@ -45,8 +45,8 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-# Thired party apps
-THIRED_PARTY_APPS = [
+# Third party apps
+THIRD_PARTY_APPS = [
     "crispy_forms",
     "rest_framework",
 ]
@@ -63,7 +63,7 @@ PROJECT_APPS = [
 ]
 
 # Combine all apps
-INSTALLED_APPS = DJANGO_APPS + THIRED_PARTY_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
