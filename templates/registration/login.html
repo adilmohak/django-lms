@@ -4,7 +4,10 @@
 {% block content %}
 
 <div id="login">
-  <div class="login-title blue-gradient"><i class="fas fa-lock"></i>Sign in</div>
+  <div class="login-title blue-gradient">
+    <i class="fas fa-lock"></i>
+    <span class="login-title-text">Sign in</span>
+  </div>
 
   <form action="" method="POST" id="login-form">{% csrf_token %}
     <div class="form-group px-3">
@@ -23,7 +26,10 @@
     <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small> SIGN IN</small></button>
   </form>
   <br>
-  <a href="{% url 'password_reset' %}" class="link">Forgot password ?</a>
+  <div class="login-bottom">
+    <a href="{% url 'password_reset' %}" class="link">Forgot password ?</a>
+    <a href="{% url 'register' %}" class="link">Don't have an account ?</a>
+  </div>
 </div>
 {% endblock content %}
 
