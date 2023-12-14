@@ -1840,6 +1840,16 @@ a {
   margin-right: 1rem;
 }
 
+#login .login-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 18px 0 18px;
+}
+
+#login .login-bottom > * {
+  margin: 0;
+}
+
 /* ################################################################################################# */
 .score-wrapper {
   position: relative;
