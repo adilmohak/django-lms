@@ -28,7 +28,7 @@ GRAND_MOTHER = "Grand mother"
 GRAND_FATHER = "Grand father"
 OTHER = "Other"
 
-RELATION_SHIP  = (
+RELATION_SHIP = (
     (FATHER, "Father"),
     (MOTHER, "Mother"),
     (BROTHER, "Brother"),
@@ -38,16 +38,20 @@ RELATION_SHIP  = (
     (OTHER, "Other"),
 )
 
+
 class UserManager(UserManager):
     def search(self, query=None):
         qs = self.get_queryset()
         if query is not None:
-            or_lookup = (Q(username__icontains=query) | 
-                         Q(first_name__icontains=query)| 
-                         Q(last_name__icontains=query)| 
-                         Q(email__icontains=query)
-                        )
-            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+            or_lookup = (
+                Q(username__icontains=query)
+                | Q(first_name__icontains=query)
+                | Q(last_name__icontains=query)
+                | Q(email__icontains=query)
+            )
+            qs = qs.filter(
+                or_lookup
+            ).distinct()  # distinct() is often necessary with Q lookups
         return qs
 
 
@@ -58,7 +62,9 @@ class User(AbstractUser):
     is_dep_head = models.BooleanField(default=False)
     phone = models.CharField(max_length=60, blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
-    picture = models.ImageField(upload_to='profile_pictures/%y/%m/%d/', default='default.png', null=True)
+    picture = models.ImageField(
+        upload_to="profile_pictures/%y/%m/%d/", default="default.png", null=True
+    )
     email = models.EmailField(blank=True, null=True)
 
     username_validator = ASCIIUsernameValidator()
@@ -73,7 +79,7 @@ class User(AbstractUser):
         return full_name
 
     def __str__(self):
-        return '{} ({})'.format(self.username, self.get_full_name)
+        return "{} ({})".format(self.username, self.get_full_name)
 
     @property
     def get_user_role(self):
@@ -90,11 +96,11 @@ class User(AbstractUser):
         try:
             return self.picture.url
         except:
-            no_picture = settings.MEDIA_URL + 'default.png'
+            no_picture = settings.MEDIA_URL + "default.png"
             return no_picture
 
     def get_absolute_url(self):
-        return reverse('profile_single', kwargs={'id': self.id})
+        return reverse("profile_single", kwargs={"id": self.id})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -108,7 +114,7 @@ class User(AbstractUser):
             pass
 
     def delete(self, *args, **kwargs):
-        if self.picture.url != settings.MEDIA_URL + 'default.png':
+        if self.picture.url != settings.MEDIA_URL + "default.png":
             self.picture.delete()
         super().delete(*args, **kwargs)
 
@@ -117,10 +123,10 @@ class StudentManager(models.Manager):
     def search(self, query=None):
         qs = self.get_queryset()
         if query is not None:
-            or_lookup = (Q(level__icontains=query) | 
-                         Q(department__icontains=query)
-                        )
-            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+            or_lookup = Q(level__icontains=query) | Q(department__icontains=query)
+            qs = qs.filter(
+                or_lookup
+            ).distinct()  # distinct() is often necessary with Q lookups
         return qs
 
 
@@ -136,7 +142,7 @@ class Student(models.Model):
         return self.student.get_full_name
 
     def get_absolute_url(self):
-        return reverse('profile_single', kwargs={'id': self.id})
+        return reverse("profile_single", kwargs={"id": self.id})
 
     def delete(self, *args, **kwargs):
         self.student.delete()
@@ -145,9 +151,10 @@ class Student(models.Model):
 
 class Parent(models.Model):
     """
-    Connect student with their parent, parents can 
+    Connect student with their parent, parents can
     only view their connected students information
     """
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student = models.OneToOneField(Student, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=120)

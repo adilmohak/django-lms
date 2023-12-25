@@ -6,13 +6,13 @@ from app.models import Session, Semester
 from course.models import Course
 
 YEARS = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (4, '5'),
-        (4, '6'),
-    )
+    (1, "1"),
+    (2, "2"),
+    (3, "3"),
+    (4, "4"),
+    (4, "5"),
+    (4, "6"),
+)
 
 # LEVEL_COURSE = "Level course"
 BACHLOAR_DEGREE = "Bachloar"
@@ -48,18 +48,18 @@ F = "F"
 NG = "NG"
 
 GRADE = (
-        (A_plus, "A+"),
-        (A, "A"),
-        (A_minus, "A-"),
-        (B_plus, "B+"),
-        (B, "B"),
-        (B_minus, "B-"),
-        (C_plus, "C+"),
-        (C, "C"),
-        (C_minus, "C-"),
-        (D, "D"),
-        (F, "F"),
-        (NG, "NG"),
+    (A_plus, "A+"),
+    (A, "A"),
+    (A_minus, "A-"),
+    (B_plus, "B+"),
+    (B, "B"),
+    (B_minus, "B-"),
+    (C_plus, "C+"),
+    (C, "C"),
+    (C_minus, "C-"),
+    (D, "D"),
+    (F, "F"),
+    (NG, "NG"),
 )
 
 PASS = "PASS"
@@ -84,7 +84,7 @@ class TakenCourseManager(models.Manager):
         else:
             cart_obj = Cart.objects.new(user=request.user)
             new_obj = True
-            request.session['cart_id'] = cart_obj.id
+            request.session["cart_id"] = cart_obj.id
         return cart_obj, new_obj
 
     def new(self, user=None):
@@ -97,7 +97,9 @@ class TakenCourseManager(models.Manager):
 
 class TakenCourse(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='taken_courses')
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="taken_courses"
+    )
     assignment = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     mid_exam = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     quiz = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
@@ -109,14 +111,20 @@ class TakenCourse(models.Model):
     comment = models.CharField(choices=COMMENT, max_length=200, blank=True)
 
     def get_absolute_url(self):
-        return reverse('course_detail', kwargs={'slug': self.course.slug})
+        return reverse("course_detail", kwargs={"slug": self.course.slug})
 
     def __str__(self):
         return "{0} ({1})".format(self.course.title, self.course.code)
 
     # @staticmethod
     def get_total(self, assignment, mid_exam, quiz, attendance, final_exam):
-        return float(assignment) + float(mid_exam) + float(quiz) + float(attendance) + float(final_exam) 
+        return (
+            float(assignment)
+            + float(mid_exam)
+            + float(quiz)
+            + float(attendance)
+            + float(final_exam)
+        )
 
     # @staticmethod
     def get_grade(self, total):
@@ -191,7 +199,11 @@ class TakenCourse(models.Model):
 
     def calculate_gpa(self, total_credit_in_semester):
         current_semester = Semester.objects.get(is_current_semester=True)
-        student = TakenCourse.objects.filter(student=self.student, course__level=self.student.level, course__semester=current_semester)
+        student = TakenCourse.objects.filter(
+            student=self.student,
+            course__level=self.student.level,
+            course__semester=current_semester,
+        )
         p = 0
         point = 0
         for i in student:
@@ -220,14 +232,16 @@ class TakenCourse(models.Model):
                 point = 0
             p += int(credit) * point
         try:
-            gpa = (p / total_credit_in_semester)
+            gpa = p / total_credit_in_semester
             return round(gpa, 2)
         except ZeroDivisionError:
             return 0
-    
+
     def calculate_cgpa(self):
         current_semester = Semester.objects.get(is_current_semester=True)
-        previousResult = Result.objects.filter(student__id=self.student.id, level__lt=self.student.level)
+        previousResult = Result.objects.filter(
+            student__id=self.student.id, level__lt=self.student.level
+        )
         previousCGPA = 0
         for i in previousResult:
             if i.cgpa is not None:
@@ -237,18 +251,24 @@ class TakenCourse(models.Model):
             first_sem_gpa = 0.0
             sec_sem_gpa = 0.0
             try:
-                first_sem_result = Result.objects.get(student=self.student.id, semester=FIRST, level=self.student.level)
+                first_sem_result = Result.objects.get(
+                    student=self.student.id, semester=FIRST, level=self.student.level
+                )
                 first_sem_gpa += first_sem_result.gpa
             except:
                 first_sem_gpa = 0
 
             try:
-                sec_sem_result = Result.objects.get(student=self.student.id, semester=SECOND, level=self.student.level)
+                sec_sem_result = Result.objects.get(
+                    student=self.student.id, semester=SECOND, level=self.student.level
+                )
                 sec_sem_gpa += sec_sem_result.gpa
             except:
                 sec_sem_gpa = 0
 
-            taken_courses = TakenCourse.objects.filter(student=self.student, student__level=self.student.level)
+            taken_courses = TakenCourse.objects.filter(
+                student=self.student, student__level=self.student.level
+            )
             TCC = 0
             TCP = 0
             for i in taken_courses:

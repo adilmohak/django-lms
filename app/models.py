@@ -24,12 +24,12 @@ SEMESTER = (
 
 
 class NewsAndEventsQuerySet(models.query.QuerySet):
-
     def search(self, query):
-        lookups = (Q(title__icontains=query) | 
-                  Q(summary__icontains=query) |
-                  Q(posted_as__icontains=query)
-                  )
+        lookups = (
+            Q(title__icontains=query)
+            | Q(summary__icontains=query)
+            | Q(posted_as__icontains=query)
+        )
         return self.filter(lookups).distinct()
 
 
@@ -41,7 +41,9 @@ class NewsAndEventsManager(models.Manager):
         return self.get_queryset()
 
     def get_by_id(self, id):
-        qs = self.get_queryset().filter(id=id) # NewsAndEvents.objects == self.get_queryset()
+        qs = self.get_queryset().filter(
+            id=id
+        )  # NewsAndEvents.objects == self.get_queryset()
         if qs.count() == 1:
             return qs.first()
         return None
@@ -75,7 +77,9 @@ class Session(models.Model):
 class Semester(models.Model):
     semester = models.CharField(max_length=10, choices=SEMESTER, blank=True)
     is_current_semester = models.BooleanField(default=False, blank=True, null=True)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, blank=True, null=True)
+    session = models.ForeignKey(
+        Session, on_delete=models.CASCADE, blank=True, null=True
+    )
     next_semester_begins = models.DateField(null=True, blank=True)
 
     def __str__(self):
