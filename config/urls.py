@@ -4,20 +4,22 @@ from django.conf.urls import handler404, handler500, handler400
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "Django LMS Admin"
 
 urlpatterns = [
-    path('', include('app.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('programs/', include('course.urls')),
-    path('result/', include('result.urls')),
-    path('search/', include('search.urls')),
-    path('quiz/', include('quiz.urls')),
-
-    path('payments/', include('payments.urls')),
-
-    path('accounts/api/', include('accounts.api.urls', namespace='accounts-api')),
-
-    path('admin/', admin.site.urls),
+    path("jet/", include("jet.urls", "jet")),  # Django JET URLS
+    path(
+        "jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
+    ),  # Django JET dashboard URLS
+    path("", include("app.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("programs/", include("course.urls")),
+    path("result/", include("result.urls")),
+    path("search/", include("search.urls")),
+    path("quiz/", include("quiz.urls")),
+    path("payments/", include("payments.urls")),
+    path("accounts/api/", include("accounts.api.urls", namespace="accounts-api")),
+    path("admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:
