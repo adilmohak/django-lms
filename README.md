@@ -41,7 +41,7 @@ Current features
 
 > The following programs are required to run the project
 
-- [Any Python-3 version](https://www.python.org/downloads/)
+- [Python3.6+](https://www.python.org/downloads/)
 - [PostgreSQL database](https://www.postgresql.org/download/)
 
 # Installation
