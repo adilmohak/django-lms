@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
-
 from .models import User, Student, Parent
 
 
@@ -32,15 +30,6 @@ class UserAdmin(admin.ModelAdmin):
         verbose_name_plural = "Users"
 
 
-# class ScoreAdmin(admin.ModelAdmin):
-#     list_display = [
-#         'student', 'course', 'assignment', 'mid_exam', 'quiz',
-#         'attendance', 'final_exam', 'total', 'grade', 'comment'
-#     ]
-
-
 admin.site.register(User, UserAdmin)
 admin.site.register(Student)
 admin.site.register(Parent)
-
-# admin.site.unregister(Group)

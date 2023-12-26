@@ -9,11 +9,11 @@ class UserListAPIView(generics.ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        qs = get_user_model().objects.all()
-        q = self.request.GET.get("q")
-        if q is not None:
-            qs = qs.filter(username__iexact=q)
-        return qs
+        queryset = get_user_model().objects.all()
+        query = self.request.GET.get("q")
+        if query is not None:
+            queryset = queryset.filter(username__iexact=q)
+        return queryset
 
 
 class UserDetailView(generics.RetrieveAPIView):

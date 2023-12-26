@@ -1,20 +1,16 @@
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.views.generic import CreateView, ListView
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib.auth.forms import (
-    UserCreationForm,
-    UserChangeForm,
     PasswordChangeForm,
 )
 
-from .decorators import lecturer_required, student_required, admin_required
+from .decorators import admin_required
 from course.models import Course
 from result.models import TakenCourse
 from app.models import Session, Semester

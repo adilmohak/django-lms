@@ -1,12 +1,13 @@
 from django.urls import path, include
-from django.contrib.auth.views import (
-    PasswordResetView,
-    PasswordResetDoneView,
-    PasswordResetConfirmView,
-    PasswordResetCompleteView,
-    LoginView,
-    LogoutView,
-)
+
+# from django.contrib.auth.views import (
+#     PasswordResetView,
+#     PasswordResetDoneView,
+#     PasswordResetConfirmView,
+#     PasswordResetCompleteView,
+#     LoginView,
+#     LogoutView,
+# )
 from .views import (
     profile,
     profile_single,
@@ -25,7 +26,8 @@ from .views import (
     validate_username,
     register,
 )
-from .forms import EmailValidationOnForgotPassword
+
+# from .forms import EmailValidationOnForgotPassword
 
 
 urlpatterns = [

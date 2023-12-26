@@ -39,9 +39,9 @@ RELATION_SHIP = (
 )
 
 
-class UserManager(UserManager):
+class CustomUserManager(UserManager):
     def search(self, query=None):
-        qs = self.get_queryset()
+        queryset = self.get_queryset()
         if query is not None:
             or_lookup = (
                 Q(username__icontains=query)
@@ -49,10 +49,10 @@ class UserManager(UserManager):
                 | Q(last_name__icontains=query)
                 | Q(email__icontains=query)
             )
-            qs = qs.filter(
+            queryset = queryset.filter(
                 or_lookup
             ).distinct()  # distinct() is often necessary with Q lookups
-        return qs
+        return queryset
 
 
 class User(AbstractUser):
@@ -69,7 +69,7 @@ class User(AbstractUser):
 
     username_validator = ASCIIUsernameValidator()
 
-    objects = UserManager()
+    objects = CustomUserManager()
 
     @property
     def get_full_name(self):
@@ -84,13 +84,15 @@ class User(AbstractUser):
     @property
     def get_user_role(self):
         if self.is_superuser:
-            return "Admin"
+            role = "Admin"
         elif self.is_student:
-            return "Student"
+            role = "Student"
         elif self.is_lecturer:
-            return "Lecturer"
+            role = "Lecturer"
         elif self.is_parent:
-            return "Parent"
+            role = "Parent"
+
+        return role
 
     def get_picture(self):
         try:
@@ -162,7 +164,8 @@ class Parent(models.Model):
     phone = models.CharField(max_length=60, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
-    # What is the relationship between the student and the parent (i.e. father, mother, brother, sister)
+    # What is the relationship between the student and
+    # the parent (i.e. father, mother, brother, sister)
     relation_ship = models.TextField(choices=RELATION_SHIP, blank=True)
 
     def __str__(self):

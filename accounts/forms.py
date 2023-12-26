@@ -4,14 +4,9 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     UserChangeForm,
 )
-
-# from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
-
 from course.models import Program
-
-# from .models import User, Student, LEVEL
-from .models import *
+from .models import User, Student, Parent, RELATION_SHIP, LEVEL
 
 
 class StaffAddForm(UserCreationForm):
