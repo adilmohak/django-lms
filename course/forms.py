@@ -1,12 +1,6 @@
 from django import forms
-from django.db import transaction
-from django.conf import settings
-from django.contrib.auth.models import User
-
 from accounts.models import User
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
-
-# User = settings.AUTH_USER_MODEL
 
 
 class ProgramForm(forms.ModelForm):

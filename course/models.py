@@ -41,13 +41,13 @@ SEMESTER = (
 
 class ProgramManager(models.Manager):
     def search(self, query=None):
-        qs = self.get_queryset()
+        queryset = self.get_queryset()
         if query is not None:
             or_lookup = Q(title__icontains=query) | Q(summary__icontains=query)
-            qs = qs.filter(
+            queryset = queryset.filter(
                 or_lookup
             ).distinct()  # distinct() is often necessary with Q lookups
-        return qs
+        return queryset
 
 
 class Program(models.Model):
@@ -65,7 +65,7 @@ class Program(models.Model):
 
 class CourseManager(models.Manager):
     def search(self, query=None):
-        qs = self.get_queryset()
+        queryset = self.get_queryset()
         if query is not None:
             or_lookup = (
                 Q(title__icontains=query)
@@ -73,10 +73,10 @@ class CourseManager(models.Manager):
                 | Q(code__icontains=query)
                 | Q(slug__icontains=query)
             )
-            qs = qs.filter(
+            queryset = queryset.filter(
                 or_lookup
             ).distinct()  # distinct() is often necessary with Q lookups
-        return qs
+        return queryset
 
 
 class Course(models.Model):
@@ -169,15 +169,15 @@ class Upload(models.Model):
         ext = str(self.file).split(".")
         ext = ext[len(ext) - 1]
 
-        if ext == "doc" or ext == "docx":
+        if ext in ("doc", "docx"):
             return "word"
         elif ext == "pdf":
             return "pdf"
-        elif ext == "xls" or ext == "xlsx":
+        elif ext in ("xls", "xlsx"):
             return "excel"
-        elif ext == "ppt" or ext == "pptx":
+        elif ext in ("ppt", "pptx"):
             return "powerpoint"
-        elif ext == "zip" or ext == "rar" or ext == "7zip":
+        elif ext in ("zip", "rar", "7zip"):
             return "archive"
 
     def delete(self, *args, **kwargs):

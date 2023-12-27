@@ -6,14 +6,11 @@ from django.contrib.auth import update_session_auth_hash
 from django.views.generic import CreateView, ListView
 from django.db.models import Q
 from django.utils.decorators import method_decorator
-from django.contrib.auth.forms import (
-    PasswordChangeForm,
-)
-
-from .decorators import admin_required
+from django.contrib.auth.forms import PasswordChangeForm
+from app.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
-from app.models import Session, Semester
+from .decorators import admin_required
 from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
 from .models import User, Student, Parent
 

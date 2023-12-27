@@ -9,7 +9,7 @@ from .models import (
     Question,
     MCQuestion,
     Choice,
-    Essay_Question,
+    EssayQuestion,
     Sitting,
 )
 
@@ -89,5 +89,5 @@ class EssayQuestionAdmin(admin.ModelAdmin):
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(MCQuestion, MCQuestionAdmin)
 admin.site.register(Progress, ProgressAdmin)
-admin.site.register(Essay_Question, EssayQuestionAdmin)
+admin.site.register(EssayQuestion, EssayQuestionAdmin)
 admin.site.register(Sitting)

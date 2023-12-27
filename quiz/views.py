@@ -1,6 +1,4 @@
-import random
-
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
@@ -11,18 +9,20 @@ from django.views.generic import (
     FormView,
     CreateView,
     FormView,
-    DeleteView,
     UpdateView,
 )
 from django.contrib import messages
-from django.urls import reverse_lazy
 from django.db import transaction
-from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
 
-from accounts.decorators import student_required, lecturer_required
-from .models import *
-from .forms import *
+from accounts.decorators import lecturer_required
+from .models import Course, Progress, Sitting, EssayQuestion, Quiz, MCQuestion, Question
+from .forms import (
+    QuizAddForm,
+    MCQuestionForm,
+    MCQuestionFormSet,
+    QuestionForm,
+    EssayForm,
+)
 
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
@@ -173,7 +173,7 @@ class QuizUserProgressView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
-        progress, c = Progress.objects.get_or_create(user=self.request.user)
+        progress, _ = Progress.objects.get_or_create(user=self.request.user)
         context["cat_scores"] = progress.list_all_cat_scores
         context["exams"] = progress.show_exams()
         context["exams_counter"] = progress.show_exams().count()
@@ -275,7 +275,7 @@ class QuizTake(FormView):
         self.question = self.sitting.get_first_question()
         self.progress = self.sitting.progress()
 
-        if self.question.__class__ is Essay_Question:
+        if self.question.__class__ is EssayQuestion:
             form_class = EssayForm
         else:
             form_class = self.form_class
@@ -308,7 +308,7 @@ class QuizTake(FormView):
         return context
 
     def form_valid_user(self, form):
-        progress, c = Progress.objects.get_or_create(user=self.request.user)
+        progress, _ = Progress.objects.get_or_create(user=self.request.user)
         guess = form.cleaned_data["answers"]
         is_correct = self.question.check_if_correct(guess)
 

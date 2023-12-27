@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 from accounts.models import Student
-from app.models import Session, Semester
+from app.models import Semester
 from course.models import Course
 
 YEARS = (
@@ -34,29 +34,29 @@ SEMESTER = (
     (THIRD, "Third"),
 )
 
-A_plus = "A+"
+A_PLUS = "A+"
 A = "A"
-A_minus = "A-"
-B_plus = "B+"
+A_MINUS = "A-"
+B_PLUS = "B+"
 B = "B"
-B_minus = "B-"
-C_plus = "C+"
+B_MINUS = "B-"
+C_PLUS = "C+"
 C = "C"
-C_minus = "C-"
+C_MINUS = "C-"
 D = "D"
 F = "F"
 NG = "NG"
 
 GRADE = (
-    (A_plus, "A+"),
+    (A_PLUS, "A+"),
     (A, "A"),
-    (A_minus, "A-"),
-    (B_plus, "B+"),
+    (A_MINUS, "A-"),
+    (B_PLUS, "B+"),
     (B, "B"),
-    (B_minus, "B-"),
-    (C_plus, "C+"),
+    (B_MINUS, "B-"),
+    (C_PLUS, "C+"),
     (C, "C"),
-    (C_minus, "C-"),
+    (C_MINUS, "C-"),
     (D, "D"),
     (F, "F"),
     (NG, "NG"),
@@ -72,21 +72,6 @@ COMMENT = (
 
 
 class TakenCourseManager(models.Manager):
-    def new_or_get(self, request):
-        cart_id = request.session.get("cart_id", None)
-        qs = self.get_queryset().filter(id=cart_id)
-        if qs.count() == 1:
-            new_obj = False
-            cart_obj = qs.first()
-            if request.user.is_authenticated() and cart_obj.user is None:
-                cart_obj.user = request.user
-                cart_obj.save()
-        else:
-            cart_obj = Cart.objects.new(user=request.user)
-            new_obj = True
-            request.session["cart_id"] = cart_obj.id
-        return cart_obj, new_obj
-
     def new(self, user=None):
         user_obj = None
         if user is not None:
@@ -132,23 +117,23 @@ class TakenCourse(models.Model):
         # total = self.get_total(assignment=assignment, mid_exam=mid_exam, quiz=quiz, attendance=attendance, final_exam=final_exam)
         # total = total
         if total >= 90:
-            grade = A_plus
+            grade = A_PLUS
         elif total >= 85:
             grade = A
         elif total >= 80:
-            grade = A_minus
+            grade = A_MINUS
         elif total >= 75:
-            grade = B_plus
+            grade = B_PLUS
         elif total >= 70:
             grade = B
         elif total >= 65:
-            grade = B_minus
+            grade = B_MINUS
         elif total >= 60:
-            grade = C_plus
+            grade = C_PLUS
         elif total >= 55:
             grade = C
         elif total >= 50:
-            grade = C_minus
+            grade = C_MINUS
         elif total >= 45:
             grade = D
         elif total < 45:
@@ -172,23 +157,23 @@ class TakenCourse(models.Model):
         # point = 0
         # for i in student:
         credit = self.course.credit
-        if self.grade == A_plus:
+        if self.grade == A_PLUS:
             point = 4
         elif self.grade == A:
             point = 4
-        elif self.grade == A_minus:
+        elif self.grade == A_MINUS:
             point = 3.75
-        elif self.grade == B_plus:
+        elif self.grade == B_PLUS:
             point = 3.5
         elif self.grade == B:
             point = 3
-        elif self.grade == B_minus:
+        elif self.grade == B_MINUS:
             point = 2.75
-        elif self.grade == C_plus:
+        elif self.grade == C_PLUS:
             point = 2.5
         elif self.grade == C:
             point = 2
-        elif self.grade == C_minus:
+        elif self.grade == C_MINUS:
             point = 1.75
         elif self.grade == D:
             point = 1
@@ -208,23 +193,23 @@ class TakenCourse(models.Model):
         point = 0
         for i in student:
             credit = i.course.credit
-            if i.grade == A_plus:
+            if i.grade == A_PLUS:
                 point = 4
             elif i.grade == A:
                 point = 4
-            elif i.grade == A_minus:
+            elif i.grade == A_MINUS:
                 point = 3.75
-            elif i.grade == B_plus:
+            elif i.grade == B_PLUS:
                 point = 3.5
             elif i.grade == B:
                 point = 3
-            elif i.grade == B_minus:
+            elif i.grade == B_MINUS:
                 point = 2.75
-            elif i.grade == C_plus:
+            elif i.grade == C_PLUS:
                 point = 2.5
             elif i.grade == C:
                 point = 2
-            elif i.grade == C_minus:
+            elif i.grade == C_MINUS:
                 point = 1.75
             elif i.grade == D:
                 point = 1
@@ -242,10 +227,10 @@ class TakenCourse(models.Model):
         previousResult = Result.objects.filter(
             student__id=self.student.id, level__lt=self.student.level
         )
-        previousCGPA = 0
+        previous_cgpa = 0
         for i in previousResult:
             if i.cgpa is not None:
-                previousCGPA += i.cgpa
+                previous_cgpa += i.cgpa
         cgpa = 0
         if str(current_semester) == SECOND:
             first_sem_gpa = 0.0
@@ -269,22 +254,22 @@ class TakenCourse(models.Model):
             taken_courses = TakenCourse.objects.filter(
                 student=self.student, student__level=self.student.level
             )
-            TCC = 0
-            TCP = 0
+            taken_course_credits = 0
+            taken_course_points = 0
             for i in taken_courses:
-                TCP += float(i.point)
+                taken_course_points += float(i.point)
             for i in taken_courses:
-                TCC += int(i.course.credit)
+                taken_course_credits += int(i.course.credit)
             # cgpa = (first_sem_gpa + sec_sem_gpa) / 2
 
-            print("TCP = ", TCP)
-            print("TCC = ", TCC)
+            print("taken_course_points = ", taken_course_points)
+            print("taken_course_credits = ", taken_course_credits)
             print("first_sem_gpa = ", first_sem_gpa)
             print("sec_sem_gpa = ", sec_sem_gpa)
-            print("cgpa = ", round(TCP / TCC, 2))
+            print("cgpa = ", round(taken_course_points / taken_course_credits, 2))
 
             try:
-                cgpa = TCP / TCC
+                cgpa = taken_course_points / taken_course_credits
                 return round(cgpa, 2)
             except ZeroDivisionError:
                 return 0

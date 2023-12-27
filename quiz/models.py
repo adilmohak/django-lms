@@ -540,7 +540,7 @@ class Choice(models.Model):
         verbose_name_plural = _("Choices")
 
 
-class Essay_Question(Question):
+class EssayQuestion(Question):
     def check_if_correct(self, guess):
         return False
 

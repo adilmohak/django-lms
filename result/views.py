@@ -1,20 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-
-from accounts.models import User, Student
-from app.models import Session, Semester
-from course.models import Course
-from accounts.decorators import lecturer_required, student_required
-from .models import TakenCourse, Result
-
-# pdf
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 
 from reportlab.platypus import (
     SimpleDocTemplate,
@@ -23,14 +14,19 @@ from reportlab.platypus import (
     Table,
     TableStyle,
     Image,
-    LongTable,
 )
-from reportlab.lib.styles import getSampleStyleSheet, black, ParagraphStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER, TA_RIGHT
 from reportlab.platypus.tables import Table
 from reportlab.lib.units import inch
 from reportlab.lib import colors
-from .models import *
+
+from accounts.models import Student
+from app.models import Session, Semester
+from course.models import Course
+from accounts.decorators import lecturer_required, student_required
+from .models import TakenCourse, Result, FIRST, SECOND
+
 
 cm = 2.54
 
@@ -42,15 +38,16 @@ cm = 2.54
 @lecturer_required
 def add_score(request):
     """
-    Shows a page where a lecturer will select a course allocated to him for score entry.
-    in a specific semester and session
-
+    Shows a page where a lecturer will select a course allocated
+    to him for score entry. in a specific semester and session
     """
     current_session = Session.objects.get(is_current_session=True)
     current_semester = get_object_or_404(
         Semester, is_current_semester=True, session=current_session
     )
-    # semester = Course.objects.filter(allocated_course__lecturer__pk=request.user.id, semester=current_semester)
+    # semester = Course.objects.filter(
+    # allocated_course__lecturer__pk=request.user.id,
+    # semester=current_semester)
     courses = Course.objects.filter(
         allocated_course__lecturer__pk=request.user.id
     ).filter(semester=current_semester)
@@ -66,8 +63,8 @@ def add_score(request):
 @lecturer_required
 def add_score_for(request, id):
     """
-    Shows a page where a lecturer will add score for students that are taking courses allocated to him
-    in a specific semester and session
+    Shows a page where a lecturer will add score for students that
+    are taking courses allocated to him in a specific semester and session
     """
     current_session = Session.objects.get(is_current_session=True)
     current_semester = get_object_or_404(
@@ -81,9 +78,11 @@ def add_score_for(request, id):
         # myclass = Class.objects.get(lecturer__pk=request.user.id)
         # myclass = get_object_or_404(Class, lecturer__pk=request.user.id)
 
-        # students = TakenCourse.objects.filter(course__allocated_course__lecturer__pk=request.user.id).filter(
-        #     course__id=id).filter(student__allocated_student__lecturer__pk=request.user.id).filter(
-        #         course__semester=current_semester)
+        # students = TakenCourse.objects.filter(
+        # course__allocated_course__lecturer__pk=request.user.id).filter(
+        #  course__id=id).filter(
+        #  student__allocated_student__lecturer__pk=request.user.id).filter(
+        #  course__semester=current_semester)
         students = (
             TakenCourse.objects.filter(
                 course__allocated_course__lecturer__pk=request.user.id
@@ -186,12 +185,14 @@ def add_score_for(request, id):
                 )
 
             # try:
-            #     a = Result.objects.get(student=student.student, semester=current_semester, level=student.student.level)
+            #     a = Result.objects.get(student=student.student,
+            # semester=current_semester, level=student.student.level)
             #     a.gpa = gpa
             #     a.cgpa = cgpa
             #     a.save()
             # except:
-            #     Result.objects.get_or_create(student=student.student, gpa=gpa, semester=current_semester, level=student.student.level)
+            #     Result.objects.get_or_create(student=student.student, gpa=gpa,
+            # semester=current_semester, level=student.student.level)
 
         messages.success(request, "Successfully Recorded! ")
         return HttpResponseRedirect(reverse_lazy("add_score_for", kwargs={"id": id}))
@@ -723,7 +724,8 @@ def course_registration_form(request):
     has been duly registered for the <b>"
         + student.level
         + " level </b> of study in the department\
-    of COMPUTER SICENCE & ENGINEERING and that the courses and credits registered are as approved by the senate of the University"
+    of COMPUTER SICENCE & ENGINEERING and that the courses and credits \
+    registered are as approved by the senate of the University"
     )
     certification_text = Paragraph(certification_text, certification)
     Story.append(certification_text)
