@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Search result for {{ query }} | DjangoSMS{% endblock title %}
 
 {% load class_name %}
@@ -41,43 +41,43 @@
     <hr>
     {% for object in object_list %}
         {% with object|class_name as klass %}
-        {% if klass == 'Program' %}
+        {% if klass == "Program" %}
             <div class="session-wrapper">
                 <div class="session"><div class="info-text bg-orange">Program</div></div>
             </div>
-            <div class='col-12 class-item'>
+            <div class="col-12 class-item">
                 <!-- <p><b>Program of</b> {{ object }}</p> -->
-                <h4><a href='{{ object.get_absolute_url }}'><b>{{ object.title}}</b></a></h4>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title}}</b></a></h4>
                 <p>{{ object.summary }}</p>
             </div><hr>
 
-        {% elif klass == 'Course' %}
+        {% elif klass == "Course" %}
             <div class="session-wrapper">
                 <div class="session"><div class="info-text bg-orange">Course</div></div>
             </div>
-            <div class='col-12 class-item'>
+            <div class="col-12 class-item">
                 <p><b>Program of</b> {{ object.program }}</p>
-                <h4><a href='{{ object.get_absolute_url }}'><b>{{ object }}</b></a></h4>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object }}</b></a></h4>
                 <p>{{ object.summary }}</p>
             </div><hr>
             
-        {% elif klass == 'NewsAndEvents' %}
+        {% elif klass == "NewsAndEvents" %}
             <div class="session-wrapper">
                 <div class="session"><div class="info-text bg-orange">News And Events</div></div>
             </div>
-            <div class='col-12 class-item'>
+            <div class="col-12 class-item">
                 <p><b>Date: </b> {{ object.updated_date|timesince }} ago</p>
-                <h4><a href='{{ object.get_absolute_url }}'><b>{{ object.title }}</b></a></h4>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title }}</b></a></h4>
                 <p>{{ object.summary }}</p>
             </div><hr>
 
-        {% elif klass == 'Quiz' %}
+        {% elif klass == "Quiz" %}
             <div class="session-wrapper">
                 <div class="session"><div class="info-text bg-orange">Quiz</div></div>
             </div>
-            <div class='col-12 class-item'>
+            <div class="col-12 class-item">
                 <p>{{ object.category }} quiz,  <b>Course:</b> {{ object.course }}</p>
-                <h4><a href='{{ object.get_absolute_url }}'><b>{{ object.title }}</b></a></h4>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title }}</b></a></h4>
                 <p>{{ object.description }}</p>
             </div><hr>
 
@@ -85,11 +85,11 @@
             <div class="session-wrapper">
                 <div class="session"><div class="info-text bg-orange">Program</div></div>
             </div>
-            <div class='col-12 col-lg-8 offset-lg-4'>
-                <a href='{{ object.get_absolute_url }}' class="class-item d-flex">{{ object }} | {{ object|class_name }}</a>
+            <div class="col-12 col-lg-8 offset-lg-4">
+                <a href="{{ object.get_absolute_url }}" class="class-item d-flex">{{ object }} | {{ object|class_name }}</a>
             </div><hr>
-            <div class='col-12 class-item'>
-                <h4><a href='{{ object.get_absolute_url }}'>{{ object }} | <b>{{ object|class_name }}</b></a></h4>
+            <div class="col-12 class-item">
+                <h4><a href="{{ object.get_absolute_url }}">{{ object }} | <b>{{ object|class_name }}</b></a></h4>
                 <p>{{ object.description }}</p>
             </div><hr>
         {% endif %}
@@ -98,16 +98,16 @@
 
 {% empty %}
 
-<div class='row'>
+<div class="row">
     <div class="col-12 text-center"><p><i class="far fa-frown fa-2x"></i> No result for your search</p></div>
-    <div class='col-12 col-md-6 mx-auto my-5 py-5'>
-    <form method='GET' class='' action='.'>
+    <div class="col-12 col-md-6 mx-auto my-5 py-5">
+    <form method="GET" action=".">
     
         <div class="input-group form-group-no-border mx-auto" style="margin-bottom: 0px; font-size: 32px;">
             <input type="text" name="q" data-toggle="popover" data-placement="bottom" data-content="Press enter to search" class="form-control cfe-nav mt-0 py-3" placeholder="Search..." value="{{ request.GET.q }}" data-original-title="" title="" autofocus="autofocus" required>
             <button type="submit" class="btn btn-outline-secondary">
                 <i class="fa fa-search" aria-hidden="true"></i>
-            </span>
+            </button>
         </div>
 
     </form>

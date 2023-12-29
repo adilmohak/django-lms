@@ -8,7 +8,7 @@
 
 {% if user.is_authenticated %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> {{ user.get_full_name }}</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> {{ user.get_full_name }}</div>
 
 {% if messages %}
 {% for message in messages %}

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Complete Exams</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Complete Exams</div>
 
 <div class="header-title-xl text-center">{% trans "List of complete exams" %}</div>
 <div class="title-line"></div>
@@ -47,6 +47,7 @@
 			<a href="{% url 'quiz_marking_detail' pk=sitting.id %}">
 				{% trans "View details" %}
 			</a>
+			</td>
 		</tr>
 		{% endfor %}
 		</tbody>

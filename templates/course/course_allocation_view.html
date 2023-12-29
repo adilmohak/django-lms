@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock title %}
 
 {% block content %}
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Allocation list</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Allocation list</div>
 
 {% if request.user.is_superuser %}
 <a class="add-button" href="{% url 'course_allocation' %}"><i class="fas fa-plus"></i>Allocate Now</a>

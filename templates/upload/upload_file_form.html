@@ -5,10 +5,10 @@
 {% block content %}
 
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
-     <i>&rsaquo;</i> <a href="{% url 'programs' %}" class="primary1">Programs</a> <i>&rsaquo;</i> 
-     <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
+     <a href="{% url 'programs' %}" class="primary1">Programs</a> 
+     <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> 
      <a href="{% url 'course_detail' course.slug %}" class="primary1">{{ course }}</a>
-      <i>&rsaquo;</i> file upload</div>
+     file upload</div>
 
 <p class="title-1">File upload for {{ course }}</p>
 <div class="title-line"></div><br>

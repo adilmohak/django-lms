@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
-	<a href="{% url 'quiz_marking' %}" class="primary1">Completed Exams</a> <i>&rsaquo;</i> Marking</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> 
+	<a href="{% url 'quiz_marking' %}" class="primary1">Completed Exams</a> Marking</div>
 
 <div class="row col-12 justify-content-between">
 	<div class="header-title-md">{% trans "Quiz title" %}: {{ sitting.quiz.title }}</div>
@@ -52,7 +52,7 @@
 	  </td>
 	  <td>
 		<form action="" method="POST">{% csrf_token %}
-		  <input type=hidden name="qid" value="{{ question.id }}">
+		  <input type="hidden" name="qid" value="{{ question.id }}">
 		  <button type="submit" class="btn btn-warning">{% trans "Toggle whether correct" %}</button>
 		</form>
 	  </td>

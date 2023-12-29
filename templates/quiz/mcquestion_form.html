@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> 
-    <a href="{% url 'programs' %}" class="primary1"> Programs</a> <i>&rsaquo;</i> 
-    <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> <i>&rsaquo;</i> 
-    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> <i>&rsaquo;</i> 
-    <a href="{% url 'quiz_index' course.slug %}" class="primary1">Quiz list</a> <i>&rsaquo;</i> MC Question add for {{ quiz_obj }}</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> 
+    <a href="{% url 'programs' %}" class="primary1"> Programs</a> 
+    <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a> 
+    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> 
+    <a href="{% url 'quiz_index' course.slug %}" class="primary1">Quiz list</a> MC Question add for {{ quiz_obj }}</div>
 
 <div class="container">
 

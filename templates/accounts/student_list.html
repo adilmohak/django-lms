@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Students</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Students</div>
 
 {% if request.user.is_superuser %}
 <a class="add-button" href="{% url 'add_student' %}"><i class="fas fa-plus"></i>Add Student</a>

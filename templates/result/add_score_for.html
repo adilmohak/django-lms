@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i>
-    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> <i>&rsaquo;</i> Manage Score</div>
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
+    <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> Manage Score</div>
 
 <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -120,25 +120,26 @@
                     <td class="danger"><i class="fas fa-exclamation-circle"></i> {{ student.comment }}</td>
                     {% else %}<td></td>
                     {% endif %}
+                </tr>
 
-                    {% empty %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <span class="text-danger">
-                                <i class="far fa-frown"></i> No Student.
-                            </span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                {% empty %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <span class="text-danger">
+                            <i class="far fa-frown"></i> No Student.
+                        </span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
