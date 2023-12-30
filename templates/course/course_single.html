@@ -16,16 +16,16 @@
         <div class="row">
             <div class="col ml-auto">
                 {% if request.user.is_superuser or request.user.is_lecturer %}
-                <a class="add-button" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                <a class="btn btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
                     Upload new file
                 </a>
-                <a class="add-button" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
+                <a class="btn btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
                     Upload new video
                 </a>
                 {% endif %}
             </div>
             <div class="col text-right">
-                <a class="btn btn-lg btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
+                <a class="btn btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
                     Take a Quiz
                 </a>
             </div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="title-1">{{ course }}</div>
-    <p class="program-description">{{ course.summary }}</p>
+    <p>{{ course.summary }}</p>
 
     {% if request.user.is_superuser %}
     <div class="btn-flex">
@@ -112,7 +112,7 @@
                             <td></td>
                             <td>
                                 <span class="text-danger">
-                                    <i class="far fa-frown fa-1x"></i> No video Uploaded.
+                                    No video Uploaded.
                                     {% if request.user.is_superuser or request.user.is_lecturer %}
                                     <a href="{% url 'upload_video' course.slug %}">
                                         <i class="primary" style="font-size: 22px;">
@@ -190,7 +190,7 @@
                             <td></td>
                             <td>
                                 <span class="text-danger">
-                                    <i class="far fa-frown fa-1x"></i> No File Uploaded.
+                                    No File Uploaded.
                                     {% if request.user.is_superuser or request.user.is_lecturer %}
                                     <a href="{% url 'upload_file_view' course.slug %}">
                                         <i class="primary" style="font-size: 22px;">

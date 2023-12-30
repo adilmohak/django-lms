@@ -19,7 +19,7 @@
 {% if program %}
 <div class="title-1">{{ program.title }}</div>
 {% if program.summary %}
-<p class="program-description">{{ program.summary }}</p>
+<p>{{ program.summary }}</p>
 {% endif %}
 {% endif %}
 
@@ -102,6 +102,21 @@
                         </div>
                     </td>
                     {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="9">
+                  <span class="text-danger">
+                    No course for this progrm.
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'course_add' pk=program.pk %}">
+                    <i class="primary" style="font-size: 22px;">
+                       Add one now.
+                    </i>
+                    {% endif %}
+                    </a>
+                  </span>
+                </td>
                 </tr>
                 {% endfor %}
             </tbody>

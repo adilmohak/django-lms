@@ -180,9 +180,6 @@ class QuizUserProgressView(TemplateView):
         return context
 
 
-from result.models import TakenCourse
-
-
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
     model = Sitting

@@ -15,7 +15,7 @@
         {% for course in courses %}
             <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
         {% empty %}
-            <p class="dropdown-item"><i class="far fa-frown fa-1x"></i> No course.</p>
+            <p class="dropdown-item">No course.</p>
         {% endfor %}
     </div>
 </div>
@@ -131,7 +131,7 @@
                     <td></td>
                     <td>
                         <span class="text-danger">
-                            <i class="far fa-frown"></i> No Student.
+                            No Student.
                         </span>
                     </td>
                     <td></td>

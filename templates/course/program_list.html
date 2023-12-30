@@ -113,6 +113,26 @@
                     </td>
                     {% endif %}
                 </tr>
+                {% empty %}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                  <span class="text-danger">
+                    No program.
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'add_program' %}">
+                    <i class="primary" style="font-size: 22px;">
+                       Add program now.
+                    </i>
+                    {% endif %}
+                    </a>
+                  </span>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>

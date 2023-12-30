@@ -30,7 +30,7 @@
             {{ current_semester }} Semester - <i class="result-title">{{ current_session }}</i>
         </p><br>
         <div class="container">
-            <div class="content-center"><i class="far fa-frown fa-2x"></i> No course selected.</div>
+            <div class="content-center">No course selected.</div>
 
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,7 @@
                     {% for course in courses %}
                         <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
                     {% empty %}
-                        <p class="dropdown-item"><i class="far fa-frown fa-1x"></i> No course.</p>
+                        <p class="dropdown-item">No course.</p>
                     {% endfor %}
                 </div>
             </div>
