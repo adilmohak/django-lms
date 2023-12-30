@@ -6,11 +6,12 @@
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Students</div>
 
 {% if request.user.is_superuser %}
-<a class="add-button" href="{% url 'add_student' %}"><i class="fas fa-plus"></i>Add Student</a>
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'add_student' %}"><i class="fas fa-plus"></i>Add Student</a>
+</div>
 {% endif %}
 
-<div class="title-1"><i class="fas fa-user-graduate"></i>Students List</div>
-<div class="title-line"></div>
+<div class="title-1"><i class="fas fa-user-graduate"></i>Students</div>
 
 {% if messages %}
     {% for message in messages %}
@@ -27,7 +28,7 @@
 {% endif %}
 
 <div class="content-center">
-    <form class="search-form" action="" method="GET">
+    <form class="search-form" action="" method="get">
         <input class="au-input" type="text" id="student_id" name="student_id" placeholder="ID No." value="{{ request.GET.student_id }}"/>
         <input class="au-input" type="text" name="name" placeholder="Name" value="{{ request.GET.name }}"/>
         <input class="au-input" type="text" name="department" placeholder="Department" value="{{ request.GET.department }}"/>

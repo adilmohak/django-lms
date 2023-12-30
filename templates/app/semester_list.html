@@ -6,11 +6,12 @@
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Semester list</div>
 
 {% if request.user.is_superuser %}
-<a class="add-button" href="{% url 'add_semester' %}"><i class="fas fa-plus"></i>Add New Semester</a>
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'add_semester' %}"><i class="fas fa-plus"></i>Add New Semester</a>
+</div>
 {% endif %}
 
 <div class="title-1"><i class="fas fa-calendar-alt"></i>Semester List</div>
-<div class="title-line"></div>
 
 {% if messages %}
 {% for message in messages %}
@@ -73,7 +74,7 @@
                 <td></td>
                 <td>
                     <span class="text-danger">
-                        <i class="far fa-frown"></i>No Semester.
+                        No Semester.
                         {% if request.user.is_superuser %}
                         <a href="{% url 'add_semester' %}">
                             <i class="primary" style="font-size: 22px;">

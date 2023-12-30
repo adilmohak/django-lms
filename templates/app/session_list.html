@@ -6,11 +6,12 @@
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Session list</div>
 
 {% if request.user.is_superuser %}
-<a class="add-button" href="{% url 'add_session' %}"><i class="fas fa-plus"></i>Add New Session</a>
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'add_session' %}"><i class="fas fa-plus"></i>Add New Session</a>
+</div>
 {% endif %}
 
 <div class="title-1"><i class="fas fa-calendar-week"></i>Session List</div>
-<div class="title-line"></div>
 
 {% if messages %}
     {% for message in messages %}
@@ -67,7 +68,7 @@
                   <td></td>
                   <td>
                   <span class="text-danger">
-                    <i class="far fa-frown"></i>No Session.
+                    No Session.
                     {% if request.user.is_superuser %}
                     <a href="{% url 'add_session' %}">
                     <i class="primary" style="font-size: 22px;">

@@ -4,6 +4,30 @@
 
 {% block content %}
 
+<style>
+    .color-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+    }
+
+    .bg-purple {
+        background-color: #6f42c1;
+    }
+
+    .card-header-ne {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card-header-ne .title {
+        vertical-align: middle;
+    }
+</style>
+
 <div class="container">
     <div id="input-nav" class="p-2">Home</div>
 
@@ -27,20 +51,7 @@
     {% endfor %}
     {% endif %}
 
-    <style>
-        .color-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-        }
-
-        .bg-purple {
-            background-color: #6f42c1;
-        }
-    </style>
-
-    <div class="title-1">News & Events</div>
+    <div class="title-1">News &amp; Events</div>
 
     <ul class="col-md-2 ml-auto d-flex">
         <li class="mr-3">
@@ -50,18 +61,6 @@
             <span class="color-indicator bg-purple"></span> Events
         </li>
     </ul>
-    <style>
-        .card-header-ne {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .card-header-ne .title {
-            vertical-align: middle;
-        }
-    </style>
     {% if items %}
     <div class="row">
         {% for item in items %}
@@ -100,9 +99,9 @@
     </div>
 
     {% else %}
-    <p>
-        <i class="far fa-frown fa-2x"></i>So empty.
-    </p>
+    <h4 class="text-center mt-5 text-muted">
+        <i class="far fa-frown me-2"></i> So empty
+    </h4>
 
     {% endif %}
 

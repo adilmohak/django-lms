@@ -1302,11 +1302,28 @@ a {
     z-index: -1;
     border-radius: 1px;
     background-color: rgba(83, 126, 226, 0.2);
+    animation: lineAnim 1s ease-in forwards;
   }
   i {
     margin-right: 8px;
   }
 }
+
+@keyframes lineAnim {
+  0% {
+    width: 0px;
+    height: 4px;
+  }
+  60% {
+    width: 50%;
+    height: 4px;
+  }
+  100% {
+    width: 50%;
+    height: 15px;
+  }
+}
+
 .title-line {
   width: 30px;
   height: 5px;

@@ -6,11 +6,12 @@
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Lecturers</div>
 
 {% if request.user.is_superuser %}
-<a class="add-button" href="{% url 'add_lecturer' %}"><i class="fas fa-plus"></i>Add Lecturer</a>
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'add_lecturer' %}"><i class="fas fa-plus"></i>Add Lecturer</a>
+</div>
 {% endif %}
 
-<p class="title-1"><i class="fas fa-chalkboard-teacher"></i>Lecturers List</p>
-<div class="title-line"></div>
+<p class="title-1"><i class="fas fa-chalkboard-teacher"></i>Lecturers</p>
 
 {% if messages %}
     {% for message in messages %}
@@ -27,7 +28,7 @@
 {% endif %}
 
 <div class="content-center">
-    <form class="search-form" action="" method="POST">{% csrf_token %}
+    <form class="search-form" action="" method="get">
         <input class="au-input" type="text" name="id_no" placeholder="ID No." value="{{ request.GET.id_no }}"/>
         <input class="au-input" type="text" name="name" placeholder="Name" value="{{ request.GET.name }}"/>
         <input class="au-input" type="text" name="email" placeholder="Email" value="{{ request.GET.email }}"/>
@@ -80,7 +81,7 @@
                   <td></td>
                   <td>
                   <span class="text-danger">
-                    <i class="far fa-frown"></i>No Lecturer(s).
+                    No Lecturer(s).
                     {% if request.user.is_superuser %}
                     <a href="{% url 'add_lecturer' %}">
                     <i class="primary" style="font-size: 22px;">

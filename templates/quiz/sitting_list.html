@@ -6,8 +6,7 @@
 <div class="container">
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Complete Exams</div>
 
-<div class="header-title-xl text-center">{% trans "List of complete exams" %}</div>
-<div class="title-line"></div>
+<div class="title-1"><i class="fas fa-calendar-alt"></i>{% trans "List of complete exams" %}</div>
 
 {% for student in students %}<h3>{{ student.student.user.get_full_name }}</h3>{% endfor %}
 {% for marking in marking_list %}<h3>{{ marking }} <small>{{ forloop.counter }}</small></h3>{% endfor %}
