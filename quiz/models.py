@@ -55,7 +55,7 @@ class Quiz(models.Model):
     description = models.TextField(
         verbose_name=_("Description"),
         blank=True,
-        help_text=_("a description of the quiz"),
+        help_text=_("A detailed description of the quiz"),
     )
     category = models.TextField(choices=CATEGORY_OPTIONS, blank=True)
     random_order = models.BooleanField(
@@ -442,7 +442,11 @@ class Sitting(models.Model):
 class Question(models.Model):
     quiz = models.ManyToManyField(Quiz, verbose_name=_("Quiz"), blank=True)
     figure = models.ImageField(
-        upload_to="uploads/%Y/%m/%d", blank=True, null=True, verbose_name=_("Figure")
+        upload_to="uploads/%Y/%m/%d",
+        blank=True,
+        null=True,
+        verbose_name=_("Figure"),
+        help_text=_("Add an image for the question if it's necessary."),
     )
     content = models.CharField(
         max_length=1000,
