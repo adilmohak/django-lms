@@ -15,7 +15,7 @@ from .models import *
 def home_view(request):
     items = NewsAndEvents.objects.all().order_by("-updated_date")
     context = {
-        "title": "News & Events | DjangoSMS",
+        "title": "News & Events",
         "items": items,
     }
     return render(request, "app/index.html", context)
@@ -39,7 +39,7 @@ def post_add(request):
         request,
         "app/post_add.html",
         {
-            "title": "Add Post | DjangoSMS",
+            "title": "Add Post",
             "form": form,
         },
     )
@@ -65,7 +65,7 @@ def edit_post(request, pk):
         request,
         "app/post_add.html",
         {
-            "title": "Edit Post | DjangoSMS",
+            "title": "Edit Post",
             "form": form,
         },
     )

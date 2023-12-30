@@ -91,7 +91,7 @@ def add_score_for(request, id):
             .filter(course__semester=current_semester)
         )
         context = {
-            "title": "Submit Score | DjangoSMS",
+            "title": "Submit Score",
             "courses": courses,
             "course": course,
             # "myclass": myclass,

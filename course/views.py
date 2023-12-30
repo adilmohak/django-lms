@@ -38,7 +38,7 @@ def program_view(request):
         request,
         "course/program_list.html",
         {
-            "title": "Programs | DjangoSMS",
+            "title": "Programs",
             "programs": programs,
         },
     )
@@ -64,7 +64,7 @@ def program_add(request):
         request,
         "course/program_add.html",
         {
-            "title": "Add Program | DjangoSMS",
+            "title": "Add Program",
             "form": form,
         },
     )
@@ -112,7 +112,7 @@ def program_edit(request, pk):
     return render(
         request,
         "course/program_add.html",
-        {"title": "Edit Program | DjangoSMS", "form": form},
+        {"title": "Edit Program", "form": form},
     )
 
 
@@ -179,7 +179,7 @@ def course_add(request, pk):
         request,
         "course/course_add.html",
         {
-            "title": "Add Course | DjangoSMS",
+            "title": "Add Course",
             "form": form,
             "program": pk,
             "users": users,
@@ -210,7 +210,7 @@ def course_edit(request, slug):
         request,
         "course/course_add.html",
         {
-            "title": "Edit Course | DjangoSMS",
+            "title": "Edit Course",
             # 'form': form, 'program': pk, 'course': pk
             "form": form,
         },
@@ -264,7 +264,7 @@ class CourseAllocationFormView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Assign Course | DjangoSMS"
+        context["title"] = "Assign Course"
         return context
 
 
@@ -275,7 +275,7 @@ def course_allocation_view(request):
         request,
         "course/course_allocation_view.html",
         {
-            "title": "Course Allocations | DjangoSMS",
+            "title": "Course Allocations",
             "allocated_courses": allocated_courses,
         },
     )
@@ -297,7 +297,7 @@ def edit_allocated_course(request, pk):
     return render(
         request,
         "course/course_allocation_form.html",
-        {"title": "Edit Course Allocated | DjangoSMS", "form": form, "allocated": pk},
+        {"title": "Edit Course Allocated", "form": form, "allocated": pk},
     )
 
 
@@ -334,7 +334,7 @@ def handle_file_upload(request, slug):
     return render(
         request,
         "upload/upload_file_form.html",
-        {"title": "File Upload | DjangoSMS", "form": form, "course": course},
+        {"title": "File Upload", "form": form, "course": course},
     )
 
 
@@ -391,7 +391,7 @@ def handle_video_upload(request, slug):
     return render(
         request,
         "upload/upload_video_form.html",
-        {"title": "Video Upload | DjangoSMS", "form": form, "course": course},
+        {"title": "Video Upload", "form": form, "course": course},
     )
 
 
