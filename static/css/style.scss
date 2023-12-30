@@ -825,14 +825,13 @@ hr {
 
         &:hover {
           color: #007bff;
-          background: rgba(0, 111, 255, 0.05);
+          background: rgba(0, 111, 255, 0.1);
         }
       }
       &.active a {
         // color: #007bff;
-        background: rgba(0, 111, 255, 0.05);
-        color: #006fff;
-        text-shadow: 0 0 30px #006fff;
+        background: var(--primary);
+        color: #fff;
       }
     }
   }

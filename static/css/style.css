@@ -781,12 +781,11 @@ hr {
 }
 #side-nav ul li a:hover {
   color: #007bff;
-  background: rgba(0, 111, 255, 0.05);
+  background: rgba(0, 111, 255, 0.1);
 }
 #side-nav ul li.active a {
-  background: rgba(0, 111, 255, 0.05);
-  color: #006fff;
-  text-shadow: 0 0 30px #006fff;
+  background: var(--primary);
+  color: #fff;
 }
 #side-nav.toggle-active {
   box-shadow: 0px 0px 0px 0px #dbdbdb;
