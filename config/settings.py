@@ -12,10 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import posixpath
-import environ
-
-# Environment variables
-env = environ.Env()
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -120,11 +117,11 @@ ASGI_APPLICATION = "config.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST", default="localhost"),
+        "PORT": config("DB_PORT", default=5432),
     }
 }
 
@@ -171,7 +168,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ["staticfiles"]))
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -180,13 +177,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # E-mail configuration
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = (
-    "smtp.gmail.com"  # Here i'm using gmail as the email host, but you can change it
-)
-EMAIL_PORT = 587
+EMAIL_HOST = "smtp.gmail.com"  # Gmail as the email host, but you can change it
+EMAIL_PORT = config("EMAIL_PORT", default=587)
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env("USER_EMAIL")
-EMAIL_HOST_PASSWORD = env("USER_PASSWORD")
+EMAIL_HOST_USER = config("USER_EMAIL")
+EMAIL_HOST_PASSWORD = config("USER_PASSWORD")
 
 # crispy config
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -206,5 +201,5 @@ REST_FRAMEWORK = {
 }
 
 # Strip payment config
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
-STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY", default="")
