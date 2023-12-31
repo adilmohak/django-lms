@@ -1,11 +1,11 @@
 # Learning management system using django web framework
 
-I made the system easy to understand yet feature-rich. Let's enhance the project by contributing! 👩‍💻👩‍💻
+Feature-rich learning management system. Let's enhance the project by contributing! 👩‍💻👩‍💻
 
 - Demo video: https://youtu.be/KKIeRXwZ-Sw *Please note that the video does not feature the most recent UI design.*
 - Setup video: https://youtu.be/gMJfENDEyUs
 
-![dj-lms-dashboard](https://user-images.githubusercontent.com/60693922/212262964-5b5f2cb9-59b6-4be8-bf29-63a5265a7a9e.png)
+![Screenshot from 2023-12-31 17-36-31](https://github.com/adilmohak/django-lms/assets/60693922/e7fb628a-6275-4160-ae0f-ab27099ab3ca)
 
 Current features
 ----------------
@@ -61,8 +61,7 @@ DB_HOST=localhost
 DB_PORT=
 USER_EMAIL=[YOUR_EMAIL]
 USER_PASSWORD=[EMAIL_PASSWORD]
-STRIPE_SECRET_KEY=LEAVE_THIS_BLANK_FOR_NOW
-STRIPE_PUBLISHABLE_KEY=LEAVE_THIS_BLANK_FOR_NOW
+DEBUG=True
 ```
 
 - `python manage.py makemigrations`
