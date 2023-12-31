@@ -71,6 +71,9 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
+    class Meta:
+        ordering = ("-date_joined",)
+
     @property
     def get_full_name(self):
         full_name = self.username
@@ -140,6 +143,9 @@ class Student(models.Model):
 
     objects = StudentManager()
 
+    class Meta:
+        ordering = ("-student__date_joined",)
+
     def __str__(self):
         return self.student.get_full_name
 
@@ -168,6 +174,9 @@ class Parent(models.Model):
     # the parent (i.e. father, mother, brother, sister)
     relation_ship = models.TextField(choices=RELATION_SHIP, blank=True)
 
+    class Meta:
+        ordering = ("-user__date_joined",)
+
     def __str__(self):
         return self.user.username
 
@@ -175,6 +184,9 @@ class Parent(models.Model):
 class DepartmentHead(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        ordering = ("-user__date_joined",)
 
     def __str__(self):
         return "{}".format(self.user)
