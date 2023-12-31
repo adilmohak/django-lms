@@ -84,9 +84,7 @@
                 
                 {% empty %}
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td>
+                  <td colspan="6">
                   <span class="text-danger">
                     No Student.
                     {% if request.user.is_superuser %}
@@ -98,9 +96,6 @@
                     </a>
                   </span>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
                 </tr>
 
             </tr>

@@ -47,7 +47,3 @@ if settings.DEBUG:
         ),
         path("500/", default_views.server_error),
     ]
-
-handler404 = "app.views.handler404"
-handler500 = "app.views.handler500"
-handler400 = "app.views.handler400"

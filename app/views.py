@@ -298,33 +298,3 @@ def semester_delete_view(request, pk):
 @admin_required
 def dashboard_view(request):
     return render(request, "app/dashboard.html")
-
-
-# ########################################################
-
-
-def handler404(request, exception, template_name="common/404.html"):
-    response = render(request, "common/404.html")
-    response.status_code = 404
-    return response
-
-
-def handler500(request, *args, **argv):
-    response = render(request, "common/500.html")
-    response.status_code = 500
-
-    return response
-
-
-def handler400(request, exception, template_name="common/400.html"):
-    response = render(request, "common/400.html")
-    response.status_code = 400
-
-    return response
-
-
-def handler403(request, exception, template_name="common/403.html"):
-    response = render(request, "common/403.html")
-    response.status_code = 403
-
-    return response

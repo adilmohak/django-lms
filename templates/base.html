@@ -10,7 +10,6 @@
     <title>{% block title %}DjangoSMS{% endblock title %}</title>
 
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
-    <!-- <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all"> -->
 
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-5.3.2/css/bootstrap.min.css' %}">
 
@@ -23,15 +22,22 @@
 </head>
 
 <body>
-    {% include 'aside.html' %}
+    {% block sidebar %}
+        {% include 'aside.html' %}
+    {% endblock %}
+
+    {% block maincontent %}
     <div id="main">
-        {% include 'navbar.html' %}
+        {% block topbar %}
+            {% include 'navbar.html' %}
+        {% endblock %}
 
         <div class="container-fluid" id="main-content">
             {% block content %}{% endblock content %}
         </div>
 
     </div>
+    {% endblock %}
 
     <script type="text/javascript" src="{% static 'vendor/jquery-3.7.1/jquery-3.7.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'vendor/bootstrap-5.3.2/js/bootstrap.bundle.min.js' %}"></script>
