@@ -13,8 +13,8 @@
     </div>
 
     <div class="manage-wrap">
-        <div class="row">
-            <div class="col ml-auto">
+        <div class="d-flex">
+            <div class="">
                 {% if request.user.is_superuser or request.user.is_lecturer %}
                 <a class="btn btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
                     Upload new file
@@ -24,7 +24,7 @@
                 </a>
                 {% endif %}
             </div>
-            <div class="col text-right">
+            <div class="ms-auto">
                 <a class="btn btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
                     Take a Quiz
                 </a>
@@ -105,8 +105,8 @@
                                 </div>
                             </td>
                             {% endif %}
-
-                            {% empty %}
+                        </tr>
+                        {% empty %}
                         <tr>
                             <td></td>
                             <td></td>
@@ -183,8 +183,8 @@
                                 </div>
                             </td>
                             {% endif %}
-
-                            {% empty %}
+                        </tr>
+                        {% empty %}
                         <tr>
                             <td></td>
                             <td></td>
@@ -213,7 +213,7 @@
 
 </div>
 
-<div class="site-section">
+<div class="site-section mb-5">
     <div class="title-1">Instructor(s)</div>
     <br>
     <div class="container marketing">
@@ -237,6 +237,8 @@
                 </p>
                 <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
             </div>
+            {% empty %}
+            <h6 class="text-muted mt-3">No lecturer assigned for this course</h6>
             {% endfor %}
 
         </div>
