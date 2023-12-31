@@ -15,12 +15,10 @@
 			</form>
 
 			<div class="dropdown">
-				<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false">
-					<img class="profile-pic" src="{{ request.user.picture.url }}">
-					<!-- {{ request.user.get_full_name|truncatechars:15 }} -->
+				<button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<img class="profile-pic border border-warning" src="{{ request.user.picture.url }}">
 				</button>
-				<div class="dropdown-menu" style="min-width: 14rem !important;" aria-labelledby="dropdownMenuButton">
+				<div class="dropdown-menu" style="min-width: 14rem !important;">
 					<p class="container text-muted-xs text-center">
 						Last login: {{ request.user.last_login|date }}</p>
 

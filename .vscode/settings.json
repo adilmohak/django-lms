@@ -3,7 +3,15 @@
   "[html]": {
     "editor.formatOnSave": false
   },
-  "liveSassCompile.settings.includeItems": ["**/static/css/style.scss"],
+  "liveSassCompile.settings.includeItems": ["/**/static/scss/style.scss"],
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "extensionName": ".min.css",
+      "savePath": "/static/css",
+      "savePathReplacementPairs": null
+    }
+  ],
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   }
