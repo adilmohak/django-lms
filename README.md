@@ -2,7 +2,7 @@
 
 Feature-rich learning management system. Let's enhance the project by contributing! 👩‍💻👩‍💻
 
-- Demo video: https://youtu.be/KKIeRXwZ-Sw *Please note that the video does not feature the most recent UI design.*
+- Demo video: https://youtu.be/KKIeRXwZ-Sw *Please note that the video does not showcase the latest updates on UI design and backend functionality.*
 - Setup video: https://youtu.be/gMJfENDEyUs
 
 ![Screenshot from 2023-12-31 17-36-31](https://github.com/adilmohak/django-lms/assets/60693922/e7fb628a-6275-4160-ae0f-ab27099ab3ca)
@@ -56,12 +56,13 @@ Current features
 ```config
 DB_NAME=[YOUR_DB_NAME]
 DB_USER=[DB_ADMIN_NAME]
-DB_PASSWORD=[DB_PASSWORD]
+DB_PASSWORD=[DB_ADMIN_PASSWORD]
 DB_HOST=localhost
-DB_PORT=
+DB_PORT=[YOUR_POSTGRES_PORT default is 5432]
 USER_EMAIL=[YOUR_EMAIL]
 USER_PASSWORD=[EMAIL_PASSWORD]
 DEBUG=True
+SECRET_KEY=[YOUR_SECRET_KEY]
 ```
 
 - `python manage.py makemigrations`
