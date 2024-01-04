@@ -1,4 +1,4 @@
-<div id="top-navbar">
+<div id="top-navbar" class="py-1">
 	<div class="container">
 		<div class="nav-wrapper">
 
@@ -15,9 +15,9 @@
 			</form>
 
 			<div class="dropdown">
-				<button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="profile-pic border border-warning" src="{{ request.user.picture.url }}">
-				</button>
+				<div class="avatar border border-2 border-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<img src="{{ request.user.picture.url }}">
+				</div>
 				<div class="dropdown-menu" style="min-width: 14rem !important;">
 					<p class="container text-muted-xs text-center">
 						Last login: {{ request.user.last_login|date }}</p>

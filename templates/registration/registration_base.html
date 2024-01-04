@@ -1,29 +1,7 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{% block title %}DjangoSMS - Login{% endblock title %}</title>
+{% extends 'base.html' %}
 
-  <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}">
+{% block sidebar %}{% endblock %}
 
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  
-</head>
-<body style="background: #fff;">
-    <div class="container">
-      {% block content %}
-      {% endblock content %}
-    </div>
-
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-
-    {% block js %}
-    {% endblock %}
-</body>
-</html>
+{% block maincontent %}
+  {% block content %}{% endblock content %}
+{% endblock %}
