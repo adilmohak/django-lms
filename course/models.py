@@ -8,7 +8,6 @@ from django.db.models import Q
 # project import
 from .utils import *
 
-
 YEARS = (
     (1, "1"),
     (2, "2"),
@@ -101,7 +100,7 @@ class Course(models.Model):
 
     @property
     def is_current_semester(self):
-        from app.models import Semester
+        from core.models import Semester
 
         current_semester = Semester.objects.get(is_current_semester=True)
 
@@ -127,7 +126,7 @@ class CourseAllocation(models.Model):
     )
     courses = models.ManyToManyField(Course, related_name="allocated_course")
     session = models.ForeignKey(
-        "app.Session", on_delete=models.CASCADE, blank=True, null=True
+        "core.Session", on_delete=models.CASCADE, blank=True, null=True
     )
 
     def __str__(self):

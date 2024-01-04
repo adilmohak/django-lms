@@ -18,7 +18,7 @@ def home_view(request):
         "title": "News & Events",
         "items": items,
     }
-    return render(request, "app/index.html", context)
+    return render(request, "core/index.html", context)
 
 
 @login_required
@@ -37,7 +37,7 @@ def post_add(request):
         form = NewsAndEventsForm()
     return render(
         request,
-        "app/post_add.html",
+        "core/post_add.html",
         {
             "title": "Add Post",
             "form": form,
@@ -63,7 +63,7 @@ def edit_post(request, pk):
         form = NewsAndEventsForm(instance=instance)
     return render(
         request,
-        "app/post_add.html",
+        "core/post_add.html",
         {
             "title": "Edit Post",
             "form": form,
@@ -89,7 +89,7 @@ def delete_post(request, pk):
 def session_list_view(request):
     """Show list of all sessions"""
     sessions = Session.objects.all().order_by("-is_current_session", "-session")
-    return render(request, "app/session_list.html", {"sessions": sessions})
+    return render(request, "core/session_list.html", {"sessions": sessions})
 
 
 @login_required
@@ -121,7 +121,7 @@ def session_add_view(request):
 
     else:
         form = SessionForm()
-    return render(request, "app/session_update.html", {"form": form})
+    return render(request, "core/session_update.html", {"form": form})
 
 
 @login_required
@@ -153,7 +153,7 @@ def session_update_view(request, pk):
 
     else:
         form = SessionForm(instance=session)
-    return render(request, "app/session_update.html", {"form": form})
+    return render(request, "core/session_update.html", {"form": form})
 
 
 @login_required
@@ -182,7 +182,7 @@ def semester_list_view(request):
     semesters = Semester.objects.all().order_by("-is_current_semester", "-semester")
     return render(
         request,
-        "app/semester_list.html",
+        "core/semester_list.html",
         {
             "semesters": semesters,
         },
@@ -244,7 +244,7 @@ def semester_add_view(request):
             return redirect("semester_list")
     else:
         form = SemesterForm()
-    return render(request, "app/semester_update.html", {"form": form})
+    return render(request, "core/semester_update.html", {"form": form})
 
 
 @login_required
@@ -278,7 +278,7 @@ def semester_update_view(request, pk):
 
     else:
         form = SemesterForm(instance=semester)
-    return render(request, "app/semester_update.html", {"form": form})
+    return render(request, "core/semester_update.html", {"form": form})
 
 
 @login_required
@@ -297,4 +297,4 @@ def semester_delete_view(request, pk):
 @login_required
 @admin_required
 def dashboard_view(request):
-    return render(request, "app/dashboard.html")
+    return render(request, "core/dashboard.html")

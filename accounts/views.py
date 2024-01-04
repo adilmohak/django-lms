@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib.auth.forms import PasswordChangeForm
-from app.models import Session, Semester
+from core.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
 from .decorators import admin_required

@@ -1,6 +1,6 @@
 from itertools import chain
 from django.views.generic import ListView
-from app.models import NewsAndEvents
+from core.models import NewsAndEvents
 from course.models import Program, Course
 from quiz.models import Quiz
 

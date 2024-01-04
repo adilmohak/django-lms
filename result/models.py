@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 from accounts.models import Student
-from app.models import Semester
+from core.models import Semester
 from course.models import Course
 
 YEARS = (
