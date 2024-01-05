@@ -29,11 +29,9 @@
 
 <div class="content-center">
     <form class="search-form" action="" method="get">
-        <input class="au-input" type="text" name="id_no" placeholder="ID No." value="{{ request.GET.id_no }}"/>
-        <input class="au-input" type="text" name="name" placeholder="Name" value="{{ request.GET.name }}"/>
-        <input class="au-input" type="text" name="email" placeholder="Email" value="{{ request.GET.email }}"/>
+        {{ filter.form }}
         <button class="btn btn-light" type="submit">
-            <i class="fas fa-search"></i> filter
+            <i class="fas fa-search"></i> Filter
         </button>
     </form>
 </div>
@@ -55,7 +53,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for lecturer in object_list %}
+            {% for lecturer in filter.qs %}
             <tr>
                 <td> {{ forloop.counter }}.</td>
                 <td>{{ lecturer.username }}</td>

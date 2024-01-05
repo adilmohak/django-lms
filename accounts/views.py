@@ -7,12 +7,14 @@ from django.views.generic import CreateView, ListView
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib.auth.forms import PasswordChangeForm
+from django_filters.views import FilterView
 from core.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
 from .decorators import admin_required
 from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
 from .models import User, Student, Parent
+from .filters import LecturerFilter
 
 
 def validate_username(request):
@@ -259,7 +261,8 @@ def edit_staff(request, pk):
 
 
 @method_decorator([login_required, admin_required], name="dispatch")
-class LecturerListView(ListView):
+class LecturerListView(FilterView):
+    filterset_class = LecturerFilter
     queryset = User.objects.filter(is_lecturer=True)
     template_name = "accounts/lecturer_list.html"
     paginate_by = 10  # if pagination is desired
