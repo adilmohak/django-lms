@@ -7,12 +7,14 @@ from django.views.generic import CreateView, ListView
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib.auth.forms import PasswordChangeForm
+from django_filters.views import FilterView
 from core.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
 from .decorators import admin_required
 from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
 from .models import User, Student, Parent
+from .filters import LecturerFilter, StudentFilter
 
 
 def validate_username(request):
@@ -259,7 +261,8 @@ def edit_staff(request, pk):
 
 
 @method_decorator([login_required, admin_required], name="dispatch")
-class LecturerListView(ListView):
+class LecturerFilterView(FilterView):
+    filterset_class = LecturerFilter
     queryset = User.objects.filter(is_lecturer=True)
     template_name = "accounts/lecturer_list.html"
     paginate_by = 10  # if pagination is desired
@@ -348,16 +351,10 @@ def edit_student(request, pk):
 
 
 @method_decorator([login_required, admin_required], name="dispatch")
-class StudentListView(ListView):
+class StudentListView(FilterView):
+    filterset_class = StudentFilter
     template_name = "accounts/student_list.html"
-    paginate_by = 10  # if pagination is desired
-
-    def get_queryset(self):
-        queryset = Student.objects.all()
-        query = self.request.GET.get("student_id")
-        if query is not None:
-            queryset = queryset.filter(Q(department=query))
-        return queryset
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

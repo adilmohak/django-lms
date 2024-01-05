@@ -49,6 +49,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "crispy_forms",
     "rest_framework",
+    "django_filters",
 ]
 
 # Custom apps
