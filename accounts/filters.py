@@ -1,6 +1,6 @@
 from django.db.models import Q
 import django_filters
-from .models import User
+from .models import User, Student
 
 
 class LecturerFilter(django_filters.FilterSet):
@@ -16,16 +16,56 @@ class LecturerFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
 
         # Change html classes and placeholders
-        self.filters["username"].field.widget.attrs.update({"class": "au-input"})
-        self.filters["username"].field.widget.attrs.update({"placeholder": "ID No."})
-
-        self.filters["name"].field.widget.attrs.update({"class": "au-input"})
-        self.filters["name"].field.widget.attrs.update({"placeholder": "Name"})
-
-        self.filters["email"].field.widget.attrs.update({"class": "au-input"})
-        self.filters["email"].field.widget.attrs.update({"placeholder": "Email"})
+        self.filters["username"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "ID No."}
+        )
+        self.filters["name"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Name"}
+        )
+        self.filters["email"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Email"}
+        )
 
     def filter_by_name(self, queryset, name, value):
         return queryset.filter(
             Q(first_name__icontains=value) | Q(last_name__icontains=value)
+        )
+
+
+class StudentFilter(django_filters.FilterSet):
+    student__username = django_filters.CharFilter(lookup_expr="exact", label="")
+    student__name = django_filters.CharFilter(method="filter_by_name", label="")
+    student__email = django_filters.CharFilter(lookup_expr="icontains", label="")
+    department__title = django_filters.CharFilter(lookup_expr="icontains", label="")
+
+    class Meta:
+        model = Student
+        fields = [
+            "student__username",
+            "student__name",
+            "student__email",
+            "department__title",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Change html classes and placeholders
+        self.filters["student__username"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "ID No."}
+        )
+        self.filters["student__name"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Name"}
+        )
+        self.filters["student__email"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Email"}
+        )
+        self.filters["department__title"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Department"}
+        )
+
+    def filter_by_name(self, queryset, name, value):
+        return queryset.filter(
+            Q(student__first_name__icontains=value)
+            | Q(student__last_name__icontains=value)
         )
