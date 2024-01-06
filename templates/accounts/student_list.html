@@ -54,7 +54,7 @@
                 <th> ID No. </th>
                 <th> Full Name </th>
                 <th> Email </th>
-                <th> Department </th>
+                <th> Program </th>
                 {% if request.user.is_superuser %}
                 <th> Action </th>
                 {% endif %}
@@ -67,7 +67,7 @@
                 <td>{{ student.student.username }} </td>
                 <td><a href="{% url 'profile_single' student.student.id %}">{{ student.student.get_full_name }}</a></td>
                 <td>{{ student.student.email }} </td>
-                <td>{{ student.department }}</td>
+                <td>{{ student.program }}</td>
 
                 {% if request.user.is_superuser %}
                 <td>

@@ -468,7 +468,7 @@ def course_registration(request):
 
         courses = (
             Course.objects.filter(
-                program__pk=student.department.id,
+                program__pk=student.program.id,
                 level=student.level,
                 semester=current_semester,
             )
@@ -476,7 +476,7 @@ def course_registration(request):
             .order_by("year")
         )
         all_courses = Course.objects.filter(
-            level=student.level, program__pk=student.department.id
+            level=student.level, program__pk=student.program.id
         )
 
         no_course_is_registered = False  # Check if no course is registered
@@ -550,7 +550,7 @@ def user_course_list(request):
             student__student__id=student.student.id
         )
         courses = Course.objects.filter(level=student.level).filter(
-            program__pk=student.department.id
+            program__pk=student.program.id
         )
 
         return render(
