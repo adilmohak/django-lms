@@ -176,12 +176,12 @@ class StudentAddForm(UserCreationForm):
         ),
     )
 
-    department = forms.ModelChoiceField(
+    program = forms.ModelChoiceField(
         queryset=Program.objects.all(),
         widget=forms.Select(
             attrs={"class": "browser-default custom-select form-control"}
         ),
-        label="Department",
+        label="Program",
     )
 
     email = forms.EmailField(
@@ -237,7 +237,7 @@ class StudentAddForm(UserCreationForm):
         student = Student.objects.create(
             student=user,
             level=self.cleaned_data.get("level"),
-            department=self.cleaned_data.get("department"),
+            program=self.cleaned_data.get("program"),
         )
         student.save()
         return user

@@ -36,7 +36,7 @@ class StudentFilter(django_filters.FilterSet):
     student__username = django_filters.CharFilter(lookup_expr="exact", label="")
     student__name = django_filters.CharFilter(method="filter_by_name", label="")
     student__email = django_filters.CharFilter(lookup_expr="icontains", label="")
-    department__title = django_filters.CharFilter(lookup_expr="icontains", label="")
+    program__title = django_filters.CharFilter(lookup_expr="icontains", label="")
 
     class Meta:
         model = Student
@@ -44,7 +44,7 @@ class StudentFilter(django_filters.FilterSet):
             "student__username",
             "student__name",
             "student__email",
-            "department__title",
+            "program__title",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -60,8 +60,8 @@ class StudentFilter(django_filters.FilterSet):
         self.filters["student__email"].field.widget.attrs.update(
             {"class": "au-input", "placeholder": "Email"}
         )
-        self.filters["department__title"].field.widget.attrs.update(
-            {"class": "au-input", "placeholder": "Department"}
+        self.filters["program__title"].field.widget.attrs.update(
+            {"class": "au-input", "placeholder": "Program"}
         )
 
     def filter_by_name(self, queryset, name, value):

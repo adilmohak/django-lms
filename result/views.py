@@ -115,10 +115,10 @@ def add_score_for(request, id):
             student = TakenCourse.objects.get(id=ids[s])
             # print(student)
             # print(student.student)
-            # print(student.student.department.id)
+            # print(student.student.program.id)
             courses = (
                 Course.objects.filter(level=student.student.level)
-                .filter(program__pk=student.student.department.id)
+                .filter(program__pk=student.student.program.id)
                 .filter(semester=current_semester)
             )  # all courses of a specific level in current semester
             total_credit_in_semester = 0
@@ -474,7 +474,7 @@ def course_registration_form(request):
     normal.fontName = "Helvetica"
     normal.fontSize = 12
     normal.leading = 18
-    title = "<b>EZOD UNIVERSITY OF TECHNOLOGY, ADAMA</b>"
+    title = "<b>EZOD UNIVERSITY OF TECHNOLOGY, ADAMA</b>"  # TODO: Make this dynamic
     title = Paragraph(title.upper(), normal)
     Story.append(title)
     style = getSampleStyleSheet()
@@ -484,7 +484,9 @@ def course_registration_form(request):
     school.fontName = "Helvetica"
     school.fontSize = 10
     school.leading = 18
-    school_title = "<b>SCHOOL OF ELECTRICAL ENGINEERING & COMPUTING</b>"
+    school_title = (
+        "<b>SCHOOL OF ELECTRICAL ENGINEERING & COMPUTING</b>"  # TODO: Make this dynamic
+    )
     school_title = Paragraph(school_title.upper(), school)
     Story.append(school_title)
 
@@ -495,7 +497,9 @@ def course_registration_form(request):
     department.fontName = "Helvetica"
     department.fontSize = 9
     department.leading = 18
-    department_title = "<b>DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>"
+    department_title = (
+        "<b>DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>"  # TODO: Make this dynamic
+    )
     department_title = Paragraph(department_title, department)
     Story.append(department_title)
     Story.append(Spacer(1, 0.3 * inch))
