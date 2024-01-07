@@ -21,7 +21,7 @@ from .forms import (
     UploadFormFile,
     UploadFormVideo,
 )
-from .filters import ProgramFilter
+from .filters import ProgramFilter, CourseAllocationFilter
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
 
 
@@ -260,17 +260,15 @@ class CourseAllocationFormView(CreateView):
         return context
 
 
-@login_required
-def course_allocation_view(request):
-    allocated_courses = CourseAllocation.objects.all()
-    return render(
-        request,
-        "course/course_allocation_view.html",
-        {
-            "title": "Course Allocations",
-            "allocated_courses": allocated_courses,
-        },
-    )
+@method_decorator([login_required], name="dispatch")
+class CourseAllocationFilterView(FilterView):
+    filterset_class = CourseAllocationFilter
+    template_name = "course/course_allocation_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Course Allocations"
+        return context
 
 
 @login_required

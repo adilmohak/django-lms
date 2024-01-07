@@ -18,7 +18,11 @@ urlpatterns = [
     path(
         "course/assign/", CourseAllocationFormView.as_view(), name="course_allocation"
     ),
-    path("course/allocated/", course_allocation_view, name="course_allocation_view"),
+    path(
+        "course/allocated/",
+        CourseAllocationFilterView.as_view(),
+        name="course_allocation_view",
+    ),
     path(
         "allocated_course/<int:pk>/edit/",
         edit_allocated_course,

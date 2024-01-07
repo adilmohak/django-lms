@@ -27,11 +27,10 @@
 {% endif %}
 
 <div class="content-center">
-    <form class="search-form" action="" method="POST">{% csrf_token %}
-        <input class="au-input" type="text" name="lecturer" placeholder="Lecturer" value="{{ request.GET.lecturer }}"/>
-        <input class="au-input" type="text" name="course" placeholder="Course" value="{{ request.GET.course }}"/>
+    <form class="search-form" action="" method="GET">
+        {{ filter.form }}
         <button class="btn btn-light" type="submit">
-            <i class="fas fa-search"></i> filter
+            <i class="fas fa-search"></i> Filter
         </button>
     </form>
 </div>
@@ -48,7 +47,7 @@
                 {% endif %}
             </tr>
         </thead>
-        {% for course in allocated_courses %}
+        {% for course in filter.qs %}
         <tbody>
             <tr>
                 <td> {{ forloop.counter }}.</td>
