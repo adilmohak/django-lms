@@ -27,9 +27,8 @@
 {% endif %}
 
 <div class="content-center">
-    <form class="search-form mx-auto" action="" method="GET">{% csrf_token %}
-        <input class="au-input" type="text" name="program_filter" placeholder="Program name"
-            value="{{ request.GET.program_filter }}" />
+    <form class="search-form mx-auto" action="" method="GET">
+        {{ filter.form }}
         <button class="btn btn-light" type="submit">
             <i class="fas fa-search"></i> Filter
         </button>
@@ -72,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for program in programs %}
+                {% for program in filter.qs %}
                 <tr>
                     <td>{{ forloop.counter }}.</td>
                     <td><a class="a-list" href="{{ program.get_absolute_url }}">
