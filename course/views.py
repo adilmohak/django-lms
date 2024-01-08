@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
+from django_filters.views import FilterView
 
 from accounts.models import User, Student
 from core.models import Session, Semester
@@ -20,28 +21,19 @@ from .forms import (
     UploadFormFile,
     UploadFormVideo,
 )
+from .filters import ProgramFilter, CourseAllocationFilter
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
 
 
-# ########################################################
-# Program views
-# ########################################################
-@login_required
-def program_view(request):
-    programs = Program.objects.all()
+@method_decorator([login_required], name="dispatch")
+class ProgramFilterView(FilterView):
+    filterset_class = ProgramFilter
+    template_name = "course/program_list.html"
 
-    program_filter = request.GET.get("program_filter")
-    if program_filter:
-        programs = Program.objects.filter(title__icontains=program_filter)
-
-    return render(
-        request,
-        "course/program_list.html",
-        {
-            "title": "Programs",
-            "programs": programs,
-        },
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Programs"
+        return context
 
 
 @login_required
@@ -268,17 +260,15 @@ class CourseAllocationFormView(CreateView):
         return context
 
 
-@login_required
-def course_allocation_view(request):
-    allocated_courses = CourseAllocation.objects.all()
-    return render(
-        request,
-        "course/course_allocation_view.html",
-        {
-            "title": "Course Allocations",
-            "allocated_courses": allocated_courses,
-        },
-    )
+@method_decorator([login_required], name="dispatch")
+class CourseAllocationFilterView(FilterView):
+    filterset_class = CourseAllocationFilter
+    template_name = "course/course_allocation_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Course Allocations"
+        return context
 
 
 @login_required

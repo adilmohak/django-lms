@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     # Program urls
-    path("", program_view, name="programs"),
+    path("", ProgramFilterView.as_view(), name="programs"),
     path("<int:pk>/detail/", program_detail, name="program_detail"),
     path("add/", program_add, name="add_program"),
     path("<int:pk>/edit/", program_edit, name="edit_program"),
@@ -18,7 +18,11 @@ urlpatterns = [
     path(
         "course/assign/", CourseAllocationFormView.as_view(), name="course_allocation"
     ),
-    path("course/allocated/", course_allocation_view, name="course_allocation_view"),
+    path(
+        "course/allocated/",
+        CourseAllocationFilterView.as_view(),
+        name="course_allocation_view",
+    ),
     path(
         "allocated_course/<int:pk>/edit/",
         edit_allocated_course,
