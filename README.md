@@ -1,6 +1,8 @@
 # Learning management system using django web framework
 
-Feature-rich learning management system. Let's enhance the project by contributing! 👩‍💻👩‍💻
+Feature-rich learning management system. You may want to build a learning management system(AKA school management system) for a school organization or just for the sake of learning the tech stack and building your portfolio, either way, this project would be a good kickstart for you. 
+
+Let's enhance the project by contributing! 👩‍💻👩‍💻
 
 - Demo video: https://youtu.be/KKIeRXwZ-Sw *Please note that the video does not showcase the latest updates on UI design and backend functionality.*
 - Setup video: https://youtu.be/gMJfENDEyUs
@@ -36,6 +38,10 @@ Current features
 * Custom message displayed for those that pass or fail a quiz
 * Custom permission (view_sittings) added, allowing users with that permission to view quiz results from users
 * A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
+
+# Quick note for future contributors
+
+If you would like to contribute, simply begin by implementing one from the list in the `TODO.txt` file.
 
 # Pre-requisites:
 
