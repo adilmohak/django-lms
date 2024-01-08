@@ -41,7 +41,7 @@ Current features
 
 # Quick note for future contributors
 
-If you would like to contribute, simply begin by implementing one from the list in the `TODO.txt` file.
+If you would like to contribute, simply begin by implementing one from the list in the `TODO.md` file.
 
 # Pre-requisites:
 
