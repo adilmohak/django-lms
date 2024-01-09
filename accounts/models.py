@@ -81,6 +81,18 @@ class User(AbstractUser):
             full_name = self.first_name + " " + self.last_name
         return full_name
 
+    @classmethod
+    def get_student_count(cls):
+        return cls.objects.filter(is_student=True).count()
+
+    @classmethod
+    def get_lecturer_count(cls):
+        return cls.objects.filter(is_lecturer=True).count()
+
+    @classmethod
+    def get_superuser_count(cls):
+        return cls.objects.filter(is_superuser=True).count()
+
     def __str__(self):
         return "{} ({})".format(self.username, self.get_full_name)
 
