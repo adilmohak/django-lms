@@ -3,13 +3,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block content %}<br>
+{% block content %}
 
 <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> 
     <a href="{% url 'student_list' %}" class="primary1">Students </a> Account setting
 </div>
-<p class="title-1"><i class="fas fa-cogs"></i>Student Update Form</p>
-<div class="title-line"></div><br>
+<h4 class="fw-bold mb-3"><i class="fas fa-cog me-2"></i>Student Update Form</h4>
 
 {% if messages %}
     {% for message in messages %}
@@ -68,6 +67,6 @@
             </div>
         </div>
     </div>
-    <center><input class="btn btn-outline-primary" type="submit" value="Save"></center>
+    <input class="btn btn-primary" type="submit" value="Save">
 </form>
 {% endblock content %}

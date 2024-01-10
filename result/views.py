@@ -41,10 +41,13 @@ def add_score(request):
     Shows a page where a lecturer will select a course allocated
     to him for score entry. in a specific semester and session
     """
-    current_session = Session.objects.get(is_current_session=True)
-    current_semester = get_object_or_404(
-        Semester, is_current_semester=True, session=current_session
-    )
+    current_session = Session.objects.filter(is_current_session=True).first()
+    current_semester = Semester.objects.filter(is_current_semester=True, session=current_session).first()
+
+    if not current_session or not current_semester:
+        messages.error(request, "No active semester found.")
+        return render(request, "result/add_score.html")
+    
     # semester = Course.objects.filter(
     # allocated_course__lecturer__pk=request.user.id,
     # semester=current_semester)

@@ -435,26 +435,30 @@ def handle_video_delete(request, slug, video_slug):
 @student_required
 def course_registration(request):
     if request.method == "POST":
+        student = Student.objects.get(student__pk=request.user.id)
         ids = ()
         data = request.POST.copy()
         data.pop("csrfmiddlewaretoken", None)  # remove csrf_token
         for key in data.keys():
             ids = ids + (str(key),)
         for s in range(0, len(ids)):
-            student = Student.objects.get(student__pk=request.user.id)
             course = Course.objects.get(pk=ids[s])
             obj = TakenCourse.objects.create(student=student, course=course)
             obj.save()
-            messages.success(request, "Courses Registered Successfully!")
+        messages.success(request, "Courses registered successfully!")
         return redirect("course_registration")
     else:
+        current_semester = Semester.objects.filter(is_current_semester=True).first()
+        if not current_semester:
+            messages.error(request, "No active semester found.")
+            return render(request, "course/course_registration.html")
+
         # student = Student.objects.get(student__pk=request.user.id)
         student = get_object_or_404(Student, student__id=request.user.id)
         taken_courses = TakenCourse.objects.filter(student__student__id=request.user.id)
         t = ()
         for i in taken_courses:
             t += (i.course.pk,)
-        current_semester = Semester.objects.get(is_current_semester=True)
 
         courses = (
             Course.objects.filter(
@@ -510,17 +514,17 @@ def course_registration(request):
 @student_required
 def course_drop(request):
     if request.method == "POST":
+        student = Student.objects.get(student__pk=request.user.id)
         ids = ()
         data = request.POST.copy()
         data.pop("csrfmiddlewaretoken", None)  # remove csrf_token
         for key in data.keys():
             ids = ids + (str(key),)
         for s in range(0, len(ids)):
-            student = Student.objects.get(student__pk=request.user.id)
             course = Course.objects.get(pk=ids[s])
             obj = TakenCourse.objects.get(student=student, course=course)
             obj.delete()
-            messages.success(request, "Successfully Dropped!")
+        messages.success(request, "Successfully Dropped!")
         return redirect("course_registration")
 
 

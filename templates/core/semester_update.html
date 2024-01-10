@@ -28,7 +28,7 @@
             <p class="form-title">Semester Add & update Form</p>
             <div class="container"><br>
                 <form action="" method="POST">{% csrf_token %}
-                    {% for f in form %}{{ f.label }}{{ f }}<hr>{% endfor %}
+                    {{ form|crispy }}
                     <input class="btn btn-primary" type="submit" value="Save">
                 </form>
             </div>

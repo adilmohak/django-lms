@@ -20,17 +20,9 @@
 {% endif %}
 
 <div class="title-1"><i class="fas fa-table"></i>Grade Results</div>
-<div class="title-line"></div>
+<p>{{ student.level }} Result</p>
 
-<center>{{ student.level }} Result</center>
-
-<style>
-  .session-wrapper{position: relative;}
-  .session{position: absolute; top: -15px; right: 25px;}
-</style>
-<br>
-
-<div class="table-responsive p-0 mt-3">
+<div class="table-responsive">
   <div class="table-title"><u>First Semester:</u></div>
   <table class="table table-light">
     <thead>

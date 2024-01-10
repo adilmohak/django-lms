@@ -20,46 +20,33 @@
     {% endfor %}
 {% endif %}
 
-<br>
-<div class="title-1"><i class="fas fa-table"></i>Manage Score</div>
-<div class="title-line"></div><br>
+<div class="title-1 mb-3"><i class="fas fa-table"></i>Manage Score</div>
 
+{% if current_semester %}
 <div class="row">
-    <div class="col-md-8 p-0 mx-auto">
-        <p class="form-title">
-            {{ current_semester }} Semester - <i class="result-title">{{ current_session }}</i>
-        </p><br>
-        <div class="container">
-            <div class="content-center">No course selected.</div>
-
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Your Course Here
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for course in courses %}
-                        <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
-                    {% empty %}
-                        <p class="dropdown-item">No course.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- <div class="drop-down">
-                <a class="add-button" href="#">Select Course Here <i class="fas fa-angle-down"></i></a>
-
-                <div class="content">
-                    <div class="content-a">
+    <div class="col-md-8">
+        <div class="card text-center">
+            <p class="form-title">
+                {{ current_semester }} Semester - <i class="result-title">{{ current_session }}</i>
+            </p>
+            <div class="container">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle mx-auto mb-2" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Your Course Here
+                    </button>
+                    <div class="dropdown-menu">
                         {% for course in courses %}
-                            <a href="{% url 'add_score_for' course.id %}" title="{{ course.title }}">{{ course.code }}</a>
+                            <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
                         {% empty %}
-                            <p><i class="far fa-frown"></i>No course.</p>
+                            <p class="dropdown-item">No course.</p>
                         {% endfor %}
                     </div>
                 </div>
-            </div> -->
-            <p>To manage score first select your course in the buttom above.</p>
+                <p>To manage your scores, please select the appropriate course using the button above.</p>
+            </div>
         </div>
     </div>
 </div>
+{% endif %}
+
 {% endblock content %}

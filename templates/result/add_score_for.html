@@ -8,10 +8,10 @@
     <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }}</a> Manage Score</div>
 
 <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{ course }}
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu">
         {% for course in courses %}
             <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
         {% empty %}
@@ -42,9 +42,8 @@
     {% endfor %}
 </div>
 
-<p class="title-1">Submit score for {{ course }} Students</p>
-<div class="title-line"></div>
-<p class="program-description">{{ course.summary }}</p>
+<h4 class="title-1">Submit score for {{ course }} Students</h4>
+<p>{{ course.summary }}</p>
 
 {% if messages %}
     {% for message in messages %}
