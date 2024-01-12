@@ -67,16 +67,12 @@ class Program(models.Model):
 @receiver(post_save, sender=Program)
 def log_save(sender, instance, created, **kwargs):
     verb = "created" if created else "updated"
-    ActivityLog.objects.create(
-        message=f"The program '{instance.title}' has been {verb}."
-    )
+    ActivityLog.objects.create(message=f"The program '{instance}' has been {verb}.")
 
 
 @receiver(post_delete, sender=Program)
 def log_delete(sender, instance, **kwargs):
-    ActivityLog.objects.create(
-        message=f"The program '{instance.title}' has been deleted."
-    )
+    ActivityLog.objects.create(message=f"The program '{instance}' has been deleted.")
 
 
 class CourseManager(models.Manager):
@@ -138,16 +134,12 @@ pre_save.connect(course_pre_save_receiver, sender=Course)
 @receiver(post_save, sender=Course)
 def log_save(sender, instance, created, **kwargs):
     verb = "created" if created else "updated"
-    ActivityLog.objects.create(
-        message=f"The course '{instance.title}' has been {verb}."
-    )
+    ActivityLog.objects.create(message=f"The course '{instance}' has been {verb}.")
 
 
 @receiver(post_delete, sender=Course)
 def log_delete(sender, instance, **kwargs):
-    ActivityLog.objects.create(
-        message=f"The course '{instance.title}' has been deleted."
-    )
+    ActivityLog.objects.create(message=f"The course '{instance}' has been deleted.")
 
 
 class CourseAllocation(models.Model):
