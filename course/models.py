@@ -2,11 +2,13 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.db.models import Q
+from django.dispatch import receiver
 
 # project import
 from .utils import *
+from core.models import ActivityLog
 
 YEARS = (
     (1, "1"),
@@ -60,6 +62,17 @@ class Program(models.Model):
 
     def get_absolute_url(self):
         return reverse("program_detail", kwargs={"pk": self.pk})
+
+
+@receiver(post_save, sender=Program)
+def log_save(sender, instance, created, **kwargs):
+    verb = "created" if created else "updated"
+    ActivityLog.objects.create(message=f"The program '{instance}' has been {verb}.")
+
+
+@receiver(post_delete, sender=Program)
+def log_delete(sender, instance, **kwargs):
+    ActivityLog.objects.create(message=f"The program '{instance}' has been deleted.")
 
 
 class CourseManager(models.Manager):
@@ -116,6 +129,17 @@ def course_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(course_pre_save_receiver, sender=Course)
+
+
+@receiver(post_save, sender=Course)
+def log_save(sender, instance, created, **kwargs):
+    verb = "created" if created else "updated"
+    ActivityLog.objects.create(message=f"The course '{instance}' has been {verb}.")
+
+
+@receiver(post_delete, sender=Course)
+def log_delete(sender, instance, **kwargs):
+    ActivityLog.objects.create(message=f"The course '{instance}' has been deleted.")
 
 
 class CourseAllocation(models.Model):
@@ -184,6 +208,25 @@ class Upload(models.Model):
         super().delete(*args, **kwargs)
 
 
+@receiver(post_save, sender=Upload)
+def log_save(sender, instance, created, **kwargs):
+    if created:
+        ActivityLog.objects.create(
+            message=f"The file '{instance.title}' has been uploaded to the course '{instance.course}'."
+        )
+    else:
+        ActivityLog.objects.create(
+            message=f"The file '{instance.title}' of the course '{instance.course}' has been updated."
+        )
+
+
+@receiver(post_delete, sender=Upload)
+def log_delete(sender, instance, **kwargs):
+    ActivityLog.objects.create(
+        message=f"The file '{instance.title}' of the course '{instance.course}' has been deleted."
+    )
+
+
 class UploadVideo(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(blank=True, unique=True)
@@ -216,6 +259,25 @@ def video_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(video_pre_save_receiver, sender=UploadVideo)
+
+
+@receiver(post_save, sender=UploadVideo)
+def log_save(sender, instance, created, **kwargs):
+    if created:
+        ActivityLog.objects.create(
+            message=f"The video '{instance.title}' has been uploaded to the course {instance.course}."
+        )
+    else:
+        ActivityLog.objects.create(
+            message=f"The video '{instance.title}' of the course '{instance.course}' has been updated."
+        )
+
+
+@receiver(post_delete, sender=UploadVideo)
+def log_delete(sender, instance, **kwargs):
+    ActivityLog.objects.create(
+        message=f"The video '{instance.title}' of the course '{instance.course}' has been deleted."
+    )
 
 
 class CourseOffer(models.Model):

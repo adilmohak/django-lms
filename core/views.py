@@ -298,9 +298,11 @@ def semester_delete_view(request, pk):
 @login_required
 @admin_required
 def dashboard_view(request):
+    logs = ActivityLog.objects.all().order_by("-created_at")[:10]
     context = {
         "student_count": User.get_student_count(),
         "lecturer_count": User.get_lecturer_count(),
         "superuser_count": User.get_superuser_count(),
+        "logs": logs,
     }
     return render(request, "core/dashboard.html", context)
