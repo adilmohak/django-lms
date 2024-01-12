@@ -4,9 +4,6 @@ Feature-rich learning management system. You may want to build a learning manage
 
 Let's enhance the project by contributing! 👩‍💻👩‍💻
 
-- Demo video: https://youtu.be/KKIeRXwZ-Sw *Please note that the video does not showcase the latest updates on UI design and backend functionality.*
-- Setup video: https://youtu.be/gMJfENDEyUs
-
 ![Screenshot from 2023-12-31 17-36-31](https://github.com/adilmohak/django-lms/assets/60693922/e7fb628a-6275-4160-ae0f-ab27099ab3ca)
 
 Current features
