@@ -48,6 +48,7 @@ DJANGO_APPS = [
 # Third party apps
 THIRD_PARTY_APPS = [
     "crispy_forms",
+    "crispy_bootstrap5",
     "rest_framework",
     "django_filters",
 ]
@@ -196,7 +197,8 @@ EMAIL_HOST_USER = config("USER_EMAIL")
 EMAIL_HOST_PASSWORD = config("USER_PASSWORD")
 
 # crispy config
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

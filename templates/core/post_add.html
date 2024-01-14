@@ -12,29 +12,17 @@
     </ol>
 </nav>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <div class="row">
     <div class="col-md-6 mx-auto">
-        <div class="card pb-3">
-            <p class="form-title">Item Post & Update Form</p>
-            <div class="container"><br>
+        <div class="card">
+            <p class="form-title">Post Form</p>
+            <div class="card-body">
                 <form action="" method="POST">{% csrf_token %}
                     {{ form|crispy }}
-                    <input class="btn btn-primary" type="submit" value="POST">
-                    <a class="btn btn-danger" href="{% url 'home' %}" style="float: right;">Cancel</a>
+                    <input class="btn btn-primary" type="submit" value="Save">
+                    <a class="btn" href="{% url 'home' %}" style="float: right;">Cancel</a>
                 </form>
             </div>
         </div>
