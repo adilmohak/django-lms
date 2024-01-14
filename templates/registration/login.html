@@ -3,32 +3,34 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div id="login">
-  <div class="login-title blue-gradient">
-    <i class="fas fa-lock"></i>
-    <span class="login-title-text">Sign in</span>
-  </div>
-
-  <form action="" method="POST" id="login-form">{% csrf_token %}
-    <div class="form-group px-3">
-        <label for="username_id"><i class="fas fa-address-card"></i>ID Number</label>
-        <input type="text" name="username" id="username_id" class="form-control" required>
-        <div id="message-wrapper"></div>
+<div class="col-md-4 mx-auto mt-5">
+  <div class="card">
+    <div class="form-title">
+      <i class="fas fa-lock me-2"></i>
+      Sign in
     </div>
-    <div class="form-group px-3">
-        <label for="password_id"><i class="fas fa-key"></i>Password</label>
-        <input type="password" name="password" id="password_id" class="form-control" required>
-    </div>
-    {% if form.errors %}
-          <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Invalid ID & Password.</span><br>
-    {% endif %}
-
-    <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small> SIGN IN</small></button>
-  </form>
-  <br>
-  <div class="login-bottom">
-    <a href="{% url 'password_reset' %}" class="link">Forgot password ?</a>
-    <!-- <a href="{% url 'register' %}" class="link">Don't have an account ?</a> -->
+    <div class="card-body">
+        <form action="" method="POST" id="login-form">{% csrf_token %}
+          <div class="form-group mb-3">
+              <label class="mb-2" for="username_id"><i class="fas fa-address-card me-2"></i>ID Number</label>
+              <input type="text" name="username" id="username_id" class="form-control" required>
+              <div id="message-wrapper"></div>
+          </div>
+          <div class="form-group mb-3">
+              <label class="mb-2" for="password_id"><i class="fas fa-key me-2"></i>Password</label>
+              <input type="password" name="password" id="password_id" class="form-control" required>
+          </div>
+          {% if form.errors %}
+                <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Invalid ID & Password.</span><br>
+          {% endif %}
+      
+          <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small> SIGN IN</small></button>
+        </form>
+        <br>
+        <div class="login-bottom">
+          <a href="{% url 'password_reset' %}" class="link">Forgot password ?</a>
+        </div>
+      </div>
   </div>
 </div>
 {% endblock content %}

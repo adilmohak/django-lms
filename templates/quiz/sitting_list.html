@@ -3,8 +3,15 @@
 {% block title %}{% trans "All Quizzes" %} | Learning management system{% endblock %}
 
 {% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Complete Exams</li>
+	</ol>
+</nav>
+
 <div class="container">
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Complete Exams</div>
 
 <div class="title-1"><i class="fas fa-calendar-alt"></i>{% trans "List of complete exams" %}</div>
 

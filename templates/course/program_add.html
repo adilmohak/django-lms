@@ -4,9 +4,14 @@
 {% load static %}
 
 {% block content %}
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> 
-    <a href="{% url 'programs' %}" class="primary1">Programs</a> Add</div>
-<br>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Program Form</li>
+    </ol>
+</nav>
 
 {% if messages %}
     {% for message in messages %}

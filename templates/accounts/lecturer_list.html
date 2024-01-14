@@ -3,7 +3,12 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Lecturers</div>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Lecturers</li>
+    </ol>
+</nav>
 
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
@@ -27,16 +32,9 @@
     {% endfor %}
 {% endif %}
 
-<div class="content-center">
-    <form class="search-form" action="" method="get">
-        {{ filter.form }}
-        <button class="btn btn-light" type="submit">
-            <i class="fas fa-search"></i> Filter
-        </button>
-    </form>
-</div>
+{% include 'snippets/filter_form.html' %}
 
-<div class="table-responsive table-shadow table-light table-striped m-0 mt-5">
+<div class="table-responsive table-shadow table-light table-striped m-0 mt-4">
     <table class="table">
         <thead>
             <tr>
@@ -64,12 +62,15 @@
                 <td>{{ lecturer.last_login }}</td>
                 {% if request.user.is_superuser %}
                 <td> 
-                    <div class="update-delete">
-                        <a href="{% url 'staff_edit' pk=lecturer.pk %}" class="update"><i class="fas fa-edit"></i></a>
-                        <form action="{% url 'lecturer_delete' pk=lecturer.pk %}">{% csrf_token %}
-                            <button type="submit" class="btn btn-sm"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-ellipsis-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu position-fixed">
+                          <li><a class="dropdown-item" href="{% url 'staff_edit' pk=lecturer.pk %}"><i class="fas fa-edit"></i> Update</a></li>
+                          <li><a class="dropdown-item text-danger" href="{% url 'lecturer_delete' pk=lecturer.pk %}"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                        </ul>
+                      </div>
                 </td>
                 {% endif %}
                 
@@ -96,18 +97,3 @@
 </div>
 {% endblock content %}
 
-{% block js %}
-<script>
-    const xhr = new XMLHttpRequest()
-    const method = 'GET'
-    const url = "/accounts/lecturers/"
-    const responseType = "json"
-  
-    xhr.responseType = responseType
-    xhr.open(method, url)
-    xhr.onload = function() {
-      console.log(xhr.response)
-    }
-    xhr.send()
-</script>
-{% endblock %}

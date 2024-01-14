@@ -28,39 +28,46 @@
     }
 </style>
 
-<div class="container">
-    <div id="input-nav" class="p-2">Home</div>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Home</li>
+    </ol>
+</nav>
 
-    {% if request.user.is_superuser %}
-    <div class="manage-wrap">
-        <a class="btn btn-primary" href="{% url 'add_item' %}"><i class="fas fa-plus"></i>Add New Post</a>
-    </div>
-    {% endif %}
+{% if request.user.is_superuser %}
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'add_item' %}"><i class="fas fa-plus"></i> Add New Post</a>
+</div>
+{% endif %}
 
-    {% if messages %}
-    {% for message in messages %}
-    {% if message.tags == 'error' %}
-    <div class="alert alert-danger">
-        <i class="fas fa-exclamation-circle"></i>{{ message }}
-    </div>
-    {% else %}
-    <div class="alert alert-success">
-        <i class="fas fa-check-circle"></i>{{ message }}
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-circle"></i>{{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    <i class="fas fa-check-circle"></i>{{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
 
+<div>
     <div class="title-1">News &amp; Events</div>
+</div>
 
-    <ul class="col-md-2 ms-auto d-flex">
-        <li class="me-3">
-            <span class="color-indicator bg-primary"></span> News
-        </li>
-        <li>
-            <span class="color-indicator bg-purple"></span> Events
-        </li>
-    </ul>
+<div class="col-md-2 ms-auto d-flex">
+    <div class="me-3">
+        <span class="color-indicator bg-primary"></span> News
+    </div>
+    <div>
+        <span class="color-indicator bg-purple"></span> Events
+    </div>
+</div>
+
+<div class="container-fluid">
     {% if items %}
     <div class="row">
         {% for item in items %}
@@ -98,8 +105,8 @@
     </div>
 
     {% else %}
-    <h4 class="text-center mt-5 text-muted">
-        <i class="far fa-frown me-2"></i> So empty
+    <h4 class="text-center mt-5 py-5 text-muted">
+        <i class="fa-regular fa-folder-open me-2"></i> School news and events will appear here.
     </h4>
 
     {% endif %}

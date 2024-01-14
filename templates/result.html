@@ -9,14 +9,17 @@
 
 {% block content %}
 
-<div id="input-nav">
-  <a href="{% url 'home' %}" class="primary1">Home</a> 
-  <a href="{% url 'programs' %}" class="primary1">Programs </a> 
-  <a href="{% url 'program_detail' course.program.id %}" class="primary1">{{ course.program }} </a> 
-  <a href="{{ course.get_absolute_url }}" class="primary1">{{ course }} </a> 
-  <a href="{% url 'quiz_index' course.slug %}" class="primary1">Quizzes</a> 
-  <a href="{% url 'quiz_take' course.id quiz.slug %}" class="primary1">{{ quiz.title|title }}</a> Result
-</div>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+		<li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">Quizzes</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'quiz_take' course.id quiz.slug %}">{{ quiz.title|title }}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Result</li>
+	</ol>
+</nav>
 
 <div id="progress-card">
   <div class="col-md-6 mx-auto">

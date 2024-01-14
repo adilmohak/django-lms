@@ -4,7 +4,12 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> My Courses</div>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Courses</li>
+    </ol>
+</nav>
 
 {% if request.user.is_student %}
     <div class="title-1">{{ student.program.title }}</div>

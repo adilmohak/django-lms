@@ -5,7 +5,13 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> Course Registration</div>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Course Registration</li>
+    </ol>
+</nav>
 
 <p class="title-1">Course Add &amp; Drop</p>
 

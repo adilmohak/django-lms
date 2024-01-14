@@ -5,10 +5,17 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
-    <a href="{% url 'lecturer_list' %}" class="primary1">Lecturers </a> setting</div>
-<p class="title-1"><i class="fas fa-cogs"></i>Lecturer Update Form</p>
-<div class="title-line"></div><br>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'lecturer_list' %}">Lecturers</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Update</li>
+    </ol>
+</nav>
+
+<div>
+    <div class="title-1"><i class="fas fa-cogs"></i>Lecturer Update Form</div>
+</div>
 
 {% if messages %}
     {% for message in messages %}

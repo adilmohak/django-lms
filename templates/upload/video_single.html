@@ -4,12 +4,16 @@
 
 {% block content %}
 
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a>
- <a href="{% url 'programs' %}" class="primary1">Programs</a> 
-    <a href="{% url 'program_detail' video.course.program.id %}" class="primary1"> {{ video.course.program }}</a> 
-    <a href="{% url 'course_detail' video.course.slug %}" class="primary1">{{ video.course }}</a>
-     {{ video.title }}</div>
-
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' video.course.program.id %}">{{ video.course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_detail' video.course.slug %}">{{ video.course }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ video.title }}</li>
+    </ol>
+</nav>
+    
 <p class="title-1">{{ video.title }}</p>
 <div class="title-line"></div><br>
 

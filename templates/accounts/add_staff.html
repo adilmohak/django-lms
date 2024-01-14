@@ -4,8 +4,15 @@
 {% load static %}
 
 {% block content %}
-<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> 
-    <a href="{% url 'lecturer_list' %}" class="primary1">Lecturers</a> Add</div>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'lecturer_list' %}">Lecturers</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Add</li>
+    </ol>
+</nav>
+
 <h4 class="fw-bold mb-3"><i class="fas fa-chalkboard-teacher me-2"></i>Lecturer Add Form</h4>
 
 {% if messages %}

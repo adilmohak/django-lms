@@ -7,33 +7,39 @@
 			</div>
 
 			<form class="form-header" action="{% url 'query' %}" method="GET">
-				<input id="primary-search" class="au-input au-input--xl" type="text" name="q" value="{{ request.GET.q }}"
+				<input id="primary-search" class="form-control rounded-end-0" type="text" name="q" value="{{ request.GET.q }}"
 					placeholder="Search All... #course, #program, #Quiz, #News, #Events" required />
-				<button class="au-btn--submit" type="submit">
+				<button class="btn btn-dark rounded-start-0" type="submit">
 					<i class="fas fa-search"></i>
 				</button>
 			</form>
 
 			<div class="dropdown">
-				<div class="avatar border border-2 border-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<div class="avatar border border-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 					<img src="{{ request.user.picture.url }}">
 				</div>
 				<div class="dropdown-menu" style="min-width: 14rem !important;">
-					<p class="container text-muted-xs text-center">
-						Last login: {{ request.user.last_login|date }}</p>
+					<div class="d-flex flex-column align-items-center">
+						<div class="avatar border">
+							<img src="{{ request.user.picture.url }}">
+						</div>
+	
+						<p class="small text-muted text-center">
+							Last login: {{ request.user.last_login|date }}</p>
+					</div>
 
 					{% if request.user.is_lecturer or request.user.is_student %}
-					<a class="dropdown-item" href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>My
+					<a class="dropdown-item" href="{% url 'user_course_list' %}"><i class="fas fa-book me-2"></i>My
 						Courses</a>
 					{% endif %}
 
 					{% if request.user.is_superuser %}
-					<a class="dropdown-item" href="{% url 'admin_panel' %}"><i class="fas fa-user-tie"></i>Admin
+					<a class="dropdown-item" href="{% url 'admin_panel' %}"><i class="fas fa-user-tie me-2"></i>Admin
 						Panel</a>
 					{% endif %}
 
-					<a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user"></i>Profile</a>
-					<a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>Setting</a>
+					<a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user me-2"></i>Profile</a>
+					<a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="fas fa-cog me-2"></i>Setting</a>
 					<hr>
 					<div style="display: flex; justify-content: center; align-items: center;">
 						<a class="btn btn-secondary" href="{% url 'logout' %}">

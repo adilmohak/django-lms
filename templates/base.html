@@ -11,9 +11,11 @@
 
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-5.3.2/css/bootstrap.min.css' %}">
+    <!-- Fontawesome icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-6.5.1/css/all.min.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap5 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-5.3.2/css/bootstrap.min.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}">
 
@@ -43,21 +45,6 @@
     <script type="text/javascript" src="{% static 'vendor/bootstrap-5.3.2/js/bootstrap.bundle.min.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#primary-search').focus(function () {
-                $('#top-navbar').attr('class', 'dim');
-                $('#side-nav').css('pointer-events', 'none');
-                $('#main-content').css('pointer-events', 'none');
-            });
-            $('#primary-search').focusout(function () {
-                $('#top-navbar').removeAttr('class');
-                $('#side-nav').css('pointer-events', 'auto');
-                $('#main-content').css('pointer-events', 'auto');
-            });
-        })
-    </script>
 
     {% block js %}
     {% endblock js %}

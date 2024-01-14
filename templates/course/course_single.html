@@ -4,28 +4,36 @@
 
 {% block content %}
 
-<div class="container">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ course }}</li>
+    </ol>
+</nav>
 
-    <div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home </a>
-        <a href="{% url 'programs' %}" class="primary1">Programs </a>
-        <a href="{% url 'program_detail' course.program.id %}" class="primary1"> {{ course.program }}</a>
-        {{ course }}
-    </div>
+<div class="container">
 
     <div class="manage-wrap">
         <div class="d-flex">
             <div class="">
+                {% if request.user.is_superuser %}
+                <a class="btn btn-sm btn-light" href="{% url 'edit_course' course.slug %}">
+                    <i class="fas fa-pencil-alt"></i> Edit course
+                </a>
+                {% endif %}
                 {% if request.user.is_superuser or request.user.is_lecturer %}
-                <a class="btn btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
                     Upload new file
                 </a>
-                <a class="btn btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
+                <a class="btn btn-sm btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
                     Upload new video
                 </a>
                 {% endif %}
             </div>
             <div class="ms-auto">
-                <a class="btn btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
+                <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
                     Take a Quiz
                 </a>
             </div>
@@ -34,14 +42,6 @@
 
     <div class="title-1">{{ course }}</div>
     <p>{{ course.summary }}</p>
-
-    {% if request.user.is_superuser %}
-    <div class="btn-flex">
-        <a class="edit-btn" href="{% url 'edit_course' course.slug %}">
-            <i class="fas fa-pencil-alt"></i><span class="mobile-hide">Edit This course</span>
-        </a>
-    </div>
-    {% endif %}
 
     {% if messages %}
     {% for message in messages %}
@@ -213,29 +213,33 @@
 
 </div>
 
-<div class="site-section mb-5">
+<div class="site-section mb-5 mt-4">
     <div class="title-1">Instructor(s)</div>
     <br>
-    <div class="container marketing">
+    <br>
+    <div class="container-fluid">
         <div class="row">
             {% for lecturer in lecturers %}
-            <div class="col-lg-4 mx-auto" style="background: transparent; box-shadow: none;">
-                {% if lecturer.lecturer.picture %}
-                <img class="" src="{{ lecturer.lecturer.picture.url }}" alt="" style="width:140px;">
-                {% endif %}
-                <h2>{{ lecturer|title }}</h2>
-                <p style="color: #6c757d;">{{ lecturer.lecturer.email }}</p>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
-                    vehicula ut id elit.</p>
-                <p>
-                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
-                            class="fab fa-twitter"></i></a>
-                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a class="btn rounded-circle btn-secondary" href="#" role="button"><i
-                            class="fab fa-linkedin-in"></i></a>
-                </p>
-                <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
+            <div class="col-lg-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        {% if lecturer.lecturer.picture %}
+                        <img class="avatar avatar-lg" src="{{ lecturer.lecturer.picture.url }}" alt="">
+                        {% endif %}
+                        <h5 class="fw-bold mb-0">{{ lecturer|title }}</h5>
+                        <p class="mb-0">{{ lecturer.lecturer.email }}</p>
+                        <p class="text-muted small">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                            vehicula ut id elit.</p>
+                        <p>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </p>
+                    </div>
+                </div>
             </div>
             {% empty %}
             <h6 class="text-muted mt-3">No lecturer assigned for this course</h6>

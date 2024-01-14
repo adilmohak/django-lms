@@ -7,7 +7,12 @@
 
 {% block content %}
 
-<div id="input-nav" class="p-2"><a href="/"> Home </a> Dashboard</div>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
 
 {% if messages %}
 {% for message in messages %}
@@ -150,7 +155,7 @@
 	}
 </style>
 
-<div class="page-header mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 	<h1 class="title-1">Dashboard</h1>
 	<div class="dropdown">
 		<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
@@ -465,39 +470,6 @@
 				}
 			}
 		});
-
-
-		// var students_grade = document.getElementById('students_grade');
-		// var chart = new Chart(students_grade, {
-		// 	type: 'pie',
-		// 	data: data,
-		// 	options: {
-		// 		plugins: {
-		// 			title: {
-		// 				display: true,
-		// 				text: 'Students average grade',
-		// 				padding: 20
-		// 			}
-		// 		}
-		// 	}
-		// });
-
-		// const dataGender = {
-		// 	labels: ['Man', 'Women'],
-		// 	datasets: [{
-		// 		label: 'Man',
-		// 		backgroundColor: 'rgba(86, 224, 224, 0.5)',
-		// 		borderColor: 'rgb(86, 224, 224)',
-		// 		hoverBorderWidth: 3,
-		// 		data: 56
-		// 	}, {
-		// 		label: 'Women',
-		// 		backgroundColor: 'rgba(253, 174, 28, 0.5)',
-		// 		borderColor: 'rgb(253, 174, 28)',
-		// 		hoverBorderWidth: 3,
-		// 		data: 44,
-		// 	}]
-		// };
 
 		const dataGender = {
 			labels: [
