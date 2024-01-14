@@ -1358,12 +1358,14 @@ a {
   font-weight: 400;
   font-size: 17px;
   padding: 10px;
-  /* background-color: #33b5e5; */
   background: -o-linear-gradient(50deg, #45cafc, #303f9f);
   background: linear-gradient(40deg, #45cafc, #303f9f);
   color: #fff;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  i {
+    margin-right: 8px;
+  }
 }
 // .form-title i {
 //   margin-right: 8px;

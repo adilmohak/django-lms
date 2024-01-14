@@ -15,60 +15,29 @@
 
 <h4 class="fw-bold mb-3"><i class="fas fa-cog me-2"></i>Student Update Form</h4>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="card">
-            <p class="form-title">Email & Personal Info</p>
+                <p class="form-title">Email &amp; Personal Info</p>
 
-            <div class="p-3">
-                <div class="form-group">
-                    <b>{{ form.email.label }}</b>{{ form.email }}
-                    <span class="danger">{{ form.email.errors }}</span>
+                <div class="card-body">
+                    {{ form.email|as_crispy_field }}
+                    {{ form.first_name|as_crispy_field }}
+                    {{ form.last_name|as_crispy_field }}
+                    {{ form.phone|as_crispy_field }}
+                    {{ form.address|as_crispy_field }}
                 </div>
-                <div class="form-group">
-                    <b>{{ form.first_name.label }}</b>{{ form.first_name }}
-                    <span class="danger">{{ form.first_name.errors }}</span>
-                </div>
-                <div class="form-group">
-                    <b>{{ form.last_name.label }}</b>{{ form.last_name }}
-                    <span class="danger">{{ form.last_name.errors }}</span>
-                </div>
-                <div class="form-group">
-                    <b>{{ form.phone.label }}</b>{{ form.phone }}
-                    <span class="danger">{{ form.phone.errors }}</span>
-                </div>
-                <div class="form-group">
-                    <b>{{ form.address.label }}</b>{{ form.address }}
-                    <span class="danger">{{ form.address.errors }}</span>
-                </div>
-                </div>
-
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-            <p class="form-title">Others</p>
-            <div class="p-3">
-                <div class="form-group">
-                    <b>Profile Picture</b><br>{{ form.picture }}
-                    <span class="danger">{{ form.picture.errors }}</span>
+                <p class="form-title">Others</p>
+                <div class="card-body">
+                    {{ form.picture|as_crispy_field }}
                 </div>
-            </div>
             </div>
         </div>
     </div>
