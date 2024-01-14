@@ -150,17 +150,16 @@
 	}
 </style>
 
-<div class="page-header">
-	<h1 class="title-1 mb-5">Dashboard</h1>
-	<div class="btn-group">
-		<button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+<div class="page-header mb-4">
+	<h1 class="title-1">Dashboard</h1>
+	<div class="dropdown">
+		<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
 			aria-expanded="false">
 			<i class="fas fa-cog"></i>
 		</button>
-		<div class="dropdown-menu dropdown-menu-right">
+		<div class="dropdown-menu">
 			<h6 class="dropdown-header">Dashboard settings</h6>
-			<button class="dropdown-item" type="button">Display row</button>
-			<button class="dropdown-item" type="button">Display column</button>
+			<button class="dropdown-item active" type="button">Display grid</button>
 			<button class="dropdown-item" type="button">Display table</button>
 			<hr>
 			<button class="dropdown-item" type="button">Manage dashboard</button>
@@ -189,19 +188,19 @@
 	</div>
 	<div class="col-md-3 mb-3 px-2">
 		<div class="card-count p-3">
-			<h3><i class="fas fa-users bg-light-purple"></i></h3>
+			<h3><i class="fas fa-users bg-light-red"></i></h3>
 			<div class="text-right">
-				Lab Assistance
-				<h2>500</h2>
+				Administrators
+				<h2>{{ superuser_count }}</h2>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3 mb-3 px-2">
 		<div class="card-count p-3">
-			<h3><i class="fas fa-users bg-light-red"></i></h3>
+			<h3><i class="fas fa-users bg-light-purple"></i></h3>
 			<div class="text-right">
-				Administrators
-				<h2>{{ superuser_count }}</h2>
+				Lab Assistance
+				<h2>500</h2>
 			</div>
 		</div>
 	</div>
@@ -257,52 +256,27 @@
 		</div>
 	</div>
 	<div class="col-md-6 p-2">
-		<div class="row">
-			<div class="col-md-6 p-2">
-				<div class="card p-3 activities">
-					<h5>Your recent activities</h5>
-					<ul class="small">
-						<li>Created a survey of something</li>
-						<li>Added new admin user</li>
-						<li><span class="text-danger">Deleted</span> 1 video from CSE course</li>
-						<li>New documentation <span class="text-success">attached</span> for Arch</li>
-						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-						<li>Veniam magnam reiciendis modi explicabo sed aliquid natus</li>
-						<li>molestias corrupti suscipit similique ex adipisci praesentium</li>
-						<li>sint dolore, quo quibusdam ea, neque cupiditate.</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-6 p-2">
-				<div class="card p-3 activities">
-					<h5>Latest activities</h5>
-					<ul class="small">
-						{% for log in logs %}
-						<li>{{ log.message }} <span class="text-muted">- {{ log.created_at }}</span></li>
-						{% empty %}
-						<span>No recent activity</span>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6 p-2">
 		<div class="chart-wrap">
 			<i class="fas fa-expand-alt"></i>
 			<canvas id="students_grade"></canvas>
 		</div>
 	</div>
-	<div class="col-md-4 p-2">
-		<div class="chart-wrap">
-			<i class="fas fa-expand-alt"></i>
-			<canvas id="attendance"></canvas>
+	<div class="col-md-6 p-2">
+		<div class="card w-100 h-100 p-3">
+			<h5>Latest activities</h5>
+			<ul class="ps-2 small">
+				{% for log in logs %}d-flex 
+				<li>{{ log.message }} <span class="text-muted">- {{ log.created_at }}</span></li>
+				{% empty %}
+				<li>No recent activity</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 </div>
 <br>
 <div class="bg-white p-3">
-	<h5>School Demographics</h5>
+	<h5 class="border-bottom pb-2">School Demographics</h5>
 	<div class="row">
 		<div class="col-md-4">
 			<i class="fas fa-expand-alt"></i>
@@ -417,7 +391,7 @@
 				hoverBorderWidth: 3,
 				data: [45, 75, 70, 80, 20, 30, 90],
 			}, {
-				label: 'Business Man',
+				label: 'Business M.',
 				backgroundColor: 'rgba(0, 0, 0, 0.5)',
 				borderColor: 'rgb(0, 0, 0)',
 				hoverBorderWidth: 3,
@@ -440,21 +414,6 @@
 			}
 		});
 
-		var attendance = document.getElementById('attendance');
-		var chart = new Chart(attendance, {
-			type: 'doughnut',
-			data: data,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Overall Attendance',
-						padding: 20
-					}
-				}
-			}
-		});
-
 		// Average grade setup
 		const labelsGrade = [
 			'2017',
@@ -466,25 +425,25 @@
 		const dataGrade = {
 			labels: labelsGrade,
 			datasets: [{
-				label: 1,
+				label: "Comp sci.",
 				backgroundColor: 'rgba(86, 224, 224, 0.5)',
 				borderColor: 'rgb(86, 224, 224)',
 				hoverBorderWidth: 3,
 				data: [0, 10, 5, 2, 20, 30, 45]
 			}, {
-				label: 2,
+				label: "Civil eng.",
 				backgroundColor: 'rgba(253, 174, 28, 0.5)',
 				borderColor: 'rgb(253, 174, 28)',
 				hoverBorderWidth: 3,
 				data: [20, 0, 15, 4, 6, 4, 60],
 			}, {
-				label: 3,
+				label: "Architect.",
 				backgroundColor: 'rgba(203, 31, 255, 0.5)',
 				borderColor: 'rgb(203, 31, 255)',
 				hoverBorderWidth: 3,
 				data: [85, 30, 34, 20, 20, 55, 45],
 			}, {
-				label: 4,
+				label: "Economics",
 				backgroundColor: 'rgba(255, 19, 157, 0.5)',
 				borderColor: 'rgb(255, 19, 157)',
 				hoverBorderWidth: 3,
@@ -523,26 +482,42 @@
 		// 	}
 		// });
 
+		// const dataGender = {
+		// 	labels: ['Man', 'Women'],
+		// 	datasets: [{
+		// 		label: 'Man',
+		// 		backgroundColor: 'rgba(86, 224, 224, 0.5)',
+		// 		borderColor: 'rgb(86, 224, 224)',
+		// 		hoverBorderWidth: 3,
+		// 		data: 56
+		// 	}, {
+		// 		label: 'Women',
+		// 		backgroundColor: 'rgba(253, 174, 28, 0.5)',
+		// 		borderColor: 'rgb(253, 174, 28)',
+		// 		hoverBorderWidth: 3,
+		// 		data: 44,
+		// 	}]
+		// };
+
 		const dataGender = {
-			labels: ['Man', 'Women'],
+			labels: [
+				'Man',
+				'Women'
+			],
 			datasets: [{
-				label: 'Man',
-				backgroundColor: 'rgba(86, 224, 224, 0.5)',
-				borderColor: 'rgb(86, 224, 224)',
-				hoverBorderWidth: 3,
-				data: [56]
-			}, {
-				label: 'Women',
-				backgroundColor: 'rgba(253, 174, 28, 0.5)',
-				borderColor: 'rgb(253, 174, 28)',
-				hoverBorderWidth: 3,
-				data: [44],
+				label: "Students Gender Dataset",
+				data: [56, 44],
+				backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(54, 162, 235)'
+				],
+				hoverOffset: 4
 			}]
 		};
 
 		var gender = document.getElementById('gender');
 		var chart = new Chart(gender, {
-			type: 'polarArea',
+			type: 'pie',
 			data: dataGender,
 			options: {
 				plugins: {
@@ -554,29 +529,65 @@
 				}
 			}
 		});
+
+		const dataQualification = {
+			labels: [
+				'PHD',
+				'Masters',
+				'BSc degree'
+			],
+			datasets: [{
+				label: "Lecturer Qualifications Dataset",
+				data: [24, 30, 26],
+				backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(255, 193, 7)',
+				'rgb(54, 162, 235)'
+				],
+				hoverOffset: 4
+			}]
+		};
 		var ethnicity = document.getElementById('ethnicity');
 		var chart = new Chart(ethnicity, {
-			type: 'polarArea',
-			data: dataGender,
+			type: 'pie',
+			data: dataQualification,
 			options: {
 				plugins: {
 					title: {
 						display: true,
-						text: 'Race/Ethnicity',
+						text: 'Lecturer qualifications',
 						padding: 20
 					}
 				}
 			}
 		});
+
+		const dataLevels = {
+			labels: [
+				'PHD',
+				'Masters',
+				'BSc degree'
+			],
+			datasets: [{
+				label: "Students level",
+				data: [14, 30, 56],
+				backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(255, 193, 7)',
+				'rgb(54, 162, 235)'
+				],
+				hoverOffset: 4
+			}]
+		};
 		var language = document.getElementById('language');
 		var chart = new Chart(language, {
-			type: 'polarArea',
-			data: dataGender,
+			type: 'pie',
+			data: dataLevels,
 			options: {
 				plugins: {
 					title: {
 						display: true,
-						text: 'Home Language',
+						text: 'Student levels',
 						padding: 20
 					}
 				}
