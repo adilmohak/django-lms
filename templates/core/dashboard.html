@@ -59,15 +59,15 @@
 		display: block;
 	}
 
-	.full-screen {
+	.expand {
 		transform: translateY(100%);
 		position: fixed;
 		bottom: 0;
+		top: 3rem;
 		left: 0;
 		right: 0;
+		width: 100%;
 		z-index: 999;
-		max-width: 100%;
-		max-height: 100%;
 		-ms-flex: 0 0 100%;
 		flex: 0 0 100%;
 		background-color: #fff;
@@ -80,7 +80,7 @@
 		overflow: auto;
 	}
 
-	.full-screen .fa-expand-alt {
+	.expand .fa-expand-alt {
 		display: block;
 	}
 
@@ -571,12 +571,12 @@
 
 <script>
 	$('.fa-expand-alt').click(function () {
-		if ($(this).parent('.chart-wrap').parent('.col-md-6').hasClass('full-screen')) {
-			$('.col-md-6.full-screen').removeClass('full-screen');
+		if ($(this).parent('.chart-wrap').parent('.col-md-6').hasClass('expand')) {
+			$('.col-md-6.expand').removeClass('expand');
 		}
 		else {
-			$('.col-md-6.full-screen')?.removeClass('full-screen');
-			$(this).parent('.chart-wrap').parent('.col-md-6').addClass('full-screen');
+			$('.col-md-6.expand')?.removeClass('expand');
+			$(this).parent('.chart-wrap').parent('.col-md-6').addClass('expand');
 		}
 	})
 </script>
