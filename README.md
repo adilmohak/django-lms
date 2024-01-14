@@ -40,7 +40,7 @@ Current features
 
 If you would like to contribute, simply begin by implementing one from the list in the `TODO.md` file.
 
-# Pre-requisites:
+# Requirements:
 
 > The following programs are required to run the project
 
