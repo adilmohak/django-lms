@@ -1925,14 +1925,8 @@ a {
   border-color: #28a745;
 }
 
-body:not(.card-count) .fas,
-.fas :not(.card-count),
-.fas > :not(.card-count),
-:not(button) .fas,
-:not(input) .fas,
-:not(.card-count) .fa,
-:not(button) .fa,
-:not(input) .fa {
+.fas,
+.fa {
   font-size: 16px;
   display: inline-flex;
   align-items: center;
@@ -1941,4 +1935,17 @@ body:not(.card-count) .fas,
   height: 34px;
   background-color: rgba(0, 0, 0, 0.093);
   border-radius: 50%;
+}
+
+/* Exclude styles for .fas and .fa elements inside dashboard page */
+.card-count .fas,
+.card-count .fa {
+  font-size: 24px;
+  display: initial;
+  align-items: initial;
+  justify-content: initial;
+  width: initial;
+  height: initial;
+  background-color: initial;
+  border-radius: initial;
 }

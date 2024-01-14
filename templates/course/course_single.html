@@ -13,35 +13,35 @@
     </ol>
 </nav>
 
-<div class="container">
-
-    <div class="manage-wrap">
-        <div class="d-flex">
-            <div class="">
-                {% if request.user.is_superuser %}
-                <a class="btn btn-sm btn-light" href="{% url 'edit_course' course.slug %}">
-                    <i class="fas fa-pencil-alt"></i> Edit course
-                </a>
-                {% endif %}
-                {% if request.user.is_superuser or request.user.is_lecturer %}
-                <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
-                    Upload new file
-                </a>
-                <a class="btn btn-sm btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
-                    Upload new video
-                </a>
-                {% endif %}
-            </div>
-            <div class="ms-auto">
-                <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
-                    Take a Quiz
-                </a>
-            </div>
+<div class="manage-wrap">
+    <div class="d-flex">
+        <div class="">
+            {% if request.user.is_superuser %}
+            <a class="btn btn-sm btn-light" href="{% url 'edit_course' course.slug %}">
+                <i class="fas fa-pencil-alt"></i> Edit course
+            </a>
+            {% endif %}
+            {% if request.user.is_superuser or request.user.is_lecturer %}
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                Upload new file
+            </a>
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
+                Upload new video
+            </a>
+            {% endif %}
+        </div>
+        <div class="ms-auto">
+            <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
+                Take a Quiz
+            </a>
         </div>
     </div>
+</div>
 
-    <div class="title-1">{{ course }}</div>
-    <p>{{ course.summary }}</p>
+<div class="title-1">{{ course }}</div>
+<p class="small text-muted">{{ course.summary }}</p>
+
+<div class="container">
 
     {% if messages %}
     {% for message in messages %}
@@ -214,7 +214,7 @@
 </div>
 
 <div class="site-section mb-5 mt-4">
-    <div class="title-1">Instructor(s)</div>
+    <div class="title-1">Lecturer(s)</div>
     <br>
     <br>
     <div class="container-fluid">
@@ -228,8 +228,7 @@
                         {% endif %}
                         <h5 class="fw-bold mb-0">{{ lecturer|title }}</h5>
                         <p class="mb-0">{{ lecturer.lecturer.email }}</p>
-                        <p class="text-muted small">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
-                            vehicula ut id elit.</p>
+                        <p class="text-muted small">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
                         <p>
                             <a class="btn btn-sm btn-secondary" href="#" role="button"><i
                                     class="fab fa-twitter"></i></a>
