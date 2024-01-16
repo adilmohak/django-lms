@@ -27,30 +27,8 @@
 {% endif %}
 {% endif %}
 
-{% if messages %}
-{% for message in messages %}
-{% if message.tags == 'error' %}
-<div class="alert alert-danger">
-    <i class="fas fa-exclamation-circle"></i>{{ message }}
-</div>
-{% else %}
-<div class="alert alert-success">
-    <i class="fas fa-check-circle"></i>{{ message }}
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}
-
-<div class="content-center">
-    <form class="search-form" action="." method="GET">
-        <input class="au-input" type="text" name="name" placeholder="Course Name" value="{{ request.GET.name }}" />
-        <input class="au-input" type="text" name="code" placeholder="Course Code" value="{{ request.GET.code }}" />
-        <input class="au-input" type="number" name="year" placeholder="Course Year" value="{{ request.GET.year }}" />
-        <button class="btn btn-light" type="submit">
-            <i class="fas fa-search"></i> filter
-        </button>
-    </form>
-</div>
+{% include 'snippets/messages.html' %}
+{% include 'snippets/filter_form.html' %}
 
 <div class="table-responsive p-0 px-2 mt-5">
     <div class="table-shadow">
@@ -95,7 +73,7 @@
                             data-bs-boundary="window" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v m-0"></i>
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu position-fixed">
                                 <a class="dropdown-item" href="{% url 'edit_course' slug=course.slug %}">
                                     <i class="fas fa-pencil-alt"></i> Edit
                                 </a>

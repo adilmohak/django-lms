@@ -15,46 +15,17 @@
 
 <h4 class="fw-bold mb-3"><i class="fas fa-chalkboard-teacher me-2"></i>Lecturer Add Form</h4>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <form action="" method="POST">{% csrf_token %}
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="card">
                 <p class="form-title">Login Info</p>
-                <div class="p-2">
-                    <div class="form-group">
-                        <b>ID No.</b>{{ form.username }}
-                        <span class="danger">{{ form.username.errors }}</span>
-                        <p class="text-muted-xs">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.password1.label }}</b>{{ form.password1 }}
-                        <span class="danger">{{ form.password1.errors }}</span>
-                        <p class="text-muted-xs">
-                            The password can't be too similar to other personal information.<br>
-                            The password must contain at least 8 characters.<br>
-                            The password can't be a commonly used password.<br>
-                            The password can't be entirely numeric.
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.password2.label }}</b>{{ form.password2 }}
-                        <span class="danger">{{ form.password2.errors }}</span>
-                        <p class="text-muted-xs">Enter the same password as before, for verification.</p>
-                    </div>
+                <div class="card-body">
+                    {{ form.username|as_crispy_field }}
+                    {{ form.password1|as_crispy_field }}
+                    {{ form.password2|as_crispy_field }}
                 </div>
             </div>
         </div>
@@ -62,26 +33,11 @@
             <div class="card">
                 <p class="form-title">Personal Info</p>
                 <div class="p-2">
-                    <div class="form-group">
-                        <b>{{ form.first_name.label }}</b>{{ form.first_name }}
-                        <span class="danger">{{ form.first_name.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.last_name.label }}</b>{{ form.last_name }}
-                        <span class="danger">{{ form.last_name.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.email.label }}</b>{{ form.email }}
-                        <span class="danger">{{ form.email.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.address.label }}</b>{{ form.address }}
-                        <span class="danger">{{ form.address.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.phone.label }}</b>{{ form.phone }}
-                        <span class="danger">{{ form.phone.errors }}</span>
-                    </div>
+                    {{ form.first_name|as_crispy_field }}
+                    {{ form.last_name|as_crispy_field }}
+                    {{ form.email|as_crispy_field }}
+                    {{ form.address|as_crispy_field }}
+                    {{ form.phone|as_crispy_field }}
                 </div>
             </div>
         </div>

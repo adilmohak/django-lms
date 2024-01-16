@@ -59,6 +59,7 @@
                   <tr class="success">
                     <td>{{ answer }}</td>
                   <td><strong>{% trans "This is the correct answer" %}</strong></td>
+                  </tr>
                 {% else %}
                   <tr>
                     <td>{{ answer }}</td>
@@ -112,14 +113,14 @@
   <div class="card p-1" style="border: 1px solid #fd7e14;">
     <p class="lead bg-light p-3 text-orange"><span class="fa-1x">&CircleDot;</span> {{ sitting.result_message }}</p>
     {% endif %}
-	    <p><span class="fa-2x text-orange">&LongRightArrow;</span> {% trans "Review the questions below and try the quiz again in the future"%}.</p>
-      
-      <p>
-        <span class="fa-2x text-orange">&LongRightArrow;</span> 
+    <ul>
+      <li>{% trans "Review the questions below and try the quiz again in the future"%}.</li>
+      <li>
         {% trans "The result of this quiz will be stored in your progress section" %} 
         <a class="text-primary" href="{% url 'quiz_progress' %}">Here</a> 
         {% trans "so you can review and monitor your progression" %}.
-      </p>
+      </li>
+    </ul>
 
   </div>
 

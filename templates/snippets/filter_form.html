@@ -1,4 +1,4 @@
-
+{% if filter.form %}
 <form action="" method="get">
     <div class="d-flex flex-wrap align-items-center">
         {% for field in filter.form %}
@@ -11,3 +11,4 @@
         </button>
     </div>
 </form>
+{% endif %}

@@ -13,82 +13,39 @@
     </ol>
 </nav>
 
-<div class="title-1">Course Add &amp; Update Form</div>
+<div class="title-1">Course Form</div>
 <br>
 <br>
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+
+{% include 'snippets/messages.html' %}
 
 <form action="" method="POST">{% csrf_token %}
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <p class="form-title">Course Info</p>
+                <p class="form-title">Course Detail</p>
                 <div class="p-3">
-
-                    <div class="form-group">
-                        <b>{{ form.title.label }}</b>{{ form.title }}
-                        <span class="danger">{{ form.title.errors }}</span>
-                        <p class="text-muted-xs">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.code.label }}</b>{{ form.code }}
-                        <span class="danger">{{ form.code.errors }}</span>
-                        <p class="text-muted-xs">The course code must be similar to only the pre requests.</p>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.summary.label }}</b>(optional){{ form.summary }}
-                        <span class="danger">{{ form.summary.errors }}</span>
-                        <p class="text-muted-xs">Enter some description about the course.</p>
-                    </div>
+                    {{ form.title|as_crispy_field }}
+                    {{ form.code|as_crispy_field }}
+                    {{ form.summary|as_crispy_field }}
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-                <p class="form-title">Applicant Info</p>
+                <p class="form-title">Other Info</p>
                 <div class="p-3">
-                    
-                    <div class="form-group">
-                        <b>{{ form.program.label }}</b>{{ form.program }}
-                        <span class="danger">{{ form.program.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.credit.label }}</b>{{ form.credit }}
-                        <span class="danger">{{ form.credit.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.year.label }}</b>{{ form.year }}
-                        <span class="danger">{{ form.year.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.semester.label }}</b>{{ form.semester }}
-                        <span class="danger">{{ form.semester.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.level.label }}</b>{{ form.level }}
-                        <span class="danger">{{ form.level.errors }}</span>
-                    </div>
-                    <div class="form-group">
-                        <b>{{ form.is_elective.label }}</b>{{ form.is_elective }}
-                        <span class="danger">{{ form.is_elective.errors }}</span>
-                    </div>
+                    {{ form.program|as_crispy_field }}
+                    {{ form.credit|as_crispy_field }}
+                    {{ form.year|as_crispy_field }}
+                    {{ form.semester|as_crispy_field }}
+                    {{ form.level|as_crispy_field }}
+                    {{ form.is_elective|as_crispy_field }}
                 </div>
             </div>
         </div>
     </div>
-    <center><input class="btn btn-outline-primary mt-3" type="submit" value="Save"></center>
+    <input class="btn btn-primary mt-3" type="submit" value="Save">
 </form>
 
 {% endblock content %}

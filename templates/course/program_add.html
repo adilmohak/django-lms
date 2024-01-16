@@ -13,19 +13,7 @@
     </ol>
 </nav>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <div class="row">
 <div class="col-md-6 mx-auto">
@@ -33,18 +21,8 @@
         <p class="form-title">Program Add Form</p>
         <div class="p-3"><br>
             <form action="" method="POST">{% csrf_token %}
-                <!-- {{ form|crispy }} -->
-                
-                <div class="form-group">
-                    <b>{{ form.title.label }}</b>{{ form.title }}
-                    <span class="danger">{{ form.title.errors }}</span>
-                </div>
-                <div class="form-group">
-                    <b>{{ form.summary.label }}</b>{{ form.summary }}
-                    <span class="danger">{{ form.summary.errors }}</span>
-                </div>
-
-                <input class="btn btn-outline-primary" type="submit" value="Save">
+                {{ form|crispy }}
+                <input class="btn btn-primary" type="submit" value="Save">
             </form>
         </div>
     </div>

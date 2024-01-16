@@ -17,11 +17,11 @@
 		<li class="breadcrumb-item active" aria-current="page">{{ quiz.title|title }}</li>
 	</ol>
 </nav>
-	
-<div class="container">
 
-    <div class="header-title-xl text-center">{{ quiz.title|title }}</div>
-    <div class="title-line mb-2"></div>
+<div class="title-1">{{ quiz.title|title|truncatechars:25 }}</div>
+<br>
+
+<div class="container">
 
 	{% if previous.answers %}
 
@@ -58,6 +58,7 @@
                   <tr class="success">
                     <td>{{ answer }}</td>
                   <td><strong>{% trans "This is the correct answer" %}</strong></td>
+				  </tr>
                 {% else %}
                   <tr>
                     <td>{{ answer }}</td>
@@ -100,23 +101,27 @@
 
 	{% if progress.0|add:1 == 1 %}
 
-    <div id="popup-box-messages">
-        <div class="box-messages">
-            <a id="popup-btn-messages" class="btn btn-light"><i class="fas fa-times"></i></a>
-			<div class="lead">Quiz instractions</div>
-			<div class="alert alert-warning">
-				<p>
-					You can't go back to the previous question after you submit it, 
-					so double check your answer before proceeding to the next one!
-				</p>
+	<div class="modal fade show" id="instractionModal" tabindex="-1" aria-labelledby="instractionModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class="modal-title fs-5" id="instractionModalLabel">Quiz instractions</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<button id="popup-btn-messages" type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
-        </div>
-	</div>
+			<div class="modal-body">
+				You can't go back to the previous question after you submit it, 
+				so double check your answer before proceeding to the next one!
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
 	{% endif %}
 
 	{% if progress %}
-	<div class="info-text bg-danger" style="float: right;">
+	<div class="text-light rounded small px-2 bg-danger" style="float: right;">
 	{% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
 	</div>
 	{% endif %}
@@ -127,7 +132,7 @@
 	</p>
 
 	<div class="card">
-		<div class="card-title lead bg-light p-2">{{ question.content }}</div>
+		<div class="lead p-2">{{ question.content }}</div>
 
 		{% if question.figure %}
 		<div class="col-md-8 mx-auto">
@@ -136,7 +141,7 @@
 		{% endif %}
 		<div class="card-subtitle p-4">
 			<form action="" method="POST">{% csrf_token %}
-				<input type=hidden name="question_id" value="{{ question.id }}">
+				<input type="hidden" name="question_id" value="{{ question.id }}">
 
 				<ul class="list-group">
 
@@ -147,7 +152,8 @@
 					{% endfor %}
 
 				</ul>
-				<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-primary" >
+				<br>
+				<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-primary" />
 				<!-- <input type="submit" value={% trans "Previous" %} class="btn btn-large btn-block btn-outline-primary" > -->
 			</form>
 		</div>
@@ -157,18 +163,13 @@
 
 </div>
 
-
 {% endblock %}
 
 {% block js %}
 <script>
-const popupMessagesButtons = document.querySelectorAll('#popup-btn-messages');
-
-for (const button of popupMessagesButtons) {
-    button.addEventListener('click', () => {
-        document.getElementById('popup-box-messages').style.display = 'none';
-    })
-} 
-
+	const instractionModal = new bootstrap.Modal('#instractionModal', {
+		keyboard: false
+	})
+	instractionModal.show();
 </script>
 {% endblock js %}

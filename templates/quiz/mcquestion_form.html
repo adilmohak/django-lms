@@ -13,12 +13,11 @@
         <li class="breadcrumb-item active" aria-current="page">MC Question Form</li>
     </ol>
 </nav>
-    
+
+<div class="title-1">Add questions [{{ quiz_obj|truncatechars:15 }}]</div>
+<br><br>
+
 <div class="container">
-
-    <div class="header-title-md text-center mt-4">Add questions [{{ quiz_obj }}]</div>
-    <div class="title-line mb-5"></div>
-
     <div class="info-text bg-orange mb-3">{{ quizQuestions }} question added</div>
 
     <form action="#" method="POST">{% csrf_token %}
@@ -28,20 +27,12 @@
                 <div class="mb-2" hidden>
                     {{ form.quiz }}
                 </div>
-                <div class="mb-2">
-                    {{ form.content|as_crispy_field }}
-                </div>
-                <div class="mb-2">
-                    {{ form.figure|as_crispy_field }}
-                </div>
-                <div class="mb-2">
-                    {{ form.explanation|as_crispy_field }}
-                </div>
+                {{ form.content|as_crispy_field }}
+                {{ form.figure|as_crispy_field }}
+                {{ form.explanation|as_crispy_field }}
             </div>
             <div class="col mx-3 py-4 border bg-white">
-                <div class="mb-2">
-                    {{ form.choice_order|as_crispy_field }}
-                </div>
+                {{ form.choice_order|as_crispy_field }}
                 <div class="border p-2">
                     <label class="lead">Choices</label>
                 {{ formset.management_form }}
@@ -60,12 +51,10 @@
                 </div>
             </div>
         </div>
-        <center>
-            <button type="submit" formnovalidate name="another" class="btn btn-lg btn-outline-primary">
-                Save and add another
-            </button>
-            <button class="btn btn-lg btn-primary my-4" type="submit">Save</button>
-        </center>
+        <button type="submit" formnovalidate name="another" class="btn btn-outline-primary">
+            Save and add another
+        </button>
+        <button class="btn btn-primary my-4" type="submit">Save</button>
     </form>
 </div>
 

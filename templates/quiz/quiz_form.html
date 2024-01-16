@@ -14,71 +14,55 @@
     </ol>
 </nav>
 
+<div class="title-1">Quiz form for {{ course|truncatechars:15 }}</div>
+<br><br>
+
 <div class="container">
-    <div class="header-title-xl text-center">Quiz form for {{ course }}</div>
-    <div class="title-line mb-5"></div>
 
     <form action="" method="POST">{% csrf_token %}
         <div class="row">
             <div class="col-md-6">
-                <div class="card p-2">
-                <!-- <div class="container"> -->
-                    <div class="mb-2" hidden>
-                        <label for="course">{{ form.course.label }}</label><br> {{ form.course }}
-                        <span class="danger">{{ form.course.errors }}</span>
-                        <span class="danger">{{ form.course.errors }}</span>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <div class="container"> -->
+                            <div hidden>
+                                <label for="course">{{ form.course.label }}</label><br> {{ form.course }}
+                                <span class="danger">{{ form.course.errors }}</span>
+                                <span class="danger">{{ form.course.errors }}</span>
+                            </div>                    
+                            {{ form.category|as_crispy_field }}                    
+                            {{ form.title|as_crispy_field }}
+                            <!-- <div class="mb-2">
+                                <label for="max_questions">{{ form.max_questions.label }}</label>
+                                <input class="form-control" type="number" name="max_questions" min="0" id="id_max_questions">
+                                <span class="danger">{{ form.max_questions.errors }}</span>
+                                <small class="d-block text-muted">Number of questions to be answered on each attempt.</small>
+                            </div> -->
+                            {{ form.pass_mark|as_crispy_field }}
+                            {{ form.description|as_crispy_field }}
+                        <!-- </div> -->
                     </div>
-                    <div class="mb-2">
-                        {{ form.category|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.title|as_crispy_field }}
-                    </div>
-                    <!-- <div class="mb-2">
-                        <label for="max_questions">{{ form.max_questions.label }}</label>
-                        <input class="form-control" type="number" name="max_questions" min="0" id="id_max_questions">
-                        <span class="danger">{{ form.max_questions.errors }}</span>
-                        <small class="d-block text-muted">Number of questions to be answered on each attempt.</small>
-                    </div> -->
-                    <div class="mb-2">
-                        {{ form.pass_mark|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.description|as_crispy_field }}
-                    </div>
-                <!-- </div> -->
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card p-3">
-                <!-- <div class="container"> -->
-                    <div class="mb-2" hidden>
-                        <label for="questions">{{ form.questions.label }}</label><br> {{ form.questions }}
-                        <span class="danger">{{ form.questions.errors }}</span>
-                        <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <div class="container"> -->
+                        <div hidden>
+                            <label for="questions">{{ form.questions.label }}</label><br> {{ form.questions }}
+                            <span class="danger">{{ form.questions.errors }}</span>
+                            <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                        </div>
+                        {{ form.random_order|as_crispy_field }}                    
+                        {{ form.answers_at_end|as_crispy_field }}                    
+                        {{ form.exam_paper|as_crispy_field }}                    
+                        {{ form.single_attempt|as_crispy_field }}                    
+                        {{ form.draft|as_crispy_field }}             
                     </div>
-                    <div class="mb-2">
-                        {{ form.random_order|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.answers_at_end|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.exam_paper|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.single_attempt|as_crispy_field }}
-                    </div>
-                    <div class="mb-2">
-                        {{ form.draft|as_crispy_field }}
-                    </div>
-                <!-- </div> -->
                 </div>
             </div>
         </div>
-        <center>
-            <button class="btn btn-lg btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">Save &amp; Continue</button>
-        </center>
+        <button class="btn btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">Save &amp; Continue</button>
     </form>
 </div>
 
