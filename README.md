@@ -76,10 +76,6 @@ SECRET_KEY=[YOUR_SECRET_KEY]
 ```
 
 ```bash
-python manage.py makemigrations
-```
-
-```bash
 python manage.py migrate
 ```
 
