@@ -41,21 +41,9 @@
 <div class="title-1">{{ course }}</div>
 <p class="small text-muted">{{ course.summary }}</p>
 
-<div class="container">
+{% include 'snippets/messages.html' %}
 
-    {% if messages %}
-    {% for message in messages %}
-    {% if message.tags == 'error' %}
-    <div class="alert alert-danger">
-        <i class="fas fa-exclamation-circle"></i>{{ message }}
-    </div>
-    {% else %}
-    <div class="alert alert-success">
-        <i class="fas fa-check-circle"></i>{{ message }}
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
+<div class="container">
 
     <div class="row mb-5">
         <div class="col-md-12 p-0">
@@ -77,9 +65,9 @@
                         {% for video in videos %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td><a href="{{ video.get_absolute_url }}" title="{{ video }}">
-                                    <i style="font-size: 20px; padding-right: 10px;" class="fas fa-video"></i>
-                                    {{ video.title|title }}
+                            <td>
+                                <a href="{{ video.get_absolute_url }}" title="{{ video }}" class="d-flex align-items-center">
+                                    <i class="fas fa-video me-1"></i> {{ video.title|title }}
                                 </a>
                             </td>
                             <td>{{ video.timestamp|date }}</td>
@@ -87,7 +75,7 @@
                                 <div>
                                     <a class="download-btn" href="{{ video.get_absolute_url }}"
                                         title="Download to your device">
-                                        <i class="fas fa-download"></i>Get Started</a>
+                                        <i class="fas fa-play me-1"></i>Play now</a>
                                 </div>
                             </th>
 
@@ -154,9 +142,8 @@
                         {% for file in files %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td><a href="{{ file.file.url }}" title="{{ file }}">
-                                    <i style="font-size: 20px; padding-right: 10px;"
-                                        class="fas fa-file-{{ file.get_extension_short }}"></i>
+                            <td><a href="{{ file.file.url }}" title="{{ file }}" class="d-flex align-items-center">
+                                    <i class="fas fa-file-{{ file.get_extension_short }} me-1"></i>
                                     {{ file.title|title }}
                                 </a>
                             </td>
@@ -165,7 +152,7 @@
                             <th>
                                 <div>
                                     <a class="download-btn" href="{{ file.file.url }}" title="Download to your device">
-                                        <i class="fas fa-download"></i>Download</a>
+                                        <i class="fas fa-download me-1"></i>Download</a>
                                 </div>
                             </th>
 

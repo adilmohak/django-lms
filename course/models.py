@@ -165,6 +165,7 @@ class Upload(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(
         upload_to="course_files/",
+        help_text="Valid Files: pdf, docx, doc, xls, xlsx, ppt, pptx, zip, rar, 7zip",
         validators=[
             FileExtensionValidator(
                 [
@@ -233,6 +234,7 @@ class UploadVideo(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     video = models.FileField(
         upload_to="course_videos/",
+        help_text="Valid video formats: mp4, mkv, wmv, 3gp, f4v, avi, mp3",
         validators=[
             FileExtensionValidator(["mp4", "mkv", "wmv", "3gp", "f4v", "avi", "mp3"])
         ],

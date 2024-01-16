@@ -85,7 +85,6 @@ class UploadFormFile(forms.ModelForm):
         fields = (
             "title",
             "file",
-            "course",
         )
 
     def __init__(self, *args, **kwargs):
@@ -101,7 +100,6 @@ class UploadFormVideo(forms.ModelForm):
         fields = (
             "title",
             "video",
-            "course",
         )
 
     def __init__(self, *args, **kwargs):

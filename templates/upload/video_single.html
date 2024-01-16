@@ -15,9 +15,7 @@
 </nav>
     
 <p class="title-1">{{ video.title }}</p>
-<div class="title-line"></div><br>
-
-<p class="text-orange text-center">Video tutorial for course {{ video.course }}</p>
+<br><br>
 
 <style>
     video{
@@ -28,10 +26,13 @@
 </style>
 
 <div class="col-md-10 mx-auto d-block">
-    <p><i class="fas fa-calendar"></i> {{ video.timestamp|timesince }} ago</p>
     <div class=""><video src="{{ video.video.url }}" controls ></video></div>
+    <p><i class="fas fa-calendar"></i> {{ video.timestamp|timesince }} ago</p>
+    {% if video.summary %}
+    <p class="text-orange text-center">{{ video.summary }}</p>
+    {% else %}
+    No video description set.
+    {% endif %}
 </div>
-
-<p class="text-orange text-center">{{ video.summary }}</p>
 
 {% endblock content %}
