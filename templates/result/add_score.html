@@ -11,19 +11,7 @@
     </ol>
 </nav>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <div class="title-1 mb-3"><i class="fas fa-table"></i>Manage Score</div>
 
@@ -47,7 +35,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <p>To manage your scores, please select the appropriate course using the button above.</p>
+                <p>To manage scores, please select the course using the button above.</p>
             </div>
         </div>
     </div>

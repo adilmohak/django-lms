@@ -25,58 +25,24 @@
     </div>
 </div>
 
-<!-- <div style="margin-left: 75%; margin-right: 0;" class="drop-down">
-    <a class="add-button" href="#">Select another course<i class="fas fa-angle-down fa-pull-right"></i></a>
-
-    <div class="content">
-        <div class="content-a">
-            {% for course in courses %}
-                <a href="{% url 'add_score_for' course.id %}" title="{{ course.title }}">{{ course.code }}</a>
-            {% empty %}
-                <p><i class="far fa-frown"></i>No course.</p>
-            {% endfor %}
-        </div>
-    </div>
-</div> -->
-
-<h1>{{ myclass.lecturer }}</h1>
-
-<div class="flex">
-    {% for i in myclass.student.all %}
-        <div class="flex"><a class="edit-btn" href="{{ i.get_absolute_url }}">{{ i }}</a></div>
-    {% endfor %}
-</div>
-
+<br>
 <h4 class="title-1">Submit score for {{ course }} Students</h4>
 <p>{{ course.summary }}</p>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <form action="" method="POST">
     {% csrf_token %}
     <div class="btn-flex">
         <button title="Save Score" type="submit" class="btn btn-primary">Save</button>
-        <span title="Allow editing" class="btn btn-success"><i class="fas fa-pencil-alt"></i>Edit</span>
         <a target="_blank" href="{% url 'result_sheet_pdf_view' id=course.id %}">
             <span data-toggle="tooltip" title="Print Result sheet" class="btn btn-warning">
-                <i class="far fa-file-pdf"></i>Generat PDF
+                <i class="far fa-file-pdf"></i> Grade report
             </span>
         </a>
     </div>
 
-    <h4>{{ current_semester }} Semester <i class="info-text bg-danger">{{ current_session }}</i></h4>
+    <h4 class="mt-3">{{ current_semester }} Semester <i class="text-light px-2 rounded small bg-danger">{{ current_session }}</i></h4>
     <div class="table-responsive">
         <table class="table table-light">
             <thead>
@@ -117,11 +83,11 @@
                     <td>{{ student.total }}</td>
 
                     <td>{{ student.point }}</td>
-                    <td class="{% if student.grade == 'F' %}danger{% else %}success{% endif %}">{{ student.grade }}</td>
+                    <td class="{% if student.grade == 'F' %}text-danger{% else %}text-success{% endif %}">{{ student.grade }}</td>
                     {% if student.comment == 'PASS' %}
-                    <td class="success"><i class="fas fa-check-circle"></i> {{ student.comment }}</td>
+                    <td class="text-success">&check; {{ student.comment }}</td>
                     {% elif student.comment == 'FAIL' %}
-                    <td class="danger"><i class="fas fa-exclamation-circle"></i> {{ student.comment }}</td>
+                    <td class="text-danger">&xotime; {{ student.comment }}</td>
                     {% else %}<td></td>
                     {% endif %}
                 </tr>

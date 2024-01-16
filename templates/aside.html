@@ -100,13 +100,13 @@
 				<a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>Quiz Progress Rec</a>
 			</li>
 			<li class="{% if request.path == vr %}active{% endif %}">
-				<a href="{% url 'grade_results' %}"><i class="fab fa-page4"></i>Grade Results</a>
+				<a href="{% url 'grade_results' %}"><i class="fa fa-spell-check"></i>Grade Results</a>
 			</li>
 			<li class="{% if request.path == ar %}active{% endif %}">
-				<a href="{% url 'ass_results' %}"><i class="fa fa-spell-check"></i>Assesment Results</a>
+				<a href="{% url 'ass_results' %}"><i class="fa fa-list-ol"></i> Assesment Results</a>
 			</li>
 			<li class="{% if request.path == cr %}active{% endif %}">
-				<a href="{% url 'course_registration' %}"><i class="fas fa-plus"></i>Add & Drop Course</a>
+				<a href="{% url 'course_registration' %}"><i class="fas fa-plus"></i>Add &amp; Drop Course</a>
 			</li>
 			{% endif %}
 			<br />
