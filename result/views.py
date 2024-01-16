@@ -42,12 +42,14 @@ def add_score(request):
     to him for score entry. in a specific semester and session
     """
     current_session = Session.objects.filter(is_current_session=True).first()
-    current_semester = Semester.objects.filter(is_current_semester=True, session=current_session).first()
+    current_semester = Semester.objects.filter(
+        is_current_semester=True, session=current_session
+    ).first()
 
     if not current_session or not current_semester:
         messages.error(request, "No active semester found.")
         return render(request, "result/add_score.html")
-    
+
     # semester = Course.objects.filter(
     # allocated_course__lecturer__pk=request.user.id,
     # semester=current_semester)
@@ -327,7 +329,7 @@ def result_sheet_pdf_view(request, id):
 
     print("\nsettings.MEDIA_ROOT", settings.MEDIA_ROOT)
     print("\nsettings.STATICFILES_DIRS[0]", settings.STATICFILES_DIRS[0])
-    logo = settings.STATICFILES_DIRS[0] + "/img/logo.png"
+    logo = settings.STATICFILES_DIRS[0] + "/img/dj-lms.png"
     im = Image(logo, 1 * inch, 1 * inch)
     im.__setattr__("_offs_x", -200)
     im.__setattr__("_offs_y", -45)
@@ -739,7 +741,7 @@ def course_registration_form(request):
 
     # FIRST SEMESTER ENDS HERE
 
-    logo = settings.STATICFILES_DIRS[0] + "/img/logo.png"
+    logo = settings.STATICFILES_DIRS[0] + "/img/dj-lms.png"
     im_logo = Image(logo, 1 * inch, 1 * inch)
     im_logo.__setattr__("_offs_x", -218)
     im_logo.__setattr__("_offs_y", 480)

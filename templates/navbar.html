@@ -20,13 +20,14 @@
 				</div>
 				<div class="dropdown-menu" style="min-width: 14rem !important;">
 					<div class="d-flex flex-column align-items-center">
-						<div class="avatar border">
+						<div class="avatar avatar-md border">
 							<img src="{{ request.user.picture.url }}">
 						</div>
 	
-						<p class="small text-muted text-center">
+						<p class="small text-muted text-center mb-0">
 							Last login: {{ request.user.last_login|date }}</p>
 					</div>
+					<hr>
 
 					{% if request.user.is_lecturer or request.user.is_student %}
 					<a class="dropdown-item" href="{% url 'user_course_list' %}"><i class="fas fa-book me-2"></i>My

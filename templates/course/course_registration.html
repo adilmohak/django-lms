@@ -15,20 +15,7 @@
 
 <p class="title-1">Course Add &amp; Drop</p>
 
-{% if messages %}
-{% for message in messages %}
-{% if message.tags == 'error' %}
-<div class="alert alert-danger">
-    <i class="fas fa-exclamation-circle"></i>{{ message }}
-</div>
-{% else %}
-<div class="alert alert-success">
-    <i class="fas fa-check-circle"></i>{{ message }}
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}
-
+{% include 'snippets/messages.html' %}
 
 {% if current_semester %}
 {% if is_calender_on == False %}
@@ -44,12 +31,7 @@
 
 <form action="{% url 'course_registration' %}" method="POST">{% csrf_token %}
     <div class="col-md-12 p-0 bg-white">
-        <p class="form-title">
-            <b>Course Add</b>
-        <div class="level-wrapper">
-            <div class="info-text">{{ student.level }}</div>
-        </div>
-        </p>
+        <p class="form-title fw-bold">Course Add</p>
         <div class="container">
             <div class="d-flex justify-content-between mb-3">
                 <button title="Save Score" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add
@@ -184,8 +166,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><b>Total credit(s):</b> {{ total_sec_semester_credit|add:total_first_semester_credit
-                                    }} </td>
+                                <td><b>Total credit(s):</b> {{ total_sec_semester_credit|add:total_first_semester_credit }} </td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -201,10 +182,8 @@
 
 {% if not no_course_is_registered %}
 
-<a target="_blank" href="{% url 'course_registration_form' %}">
-    <span title="Print Registration Form" class="btn btn-warning">
-        <i class="fa fa-file-pdf-o" aria-hidden="true"></i><i class="fas fa-print"></i> Print Registration Form
-    </span>
+<a class="btn btn-warning" href="{% url 'course_registration_form' %}" target="_blank" title="Print Registration Form">
+    <i class="fas fa-print"></i> Print Registerd Courses
 </a>
 
 <div class="col-md-12 p-0 bg-white">

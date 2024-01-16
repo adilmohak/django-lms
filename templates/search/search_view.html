@@ -105,8 +105,11 @@
     <form method="GET" action=".">
     
         <div class="input-group form-group-no-border mx-auto" style="margin-bottom: 0px; font-size: 32px;">
-            <input type="text" name="q" data-toggle="popover" data-placement="bottom" data-content="Press enter to search" class="form-control cfe-nav mt-0 py-3" placeholder="Search..." value="{{ request.GET.q }}" data-original-title="" title="" autofocus="autofocus" required>
-            <button type="submit" class="btn btn-outline-secondary">
+            <input type="text" name="q" data-toggle="popover" data-placement="bottom" 
+            data-content="Press enter to search" class="form-control cfe-nav" 
+            placeholder="Search..." value="{{ request.GET.q }}" data-original-title="" title="" 
+            autofocus="autofocus" required>
+            <button type="submit" class="btn btn-dark">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
         </div>
@@ -115,15 +118,12 @@
 
     </div>
     <div class="col-12 pl-5">
-    <h5>Search by using:</h5>
+    <h5>Search by:</h5>
     <ul class="pl-3">
         <li>Program <span class="text-orange">&gt;</span> Title or Description</li>
         <li>Course <span class="text-orange">&gt;</span> Title, Code or Description</li>
         <li>News And Events <span class="text-orange">&gt;</span> Title, Description or just by typing "news" or "event"</li>
         <li>Quiz <span class="text-orange">&gt;</span> Title, Description or Category(practice, assignment and exam)</li>
-        <li></li>
-        <li></li>
-        <li></li>
     </ul>
     </div>
 </div>

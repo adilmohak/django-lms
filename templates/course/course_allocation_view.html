@@ -17,31 +17,13 @@
 {% endif %}
 
 <div class="title-1"><i class="fas fa-tasks"></i>Course Allocations</div>
+<br>
+<br>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
+{% include 'snippets/filter_form.html' %}
 
-<div class="content-center">
-    <form class="search-form" action="" method="GET">
-        {{ filter.form }}
-        <button class="btn btn-light" type="submit">
-            <i class="fas fa-search"></i> Filter
-        </button>
-    </form>
-</div>
-
-<div class="table-responsive table-shadow p-0 mt-5">
+<div class="table-responsive table-shadow p-0 mt-4">
     <table class="table table-light table-striped">
         <thead>
             <tr>
