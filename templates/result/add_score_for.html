@@ -26,7 +26,7 @@
 </div>
 
 <br>
-<h4 class="title-1">Submit score for {{ course }} Students</h4>
+<h4 class="title-1">Students result form | {{ course|truncatechars:15 }}</h4>
 <p>{{ course.summary }}</p>
 
 {% include 'snippets/messages.html' %}

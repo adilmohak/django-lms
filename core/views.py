@@ -23,6 +23,19 @@ def home_view(request):
 
 
 @login_required
+@admin_required
+def dashboard_view(request):
+    logs = ActivityLog.objects.all().order_by("-created_at")[:10]
+    context = {
+        "student_count": User.get_student_count(),
+        "lecturer_count": User.get_lecturer_count(),
+        "superuser_count": User.get_superuser_count(),
+        "logs": logs,
+    }
+    return render(request, "core/dashboard.html", context)
+
+
+@login_required
 def post_add(request):
     if request.method == "POST":
         form = NewsAndEventsForm(request.POST)
@@ -293,16 +306,3 @@ def semester_delete_view(request, pk):
         semester.delete()
         messages.success(request, "Semester successfully deleted")
     return redirect("semester_list")
-
-
-@login_required
-@admin_required
-def dashboard_view(request):
-    logs = ActivityLog.objects.all().order_by("-created_at")[:10]
-    context = {
-        "student_count": User.get_student_count(),
-        "lecturer_count": User.get_lecturer_count(),
-        "superuser_count": User.get_superuser_count(),
-        "logs": logs,
-    }
-    return render(request, "core/dashboard.html", context)

@@ -270,7 +270,7 @@
 		<div class="card w-100 h-100 p-3">
 			<h5>Latest activities</h5>
 			<ul class="ps-2 small">
-				{% for log in logs %}d-flex 
+				{% for log in logs %}
 				<li>{{ log.message }} <span class="text-muted">- {{ log.created_at }}</span></li>
 				{% empty %}
 				<li>No recent activity</li>
