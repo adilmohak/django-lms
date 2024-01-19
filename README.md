@@ -8,9 +8,10 @@ Let's enhance the project by contributing! 👩‍💻👩‍💻
 
 Current features
 ----------------
-* News And Events
-* Admin manage students(Add, Update, Delete)
-* Admin manage lecturers(Add, Update, Delete)
+* Dashboard: School demographics and analytics. Restricted to only admins
+* News And Events: All users can access this page
+* Admin manages students(Add, Update, Delete)
+* Admin manages lecturers(Add, Update, Delete)
 * Students can Add and Drop courses
 * Lecturers submit students' scores: _Attendance, Mid exam, Final exam, assignment_
 * The system calculates students' _Total, average, point, and grades automatically_
@@ -21,6 +22,7 @@ Current features
 * Assessments and grades will be grouped by semester
 * Upload video and documentation for each course
 * PDF generator for students' registration slip and grade result
+* Page access restriction
 * Storing of quiz results under each user
 * Question order randomization
 * Previous quiz scores can be viewed on the category page
