@@ -10,14 +10,11 @@
 - **Integrate the dashboard with dynamic/live data**:
   - Overall attendance
   - School demographics
-    gender
-    Home language
-    new/all students
-    new/all lecturers
-  - Recent CUD(create, update, and delete) activities
-    For example, Added videos, courses, documentation
+      - Gender
+      - Lecturer qualification
+      - Students' level
   - Students average grade per course:
-    This one helps the school admin to identify the student's performance very quickly :)
+    This helps to keep track of students' performance
   - Overall Course Resources
     - Total number of videos, courses, documentation
   - Event calendar:
