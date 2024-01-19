@@ -9,21 +9,23 @@ Let's enhance the project by contributing! 👩‍💻👩‍💻
 Current features
 ----------------
 * News And Events
-* The admin can Add Students
-* The admin can Add Lecturers
+* Admin manage students(Add, Update, Delete)
+* Admin manage lecturers(Add, Update, Delete)
 * Students can Add and Drop courses
-* Lecturers submit students score (Attendance, Mid exam, Final exam, assignment)
-* The system calculat students Total, Avarage, point, and grade automaticaly
-* Also, the system tells the student whether he/she pass, fail or pass with a warning
-* Assessment result
-* Grade result
-* Upload video and documentations for each course
-* PDF generator for students registration slip and grade result
+* Lecturers submit students' scores: _Attendance, Mid exam, Final exam, assignment_
+* The system calculates students' _Total, average, point, and grades automatically_
+* Grade comment for each student with a **pass**, **fail**, or **pass with a warning**
+* Assessment result page for students
+* Grade result page for students
+* Session/year and semester management
+* Assessments and grades will be grouped by semester
+* Upload video and documentation for each course
+* PDF generator for students' registration slip and grade result
 * Storing of quiz results under each user
-* Question order randomisation
-* Previous quiz scores can be viewed on category page
+* Question order randomization
+* Previous quiz scores can be viewed on the category page
 * Correct answers can be shown after each question or all at once at the end
-* Logged in users can return to an incomplete quiz to finish it and non-logged in users can complete a quiz if their session persists
+* Logged-in users can return to an incomplete quiz to finish it and non-logged-in users can complete a quiz if their session persists
 * The quiz can be limited to one attempt per user
 * Questions can be given a category
 * Success rate for each category can be monitored on a progress page
