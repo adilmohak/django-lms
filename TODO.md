@@ -10,7 +10,6 @@
 - **Integrate the dashboard with dynamic/live data**:
   - Overall attendance
   - School demographics
-      - Gender
       - Lecturer qualification
       - Students' level
   - Students average grade per course:
