@@ -55,7 +55,7 @@ class CustomUserManager(UserManager):
         return queryset
 
 
-GENDERS_CHOICES = (("M", "Male"), ("F", "Female"))
+GENDERS = (("M", "Male"), ("F", "Female"))
 
 
 class User(AbstractUser):
@@ -63,9 +63,7 @@ class User(AbstractUser):
     is_lecturer = models.BooleanField(default=False)
     is_parent = models.BooleanField(default=False)
     is_dep_head = models.BooleanField(default=False)
-    gender = models.CharField(
-        max_length=1, choices=GENDERS_CHOICES, blank=True, null=True
-    )
+    gender = models.CharField(max_length=1, choices=GENDERS, blank=True, null=True)
     phone = models.CharField(max_length=60, blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
     picture = models.ImageField(
