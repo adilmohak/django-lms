@@ -165,6 +165,13 @@ class Student(models.Model):
     def __str__(self):
         return self.student.get_full_name
 
+    @classmethod
+    def get_gender_count(cls):
+        males_count = Student.objects.filter(student__gender="M").count()
+        females_count = Student.objects.filter(student__gender="F").count()
+
+        return {"M": males_count, "F": females_count}
+
     def get_absolute_url(self):
         return reverse("profile_single", kwargs={"id": self.id})
 
