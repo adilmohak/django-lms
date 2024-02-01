@@ -1,3 +1,6 @@
+from datetime import datetime
+
+from django.core.mail import send_mail
 from django import forms
 from django.db import transaction
 from django.contrib.auth.forms import (
@@ -19,6 +22,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Username",
+        required=False
     )
 
     first_name = forms.CharField(
@@ -85,6 +89,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Password",
+        required=False
     )
 
     password2 = forms.CharField(
@@ -96,6 +101,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Password Confirmation",
+        required=False
     )
 
     class Meta(UserCreationForm.Meta):
@@ -110,8 +116,33 @@ class StaffAddForm(UserCreationForm):
         user.phone = self.cleaned_data.get("phone")
         user.address = self.cleaned_data.get("address")
         user.email = self.cleaned_data.get("email")
+
+        # Generate a username based on first and last name and registration date
+        registration_date = datetime.now().strftime('%Y%m%d%H%M')
+        generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+
+        # Check if the generated username already exists, and regenerate if needed
+        while User.objects.filter(username=generated_username).exists():
+            registration_date = datetime.now().strftime('%Y%m%d%H%M')
+            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(" ", "")
+
+        user.username = generated_username
+
+        generated_password = User.objects.make_random_password()
+        user.set_password(generated_password)
+
         if commit:
             user.save()
+
+            # Send email with the generated credentials
+            send_mail(
+                'Your account credentials',
+                f'Your username: {generated_username}\nYour password: {generated_password}',
+                'from@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+
         return user
 
 
@@ -122,6 +153,8 @@ class StudentAddForm(UserCreationForm):
             attrs={"type": "text", "class": "form-control", "id": "username_id"}
         ),
         label="Username",
+        required=False
+
     )
     address = forms.CharField(
         max_length=30,
@@ -203,6 +236,8 @@ class StudentAddForm(UserCreationForm):
             }
         ),
         label="Password",
+        required=False
+
     )
 
     password2 = forms.CharField(
@@ -214,6 +249,7 @@ class StudentAddForm(UserCreationForm):
             }
         ),
         label="Password Confirmation",
+        required=False
     )
 
     # def validate_email(self):
@@ -225,21 +261,41 @@ class StudentAddForm(UserCreationForm):
         model = User
 
     @transaction.atomic()
-    def save(self):
+    def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_student = True
+        user.is_lecturer = True
         user.first_name = self.cleaned_data.get("first_name")
         user.last_name = self.cleaned_data.get("last_name")
-        user.address = self.cleaned_data.get("address")
         user.phone = self.cleaned_data.get("phone")
+        user.address = self.cleaned_data.get("address")
         user.email = self.cleaned_data.get("email")
-        user.save()
-        student = Student.objects.create(
-            student=user,
-            level=self.cleaned_data.get("level"),
-            program=self.cleaned_data.get("program"),
-        )
-        student.save()
+
+        # Generate a username based on first and last name and registration date
+        registration_date = datetime.now().strftime('%Y%m%d%H%M')
+        generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+
+        # Check if the generated username already exists, and regenerate if needed
+        while User.objects.filter(username=generated_username).exists():
+            registration_date = datetime.now().strftime('%Y%m%d%H%M')
+            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(" ", "")
+
+        user.username = generated_username
+
+        generated_password = User.objects.make_random_password()
+        user.set_password(generated_password)
+
+        if commit:
+            user.save()
+
+            # Send email with the generated credentials
+            send_mail(
+                'Your account credentials',
+                f'Your username: {generated_username}\nYour password: {generated_password}',
+                'from@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+
         return user
 
 

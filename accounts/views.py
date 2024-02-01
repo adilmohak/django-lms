@@ -212,7 +212,9 @@ def staff_add_view(request):
         form = StaffAddForm(request.POST)
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+     
         if form.is_valid():
+            
             form.save()
             messages.success(
                 request,
