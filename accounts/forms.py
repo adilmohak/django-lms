@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.core.mail import send_mail
 from django import forms
 from django.db import transaction
@@ -22,7 +23,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Username",
-        required=False
+        required=False,
     )
 
     first_name = forms.CharField(
@@ -89,7 +90,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Password",
-        required=False
+        required=False,
     )
 
     password2 = forms.CharField(
@@ -101,7 +102,7 @@ class StaffAddForm(UserCreationForm):
             }
         ),
         label="Password Confirmation",
-        required=False
+        required=False,
     )
 
     class Meta(UserCreationForm.Meta):
@@ -118,13 +119,17 @@ class StaffAddForm(UserCreationForm):
         user.email = self.cleaned_data.get("email")
 
         # Generate a username based on first and last name and registration date
-        registration_date = datetime.now().strftime('%Y%m%d%H%M')
-        generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+        registration_date = datetime.now().strftime("%Y%m%d%H%M")
+        generated_username = (
+            f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+        )
 
         # Check if the generated username already exists, and regenerate if needed
         while User.objects.filter(username=generated_username).exists():
-            registration_date = datetime.now().strftime('%Y%m%d%H%M')
-            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(" ", "")
+            registration_date = datetime.now().strftime("%Y%m%d%H%M")
+            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(
+                " ", ""
+            )
 
         user.username = generated_username
 
@@ -136,9 +141,9 @@ class StaffAddForm(UserCreationForm):
 
             # Send email with the generated credentials
             send_mail(
-                'Your account credentials',
-                f'Your username: {generated_username}\nYour password: {generated_password}',
-                'from@example.com',
+                "Your account credentials",
+                f"Your username: {generated_username}\nYour password: {generated_password}",
+                "from@example.com",
                 [user.email],
                 fail_silently=False,
             )
@@ -153,8 +158,7 @@ class StudentAddForm(UserCreationForm):
             attrs={"type": "text", "class": "form-control", "id": "username_id"}
         ),
         label="Username",
-        required=False
-
+        required=False,
     )
     address = forms.CharField(
         max_length=30,
@@ -245,8 +249,7 @@ class StudentAddForm(UserCreationForm):
             }
         ),
         label="Password",
-        required=False
-
+        required=False,
     )
 
     password2 = forms.CharField(
@@ -258,7 +261,7 @@ class StudentAddForm(UserCreationForm):
             }
         ),
         label="Password Confirmation",
-        required=False
+        required=False,
     )
 
     # def validate_email(self):
@@ -282,13 +285,17 @@ class StudentAddForm(UserCreationForm):
         user.email = self.cleaned_data.get("email")
 
         # Generate a username based on first and last name and registration date
-        registration_date = datetime.now().strftime('%Y%m%d%H%M')
-        generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+        registration_date = datetime.now().strftime("%Y%m%d%H%M")
+        generated_username = (
+            f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}"
+        )
 
         # Check if the generated username already exists, and regenerate if needed
         while User.objects.filter(username=generated_username).exists():
-            registration_date = datetime.now().strftime('%Y%m%d%H%M')
-            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(" ", "")
+            registration_date = datetime.now().strftime("%Y%m%d%H%M")
+            generated_username = f"{user.first_name.lower()}{user.last_name.lower()}{registration_date}".replace(
+                " ", ""
+            )
 
         user.username = generated_username
 
@@ -300,9 +307,9 @@ class StudentAddForm(UserCreationForm):
 
             # Send email with the generated credentials
             send_mail(
-                'Your account credentials',
-                f'Your username: {generated_username}\nYour password: {generated_password}',
-                'from@example.com',
+                "Your account credentials",
+                f"Your username: {generated_username}\nYour password: {generated_password}",
+                settings.EMAIL_FROM_ADDRESS,
                 [user.email],
                 fail_silently=False,
             )
