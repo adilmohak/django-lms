@@ -120,7 +120,7 @@ ASGI_APPLICATION = "config.asgi.application"
 # so consider using postgresql instead
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql_psycopg2"),
         "NAME": config("DB_NAME"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
