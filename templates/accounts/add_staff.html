@@ -19,16 +19,7 @@
 
 <form action="" method="POST">{% csrf_token %}
     <div class="row mb-3">
-        <div class="col-md-6">
-            <div class="card">
-                <p class="form-title">Login Info</p>
-                <div class="card-body">
-                    {{ form.username|as_crispy_field }}
-                    {{ form.password1|as_crispy_field }}
-                    {{ form.password2|as_crispy_field }}
-                </div>
-            </div>
-        </div>
+        
         <div class="col-md-6">
             <div class="card">
                 <p class="form-title">Personal Info</p>
