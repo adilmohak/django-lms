@@ -55,11 +55,15 @@ class CustomUserManager(UserManager):
         return queryset
 
 
+GENDERS = (("M", "Male"), ("F", "Female"))
+
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_lecturer = models.BooleanField(default=False)
     is_parent = models.BooleanField(default=False)
     is_dep_head = models.BooleanField(default=False)
+    gender = models.CharField(max_length=1, choices=GENDERS, blank=True, null=True)
     phone = models.CharField(max_length=60, blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
     picture = models.ImageField(
@@ -160,6 +164,13 @@ class Student(models.Model):
 
     def __str__(self):
         return self.student.get_full_name
+
+    @classmethod
+    def get_gender_count(cls):
+        males_count = Student.objects.filter(student__gender="M").count()
+        females_count = Student.objects.filter(student__gender="F").count()
+
+        return {"M": males_count, "F": females_count}
 
     def get_absolute_url(self):
         return reverse("profile_single", kwargs={"id": self.id})
