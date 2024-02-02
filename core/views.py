@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from accounts.decorators import admin_required, lecturer_required
-from accounts.models import User
+from accounts.models import User, Student
 from .forms import SessionForm, SemesterForm, NewsAndEventsForm
 from .models import *
 
@@ -26,10 +26,13 @@ def home_view(request):
 @admin_required
 def dashboard_view(request):
     logs = ActivityLog.objects.all().order_by("-created_at")[:10]
+    gender_count = Student.get_gender_count()
     context = {
         "student_count": User.get_student_count(),
         "lecturer_count": User.get_lecturer_count(),
         "superuser_count": User.get_superuser_count(),
+        "males_count": gender_count["M"],
+        "females_count": gender_count["F"],
         "logs": logs,
     }
     return render(request, "core/dashboard.html", context)
