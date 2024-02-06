@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
 
 from accounts.decorators import admin_required, lecturer_required
 from accounts.models import User, Student
 from .forms import SessionForm, SemesterForm, NewsAndEventsForm
-from .models import *
+from .models import NewsAndEvents, ActivityLog, Session, Semester
 
 
 # ########################################################
@@ -28,9 +27,9 @@ def dashboard_view(request):
     logs = ActivityLog.objects.all().order_by("-created_at")[:10]
     gender_count = Student.get_gender_count()
     context = {
-        "student_count": User.get_student_count(),
-        "lecturer_count": User.get_lecturer_count(),
-        "superuser_count": User.get_superuser_count(),
+        "student_count": User.objects.get_student_count(),
+        "lecturer_count": User.objects.get_lecturer_count(),
+        "superuser_count": User.objects.get_superuser_count(),
         "males_count": gender_count["M"],
         "females_count": gender_count["F"],
         "logs": logs,

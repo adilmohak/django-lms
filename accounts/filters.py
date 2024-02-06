@@ -33,34 +33,42 @@ class LecturerFilter(django_filters.FilterSet):
 
 
 class StudentFilter(django_filters.FilterSet):
-    student__username = django_filters.CharFilter(lookup_expr="exact", label="")
-    student__name = django_filters.CharFilter(method="filter_by_name", label="")
-    student__email = django_filters.CharFilter(lookup_expr="icontains", label="")
-    program__title = django_filters.CharFilter(lookup_expr="icontains", label="")
+    id_no = django_filters.CharFilter(
+        field_name="student__username", lookup_expr="exact", label=""
+    )
+    name = django_filters.CharFilter(
+        field_name="student__name", method="filter_by_name", label=""
+    )
+    email = django_filters.CharFilter(
+        field_name="student__email", lookup_expr="icontains", label=""
+    )
+    program = django_filters.CharFilter(
+        field_name="student__program", lookup_expr="icontains", label=""
+    )
 
     class Meta:
         model = Student
         fields = [
-            "student__username",
-            "student__name",
-            "student__email",
-            "program__title",
+            "id_no",
+            "name",
+            "email",
+            "program",
         ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Change html classes and placeholders
-        self.filters["student__username"].field.widget.attrs.update(
+        self.filters["id_no"].field.widget.attrs.update(
             {"class": "au-input", "placeholder": "ID No."}
         )
-        self.filters["student__name"].field.widget.attrs.update(
+        self.filters["name"].field.widget.attrs.update(
             {"class": "au-input", "placeholder": "Name"}
         )
-        self.filters["student__email"].field.widget.attrs.update(
+        self.filters["email"].field.widget.attrs.update(
             {"class": "au-input", "placeholder": "Email"}
         )
-        self.filters["program__title"].field.widget.attrs.update(
+        self.filters["program"].field.widget.attrs.update(
             {"class": "au-input", "placeholder": "Program"}
         )
 
