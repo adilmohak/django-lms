@@ -161,5 +161,5 @@ def generate_fake_accounts_data(num_programs: int, num_students: int, num_parent
     print(f"Created {len(parents)} parents.")
 
 
-
 generate_fake_accounts_data(10, 10, 10)
+
