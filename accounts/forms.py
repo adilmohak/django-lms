@@ -275,7 +275,7 @@ class StudentAddForm(UserCreationForm):
     @transaction.atomic()
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_lecturer = True
+        user.is_student = True
         user.first_name = self.cleaned_data.get("first_name")
         user.last_name = self.cleaned_data.get("last_name")
         user.gender = self.cleaned_data.get("gender")
