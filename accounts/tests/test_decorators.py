@@ -126,62 +126,44 @@ class StudentRequiredDecoratorTests(TestCase):
         return HttpResponse("Student View Content")
 
     def test_student_required_decorator_redirects(self):
-        # Apply the student_required decorator to the view function
         decorated_view = student_required(self.student_view)
 
-        # Create a mock request object with a non-student user
         request = self.factory.get("/restricted-view")
         request.user = self.user
 
-        # Call the decorated view
         response = decorated_view(request)
 
-        # Assert that the response is a redirect (status code 302)
         self.assertEqual(response.status_code, 302)
-        # Assert that the response redirects to the default URL ("/")
         self.assertEqual(response.url, "/")
 
     def test_student_required_decorator_redirects_to_correct_path(self):
-        # Apply the student_required decorator to the view function
         decorated_view = student_required(function=self.student_view, redirect_to="/login/")
 
-        # Create a mock request object with a non-student user
         request = self.factory.get("/restricted-view")
         request.user = self.user
 
-        # Call the decorated view
         response = decorated_view(request)
 
-        # Assert redirection to login page
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/login/')
 
     def test_student_required_decorator_does_not_redirect_student(self):
-        # Apply the student_required decorator to the view function
         decorated_view = student_required(self.student_view)
 
-        # Create a mock request object with a student user
         request = self.factory.get("/restricted-view")
         request.user = self.student
 
-        # Call the decorated view
         response = decorated_view(request)
 
-        # Assert that the response is not a redirect (status code 200)
         self.assertEqual(response.status_code, 200)
-        # Assert that the response contains the view content
         self.assertEqual(response.content, b"Student View Content")
 
     def test_student_redirect_decorator_return_correct_response(self):
-        # Apply the student_required decorator to the view function
         decorated_view = student_required(self.student_view)
 
-        # Create a mock request object with a student user
         request = self.factory.get("/restricted-view")
         request.user = self.student
 
-        # Call the decorated view
         response = decorated_view(request)
 
-        # Assert that the response is an instance of HttpResponse
         self.assertIsInstance(response, HttpResponse)
