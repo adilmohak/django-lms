@@ -27,3 +27,12 @@
   - This can be done using jQuery libraries like `DataTables`
 - **Using a template to PDF converter to generate reports**:
   - This can be done using the popular package `xhtml2pdf`
+
+- **Handle SMTPAuthenticationError at /accounts/register/**
+  - When username and password are not accepted. Error is raised
+- **Be able to Register as an individual without creating a superuser**
+  - Unable to register if there are no programs to choose from
+- **Have a default index page**
+  - There is currently no index page
+- **Use google to signup**
+  - An individual should be able to use google to signup
