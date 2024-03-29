@@ -213,3 +213,10 @@ class DepartmentHead(models.Model):
 
     def __str__(self):
         return "{}".format(self.user)
+
+
+# For School registration
+# Notes: School admin should be able to create a school management structure
+# Should be able to add staff and students by sending the emails as invites
+class SchoolAdmin(models.Model):
+    school_admin = models.OneToOneField(User, on_delete=models.CASCADE)

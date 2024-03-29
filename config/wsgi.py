@@ -13,7 +13,6 @@ import os, sys
 sys.path.insert(0,'/var/www/django-lms')
 sys.path.insert(0,'/var/www/django-lms/config')
 sys.path.insert(0,'/var/www/django-lms/venv/lib/python3.10/site-packages')
-print(sys.path)
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")

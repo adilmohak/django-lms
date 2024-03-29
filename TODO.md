@@ -34,5 +34,8 @@
   - Unable to register if there are no programs to choose from
 - **Have a default index page**
   - There is currently no index page
+  - Make default page like linkedin default landing page
 - **Use google to signup**
   - An individual should be able to use google to signup
+- **Provide User with opportunity to Sign up if login fails**
+  - Current implementation only reports that credentials are invalid

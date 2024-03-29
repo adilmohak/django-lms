@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views import defaults as default_views
 
-admin.site.site_header = "Dj-LMS Admin"
+admin.site.site_header = "Site Admin"
 
 urlpatterns = [
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
