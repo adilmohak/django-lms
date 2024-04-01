@@ -27,9 +27,9 @@ def dashboard_view(request):
     logs = ActivityLog.objects.all().order_by("-created_at")[:10]
     gender_count = Student.get_gender_count()
     context = {
-        "student_count": User.get_student_count(),
-        "lecturer_count": User.get_lecturer_count(),
-        "superuser_count": User.get_superuser_count(),
+        "student_count": User.objects.get_student_count(),
+        "lecturer_count": User.objects.get_lecturer_count(),
+        "superuser_count": User.objects.get_superuser_count(),
         "males_count": gender_count["M"],
         "females_count": gender_count["F"],
         "logs": logs,
