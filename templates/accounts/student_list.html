@@ -16,6 +16,7 @@
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
     <a class="btn btn-sm btn-primary" href="{% url 'add_student' %}"><i class="fas fa-plus"></i> Add Student</a>
+    <a class="btn btn-sm btn-primary" href="{% url 'student_list_pdf' %}"><i class="fas fa-download"></i> Download pdf</a> <!--new-->
 </div>
 {% endif %}
 

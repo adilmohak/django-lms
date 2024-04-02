@@ -16,6 +16,10 @@ from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddFor
 from .models import User, Student, Parent
 from .filters import LecturerFilter, StudentFilter
 
+#to generate pdf from template we need the following
+from django.http import HttpResponse
+from django.template.loader import get_template # to get template which render as pdf
+from xhtml2pdf import pisa
 
 def validate_username(request):
     username = request.GET.get("username", None)
@@ -275,6 +279,26 @@ class LecturerFilterView(FilterView):
         return context
 
 
+#lecturers list pdf
+def render_lecturer_pdf_list(request):
+    lecturers = User.objects.filter(is_lecturer=True)
+    template_path = 'pdf/lecturer_list.html'
+    context = {'lecturers':lecturers}
+    response = HttpResponse(content_type='application/pdf') # convert the response to pdf
+    response['Content-Disposition'] = 'filename="lecturers_list.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+    
+
+    
 # @login_required
 # @lecturer_required
 # def delete_staff(request, pk):
@@ -363,6 +387,25 @@ class StudentListView(FilterView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Students"
         return context
+
+
+#student list pdf
+def render_student_pdf_list(request):
+    students = Student.objects.all()
+    template_path = 'pdf/student_list.html'
+    context = {'students':students}
+    response = HttpResponse(content_type='application/pdf') # convert the response to pdf
+    response['Content-Disposition'] = 'filename="students_list.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 @login_required
