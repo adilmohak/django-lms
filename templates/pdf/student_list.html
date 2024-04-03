@@ -1,0 +1,68 @@
+{% block content %}
+<style>
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th, .table td {
+    padding: 8px;
+    border: 1px solid #ddd; /* Add thin borders for separation */
+    text-align: left;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+  }
+
+  .title-1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .text-danger {
+    color: red;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+</style>
+
+<p class="title-1">Students</p>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID No.</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Mob No.</th>
+        <th>Program</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td> {{ forloop.counter }}.</td>
+        <td>{{ student.student.username }}</td>
+        <td><a href="{% url 'profile_single' student.id %}">{{ student.student.get_full_name }}</a></td>
+        <td>{{ student.student.email }}</td>
+        <td>{{ student.program }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td>
+          <span class="text-danger">
+            No Lecturer(s).
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
