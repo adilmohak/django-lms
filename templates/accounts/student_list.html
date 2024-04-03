@@ -16,7 +16,7 @@
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
     <a class="btn btn-sm btn-primary" href="{% url 'add_student' %}"><i class="fas fa-plus"></i> Add Student</a>
-    <a class="btn btn-sm btn-primary" href="{% url 'student_list_pdf' %}"><i class="fas fa-download"></i> Download pdf</a> <!--new-->
+    <a class="btn btn-sm btn-primary" target="_blank" href="{% url 'student_list_pdf' %}"><i class="fas fa-download"></i> Download pdf</a> <!--new-->
 </div>
 {% endif %}
 
@@ -58,6 +58,7 @@
                         </button>
                         <ul class="dropdown-menu position-fixed">
                           <li><a class="dropdown-item" href="{% url 'student_edit' student.student.pk %}"><i class="fas fa-edit"></i> Update</a></li>
+                          <li><a class="dropdown-item" target="_blank" href="{% url 'profile_single' student.student.id %}?download_pdf=1"><i class="fas fa-download"></i> Download PDF</a></li>
                           <li><a class="dropdown-item text-danger" href="{% url 'student_delete' student.pk %}"><i class="fas fa-trash-alt"></i> Delete</a></li>
                         </ul>
                       </div>

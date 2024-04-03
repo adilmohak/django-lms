@@ -20,6 +20,7 @@ from .filters import LecturerFilter, StudentFilter
 from django.http import HttpResponse
 from django.template.loader import get_template # to get template which render as pdf
 from xhtml2pdf import pisa
+from django.template.loader import render_to_string #to render a template into a string
 
 def validate_username(request):
     username = request.GET.get("username", None)
@@ -95,6 +96,22 @@ def profile(request):
             },
         )
 
+#function that generate pdf by taking Django template and its context,
+def render_to_pdf(template_name, context):
+    """Renders a given template to PDF format."""
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="profile.pdf"'  # Set default filename
+
+    template = render_to_string(template_name, context)
+    pdf = pisa.CreatePDF(
+        template,
+        dest=response
+    )
+    if pdf.err:
+        return HttpResponse('We had some problems generating the PDF')
+    
+    return response
+
 
 @login_required
 @admin_required
@@ -109,43 +126,86 @@ def profile_single(request, id):
     ).first()
 
     user = User.objects.get(pk=id)
-    if user.is_lecturer:
-        courses = Course.objects.filter(allocated_course__lecturer__pk=id).filter(
-            semester=current_semester
-        )
-        context = {
-            "title": user.get_full_name,
-            "user": user,
-            "user_type": "Lecturer",
-            "courses": courses,
-            "current_session": current_session,
-            "current_semester": current_semester,
-        }
-        return render(request, "accounts/profile_single.html", context)
-    elif user.is_student:
-        student = Student.objects.get(student__pk=id)
-        courses = TakenCourse.objects.filter(
-            student__student__id=id, course__level=student.level
-        )
-        context = {
-            "title": user.get_full_name,
-            "user": user,
-            "user_type": "student",
-            "courses": courses,
-            "student": student,
-            "current_session": current_session,
-            "current_semester": current_semester,
-        }
-        return render(request, "accounts/profile_single.html", context)
+    """
+    If download_pdf exists, instead of calling render_to_pdf directly, 
+    pass the context dictionary built for the specific user type 
+    (lecturer, student, or superuser) to the render_to_pdf function.
+    """
+    if request.GET.get('download_pdf'):
+        if user.is_lecturer:
+            courses = Course.objects.filter(allocated_course__lecturer__pk=id).filter(
+                semester=current_semester
+            )
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "Lecturer",
+                "courses": courses,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+        elif user.is_student:
+            student = Student.objects.get(student__pk=id)
+            courses = TakenCourse.objects.filter(
+                student__student__id=id, course__level=student.level
+            )
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "student",
+                "courses": courses,
+                "student": student,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+        else:
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "superuser",
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+        return render_to_pdf("pdf/profile_single.html", context)
+
     else:
-        context = {
-            "title": user.get_full_name,
-            "user": user,
-            "user_type": "superuser",
-            "current_session": current_session,
-            "current_semester": current_semester,
-        }
-        return render(request, "accounts/profile_single.html", context)
+        if user.is_lecturer:
+            courses = Course.objects.filter(allocated_course__lecturer__pk=id).filter(
+                semester=current_semester
+            )
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "Lecturer",
+                "courses": courses,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+            return render(request, "accounts/profile_single.html", context)
+        elif user.is_student:
+            student = Student.objects.get(student__pk=id)
+            courses = TakenCourse.objects.filter(
+                student__student__id=id, course__level=student.level
+            )
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "student",
+                "courses": courses,
+                "student": student,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+            return render(request, "accounts/profile_single.html", context)
+        else:
+            context = {
+                "title": user.get_full_name,
+                "user": user,
+                "user_type": "superuser",
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+            return render(request, "accounts/profile_single.html", context)
 
 
 @login_required
