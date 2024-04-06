@@ -1,5 +1,7 @@
 # TODO
 
+- **Celery**:
+  - Using celery to send emails
 - **Add and Drop**:
   - The add and drop page should only include courses offered by the department head.
   - Add and drop date should be restricted by the school calendar.
