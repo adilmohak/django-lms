@@ -1,41 +1,42 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load static %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Manage Score</li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Manage Score' %}</li>
     </ol>
 </nav>
 
 {% include 'snippets/messages.html' %}
 
-<div class="title-1 mb-3"><i class="fas fa-table"></i>Manage Score</div>
+<div class="title-1 mb-3"><i class="fas fa-table"></i>{% trans 'Manage Score' %}</div>
 
 {% if current_semester %}
 <div class="row">
     <div class="col-md-8">
         <div class="card text-center">
             <p class="form-title">
-                {{ current_semester }} Semester - <i class="result-title">{{ current_session }}</i>
+                {{ current_semester }} {% trans 'Semester' %} - <i class="result-title">{{ current_session }}</i>
             </p>
             <div class="container">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle mx-auto mb-2" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Your Course Here
+                        {% trans 'Select Your Course Here' %}
                     </button>
                     <div class="dropdown-menu">
                         {% for course in courses %}
                             <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
                         {% empty %}
-                            <p class="dropdown-item">No course.</p>
+                            <p class="dropdown-item">{% trans 'No course.' %}</p>
                         {% endfor %}
                     </div>
                 </div>
-                <p>To manage scores, please select the course using the button above.</p>
+                <p>{% trans 'To manage scores, please select the course using the button above.' %}</p>
             </div>
         </div>
     </div>

@@ -2,6 +2,8 @@ from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TranslationAdmin
+from modeltranslation.forms import TranslationModelForm
 
 from .models import (
     Quiz,
@@ -18,7 +20,7 @@ class ChoiceInline(admin.TabularInline):
     model = Choice
 
 
-class QuizAdminForm(forms.ModelForm):
+class QuizAdminForm(TranslationModelForm):
     class Meta:
         model = Quiz
         exclude = []
@@ -45,9 +47,9 @@ class QuizAdminForm(forms.ModelForm):
         return quiz
 
 
-class QuizAdmin(admin.ModelAdmin):
+class QuizAdmin(TranslationAdmin):
     form = QuizAdminForm
-
+    fields = ('title', 'description',)
     list_display = ("title",)
     # list_filter = ('category',)
     search_fields = (
@@ -56,10 +58,10 @@ class QuizAdmin(admin.ModelAdmin):
     )
 
 
-class MCQuestionAdmin(admin.ModelAdmin):
+class MCQuestionAdmin(TranslationAdmin):
     list_display = ("content",)
     # list_filter = ('category',)
-    fields = ("content", "figure", "quiz", "explanation", "choice_order")
+    fieldsets = [(u'figure' 'quiz' 'choice_order', {'fields': ("content","explanation")})]
 
     search_fields = ("content", "explanation")
     filter_horizontal = ("quiz",)

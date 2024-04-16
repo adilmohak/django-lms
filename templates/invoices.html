@@ -1,8 +1,8 @@
-<h1>Invoices</h1>
+<h1>{% trans 'Invoices' %}</h1>
 
 <form method="POST">{% csrf_token %}
 	<input type="number" name="amount" required="true">
-	<button type="submit">Pay now</button>
+	<button type="submit">{% trans 'Pay now' %}</button>
 </form>
 
 {% for invoice in invoices %}

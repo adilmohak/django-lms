@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}{% trans "All Quizzes" %} | Learning management system{% endblock %}
+{% block title %}{% trans "All Quizzes" %} | {% trans 'Learning management system' %}{% endblock %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="/">Home</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Complete Exams</li>
+		<li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{% trans 'Complete Exams' %}</li>
 	</ol>
 </nav>
 
@@ -26,7 +26,7 @@
 
 {% if sitting_list %}
 
-	<div class="info-text bg-danger my-2">Total complete exams: {{ sitting_list.count }}</div>
+	<div class="info-text bg-danger my-2">{% trans 'Total complete exams:' %} {{ sitting_list.count }}</div>
 
 	<table class="table table-bordered table-striped">
 		<thead>

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} {{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %} {{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 
 {% load static %}
-{% load i18n %}
+
 
 {% block content %}
 
@@ -10,7 +11,7 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ user.get_full_name }}</li>
     </ol>
 </nav>
@@ -25,17 +26,17 @@
                 <img src="{{ user.picture.url }}" class="w-100">
                 <ul class="px-2 list-unstyled">
                     <li>{{ user.get_full_name|title }}</li>
-                    <li><strong>Last login: </strong>{{ user.last_login|date }}</li>
-                    <li><strong>Role: </strong>
+                    <li><strong>{% trans 'Last login:' %} </strong>{{ user.last_login|date }}</li>
+                    <li><strong>{% trans 'Role:' %}' </strong>
                         {{ user.get_user_role }}
                     </li>
                 </ul>
             </div>
             <hr>
             <a class="mb-2" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit"></i>
-                <span class="mobile-hide">Edit Profile</span></a>
+                <span class="mobile-hide">{% trans 'Edit Profile' %}</span></a>
             <a href="{% url 'change_password' %}"><i class="fas fa-lock"></i><span class="mobile-hide">
-                    Change password</span></a>
+                {% trans 'Change password' %}</span></a>
         </div>
     </div>
 
@@ -58,7 +59,7 @@
                 {% endif %} -->
     
                 {% if user.is_lecturer %}
-                <p class="fw-bold"><i class="fas fa-book-open"></i> My Courses</p>
+                <p class="fw-bold"><i class="fas fa-book-open"></i>{% trans 'My Courses' %}</p>
                 {% if courses %}
                 <ul>
                     {% for course in courses %}
@@ -66,42 +67,42 @@
                     {% endfor %}
                 </ul>
                 {% else %}
-                <div class="text-danger">No courses assigned!</div>
+                <div class="text-danger">{% trans 'No courses assigned!' %}</div>
                 {% endif %}
                 <hr>
                 {% endif %}
     
-                <p class="fw-bold"><i class="fas fa-user"></i> Personal Info</p>
+                <p class="fw-bold"><i class="fas fa-user"></i>{% trans 'Personal Info' %}</p>
                 <div class="dashboard-description">
-                    <p><strong>First Name:</strong> {{ user.first_name|title }}</p>
-                    <p><strong>Last Name:</strong> {{ user.last_name|title }}</p>
-                    <p><strong>ID No.:</strong> {{ user.username }}</p>
+                    <p><strong>{% trans 'First Name:' %}</strong> {{ user.first_name|title }}</p>
+                    <p><strong>{% trans 'Last Name:' %}</strong> {{ user.last_name|title }}</p>
+                    <p><strong>{% trans 'ID No.:' %}</strong> {{ user.username }}</p>
                 </div>
                 {% if user.is_student %}
                 <hr>
-                <p class="fw-bold"><i class="fas fa-graduation-cap"></i> Applicant Info</p>
+                <p class="fw-bold"><i class="fas fa-graduation-cap"></i>{% trans 'Applicant Info' %}</p>
                 <div class="dashboard-description">
-                    <p><strong>School: </strong>Hawas Preparatory School</p>
-                    <p><strong>Level: </strong>{{ level.level }}</p>
+                    <p><strong>{% trans 'School:' %} </strong>{% trans 'Hawas Preparatory School' %}</p>
+                    <p><strong>{% trans 'Level:' %} </strong>{{ level.level }}</p>
                 </div>
                 {% endif %}
     
                 <hr>
-                <p class="fw-bold"><i class="fas fa-phone-square-alt"></i> Contact Info</p>
+                <p class="fw-bold"><i class="fas fa-phone-square-alt"></i>{% trans 'Contact Info' %}</p>
                 <div class="dashboard-description">
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>Tel No.:</strong> {{ user.phone }}</p>
-                    <p><strong>Address/city:</strong> {{ user.address }}</p>
+                    <p><strong>{% trans 'Email:' %}</strong> {{ user.email }}</p>
+                    <p><strong>{% trans 'Tel No.:' %}</strong> {{ user.phone }}</p>
+                    <p><strong>{% trans 'Address/city:' %}</strong> {{ user.address }}</p>
                 </div>
     
                 <hr>
-                <p class="fw-bold"><i class="fa fa-calendar-day"></i> Important Dates</p>
+                <p class="fw-bold"><i class="fa fa-calendar-day"></i>{% trans 'Important Dates' %}</p>
                 <div class="dashboard-description">
-                    <p><strong>Last login:</strong> {{ user.last_login }}</p>
+                    <p><strong>{% trans 'Last login:' %}</strong> {{ user.last_login }}</p>
                     {% if current_semester and current_session %}
-                    <p><strong>Academic Year:</strong> {{ current_semester }} Semester {{ current_session }}</p>
+                    <p><strong>{% trans 'Academic Year:' %}</strong> {{ current_semester }} {% trans 'Semester' %} {{ current_session }}</p>
                     {% endif %}
-                    <p><strong>Registered Date:</strong> {{ user.date_joined|date }}</p>
+                    <p><strong>{% trans 'Registered Date:' %}</strong> {{ user.date_joined|date }}</p>
                 </div>
             </div>
         </div>

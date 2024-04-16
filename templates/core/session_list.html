@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Session List</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Session List' %}</li>
     </ol>
 </nav>
 
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
-    <a class="btn btn-primary" href="{% url 'add_session' %}"><i class="fas fa-plus"></i>Add New Session</a>
+    <a class="btn btn-primary" href="{% url 'add_session' %}"><i class="fas fa-plus"></i>{% trans 'Add New Session' %}</a>
 </div>
 {% endif %}
 
-<div class="title-1"><i class="fas fa-calendar-week"></i>Session List</div>
+<div class="title-1"><i class="fas fa-calendar-week"></i>{% trans 'Session List' %}</div>
 
 {% if messages %}
     {% for message in messages %}
@@ -37,11 +38,11 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th> Session </th>
-                <th> Is Current Session </th>
-                <th> Next Session Begins </th>
+                <th> {% trans 'Session' %} </th>
+                <th> {% trans 'Is Current Session' %} </th>
+                <th> {% trans 'Next Session Begins' %} </th>
                 {% if request.user.is_superuser %}
-                <th> Actions </th>
+                <th> {% trans 'Actions' %} </th>
                 {% endif %}
             </tr>
         </thead>
@@ -61,8 +62,8 @@
 
                 {% if request.user.is_superuser %}
                 <td> <div class="update-delete">
-                    <a href="{% url 'edit_session' pk=session.pk %}" class="update" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                    <a href="{% url 'delete_session' pk=session.pk %}" class="delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                    <a href="{% url 'edit_session' pk=session.pk %}" class="update" title="{% trans 'Edit' %}"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{% url 'delete_session' pk=session.pk %}" class="delete" title="{% trans 'Delete' %}"><i class="fas fa-trash-alt"></i></a>
                     </div>
                 </td>
                 {% endif %}
@@ -73,11 +74,11 @@
                   <td></td>
                   <td>
                   <span class="text-danger">
-                    No Session.
+                    {% trans 'No Session.' %}
                     {% if request.user.is_superuser %}
                     <a href="{% url 'add_session' %}">
                     <i class="primary" style="font-size: 22px;">
-                       Add Session Now.
+                        {% trans 'Add Session Now.' %}
                     </i>
                     {% endif %}
                     </a>

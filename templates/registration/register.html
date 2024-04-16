@@ -1,5 +1,6 @@
 {% extends 'registration/registration_base.html' %}
-{% block title %} Register | Learning management system {% endblock title %}
+{% load i18n %}
+{% block title %}{% trans 'Register | Learning management system' %}{% endblock title %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -8,7 +9,7 @@
 	
   <div class="blue-gradient text-light p-3 mb-5">
 	  <h1 class="lead my-0">
-		<i class="fas fa-lock mr-2"></i>Create Your Account
+		<i class="fas fa-lock mr-2"></i>{% trans 'Create Your Account' %}
 	  </h1>
   </div>
 
@@ -16,7 +17,7 @@
 	  {% csrf_token %}
 	  <div class="row">
 		  <div class="col-lg-6">
-			<h1 class="lead p-2 bg-light">Login Form</h1>
+			<h1 class="lead p-2 bg-light">{% trans 'Login Form' %}</h1>
 			<div class="mb-3">
 				<label for="username_id" class="form-label">{{ form.username.label }}</label>
 				{{ form.username }}
@@ -36,7 +37,7 @@
 			</div>
 		  </div>
 		  <div class="col-lg-6">
-			<h1 class="lead p-2 bg-light">Personal Info</h1>
+			<h1 class="lead p-2 bg-light">{% trans 'Personal Info' %}</h1>
 			<div class="mb-3">
 				<label for="address_id" class="form-label">{{ form.address.label }}</label>
 				{{ form.address }}
@@ -69,13 +70,13 @@
 	  </div>
 
     {% if form.errors %}
-          <p class="text-danger my-2"><i class="fas fa-exclamation-circle"></i> Invalid ID & Password.</p><br>
+          <p class="text-danger my-2"><i class="fas fa-exclamation-circle"></i>{% trans 'Invalid ID & Password.' %}</p><br>
     {% endif %}
 
-    <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small> SIGN UP</small></button>
+    <button type="submit" class="btn btn-primary" id="login-btn"><i class="fas fa-sign-in-alt"></i><small>{% trans 'SIGN UP' %}</small></button>
   </form>
   <br>
-  <span> Already Registered ? </span><a href="{% url 'login' %}" class="link">Login</a>
+  <span> {% trans 'Already Registered ?' %} </span><a href="{% url 'login' %}" class="link">{% trans 'Login' %}</a>
 </div>
 {% endblock content %}
 

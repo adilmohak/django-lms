@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}
-{% trans "Result of" %} {{ sitting.quiz.title }} {% trans "for" %} {{ sitting.user }} | Learning management system
+{% trans "Result of" %} {{ sitting.quiz.title }} {% trans "for" %} {{ sitting.user }} | {% trans 'Learning management system' %}
 {% endblock %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="/">Home</a></li>
-		<li class="breadcrumb-item"><a href="{% url 'quiz_marking' %}">Completed Exams</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Marking</li>
+		<li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'quiz_marking' %}">{% trans 'Completed Exams' %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{% trans 'Marking' %}</li>
 	</ol>
 </nav>
 

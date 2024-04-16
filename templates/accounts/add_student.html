@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load crispy_forms_tags %}
 {% load static %}
+
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'student_list' %}">Students</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Add</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'student_list' %}">{% trans 'Students' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Add' %}</li>
     </ol>
 </nav>
 
-<h4 class="mb-3 fw-bold"><i class="fas fa-user-graduate me-2"></i>Student Add Form</h4>
+<h4 class="mb-3 fw-bold"><i class="fas fa-user-graduate me-2"></i>{% trans 'Student Add Form' %}</h4>
 
 {% include 'snippets/messages.html' %}
 
@@ -22,7 +24,7 @@
        
         <div class="col-md-6">
             <div class="card">
-                <p class="form-title">Personal Info</p>
+                <p class="form-title">{% trans 'Personal Info' %}</p>
                 <div class="card-body">
                     {{ form.first_name|as_crispy_field }}
                     {{ form.last_name|as_crispy_field }}
@@ -35,7 +37,7 @@
         </div>
         <div class="col-md-6 mr-auto">
             <div class="card">
-                <p class="form-title">Others</p>
+                <p class="form-title">{% trans 'Others' %}</p>
                 <div class="card-body">
                     {{ form.program|as_crispy_field }}
                     {{ form.level|as_crispy_field }}
@@ -44,7 +46,7 @@
         </div>
     </div>
 
-    <input class="btn btn-primary" type="submit" value="Save">
+    <input class="btn btn-primary" type="{% trans 'submit' %}" value="Save">
 </form>
 
 {% endblock content %}

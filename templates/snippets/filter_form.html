@@ -1,4 +1,6 @@
+{% load i18n %}
 {% if filter.form %}
+
 <form action="" method="get">
     <div class="d-flex flex-wrap align-items-center">
         {% for field in filter.form %}
@@ -7,7 +9,7 @@
         </div>
         {% endfor %}
         <button class="btn btn-sm mb-2" type="submit">
-            <i class="fa fa-sliders"></i> Filter
+            <i class="fa fa-sliders"></i> {% trans 'Filter' %}
         </button>
     </div>
 </form>

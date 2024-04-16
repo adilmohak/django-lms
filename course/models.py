@@ -5,6 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.db.models import Q
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 # project import
 from .utils import *
@@ -20,23 +21,23 @@ YEARS = (
 )
 
 # LEVEL_COURSE = "Level course"
-BACHLOAR_DEGREE = "Bachloar"
-MASTER_DEGREE = "Master"
+BACHLOAR_DEGREE = _("Bachloar")
+MASTER_DEGREE = _("Master")
 
 LEVEL = (
     # (LEVEL_COURSE, "Level course"),
-    (BACHLOAR_DEGREE, "Bachloar Degree"),
-    (MASTER_DEGREE, "Master Degree"),
+    (BACHLOAR_DEGREE, _("Bachloar Degree")),
+    (MASTER_DEGREE, _("Master Degree")),
 )
 
-FIRST = "First"
-SECOND = "Second"
-THIRD = "Third"
+FIRST = _("First")
+SECOND = _("Second")
+THIRD = _("Third")
 
 SEMESTER = (
-    (FIRST, "First"),
-    (SECOND, "Second"),
-    (THIRD, "Third"),
+    (FIRST, _("First")),
+    (SECOND, _("Second")),
+    (THIRD, _("Third")),
 )
 
 
@@ -67,12 +68,12 @@ class Program(models.Model):
 @receiver(post_save, sender=Program)
 def log_save(sender, instance, created, **kwargs):
     verb = "created" if created else "updated"
-    ActivityLog.objects.create(message=f"The program '{instance}' has been {verb}.")
+    ActivityLog.objects.create(message=_(f"The program '{instance}' has been {verb}."))
 
 
 @receiver(post_delete, sender=Program)
 def log_delete(sender, instance, **kwargs):
-    ActivityLog.objects.create(message=f"The program '{instance}' has been deleted.")
+    ActivityLog.objects.create(message=_(f"The program '{instance}' has been deleted."))
 
 
 class CourseManager(models.Manager):
@@ -134,21 +135,21 @@ pre_save.connect(course_pre_save_receiver, sender=Course)
 @receiver(post_save, sender=Course)
 def log_save(sender, instance, created, **kwargs):
     verb = "created" if created else "updated"
-    ActivityLog.objects.create(message=f"The course '{instance}' has been {verb}.")
+    ActivityLog.objects.create(message=_(f"The course '{instance}' has been {verb}."))
 
 
 @receiver(post_delete, sender=Course)
 def log_delete(sender, instance, **kwargs):
-    ActivityLog.objects.create(message=f"The course '{instance}' has been deleted.")
+    ActivityLog.objects.create(message=_(f"The course '{instance}' has been deleted."))
 
 
 class CourseAllocation(models.Model):
     lecturer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="allocated_lecturer",
+        related_name=_("allocated_lecturer"),
     )
-    courses = models.ManyToManyField(Course, related_name="allocated_course")
+    courses = models.ManyToManyField(Course, related_name=_("allocated_course"))
     session = models.ForeignKey(
         "core.Session", on_delete=models.CASCADE, blank=True, null=True
     )
@@ -213,19 +214,19 @@ class Upload(models.Model):
 def log_save(sender, instance, created, **kwargs):
     if created:
         ActivityLog.objects.create(
-            message=f"The file '{instance.title}' has been uploaded to the course '{instance.course}'."
-        )
+            message=_(f"The file '{instance.title}' has been uploaded to the course '{instance.course}'."
+        ))
     else:
         ActivityLog.objects.create(
-            message=f"The file '{instance.title}' of the course '{instance.course}' has been updated."
-        )
+            message=_(f"The file '{instance.title}' of the course '{instance.course}' has been updated."
+        ))
 
 
 @receiver(post_delete, sender=Upload)
 def log_delete(sender, instance, **kwargs):
     ActivityLog.objects.create(
-        message=f"The file '{instance.title}' of the course '{instance.course}' has been deleted."
-    )
+        message=_(f"The file '{instance.title}' of the course '{instance.course}' has been deleted."
+    ))
 
 
 class UploadVideo(models.Model):
@@ -234,7 +235,7 @@ class UploadVideo(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     video = models.FileField(
         upload_to="course_videos/",
-        help_text="Valid video formats: mp4, mkv, wmv, 3gp, f4v, avi, mp3",
+        help_text=_("Valid video formats: mp4, mkv, wmv, 3gp, f4v, avi, mp3"),
         validators=[
             FileExtensionValidator(["mp4", "mkv", "wmv", "3gp", "f4v", "avi", "mp3"])
         ],
@@ -267,23 +268,23 @@ pre_save.connect(video_pre_save_receiver, sender=UploadVideo)
 def log_save(sender, instance, created, **kwargs):
     if created:
         ActivityLog.objects.create(
-            message=f"The video '{instance.title}' has been uploaded to the course {instance.course}."
-        )
+            message=_(f"The video '{instance.title}' has been uploaded to the course {instance.course}."
+        ))
     else:
         ActivityLog.objects.create(
-            message=f"The video '{instance.title}' of the course '{instance.course}' has been updated."
-        )
+            message=_(f"The video '{instance.title}' of the course '{instance.course}' has been updated."
+        ))
 
 
 @receiver(post_delete, sender=UploadVideo)
 def log_delete(sender, instance, **kwargs):
     ActivityLog.objects.create(
-        message=f"The video '{instance.title}' of the course '{instance.course}' has been deleted."
-    )
+        message=_(f"The video '{instance.title}' of the course '{instance.course}' has been deleted."
+    ))
 
 
 class CourseOffer(models.Model):
-    """NOTE: Only department head can offer semester courses"""
+    _("""NOTE: Only department head can offer semester courses""")
 
     dep_head = models.ForeignKey("accounts.DepartmentHead", on_delete=models.CASCADE)
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load crispy_forms_tags %}
 {% load static %}
 
@@ -7,13 +8,13 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'lecturer_list' %}">Lecturers</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Add</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'lecturer_list' %}">{% trans 'Lecturers' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Add' %}</li>
     </ol>
 </nav>
 
-<h4 class="fw-bold mb-3"><i class="fas fa-chalkboard-teacher me-2"></i>Lecturer Add Form</h4>
+<h4 class="fw-bold mb-3"><i class="fas fa-chalkboard-teacher me-2"></i>{% trans 'Lecturer Add Form' %}</h4>
 
 {% include 'snippets/messages.html' %}
 
@@ -22,7 +23,7 @@
         
         <div class="col-md-6">
             <div class="card">
-                <p class="form-title">Personal Info</p>
+                <p class="form-title">{% trans 'Personal Info' %}</p>
                 <div class="p-2">
                     {{ form.first_name|as_crispy_field }}
                     {{ form.last_name|as_crispy_field }}
@@ -33,7 +34,7 @@
             </div>
         </div>
     </div>
-    <input class="btn btn-primary" type="submit" value="Save">
+    <input class="btn btn-primary" type="{% trans 'submit' %}" value="Save">
 </form>
 
 {% endblock content %}

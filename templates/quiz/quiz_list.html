@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}{{ title }} | Learning management system{% endblock title %}
 {% load i18n %}
 {% load static %}
@@ -8,21 +9,21 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
         <li class="breadcrumb-item"><a href="{% url 'program_detail' pk=1 %}">{{ course.program }}</a></li>
         <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Quizzes</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Quizzes' %}</li>
     </ol>
 </nav>
 
 {% if request.user.is_superuser or request.user.is_lecturer %}
 <div class="manage-wrap">
-    <a class="btn btn-primary" href="{% url 'quiz_create' course.slug %}"><i class="fas fa-plus"></i> Add Quiz</a>
+    <a class="btn btn-primary" href="{% url 'quiz_create' course.slug %}"><i class="fas fa-plus"></i>{% trans 'Add Quiz' %}</a>
 </div>
 {% endif %}
 
-<div class="title-1">Quizzes [{{ course|truncatechars:25 }}]</div>
+<div class="title-1">{% trans 'Quizzes' %} [{{ course|truncatechars:25 }}]</div>
 <br>
 <br>
 
@@ -35,9 +36,9 @@
         <div class="col-md-4 mb-2">
             <div class="card p-2 quiz-wrapper">
                 <div class="d-flex justify-content-between align-items-center text-success mb-4">
-                    <em class="text-left">{{ quiz.category|title }} Quiz</em>
+                    <em class="text-left">{{ quiz.category|title }} {% trans 'Quiz' %}</em>
                     <div class="text-right text-light bg-danger px-2 small rounded">
-                        {{ quiz.get_questions.count }} Questions
+                        {{ quiz.get_questions.count }} {% trans 'Questions' %}
                     </div>
                 </div>
 
@@ -61,10 +62,10 @@
                             <button class="btn btn-sm p-0 ms-2" type="button" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v m-0"></i></button>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
                                 <div class="dropdown-item">
-                                    <a href="{% url 'quiz_update' slug=course.slug pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                    <a href="{% url 'quiz_update' slug=course.slug pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i>{% trans 'Edit' %}</a>
                                 </div>
                                 <div class="dropdown-item">
-                                    <a href="{% url 'quiz_delete' slug=course.slug pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                                    <a href="{% url 'quiz_delete' slug=course.slug pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i>{% trans 'Delete' %}</a>
                                 </div>
                             </div>
                         </div>

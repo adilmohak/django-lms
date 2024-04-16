@@ -2,18 +2,18 @@
 {% load i18n%}
 
 
-{% block title %} {{ quiz.title }} | Learning management system {% endblock %}
+{% block title %} {{ quiz.title }} | {% trans 'Learning management system' %} {% endblock %}
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
 		<li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
 		<li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
 		<li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
-		<li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">Quizzes</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">{% trans 'Quizzes' %}</a></li>
 		<li class="breadcrumb-item active" aria-current="page">{{ quiz.title|title }}</li>
 	</ol>
 </nav>
@@ -105,15 +105,15 @@
 		<div class="modal-dialog">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="instractionModalLabel">Quiz instractions</h1>
+			  <h1 class="modal-title fs-5" id="instractionModalLabel">{% trans 'Quiz instractions' %}</h1>
 			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				You can't go back to the previous question after you submit it, 
-				so double check your answer before proceeding to the next one!
+				{% trans 'You can't go back to the previous question after you submit it, 
+				so double check your answer before proceeding to the next one!' %}
 			</div>
 			<div class="modal-footer">
-			  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+			  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{% trans 'Understood' %}</button>
 			</div>
 		  </div>
 		</div>
@@ -153,7 +153,7 @@
 
 				</ul>
 				<br>
-				<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-primary" />
+				<input type="submit" value="Check" class="btn btn-large btn-block btn-primary" />
 				<!-- <input type="submit" value={% trans "Previous" %} class="btn btn-large btn-block btn-outline-primary" > -->
 			</form>
 		</div>

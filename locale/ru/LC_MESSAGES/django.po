@@ -1,0 +1,1704 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version:PACKAGE VERSION"
+"Report-Msgid-Bugs-To:"
+"POT-Creation-Date:2024-04-15 19:36+0600"
+"PO-Revision-Date:YEAR-MO-DA HO:MI+ZONE"
+"Last-Translator:FULL NAME <EMAIL@ADDRESS>"
+"Language-Team:LANGUAGE <LL@li.org>"
+"Language:"
+"MIME-Version:1.0"
+"Content-Type:text/plain; charset=UTF-8"
+"Content-Transfer-Encoding:8bit"
+"Plural-Forms:nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
+
+#: accounts/models.py:14 course/models.py:24
+msgid "Bachloar"
+msgstr "Бакалавр"
+#: accounts/models.py:15 course/models.py:25
+msgid "Master"
+msgstr "Магистр"
+#: accounts/models.py:19 course/models.py:29
+msgid "Bachloar Degree"
+msgstr "Степень бакалавра"
+#: accounts/models.py:20 course/models.py:30
+msgid "Master Degree"
+msgstr "Степень магистра"
+#: accounts/models.py:23 accounts/models.py:32
+msgid "Father"
+msgstr "Отец"
+#: accounts/models.py:24 accounts/models.py:33
+msgid "Mother"
+msgstr "Мать"
+#: accounts/models.py:25 accounts/models.py:34
+msgid "Brother"
+msgstr "Брат"
+#: accounts/models.py:26 accounts/models.py:35
+msgid "Sister"
+msgstr "Сестра"
+#: accounts/models.py:27 accounts/models.py:36
+msgid "Grand mother"
+msgstr "Бабушка"
+#: accounts/models.py:28 accounts/models.py:37
+msgid "Grand father"
+msgstr "Дед"
+#: accounts/models.py:29 accounts/models.py:38
+msgid "Other"
+msgstr "Другой"
+#: accounts/models.py:67
+msgid "M"
+msgstr "М"
+#: accounts/models.py:67
+msgid "Male"
+msgstr "Мужской"
+#: accounts/models.py:67
+msgid "F"
+msgstr "Ж"
+#: accounts/models.py:67
+msgid "Female"
+msgstr "Женский"
+#: accounts/models.py:103
+msgid "Admin"
+msgstr "Админ"
+#: accounts/models.py:105 templates/result/add_score_for.html:52
+msgid "Student"
+msgstr "Студент"
+#: accounts/models.py:107 templates/course/course_allocation_view.html:32
+msgid "Lecturer"
+msgstr "Преподаватель"
+#: accounts/models.py:109
+msgid "Parent"
+msgstr "Родитель"
+#: accounts/validators.py:12
+msgid ""
+"Enter a valid username. This value may contain only English letters, "
+"numbers, and @/./+/-/_ characters."
+msgstr ""
+"Введите действительное имя пользователя. Это значение может содержать только"
+" английские буквы, цифры и символы @/./+/-/_."
+#: config/settings.py:163
+msgid "Russia"
+msgstr "Россия"
+#: config/settings.py:164
+msgid "English"
+msgstr "Английский"
+#: core/models.py:9 core/models.py:13 templates/core/index.html:59
+#: templates/core/index.html:64 templates/setting/admin_panel.html:80
+#: templates/setting/admin_panel.html:81
+msgid "News"
+msgstr "Новости"
+#: core/models.py:10 core/models.py:14
+msgid "Event"
+msgstr "Событие"
+#: core/models.py:17 core/models.py:22 course/models.py:33 course/models.py:38
+msgid "First"
+msgstr "Первый"
+#: core/models.py:18 core/models.py:23 course/models.py:34 course/models.py:39
+msgid "Second"
+msgstr "Второй"
+#: core/models.py:19 core/models.py:24 course/models.py:35 course/models.py:40
+msgid "Third"
+msgstr "Третий"
+#: course/models.py:71
+#, python-brace-format
+msgid "The program '{instance}' has been {verb}."
+msgstr "Программа '{instance}' была {verb}."
+#: course/models.py:76
+#, python-brace-format
+msgid "The program '{instance}' has been deleted."
+msgstr "Программа '{instance}' удалена."
+#: course/models.py:138
+#, python-brace-format
+msgid "The course '{instance}' has been {verb}."
+msgstr "Курс '{instance}' был {verb}."
+#: course/models.py:143
+#, python-brace-format
+msgid "The course '{instance}' has been deleted."
+msgstr "Курс '{instance}' был удален."
+#: course/models.py:150
+msgid "allocated_lecturer"
+msgstr "выделенный_лектор"
+#: course/models.py:152
+msgid "allocated_course"
+msgstr "выделенный_курс"
+#: course/models.py:217
+#, python-brace-format
+msgid ""
+"The file '{instance.title}' has been uploaded to the course "
+"'{instance.course}'."
+msgstr "Файл '{instance.title}' загружен в курс '{instance.course}'."
+#: course/models.py:221
+#, python-brace-format
+msgid ""
+"The file '{instance.title}' of the course '{instance.course}' has been "
+"updated."
+msgstr "Файл '{instance.title}' курса '{instance.course}' обновлен."
+#: course/models.py:228
+#, python-brace-format
+msgid ""
+"The file '{instance.title}' of the course '{instance.course}' has been "
+"deleted."
+msgstr "Файл '{instance.title}' курса '{instance.course}' был удален."
+#: course/models.py:238
+msgid "Valid video formats: mp4, mkv, wmv, 3gp, f4v, avi, mp3"
+msgstr "Допустимые форматы видео: mp4, mkv, wmv, 3gp, f4v, avi, mp3."
+#: course/models.py:271
+#, python-brace-format
+msgid ""
+"The video '{instance.title}' has been uploaded to the course "
+"{instance.course}."
+msgstr "Видео '{instance.title}' было загружено в курс {instance.course}."
+#: course/models.py:275
+#, python-brace-format
+msgid ""
+"The video '{instance.title}' of the course '{instance.course}' has been "
+"updated."
+msgstr "Видео '{instance.title}' курса '{instance.course}' обновлено."
+#: course/models.py:282
+#, python-brace-format
+msgid ""
+"The video '{instance.title}' of the course '{instance.course}' has been "
+"deleted."
+msgstr "Видео '{instance.title}' курса '{instance.course}' было удалено."
+#: course/models.py:287
+msgid "NOTE: Only department head can offer semester courses"
+msgstr ""
+"ПРИМЕЧАНИЕ: Только руководитель отдела может предлагать семестровые курсы."
+#: quiz/admin.py:31 quiz/admin.py:32 quiz/forms.py:38 quiz/forms.py:39
+#: quiz/models.py:468 templates/quiz/quiz_list.html:41
+msgid "Questions"
+msgstr "Вопросы"
+#: quiz/models.py:23 quiz/models.py:529
+msgid "Content"
+msgstr "Содержание"
+#: quiz/models.py:24
+msgid "Random"
+msgstr "Случайный"
+#: quiz/models.py:25
+msgid "None"
+msgstr "Никто"
+#: quiz/models.py:29 templates/result/add_score_for.html:53
+#: templates/result/assessment_results.html:40
+#: templates/result/assessment_results.html:82
+msgid "Assignment"
+msgstr "Назначение"
+#: quiz/models.py:30
+msgid "Exam"
+msgstr "Экзамен"
+#: quiz/models.py:31
+msgid "Practice Quiz"
+msgstr "Практический тест"
+#: quiz/models.py:53
+msgid "Title"
+msgstr "Заголовок"
+#: quiz/models.py:56
+msgid "Description"
+msgstr "Описание"
+#: quiz/models.py:58
+msgid "A detailed description of the quiz"
+msgstr "Подробное описание викторины"
+#: quiz/models.py:64
+msgid "Random Order"
+msgstr "Случайный порядок"
+#: quiz/models.py:65
+msgid "Display the questions in a random order or as they are set?"
+msgstr "Отображать вопросы в случайном порядке или по мере их установки?"
+#: quiz/models.py:74
+msgid "Answers at end"
+msgstr "Ответы в конце"
+#: quiz/models.py:76
+msgid ""
+"Correct answer is NOT shown after question. Answers displayed at the end."
+msgstr ""
+"Правильный ответ НЕ отображается после вопроса. Ответы отображаются в конце."
+#: quiz/models.py:83
+msgid "Exam Paper"
+msgstr "Экзаменационная бумага"
+#: quiz/models.py:85
+msgid ""
+"If yes, the result of each attempt by a user will be stored. Necessary for "
+"marking."
+msgstr ""
+"Если да, результат каждой попытки пользователя будет сохранен. Необходимо "
+"для маркировки."
+#: quiz/models.py:92
+msgid "Single Attempt"
+msgstr "Одиночная попытка"
+#: quiz/models.py:93
+msgid "If yes, only one attempt by a user will be permitted."
+msgstr "Если да, пользователю будет разрешена только одна попытка."
+#: quiz/models.py:99
+msgid "Pass Mark"
+msgstr "Проходной балл"
+#: quiz/models.py:101
+msgid "Percentage required to pass exam."
+msgstr "Процент, необходимый для сдачи экзамена."
+#: quiz/models.py:107
+msgid "Draft"
+msgstr "Черновик"
+#: quiz/models.py:109
+msgid ""
+"If yes, the quiz is not displayed in the quiz list and can only be taken by "
+"users who can edit quizzes."
+msgstr ""
+"Если да, тест не отображается в списке тестов, и его могут пройти только "
+"пользователи, имеющие право редактировать тесты."
+#: quiz/models.py:129 quiz/models.py:290 quiz/models.py:443
+#: templates/quiz/quiz_list.html:39 templates/quiz/sitting_list.html:37
+#: templates/result/add_score_for.html:55
+#: templates/result/assessment_results.html:42
+#: templates/result/assessment_results.html:84
+#: templates/search/search_view.html:79 templates/search/search_view.html:127
+msgid "Quiz"
+msgstr "Контрольный опрос"
+#: quiz/models.py:130 templates/question.html:16
+#: templates/quiz/mcquestion_form.html:13 templates/quiz/quiz_form.html:13
+#: templates/quiz/quiz_list.html:16 templates/quiz/quiz_list.html:26
+#: templates/result.html:18
+msgid "Quizzes"
+msgstr "Викторины"
+#: quiz/models.py:164 quiz/models.py:288 templates/quiz/sitting_detail.html:24
+#: templates/quiz/sitting_list.html:35
+msgid "User"
+msgstr "Пользователь"
+#: quiz/models.py:168 templates/progress.html:68
+#: templates/quiz/sitting_detail.html:26 templates/quiz/sitting_list.html:39
+msgid "Score"
+msgstr "Счет"
+#: quiz/models.py:175
+msgid "User Progress"
+msgstr "Прогресс пользователя"
+#: quiz/models.py:176
+msgid "User progress records"
+msgstr "Записи прогресса пользователя"
+#: quiz/models.py:203
+msgid "error"
+msgstr "ошибка"
+#: quiz/models.py:203
+msgid "category does not exist or invalid score"
+msgstr "категория не существует или неверный балл"
+#: quiz/models.py:248
+msgid "Question set of the quiz is empty. Please configure questions properly"
+msgstr ""
+"Набор вопросов викторины пуст. Пожалуйста, правильно сформулируйте вопросы"
+#: quiz/models.py:292 templates/quiz/sitting_list.html:36
+#: templates/search/search_view.html:59 templates/search/search_view.html:125
+msgid "Course"
+msgstr "Курс"
+#: quiz/models.py:297
+msgid "Question Order"
+msgstr "Порядок вопросов"
+#: quiz/models.py:303
+msgid "Question List"
+msgstr "Список вопросов"
+#: quiz/models.py:310
+msgid "Incorrect questions"
+msgstr "Неправильные вопросы"
+#: quiz/models.py:314
+msgid "Current Score"
+msgstr "Текущий счет"
+#: quiz/models.py:316
+msgid "Complete"
+msgstr "Полный"
+#: quiz/models.py:319
+msgid "User Answers"
+msgstr "Ответы пользователей"
+#: quiz/models.py:321 templates/quiz/sitting_detail.html:27
+msgid "Start"
+msgstr "Начинать"
+#: quiz/models.py:322 templates/quiz/sitting_detail.html:28
+msgid "End"
+msgstr "Конец"
+#: quiz/models.py:327
+msgid "Can see completed exams."
+msgstr "Можно увидеть сданные экзамены."
+#: quiz/models.py:404
+msgid "You have passed this quiz, congratulation"
+msgstr "Вы прошли этот тест, поздравляем"
+#: quiz/models.py:406
+msgid "You failed this quiz, give it one chance again."
+msgstr "Вы провалили этот тест, дайте ему еще один шанс."
+#: quiz/models.py:448
+msgid "Figure"
+msgstr "Фигура"
+#: quiz/models.py:449
+msgid "Add an image for the question if it's necessary."
+msgstr "Если необходимо, добавьте изображение к вопросу."
+#: quiz/models.py:454
+msgid "Enter the question text that you want displayed"
+msgstr "Введите текст вопроса, который вы хотите отобразить"
+#: quiz/models.py:455 quiz/models.py:467 quiz/models.py:522
+#: templates/question.html:125 templates/quiz/sitting_detail.html:34
+msgid "Question"
+msgstr "Вопрос"
+#: quiz/models.py:460
+msgid "Explanation to be shown after the question has been answered."
+msgstr "Пояснения отображаются после ответа на вопрос."
+#: quiz/models.py:461 templates/question.html:80 templates/question.html:89
+#: templates/result.html:80 templates/result.html:150
+msgid "Explanation"
+msgstr "Объяснение"
+#: quiz/models.py:481
+msgid ""
+"The order in which multichoice choice options are displayed to the user"
+msgstr ""
+"Порядок, в котором пользователю отображаются варианты выбора из нескольких "
+"вариантов."
+#: quiz/models.py:483
+msgid "Choice Order"
+msgstr "Порядок выбора"
+#: quiz/models.py:516
+msgid "Multiple Choice Question"
+msgstr "Вопрос с множественным выбором"
+#: quiz/models.py:517
+msgid "Multiple Choice Questions"
+msgstr "Вопросы с множественным выбором"
+#: quiz/models.py:528
+msgid "Enter the choice text that you want displayed"
+msgstr "Введите текст выбора, который вы хотите отобразить"
+#: quiz/models.py:535
+msgid "Is this a correct answer?"
+msgstr "Это правильный ответ?"
+#: quiz/models.py:536 templates/quiz/mcquestion_form.html:44
+#: templates/quiz/sitting_detail.html:56
+msgid "Correct"
+msgstr "Правильный"
+#: quiz/models.py:543
+msgid "Choice"
+msgstr "Выбор"
+#: quiz/models.py:544 templates/quiz/mcquestion_form.html:38
+msgid "Choices"
+msgstr "Выбор"
+#: quiz/models.py:564
+msgid "Essay style question"
+msgstr "Вопрос в стиле эссе"
+#: quiz/models.py:565
+msgid "Essay style questions"
+msgstr "Вопросы в стиле эссе"
+#: templates/400.html:5
+msgid "Bad request"
+msgstr "Неверный запрос"
+#: templates/400.html:6
+msgid "Please make sure the form is correctly filled."
+msgstr "Пожалуйста, убедитесь, что форма заполнена правильно."
+#: templates/400.html:7 templates/403.html:7 templates/404.html:7
+#: templates/500.html:7
+msgid "Return to the app"
+msgstr "Вернуться в приложение"
+#: templates/403.html:5
+msgid "forbidden"
+msgstr "запрещенный"
+#: templates/403.html:6
+msgid "You need the proper permission to make that request."
+msgstr "Вам нужно соответствующее разрешение, чтобы сделать этот запрос."
+#: templates/404.html:6
+msgid "Looks like the page you"
+msgstr "Похоже на страницу, которую вы"
+#: templates/500.html:6
+msgid "Please try again later."
+msgstr "Пожалуйста, повторите попытку позже."
+#: templates/accounts/add_staff.html:3 templates/accounts/add_student.html:3
+#: templates/accounts/edit_lecturer.html:3
+#: templates/accounts/edit_student.html:3
+#: templates/accounts/lecturer_list.html:3
+#: templates/accounts/parent_form.html:3 templates/accounts/profile.html:3
+#: templates/accounts/profile_single.html:3
+#: templates/accounts/student_list.html:3 templates/core/dashboard.html:3
+#: templates/core/index.html:3 templates/core/post_add.html:3
+#: templates/core/semester_list.html:3 templates/core/semester_update.html:3
+#: templates/core/session_list.html:3 templates/core/session_update.html:3
+#: templates/course/course_add.html:3
+#: templates/course/course_allocation_form.html:3
+#: templates/course/course_allocation_view.html:3
+#: templates/course/course_registration.html:3
+#: templates/course/course_single.html:3 templates/course/program_add.html:3
+#: templates/course/program_list.html:3 templates/course/program_single.html:3
+#: templates/course/user_course_list.html:3 templates/progress.html:4
+#: templates/question.html:5 templates/quiz/sitting_detail.html:4
+#: templates/quiz/sitting_list.html:3 templates/result.html:7
+#: templates/result/add_score.html:3 templates/result/add_score_for.html:3
+#: templates/result/assessment_results.html:3
+#: templates/result/grade_results.html:3 templates/search/search_view.html:3
+#: templates/setting/admin_panel.html:3
+#: templates/setting/password_change.html:3
+#: templates/setting/profile_info_change.html:3
+#: templates/upload/upload_file_form.html:3
+#: templates/upload/upload_video_form.html:3
+#: templates/upload/video_single.html:3
+msgid "Learning management system"
+msgstr "Система управления обучением"
+#: templates/accounts/add_staff.html:11 templates/accounts/add_student.html:12
+#: templates/accounts/edit_lecturer.html:11
+#: templates/accounts/edit_student.html:11
+#: templates/accounts/lecturer_list.html:9 templates/accounts/profile.html:14
+#: templates/accounts/profile_single.html:14
+#: templates/accounts/student_list.html:10 templates/aside.html:60
+#: templates/core/dashboard.html:13 templates/core/index.html:34
+#: templates/core/post_add.html:11 templates/core/semester_list.html:9
+#: templates/core/semester_update.html:11 templates/core/session_list.html:9
+#: templates/core/session_update.html:11 templates/course/course_add.html:11
+#: templates/course/course_allocation_form.html:11
+#: templates/course/course_allocation_view.html:9
+#: templates/course/course_registration.html:12
+#: templates/course/course_single.html:10 templates/course/program_add.html:11
+#: templates/course/program_list.html:9
+#: templates/course/program_single.html:10
+#: templates/course/user_course_list.html:10 templates/progress.html:11
+#: templates/question.html:12 templates/quiz/mcquestion_form.html:9
+#: templates/quiz/quiz_form.html:9 templates/quiz/quiz_list.html:12
+#: templates/quiz/sitting_detail.html:11 templates/quiz/sitting_list.html:9
+#: templates/result.html:14 templates/result/add_score.html:10
+#: templates/result/add_score_for.html:10
+#: templates/result/assessment_results.html:9
+#: templates/result/grade_results.html:9 templates/search/search_view.html:11
+#: templates/setting/admin_panel.html:11
+#: templates/setting/password_change.html:11
+#: templates/setting/profile_info_change.html:11
+#: templates/upload/upload_file_form.html:10
+#: templates/upload/upload_video_form.html:10
+#: templates/upload/video_single.html:10
+msgid "Home"
+msgstr "Дом"
+#: templates/accounts/add_staff.html:12
+#: templates/accounts/edit_lecturer.html:12
+#: templates/accounts/lecturer_list.html:10
+#: templates/accounts/lecturer_list.html:21 templates/aside.html:71
+#: templates/core/dashboard.html:190 templates/pdf/lecturer_list.html:35
+#: templates/setting/admin_panel.html:37
+msgid "Lecturers"
+msgstr "Преподаватели"
+#: templates/accounts/add_staff.html:13 templates/accounts/add_student.html:14
+#: templates/aside.html:126
+msgid "Add"
+msgstr "Добавлять"
+#: templates/accounts/add_staff.html:17
+msgid "Lecturer Add Form"
+msgstr "Лектор Добавить форму"
+#: templates/accounts/add_staff.html:26 templates/accounts/add_student.html:27
+#: templates/accounts/edit_lecturer.html:27
+#: templates/accounts/edit_student.html:25 templates/accounts/profile.html:75
+#: templates/accounts/profile_single.html:85
+#: templates/pdf/profile_single.html:65
+#: templates/registration/register.html:40
+#: templates/setting/profile_info_change.html:24
+msgid "Personal Info"
+msgstr "Личная информация"
+#: templates/accounts/add_staff.html:37 templates/accounts/add_student.html:49
+#: templates/accounts/edit_lecturer.html:46
+#: templates/accounts/edit_student.html:46
+#: templates/accounts/parent_form.html:11
+msgid "submit"
+msgstr "представлять на рассмотрение"
+#: templates/accounts/add_student.html:18
+msgid "Student Add Form"
+msgstr "Форма добавления студента"
+#: templates/accounts/add_student.html:40
+#: templates/accounts/edit_lecturer.html:39
+#: templates/accounts/edit_student.html:39 templates/core/dashboard.html:244
+#: templates/setting/profile_info_change.html:37
+msgid "Others"
+msgstr "Другие"
+#: templates/accounts/edit_lecturer.html:13
+#: templates/accounts/edit_student.html:13
+#: templates/accounts/lecturer_list.html:59
+#: templates/accounts/student_list.html:61
+#: templates/course/program_list.html:56
+msgid "Update"
+msgstr "Обновлять"
+#: templates/accounts/edit_lecturer.html:17
+msgid "Lecturer Update Form"
+msgstr "Форма обновления преподавателя"
+#: templates/accounts/edit_lecturer.html:27
+#: templates/accounts/edit_student.html:25
+#: templates/accounts/lecturer_list.html:33
+#: templates/accounts/student_list.html:38 templates/pdf/lecturer_list.html:44
+#: templates/pdf/student_list.html:43
+#: templates/registration/password_reset.html:13
+#: templates/setting/profile_info_change.html:24
+msgid "Email"
+msgstr "Электронная почта"
+#: templates/accounts/edit_student.html:12
+#: templates/accounts/student_list.html:11
+#: templates/accounts/student_list.html:24 templates/aside.html:74
+#: templates/core/dashboard.html:181 templates/pdf/student_list.html:35
+#: templates/setting/admin_panel.html:42
+msgid "Students"
+msgstr "Студенты"
+#: templates/accounts/edit_student.html:17
+msgid "Student Update Form"
+msgstr "Форма обновления студента"
+#: templates/accounts/lecturer_list.html:16
+msgid "Add Lecturer"
+msgstr "Добавить лектора"
+#: templates/accounts/lecturer_list.html:17
+#: templates/accounts/student_list.html:20
+msgid "Download pdf"
+msgstr "Скачать PDF"
+#: templates/accounts/lecturer_list.html:31
+#: templates/accounts/student_list.html:36 templates/pdf/lecturer_list.html:42
+#: templates/pdf/student_list.html:41
+msgid "ID No."
+msgstr "Идентификационный номер"
+#: templates/accounts/lecturer_list.html:32
+#: templates/accounts/student_list.html:37 templates/pdf/lecturer_list.html:43
+#: templates/pdf/student_list.html:42
+msgid "Full Name"
+msgstr "Полное имя"
+#: templates/accounts/lecturer_list.html:34
+#: templates/pdf/lecturer_list.html:45 templates/pdf/student_list.html:44
+msgid "Mob No."
+msgstr "Моб №"
+#: templates/accounts/lecturer_list.html:35
+msgid "Address/city"
+msgstr "Адрес Город"
+#: templates/accounts/lecturer_list.html:36
+msgid "Last login"
+msgstr "Последний Войти"
+#: templates/accounts/lecturer_list.html:38
+#: templates/accounts/student_list.html:41
+#: templates/course/course_allocation_view.html:35
+#: templates/course/program_list.html:35
+#: templates/course/program_single.html:48
+msgid "Action"
+msgstr "Действие"
+#: templates/accounts/lecturer_list.html:60
+#: templates/accounts/student_list.html:62
+msgid "Download PDF"
+msgstr "Скачать PDF"
+#: templates/accounts/lecturer_list.html:61
+#: templates/accounts/student_list.html:63 templates/core/index.html:90
+#: templates/core/semester_list.html:71 templates/core/session_list.html:66
+#: templates/course/course_single.html:91
+#: templates/course/course_single.html:168
+#: templates/course/program_list.html:57
+#: templates/course/program_single.html:82
+#: templates/quiz/mcquestion_form.html:48 templates/quiz/quiz_list.html:68
+msgid "Delete"
+msgstr "Удалить"
+#: templates/accounts/lecturer_list.html:71
+#: templates/pdf/lecturer_list.html:63 templates/pdf/student_list.html:61
+msgid "No Lecturer(s)."
+msgstr "Нет лектора(ов)."
+#: templates/accounts/lecturer_list.html:75
+msgid "Add Lecturer Now."
+msgstr "Добавьте лектора сейчас."
+#: templates/accounts/profile.html:29 templates/accounts/profile.html:101
+#: templates/accounts/profile_single.html:29
+#: templates/accounts/profile_single.html:111 templates/navbar.html:29
+#: templates/pdf/profile_single.html:41 templates/pdf/profile_single.html:92
+msgid "Last login:"
+msgstr "Последний Войти:"
+#: templates/accounts/profile.html:30
+#: templates/accounts/profile_single.html:30
+#: templates/pdf/profile_single.html:42
+msgid "Role:"
+msgstr "Роль:"
+#: templates/accounts/profile.html:37
+#: templates/accounts/profile_single.html:40
+#: templates/accounts/profile_single.html:45
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+#: templates/accounts/profile.html:39
+msgid "Change password"
+msgstr "Изменить пароль"
+#: templates/accounts/profile.html:62
+#: templates/accounts/profile_single.html:72 templates/aside.html:80
+#: templates/course/user_course_list.html:3
+#: templates/course/user_course_list.html:11
+#: templates/course/user_course_list.html:23 templates/navbar.html:34
+#: templates/pdf/profile_single.html:52
+msgid "My Courses"
+msgstr "Мои курсы"
+#: templates/accounts/profile.html:70
+#: templates/accounts/profile_single.html:80
+#: templates/pdf/profile_single.html:60
+msgid "No courses assigned!"
+msgstr "Курсы не назначены!"
+#: templates/accounts/profile.html:77
+#: templates/accounts/profile_single.html:87
+#: templates/pdf/profile_single.html:67
+msgid "First Name:"
+msgstr "Имя:"
+#: templates/accounts/profile.html:78
+#: templates/accounts/profile_single.html:88
+#: templates/pdf/profile_single.html:68
+msgid "Last Name:"
+msgstr "Фамилия:"
+#: templates/accounts/profile.html:79
+#: templates/accounts/profile_single.html:89
+#: templates/pdf/profile_single.html:69
+msgid "ID No.:"
+msgstr "Идентификационный номер:"
+#: templates/accounts/profile.html:83
+#: templates/accounts/profile_single.html:93
+#: templates/pdf/profile_single.html:74
+msgid "Applicant Info"
+msgstr "Информация о заявителе"
+#: templates/accounts/profile.html:85
+#: templates/accounts/profile_single.html:95
+#: templates/pdf/profile_single.html:76
+msgid "School:"
+msgstr "Школа:"
+#: templates/accounts/profile.html:85
+#: templates/accounts/profile_single.html:95
+#: templates/pdf/profile_single.html:76
+msgid "Hawas Preparatory School"
+msgstr "Подготовительная школа Хавас"
+#: templates/accounts/profile.html:86
+#: templates/accounts/profile_single.html:96
+#: templates/pdf/profile_single.html:77
+msgid "Level:"
+msgstr "Уровень:"
+#: templates/accounts/profile.html:91
+#: templates/accounts/profile_single.html:101
+#: templates/pdf/profile_single.html:82
+msgid "Contact Info"
+msgstr "Контактная информация"
+#: templates/accounts/profile.html:93
+#: templates/accounts/profile_single.html:103
+#: templates/pdf/profile_single.html:84
+msgid "Email:"
+msgstr "Электронная почта:"
+#: templates/accounts/profile.html:94
+#: templates/accounts/profile_single.html:104
+#: templates/pdf/profile_single.html:85
+msgid "Tel No.:"
+msgstr "Номер телефона.:"
+#: templates/accounts/profile.html:95
+#: templates/accounts/profile_single.html:105
+#: templates/pdf/profile_single.html:86
+msgid "Address/city:"
+msgstr "Адрес Город:"
+#: templates/accounts/profile.html:99
+#: templates/accounts/profile_single.html:109
+#: templates/pdf/profile_single.html:90
+msgid "Important Dates"
+msgstr "Важные даты"
+#: templates/accounts/profile.html:103
+#: templates/accounts/profile_single.html:113
+#: templates/pdf/profile_single.html:94
+msgid "Academic Year:"
+msgstr "Академический год:"
+#: templates/accounts/profile.html:103
+#: templates/accounts/profile_single.html:113
+#: templates/core/semester_list.html:41
+#: templates/course/program_single.html:45
+#: templates/course/user_course_list.html:52
+#: templates/course/user_course_list.html:96
+#: templates/pdf/profile_single.html:94 templates/result/add_score.html:24
+#: templates/result/add_score_for.html:46
+#: templates/setting/admin_panel.html:52
+msgid "Semester"
+msgstr "Семестр"
+#: templates/accounts/profile.html:105
+#: templates/accounts/profile_single.html:115
+#: templates/pdf/profile_single.html:96
+msgid "Registered Date:"
+msgstr "Дата регистрации:"
+#: templates/accounts/student_list.html:19
+msgid "Add Student"
+msgstr "Добавить студента"
+#: templates/accounts/student_list.html:39 templates/pdf/student_list.html:45
+#: templates/search/search_view.html:49 templates/search/search_view.html:89
+#: templates/search/search_view.html:124
+msgid "Program"
+msgstr "Программа"
+#: templates/accounts/student_list.html:73
+#: templates/result/add_score_for.html:105
+msgid "No Student."
+msgstr "Нет Студента."
+#: templates/accounts/student_list.html:77
+msgid "Add Student Now."
+msgstr "Добавьте студента сейчас."
+#: templates/aside.html:56 templates/core/dashboard.html:3
+#: templates/core/dashboard.html:14 templates/core/dashboard.html:160
+msgid "Dashboard"
+msgstr "Панель приборов"
+#: templates/aside.html:63 templates/navbar.html:41
+msgid "Profile"
+msgstr "Профиль"
+#: templates/aside.html:68 templates/navbar.html:38
+#: templates/setting/admin_panel.html:12 templates/setting/admin_panel.html:16
+msgid "Admin Panel"
+msgstr "Панель администратора"
+#: templates/aside.html:85
+msgid "Programs & Courses"
+msgstr "Программы и курсы"
+#: templates/aside.html:90 templates/quiz/sitting_list.html:10
+msgid "Complete Exams"
+msgstr "Завершить экзамены"
+#: templates/aside.html:96 templates/aside.html:117
+msgid "Quiz Progress Rec"
+msgstr "Запись прогресса викторины"
+#: templates/aside.html:99
+msgid "Course Allocation"
+msgstr "Распределение курсов"
+#: templates/aside.html:102
+msgid "Manage Session"
+msgstr "Управление сеансом"
+#: templates/aside.html:105
+msgid "Manage Semester"
+msgstr "Управление семестром"
+#: templates/aside.html:111 templates/result/add_score.html:11
+#: templates/result/add_score.html:17 templates/result/add_score_for.html:12
+msgid "Manage Score"
+msgstr "Управление счетом"
+#: templates/aside.html:120 templates/result/grade_results.html:10
+#: templates/result/grade_results.html:28
+msgid "Grade Results"
+msgstr "Результаты оценок"
+#: templates/aside.html:123 templates/result/assessment_results.html:10
+#: templates/result/assessment_results.html:28
+msgid "Assesment Results"
+msgstr "Результаты оценки"
+#: templates/aside.html:126
+msgid "Drop Course"
+msgstr "Бросить курс"
+#: templates/aside.html:132
+msgid "Account Setting"
+msgstr "Настройки аккаунта"
+#: templates/aside.html:135 templates/setting/password_change.html:21
+#: templates/setting/password_change.html:25
+msgid "Change Password"
+msgstr "Изменить пароль"
+#: templates/aside.html:143
+msgid "Read our"
+msgstr "Прочтите наш"
+#: templates/aside.html:143
+msgid "Privacy"
+msgstr "Конфиденциальность"
+#: templates/aside.html:143
+msgid "and"
+msgstr "и"
+#: templates/aside.html:143
+msgid "Terms of use."
+msgstr "Условия эксплуатации."
+#: templates/aside.html:148
+msgid "⭐️ Star This Project"
+msgstr "⭐️ Отметьте звездой этот проект"
+#: templates/core/dashboard.html:167
+msgid "Dashboard settings"
+msgstr "Настройки панели управления"
+#: templates/core/dashboard.html:168
+msgid "Display grid"
+msgstr "Сетка отображения"
+#: templates/core/dashboard.html:169
+msgid "Display table"
+msgstr "Таблица отображения"
+#: templates/core/dashboard.html:171
+msgid "Manage dashboard"
+msgstr "Управление панелью управления"
+#: templates/core/dashboard.html:199
+msgid "Administrators"
+msgstr "Администраторы"
+#: templates/core/dashboard.html:208
+msgid "Lab Assistance"
+msgstr "Лабораторная помощь"
+#: templates/core/dashboard.html:217
+msgid "Librarians"
+msgstr "Библиотекари"
+#: templates/core/dashboard.html:226
+msgid "Supervisors"
+msgstr "Руководители"
+#: templates/core/dashboard.html:235
+msgid "Office Assistance"
+msgstr "Офисная помощь"
+#: templates/core/dashboard.html:272
+msgid "Latest activities"
+msgstr "Последние мероприятия"
+#: templates/core/dashboard.html:277
+msgid "No recent activity"
+msgstr "Нет недавней активности"
+#: templates/core/dashboard.html:285
+msgid "School Demographics"
+msgstr "Школьная демография"
+#: templates/core/index.html:40
+msgid "Add New Post"
+msgstr "Добавить новое сообщение"
+#: templates/core/index.html:59 templates/core/index.html:67
+#: templates/setting/admin_panel.html:80 templates/setting/admin_panel.html:81
+msgid "Events"
+msgstr "События"
+#: templates/core/index.html:77
+msgid "news"
+msgstr "Новости"
+#: templates/core/index.html:77
+msgid "events"
+msgstr "события"
+#: templates/core/index.html:88 templates/core/semester_list.html:69
+#: templates/core/session_list.html:65 templates/course/course_single.html:87
+#: templates/course/course_single.html:164
+#: templates/course/program_single.html:79 templates/quiz/quiz_list.html:65
+msgid "Edit"
+msgstr "Редактировать"
+#: templates/core/index.html:100 templates/upload/video_single.html:31
+msgid "ago"
+msgstr "назад"
+#: templates/core/index.html:110
+msgid "School news and events will appear here."
+msgstr "Здесь будут появляться новости и события школы."
+#: templates/core/post_add.html:12
+msgid "Post form"
+msgstr "Форма публикации"
+#: templates/core/post_add.html:21
+msgid "Post Form"
+msgstr "Форма сообщения"
+#: templates/core/post_add.html:25 templates/core/semester_update.html:38
+#: templates/core/session_update.html:38 templates/course/course_add.html:49
+#: templates/course/course_allocation_form.html:49
+#: templates/course/program_add.html:26 templates/quiz/mcquestion_form.html:58
+#: templates/quiz/quiz_form.html:66 templates/result/add_score_for.html:38
+msgid "Save"
+msgstr "Сохранять"
+#: templates/core/post_add.html:26 templates/upload/upload_file_form.html:34
+#: templates/upload/upload_video_form.html:33
+msgid "Cancel"
+msgstr "Отмена"
+#: templates/core/semester_list.html:10
+msgid "Semester list"
+msgstr "Список семестров"
+#: templates/core/semester_list.html:16
+msgid "Add New Semester"
+msgstr "Добавить новый семестр"
+#: templates/core/semester_list.html:20 templates/core/semester_update.html:12
+msgid "Semester List"
+msgstr "Список семестров"
+#: templates/core/semester_list.html:42
+msgid "Is Current semester"
+msgstr "Текущий семестр"
+#: templates/core/semester_list.html:43 templates/core/session_list.html:41
+#: templates/setting/admin_panel.html:47
+msgid "Session"
+msgstr "Сессия"
+#: templates/core/semester_list.html:44
+msgid "Next Semester Begins"
+msgstr "Следующий семестр начинается"
+#: templates/core/semester_list.html:46 templates/core/session_list.html:45
+#: templates/course/course_single.html:61
+#: templates/course/course_single.html:138
+msgid "Actions"
+msgstr "Действия"
+#: templates/core/semester_list.html:83
+msgid "No Semester."
+msgstr "Никакого семестра."
+#: templates/core/semester_list.html:87
+msgid "Add Semester Now."
+msgstr "Добавьте семестр сейчас."
+#: templates/core/semester_update.html:13
+msgid "Semester Form"
+msgstr "Семестровая форма"
+#: templates/core/semester_update.html:34
+msgid "Semester Add & update Form"
+msgstr "Форма добавления и обновления семестра"
+#: templates/core/session_list.html:10 templates/core/session_list.html:20
+#: templates/core/session_update.html:12
+msgid "Session List"
+msgstr "Список сеансов"
+#: templates/core/session_list.html:16
+msgid "Add New Session"
+msgstr "Добавить новый сеанс"
+#: templates/core/session_list.html:42
+msgid "Is Current Session"
+msgstr "Текущая сессия"
+#: templates/core/session_list.html:43
+msgid "Next Session Begins"
+msgstr "Начинается следующая сессия"
+#: templates/core/session_list.html:77
+msgid "No Session."
+msgstr "Нет сеанса."
+#: templates/core/session_list.html:81
+msgid "Add Session Now."
+msgstr "Добавить сеанс сейчас."
+#: templates/core/session_update.html:13
+msgid "Session Form"
+msgstr "Форма сессии"
+#: templates/core/session_update.html:34
+msgid "Session Add & update Form"
+msgstr "Форма добавления и обновления сеанса"
+#: templates/correct_answer.html:6 templates/question.html:50
+#: templates/result.html:51
+msgid "You answered the above question incorrectly"
+msgstr "Вы неправильно ответили на вопрос выше"
+#: templates/correct_answer.html:16 templates/question.html:60
+#: templates/result.html:61
+msgid "This is the correct answer"
+msgstr "Это правильный ответ"
+#: templates/correct_answer.html:24 templates/question.html:68
+#: templates/result.html:69
+msgid "This was your answer."
+msgstr "Это был ваш ответ."
+#: templates/course/course_add.html:12 templates/course/course_single.html:11
+#: templates/course/program_add.html:12 templates/course/program_list.html:10
+#: templates/course/program_single.html:11
+#: templates/quiz/mcquestion_form.html:10 templates/quiz/quiz_form.html:10
+#: templates/quiz/quiz_list.html:13 templates/result.html:15
+#: templates/setting/admin_panel.html:70
+#: templates/upload/upload_file_form.html:11
+#: templates/upload/upload_video_form.html:11
+#: templates/upload/video_single.html:11
+msgid "Programs"
+msgstr "Программы"
+#: templates/course/course_add.html:13 templates/course/course_add.html:17
+msgid "Course Form"
+msgstr "Форма курса"
+#: templates/course/course_add.html:27
+msgid "Course Detail"
+msgstr "Детали курса"
+#: templates/course/course_add.html:37
+msgid "Other Info"
+msgstr "Дополнительная информация"
+#: templates/course/course_allocation_form.html:12
+#: templates/course/course_allocation_view.html:20
+#: templates/setting/admin_panel.html:75
+msgid "Course Allocations"
+msgstr "Распределение курсов"
+#: templates/course/course_allocation_form.html:13
+msgid "Allocation Form"
+msgstr "Форма распределения"
+#: templates/course/course_allocation_form.html:34
+msgid "Course Allocation Form"
+msgstr "Форма распределения курсов"
+#: templates/course/course_allocation_view.html:10
+msgid "Allocation list"
+msgstr "Список распределения"
+#: templates/course/course_allocation_view.html:16
+msgid "Allocate Now"
+msgstr "Выделить сейчас"
+#: templates/course/course_allocation_view.html:33
+#: templates/setting/admin_panel.html:70
+msgid "Courses"
+msgstr "Курсы"
+#: templates/course/course_allocation_view.html:50
+msgid "Edit or Update"
+msgstr "Редактировать или обновить"
+#: templates/course/course_allocation_view.html:53
+msgid "Deallocate"
+msgstr "Освободить"
+#: templates/course/course_allocation_view.html:65
+msgid "No Course Allocated."
+msgstr "Курс не назначен."
+#: templates/course/course_allocation_view.html:69
+msgid "Allocate now"
+msgstr "Выделить сейчас"
+#: templates/course/course_registration.html:13
+msgid "Course Registration"
+msgstr "Регистрация на курс"
+#: templates/course/course_registration.html:17
+#: templates/course/course_registration.html:35
+#: templates/setting/admin_panel.html:58
+msgid "Course Add"
+msgstr "Курс Добавить"
+#: templates/course/course_registration.html:17
+#: templates/setting/admin_panel.html:58
+msgid "Drop"
+msgstr "Уронить"
+#: templates/course/course_registration.html:25
+msgid "Calender is off"
+msgstr "Календарь выключен"
+#: templates/course/course_registration.html:26
+msgid "Check the university calender"
+msgstr "Проверьте календарь университета"
+#: templates/course/course_registration.html:38
+#: templates/course/course_registration.html:200
+msgid "Save Score"
+msgstr "Сохранить счет"
+#: templates/course/course_registration.html:43
+#: templates/result/assessment_results.html:32
+#: templates/result/grade_results.html:32
+msgid "First Semester:"
+msgstr "Первый семестр:"
+#: templates/course/course_registration.html:48
+#: templates/course/course_registration.html:111
+#: templates/course/course_registration.html:216
+msgid "Mark"
+msgstr "Отметка"
+#: templates/course/course_registration.html:49
+#: templates/course/course_registration.html:112
+#: templates/course/course_registration.html:217
+#: templates/course/program_single.html:41
+#: templates/course/user_course_list.html:49
+#: templates/course/user_course_list.html:93
+#: templates/result/assessment_results.html:38
+#: templates/result/grade_results.html:38
+#: templates/result/grade_results.html:103
+msgid "Course Code"
+msgstr "Код курса"
+#: templates/course/course_registration.html:50
+#: templates/course/course_registration.html:113
+#: templates/course/course_registration.html:218
+#: templates/result/assessment_results.html:37
+#: templates/result/assessment_results.html:79
+#: templates/result/grade_results.html:37
+#: templates/result/grade_results.html:102
+msgid "Course Title"
+msgstr "Название курса"
+#: templates/course/course_registration.html:51
+#: templates/course/course_registration.html:114
+#: templates/course/course_registration.html:219
+#: templates/result/assessment_results.html:39
+#: templates/result/assessment_results.html:81
+msgid "Cr.Hr(s)"
+msgstr "Кредитный час"
+#: templates/course/course_registration.html:52
+#: templates/course/course_registration.html:115
+#: templates/course/course_registration.html:220
+#: templates/course/program_single.html:44
+#: templates/course/user_course_list.html:51
+#: templates/course/user_course_list.html:95
+msgid "Year"
+msgstr "Год"
+#: templates/course/course_registration.html:53
+#: templates/course/course_registration.html:116
+#: templates/course/course_registration.html:221
+msgid "Classification"
+msgstr "Классификация"
+#: templates/course/course_registration.html:54
+#: templates/course/course_registration.html:117
+#: templates/course/course_registration.html:222
+msgid "Elective Group"
+msgstr "Выборная группа"
+#: templates/course/course_registration.html:69
+#: templates/course/course_registration.html:132
+#: templates/course/course_registration.html:236
+msgid "Elective"
+msgstr "Факультативный"
+#: templates/course/course_registration.html:71
+#: templates/course/course_registration.html:134
+#: templates/course/course_registration.html:238
+msgid "Core"
+msgstr "Основной"
+#: templates/course/course_registration.html:83
+#: templates/course/course_registration.html:146
+#: templates/course/course_registration.html:249
+msgid "No Course."
+msgstr "Нет курса."
+#: templates/course/course_registration.html:97
+msgid "First semester Credit(s):"
+msgstr "Кредит(ы) за первый семестр:"
+#: templates/course/course_registration.html:106
+#: templates/result/assessment_results.html:74
+#: templates/result/grade_results.html:97
+msgid "Second Semester:"
+msgstr "Второй семестр:"
+#: templates/course/course_registration.html:160
+msgid "Second semester credit(s):"
+msgstr "Кредит(ы) за второй семестр:"
+#: templates/course/course_registration.html:165
+msgid "Registerd course credit(s):"
+msgstr "Зарегистрированные кредиты курса):"
+#: templates/course/course_registration.html:170
+#: templates/course/course_registration.html:263
+msgid "Total credit(s):"
+msgstr "Общий кредит(ы):"
+#: templates/course/course_registration.html:186
+msgid "Print Registration Form"
+msgstr "Распечатать регистрационную форму"
+#: templates/course/course_registration.html:187
+msgid "Print Registerd Courses"
+msgstr "Распечатать зарегистрированные курсы"
+#: templates/course/course_registration.html:191
+msgid "Course Drop"
+msgstr "Сброс курса"
+#: templates/course/course_registration.html:201
+msgid "Drop Selected"
+msgstr "Удалить выбранное"
+#: templates/course/course_single.html:22
+msgid "Edit course"
+msgstr "Изменить курс"
+#: templates/course/course_single.html:27
+msgid "Upload new file"
+msgstr "Загрузить новый файл"
+#: templates/course/course_single.html:30
+msgid "Upload new video"
+msgstr "Загрузить новое видео"
+#: templates/course/course_single.html:36
+msgid "Take a Quiz"
+msgstr "Пройти тест"
+#: templates/course/course_single.html:51
+msgid "Video Tutorials"
+msgstr "Видеоуроки"
+#: templates/course/course_single.html:57
+msgid "Video Title"
+msgstr "Название видео"
+#: templates/course/course_single.html:58
+#: templates/course/course_single.html:134
+msgid "Uploaded Date"
+msgstr "Дата загрузки"
+#: templates/course/course_single.html:59
+msgid "Get Started"
+msgstr "Начать"
+#: templates/course/course_single.html:79
+msgid "Play now"
+msgstr "Играть сейчас"
+#: templates/course/course_single.html:104
+msgid "No video Uploaded."
+msgstr "Видео не загружено."
+#: templates/course/course_single.html:108
+#: templates/course/course_single.html:185
+msgid "Upload now."
+msgstr "Загрузите сейчас."
+#: templates/course/course_single.html:127
+msgid "Documentations"
+msgstr "Документация"
+#: templates/course/course_single.html:133
+msgid "File name"
+msgstr "Имя файла"
+#: templates/course/course_single.html:135
+msgid "Updated Date"
+msgstr "Дата обновления"
+#: templates/course/course_single.html:136
+msgid "Downloads"
+msgstr "Загрузки"
+#: templates/course/course_single.html:156
+msgid "Download"
+msgstr "Скачать"
+#: templates/course/course_single.html:181
+msgid "No File Uploaded."
+msgstr "Файл не загружен."
+#: templates/course/course_single.html:205
+msgid "Lecturer(s)"
+msgstr "Лектор(ы)"
+#: templates/course/course_single.html:232
+msgid "No lecturer assigned for this course"
+msgstr "Для этого курса не назначен лектор"
+#: templates/course/program_add.html:13
+msgid "Program Form"
+msgstr "Форма программы"
+#: templates/course/program_add.html:22
+msgid "Program Add Form"
+msgstr "Форма добавления программы"
+#: templates/course/program_list.html:16
+msgid "Add Program"
+msgstr "Добавить программу"
+#: templates/course/program_list.html:20
+msgid "Program List"
+msgstr "Список программ"
+#: templates/course/program_list.html:32
+msgid "Program Name"
+msgstr "Название программы"
+#: templates/course/program_list.html:33
+msgid "Summary"
+msgstr "Краткое содержание"
+#: templates/course/program_list.html:69
+msgid "No program."
+msgstr "Никакой программы."
+#: templates/course/program_list.html:73
+msgid "Add program now."
+msgstr "Добавьте программу сейчас."
+#: templates/course/program_single.html:40
+#: templates/course/user_course_list.html:48
+#: templates/course/user_course_list.html:92
+msgid "Course Name"
+msgstr "Название курса"
+#: templates/course/program_single.html:42
+#: templates/course/user_course_list.html:50
+#: templates/course/user_course_list.html:94
+#: templates/result/grade_results.html:39
+#: templates/result/grade_results.html:104
+msgid "Cr.Hr"
+msgstr "Кредитный час"
+#: templates/course/program_single.html:43
+msgid "Level"
+msgstr "Уровень"
+#: templates/course/program_single.html:46
+#: templates/course/user_course_list.html:53
+#: templates/course/user_course_list.html:97
+msgid "Current Semester"
+msgstr "Текущий семестр"
+#: templates/course/program_single.html:93
+msgid "No course for this progrm."
+msgstr "Нет курса по этой программе."
+#: templates/course/program_single.html:97
+msgid "Add one now."
+msgstr "Добавьте один сейчас."
+#: templates/course/user_course_list.html:42
+msgid "Taken Courses:"
+msgstr "Пройденные курсы:"
+#: templates/course/user_course_list.html:54
+#: templates/course/user_course_list.html:75
+msgid "Taken"
+msgstr "Взятый"
+#: templates/course/user_course_list.html:86
+msgid "All Courses:"
+msgstr "Все курсы:"
+#: templates/invoice_detail.html:2 templates/invoices.html:1
+msgid "Invoices"
+msgstr "Счета-фактуры"
+#: templates/invoices.html:5
+msgid "Pay now"
+msgstr "Заплатить сейчас"
+#: templates/navbar.html:12
+msgid "Search All... #course, #program, #Quiz, #News, #Events"
+msgstr ""
+"Искать по всем... #курс, #программа, #Викторина, #Новости, #Мероприятия"
+#: templates/navbar.html:42
+msgid "Setting"
+msgstr "Параметр"
+#: templates/navbar.html:46
+msgid "Signout"
+msgstr "Выход"
+#: templates/payments/charge.html:24
+msgid "Payment Succeed, You has been make payment successfuly."
+msgstr "Оплата прошла успешно. Вы успешно произвели оплату."
+#: templates/payments/charge.html:25
+msgid "Redirect to your dashboard in"
+msgstr "Перенаправление на вашу панель управления в"
+#: templates/payments/coinbase.html:3 templates/payments/coinbase.html:8
+msgid "Coinbase"
+msgstr "Кинбейс"
+#: templates/pdf/lecturer_list.html:46
+msgid "Address/City"
+msgstr "Адрес Город"
+#: templates/progress.html:4 templates/progress.html:12
+msgid "Progress Page"
+msgstr "Страница прогресса"
+#: templates/progress.html:5
+msgid "User Progress Page"
+msgstr "Страница прогресса пользователя"
+#: templates/progress.html:18
+msgid "Question Category Scores"
+msgstr "Баллы по категориям вопросов"
+#: templates/progress.html:25 templates/quiz/sitting_detail.html:19
+msgid "Category"
+msgstr "Категория"
+#: templates/progress.html:26
+msgid "Correctly answererd"
+msgstr "Правильно ответил"
+#: templates/progress.html:27
+msgid "Incorrect"
+msgstr "Неправильный"
+#: templates/progress.html:56
+msgid "Previous exam papers"
+msgstr "Предыдущие экзаменационные работы"
+#: templates/progress.html:58
+msgid "Below are the results of exams that you have sat."
+msgstr "Ниже приведены результаты сданных вами экзаменов."
+#: templates/progress.html:60 templates/quiz/sitting_list.html:29
+msgid "Total complete exams:"
+msgstr "Всего полных экзаменов:"
+#: templates/progress.html:67
+msgid "Quiz Title"
+msgstr "Название викторины"
+#: templates/progress.html:69
+msgid "Possible Score"
+msgstr "Возможная оценка"
+#: templates/progress.html:70
+#, python-format
+msgid "Out of 100%%"
+msgstr "Из 100%%"
+#: templates/progress.html:94
+msgid "No recordes yet. Try to do some quizzes in your course."
+msgstr ""
+"Записей пока нет. Попробуйте выполнить несколько тестов в рамках вашего "
+"курса."
+#: templates/question.html:28 templates/result.html:38
+msgid "The previous question"
+msgstr "Предыдущий вопрос"
+#: templates/question.html:37
+msgid "Your answer was"
+msgstr "Ваш ответ был"
+#: templates/question.html:85 templates/result.html:85
+msgid "No explanation set to this question."
+msgstr "Никакого объяснения этому вопросу не задано."
+#: templates/question.html:108
+msgid "Quiz instractions"
+msgstr "Инструкция по викторине"
+#: templates/question.html:116
+msgid "Understood"
+msgstr "Понял"
+#: templates/question.html:125
+msgid "of"
+msgstr "из"
+#: templates/question.html:130
+msgid "Quiz category"
+msgstr "Категория викторины"
+#: templates/question.html:157
+msgid "Previous"
+msgstr "Предыдущий"
+#: templates/quiz/mcquestion_form.html:14
+msgid "MC Question Form"
+msgstr "Форма вопроса MC"
+#: templates/quiz/mcquestion_form.html:18
+msgid "Add questions"
+msgstr "Добавить вопросы"
+#: templates/quiz/mcquestion_form.html:22
+msgid "question added"
+msgstr "вопрос добавлен"
+#: templates/quiz/mcquestion_form.html:25
+msgid "Correct the error(s) below."
+msgstr "Исправьте ошибки ниже."
+#: templates/quiz/quiz_form.html:14
+msgid "Quiz Form"
+msgstr "Форма викторины"
+#: templates/quiz/quiz_form.html:18
+msgid "Quiz form for"
+msgstr "Форма викторины для"
+#: templates/quiz/quiz_form.html:55
+msgid "Hold down"
+msgstr "Удерживайте"
+#: templates/quiz/quiz_form.html:55
+msgid "or"
+msgstr "или"
+#: templates/quiz/quiz_form.html:55
+msgid "on a Mac, to select more than one."
+msgstr "на Mac, чтобы выбрать более одного."
+#: templates/quiz/quiz_form.html:66
+msgid "Continue"
+msgstr "Продолжать"
+#: templates/quiz/quiz_list.html:22
+msgid "Add Quiz"
+msgstr "Добавить тест"
+#: templates/quiz/quiz_list.html:54
+msgid "You will only get one attempt at this quiz"
+msgstr "У вас будет только одна попытка пройти этот тест"
+#: templates/quiz/quiz_list.html:58
+msgid "Start quiz"
+msgstr "Начать тест"
+#: templates/quiz/sitting_detail.html:4
+msgid "Result of"
+msgstr "Результат"
+#: templates/quiz/sitting_detail.html:4 templates/search/search_view.html:43
+msgid "for"
+msgstr "для"
+#: templates/quiz/sitting_detail.html:12
+msgid "Completed Exams"
+msgstr "Завершенные экзамены"
+#: templates/quiz/sitting_detail.html:13
+msgid "Marking"
+msgstr "Маркировка"
+#: templates/quiz/sitting_detail.html:18 templates/result.html:99
+msgid "Quiz title"
+msgstr "Название викторины"
+#: templates/quiz/sitting_detail.html:25 templates/quiz/sitting_list.html:38
+msgid "Completed"
+msgstr "Завершенный"
+#: templates/quiz/sitting_detail.html:35
+msgid "User answer"
+msgstr "Ответ пользователя"
+#: templates/quiz/sitting_detail.html:54
+msgid "incorrect"
+msgstr "неправильный"
+#: templates/quiz/sitting_detail.html:62
+msgid "Toggle whether correct"
+msgstr "Переключить, правильно ли"
+#: templates/quiz/sitting_list.html:3
+msgid "All Quizzes"
+msgstr "Все викторины"
+#: templates/quiz/sitting_list.html:16
+msgid "List of complete exams"
+msgstr "Список полных экзаменов"
+#: templates/quiz/sitting_list.html:24 templates/snippets/filter_form.html:12
+msgid "Filter"
+msgstr "Фильтр"
+#: templates/quiz/sitting_list.html:54
+msgid "View details"
+msgstr "Посмотреть детали"
+#: templates/quiz/sitting_list.html:63
+msgid "No completed exams for you"
+msgstr "Никаких сданных экзаменов для вас"
+#: templates/registration/login.html:3
+msgid "Dj Learning Management System - Login"
+msgstr "Система управления обучением диджеев - Войти"
+#: templates/registration/login.html:11
+msgid "Sign in"
+msgstr "Войти"
+#: templates/registration/login.html:16
+msgid "ID Number"
+msgstr "Идентификационный номер"
+#: templates/registration/login.html:21
+msgid "Password"
+msgstr "Пароль"
+#: templates/registration/login.html:25
+#: templates/registration/register.html:73
+msgid "Invalid ID & Password."
+msgstr "Неверный идентификатор и пароль."
+#: templates/registration/login.html:28
+msgid "SIGN IN"
+msgstr "ВОЙТИ"
+#: templates/registration/login.html:32
+msgid "Forgot password ?"
+msgstr "Забыли пароль ?"
+#: templates/registration/password_reset.html:3
+msgid "Password Reset | Learning management system"
+msgstr "Сброс пароля | Система управления обучением"
+#: templates/registration/password_reset.html:7
+msgid "Password Reset"
+msgstr "Восстановление пароля"
+#: templates/registration/password_reset.html:17
+msgid "Request Password Reset"
+msgstr "Запросить сброс пароля"
+#: templates/registration/password_reset_complete.html:3
+msgid "Password Reset Complete | Learning management system"
+msgstr "Сброс пароля завершен | Система управления обучением"
+#: templates/registration/password_reset_complete.html:8
+msgid "Password Reset Complete"
+msgstr "Сброс пароля завершен"
+#: templates/registration/password_reset_complete.html:11
+msgid "Your password has been set, you are now able to Log In!"
+msgstr "Ваш пароль установлен, теперь вы можете войти в систему!"
+#: templates/registration/password_reset_complete.html:13
+msgid "Sign In Here"
+msgstr "Войдите здесь"
+#: templates/registration/password_reset_confirm.html:22
+msgid "Confirm New Password"
+msgstr "Подтвердите новый пароль"
+#: templates/registration/password_reset_confirm.html:31
+msgid "Reset Password"
+msgstr "Сброс пароля"
+#: templates/registration/password_reset_done.html:3
+msgid "Email Sent | Learning management system"
+msgstr "Письмо отправлено | Система управления обучением"
+#: templates/registration/password_reset_done.html:8
+msgid "Email sent"
+msgstr "Письмо отправлено"
+#: templates/registration/password_reset_done.html:14
+msgid "Back To Login"
+msgstr "Вернуться на страницу авторизации"
+#: templates/registration/register.html:3
+msgid "Register | Learning management system"
+msgstr "Зарегистрироваться | Система управления обучением"
+#: templates/registration/register.html:12
+msgid "Create Your Account"
+msgstr "Создать аккаунт"
+#: templates/registration/register.html:20
+msgid "Login Form"
+msgstr "Форма входа"
+#: templates/registration/register.html:76
+msgid "SIGN UP"
+msgstr "ЗАРЕГИСТРИРОВАТЬСЯ"
+#: templates/registration/register.html:79
+msgid "Already Registered ?"
+msgstr "Уже зарегистрирован ?"
+#: templates/registration/register.html:79
+msgid "Login"
+msgstr "Авторизоваться"
+#: templates/result.html:8
+msgid "Quiz Results for"
+msgstr "Результаты викторины для"
+#: templates/result.html:20 templates/result/assessment_results.html:29
+#: templates/result/grade_results.html:29
+msgid "Result"
+msgstr "Результат"
+#: templates/result.html:26
+msgid "Calculating your result..."
+msgstr "Подсчитаем результат..."
+#: templates/result.html:96
+msgid "Quiz result"
+msgstr "Результат викторины"
+#: templates/result.html:103
+msgid "You answered"
+msgstr "Ты ответил"
+#: templates/result.html:103
+msgid "questions correctly out of"
+msgstr "вопросы правильно из"
+#: templates/result.html:103
+msgid "giving you"
+msgstr "давая тебе"
+#: templates/result.html:103
+#, python-format
+msgid "%% correct"
+msgstr "%% правильный"
+#: templates/result.html:117
+msgid "Review the questions below and try the quiz again in the future"
+msgstr ""
+"Просмотрите приведенные ниже вопросы и попробуйте пройти тест еще раз в "
+"будущем."
+#: templates/result.html:119
+msgid "The result of this quiz will be stored in your progress section"
+msgstr "Результат этого теста будет сохранен в разделе вашего прогресса."
+#: templates/result.html:121
+msgid "so you can review and monitor your progression"
+msgstr "чтобы вы могли просматривать и отслеживать свой прогресс"
+#: templates/result.html:134
+msgid "Your session score is"
+msgstr "Ваш балл за сессию"
+#: templates/result.html:134
+msgid "out of a possible"
+msgstr "из возможного"
+#: templates/result.html:157
+msgid "No explanation set for this question."
+msgstr "Для этого вопроса не установлено никаких объяснений."
+#: templates/result.html:164
+msgid "Your answer"
+msgstr "Ваш ответ"
+#: templates/result/add_score.html:29
+msgid "Select Your Course Here"
+msgstr "Выберите свой курс здесь"
+#: templates/result/add_score.html:35 templates/result/add_score_for.html:24
+msgid "No course."
+msgstr "Нет курса."
+#: templates/result/add_score.html:39
+msgid "To manage scores, please select the course using the button above."
+msgstr "Чтобы управлять баллами, выберите курс, используя кнопку выше."
+#: templates/result/add_score_for.html:30
+msgid "Students result form"
+msgstr "Форма результатов учащихся"
+#: templates/result/add_score_for.html:41
+msgid "Grade report"
+msgstr "Отчет об оценках"
+#: templates/result/add_score_for.html:54
+#: templates/result/assessment_results.html:41
+#: templates/result/assessment_results.html:83
+msgid "Mid exam"
+msgstr "Середина экзамена"
+#: templates/result/add_score_for.html:56
+#: templates/result/assessment_results.html:43
+#: templates/result/assessment_results.html:85
+msgid "Attendance"
+msgstr "Посещаемость"
+#: templates/result/add_score_for.html:57
+#: templates/result/assessment_results.html:44
+#: templates/result/assessment_results.html:86
+msgid "Final exam"
+msgstr "Итоговый экзамен"
+#: templates/result/add_score_for.html:58
+#: templates/result/assessment_results.html:45
+#: templates/result/assessment_results.html:87
+msgid "Total"
+msgstr "Общий"
+#: templates/result/add_score_for.html:59
+msgid "Point"
+msgstr "Точка"
+#: templates/result/add_score_for.html:60
+#: templates/result/grade_results.html:40
+msgid "Grade"
+msgstr "Оценка"
+#: templates/result/add_score_for.html:61
+#: templates/result/grade_results.html:42
+#: templates/result/grade_results.html:107
+msgid "Comment"
+msgstr "Комментарий"
+#: templates/result/grade_results.html:41
+#: templates/result/grade_results.html:106
+msgid "Points"
+msgstr "Точки"
+#: templates/result/grade_results.html:58
+#: templates/result/grade_results.html:123
+msgid "PASS"
+msgstr "ПРОХОДИТЬ"
+#: templates/result/grade_results.html:60
+#: templates/result/grade_results.html:125
+msgid "FAIL"
+msgstr "НЕУДАЧА"
+#: templates/result/grade_results.html:79
+msgid "Total first semester credit:"
+msgstr "Общий кредит за первый семестр:"
+#: templates/result/grade_results.html:88
+#: templates/result/grade_results.html:177
+msgid "First Semester GPA:"
+msgstr "Средний балл за первый семестр:"
+#: templates/result/grade_results.html:105
+msgid "GRADE"
+msgstr "ОЦЕНКА"
+#: templates/result/grade_results.html:139
+msgid "Total second semester credit:"
+msgstr "Общий кредит за второй семестр:"
+#: templates/result/grade_results.html:144
+msgid "Total Credit:"
+msgstr "Общий кредит:"
+#: templates/result/grade_results.html:153
+#: templates/result/grade_results.html:184
+msgid "Second Semester GPA:"
+msgstr "Средний балл за второй семестр:"
+#: templates/result/grade_results.html:162
+#: templates/result/grade_results.html:192
+msgid "Previous CGPA:"
+msgstr "Предыдущий CGPA:"
+#: templates/search/search_view.html:3
+msgid "Search result for"
+msgstr "Результат поиска для"
+#: templates/search/search_view.html:12
+msgid "Search"
+msgstr "Поиск"
+#: templates/search/search_view.html:43
+msgid "result"
+msgstr "результат"
+#: templates/search/search_view.html:62
+msgid "Program of"
+msgstr "Программа"
+#: templates/search/search_view.html:69 templates/search/search_view.html:126
+msgid "News And Events"
+msgstr "Новости и события"
+#: templates/search/search_view.html:72
+msgid "Date:"
+msgstr "Дата:"
+#: templates/search/search_view.html:82
+msgid "quiz"
+msgstr "контрольный опрос"
+#: templates/search/search_view.html:82
+msgid "Course:"
+msgstr "Курс:"
+#: templates/search/search_view.html:122
+msgid "Search by:"
+msgstr "Искать по:"
+#: templates/search/search_view.html:124
+msgid "Title or Description"
+msgstr "Название или описание"
+#: templates/search/search_view.html:125
+msgid "Title, Code or Description"
+msgstr "Название, код или описание"
+#: templates/search/search_view.html:127
+msgid "Title, Description or Category(practice, assignment and exam)"
+msgstr "Должность, описание или категория (практика, задание и экзамен)"
+#: templates/setting/admin_panel.html:37 templates/setting/admin_panel.html:42
+#: templates/setting/admin_panel.html:47 templates/setting/admin_panel.html:52
+#: templates/setting/admin_panel.html:70 templates/setting/admin_panel.html:75
+#: templates/setting/admin_panel.html:80
+msgid "Manage"
+msgstr "Управлять"
+#: templates/setting/admin_panel.html:43
+msgid "students"
+msgstr "студенты"
+#: templates/setting/admin_panel.html:48
+msgid "sessions"
+msgstr "сессии"
+#: templates/setting/admin_panel.html:53
+msgid "semesters"
+msgstr "семестры"
+#: templates/setting/admin_panel.html:64
+msgid "Switch"
+msgstr "Выключатель"
+#: templates/setting/admin_panel.html:71
+msgid "programs"
+msgstr "программы"
+#: templates/setting/admin_panel.html:76
+msgid "course allocations"
+msgstr "распределение курсов"
+#: templates/setting/password_change.html:12
+msgid "Password Change"
+msgstr "Изменение пароля"
+#: templates/setting/profile_info_change.html:12
+msgid "Account setting"
+msgstr "Настройки аккаунта"
+#: templates/setting/profile_info_change.html:16
+msgid "Account Settings"
+msgstr "Настройки учетной записи"
+#: templates/setting/profile_info_change.html:44
+msgid "Update Profile"
+msgstr "Обновить профиль"
+#: templates/upload/upload_file_form.html:14
+msgid "File upload"
+msgstr "Файл загружен"
+#: templates/upload/upload_file_form.html:18
+msgid "File upload for"
+msgstr "Загрузка файла для"
+#: templates/upload/upload_file_form.html:26
+msgid "File Upload Form"
+msgstr "Форма загрузки файла"
+#: templates/upload/upload_file_form.html:33
+#: templates/upload/upload_video_form.html:32
+msgid "Upload"
+msgstr "Загрузить"
+#: templates/upload/upload_video_form.html:14
+msgid "Video upload"
+msgstr "Загрузка видео"
+#: templates/upload/upload_video_form.html:18
+msgid "Video upload for"
+msgstr "Загрузка видео для"
+#: templates/upload/upload_video_form.html:26
+msgid "Video Upload Form"
+msgstr "Форма загрузки видео"
+#: templates/upload/video_single.html:35
+msgid "No video description set."
+msgstr "Описание видео не задано."
