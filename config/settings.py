@@ -159,8 +159,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 gettext = lambda s: s
 LANGUAGES = (
-    ('ru', gettext('Russia')),
     ('en', gettext('English')),
+    ('ru', gettext('Russia')),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
