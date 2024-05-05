@@ -251,3 +251,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STUDENT_ID_PREFIX = config("STUDENT_ID_PREFIX", "ugr")
 LECTURER_ID_PREFIX = config("LECTURER_ID_PREFIX", "lec")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+# celery setting.
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_CACHE_BACKEND = "default"
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True

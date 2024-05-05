@@ -50,6 +50,7 @@ If you would like to contribute, simply begin by implementing one from the list 
 
 - [Python3.8+](https://www.python.org/downloads/)
 - [PostgreSQL database](https://www.postgresql.org/download/)
+- [Redis](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
 
 # Installation
 
@@ -95,6 +96,18 @@ python manage.py createsuperuser
 
 ```bash
 python manage.py runserver
+```
+
+Make sure your Redis server is running
+
+```bash
+redis-server
+```
+
+Start the celery worker
+
+```bash
+celery -A config.celery worker -l INFO
 ```
 
 Last but not least, go to this address http://127.0.0.1:8000

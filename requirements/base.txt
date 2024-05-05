@@ -24,6 +24,11 @@ django-jet-reboot==1.3.5
 # Environment variable
 python-decouple==3.8
 
+# Celery/redis
+celery==5.4.0
+redis==5.0.4
+hiredis==2.3.2
+
 # Payments
 stripe==5.5.0
 gopay==2.0.1
