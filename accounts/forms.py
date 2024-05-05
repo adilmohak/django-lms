@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from django.conf import settings
-from django.core.mail import send_mail
 from django import forms
 from django.db import transaction
 from django.contrib.auth.forms import (
@@ -11,6 +10,7 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.forms import PasswordResetForm
 from course.models import Program
 from .models import User, Student, Parent, RELATION_SHIP, LEVEL, GENDERS
+from .tasks import send_new_student_email, send_new_lecturer_email
 
 
 class StaffAddForm(UserCreationForm):
@@ -134,13 +134,7 @@ class StaffAddForm(UserCreationForm):
             user.save()
 
             # Send email with the generated credentials
-            send_mail(
-                "Your Django LMS account credentials",
-                f"Your username: {generated_username}\nYour password: {generated_password}",
-                "from@example.com",
-                [user.email],
-                fail_silently=False,
-            )
+            send_new_lecturer_email.delay(user.pk, generated_password)
 
         return user
 
@@ -299,13 +293,7 @@ class StudentAddForm(UserCreationForm):
             )
 
             # Send email with the generated credentials
-            send_mail(
-                "Your Django LMS account credentials",
-                f"Your ID: {generated_username}\nYour password: {generated_password}",
-                settings.EMAIL_FROM_ADDRESS,
-                [user.email],
-                fail_silently=False,
-            )
+            send_new_student_email.delay(user.pk, generated_password)
 
         return user
 
