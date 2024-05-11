@@ -1,6 +1,3 @@
-from datetime import datetime
-
-from django.conf import settings
 from django import forms
 from django.db import transaction
 from django.contrib.auth.forms import (
@@ -10,7 +7,6 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.forms import PasswordResetForm
 from course.models import Program
 from .models import User, Student, Parent, RELATION_SHIP, LEVEL, GENDERS
-from .tasks import send_new_student_email, send_new_lecturer_email
 
 
 class StaffAddForm(UserCreationForm):
@@ -118,23 +114,8 @@ class StaffAddForm(UserCreationForm):
         user.address = self.cleaned_data.get("address")
         user.email = self.cleaned_data.get("email")
 
-        # Generate a username
-        registration_date = datetime.now().strftime("%Y")
-        total_lecturers_count = User.objects.filter(is_lecturer=True).count()
-        generated_username = (
-            f"{settings.LECTURER_ID_PREFIX}-{registration_date}-{total_lecturers_count}"
-        )
-        # Generate a password
-        generated_password = User.objects.make_random_password()
-
-        user.username = generated_username
-        user.set_password(generated_password)
-
         if commit:
             user.save()
-
-            # Send email with the generated credentials
-            send_new_lecturer_email.delay(user.pk, generated_password)
 
         return user
 
@@ -272,18 +253,6 @@ class StudentAddForm(UserCreationForm):
         user.address = self.cleaned_data.get("address")
         user.email = self.cleaned_data.get("email")
 
-        # Generate a username based on first and last name and registration date
-        registration_date = datetime.now().strftime("%Y")
-        total_students_count = Student.objects.count()
-        generated_username = (
-            f"{settings.STUDENT_ID_PREFIX}-{registration_date}-{total_students_count}"
-        )
-        # Generate a password
-        generated_password = User.objects.make_random_password()
-
-        user.username = generated_username
-        user.set_password(generated_password)
-
         if commit:
             user.save()
             Student.objects.create(
@@ -291,9 +260,6 @@ class StudentAddForm(UserCreationForm):
                 level=self.cleaned_data.get("level"),
                 program=self.cleaned_data.get("program"),
             )
-
-            # Send email with the generated credentials
-            send_new_student_email.delay(user.pk, generated_password)
 
         return user
 
