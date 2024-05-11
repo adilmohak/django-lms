@@ -20,6 +20,6 @@ def send_new_lecturer_email(user_pk, password):
     send_html_email(
         subject="Your Dj LMS account confirmation and credentials",
         recipient_list=[user.email],
-        template="accounts/email/new_student_account_confirmation.html",
+        template="accounts/email/new_lecturer_account_confirmation.html",
         context={"user": user, "password": password},
     )
