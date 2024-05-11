@@ -1,8 +1,8 @@
 {
   "editor.formatOnSave": true,
-  // "[html]": {
-  //   "editor.formatOnSave": false
-  // },
+  "[html]": {
+    "editor.formatOnSave": false
+  },
   "liveSassCompile.settings.includeItems": ["/**/static/scss/style.scss"],
   "liveSassCompile.settings.formats": [
     {
