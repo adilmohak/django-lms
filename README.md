@@ -133,4 +133,8 @@ Last but not least, go to this address http://127.0.0.1:8000
 </a>
 </div>
 
-### Show your support by ⭐️ this project!
+# Support
+
+<p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="adilmohak" /></a></p><br><br>
+
+#### Show your support by ⭐️ this project!
