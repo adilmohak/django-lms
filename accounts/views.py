@@ -12,7 +12,7 @@ from core.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
 from .decorators import admin_required
-from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
+from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm, ProgramUpdateForm
 from .models import User, Student, Parent
 from .filters import LecturerFilter, StudentFilter
 
@@ -476,6 +476,33 @@ def delete_student(request, pk):
     student.delete()
     messages.success(request, "Student has been deleted.")
     return redirect("student_list")
+
+@login_required
+@admin_required
+def edit_program(request, pk):
+
+    instance = get_object_or_404(Student, student_id=pk)
+    user = get_object_or_404(User, pk=pk)
+    if request.method == "POST":
+        form = ProgramUpdateForm(request.POST, request.FILES, instance=instance)
+        full_name = user.get_full_name
+        if form.is_valid():
+            form.save()
+            messages.success(request, message=full_name + " has been updated.")
+            url = "/accounts/profile/" + user.id.__str__() + "/detail/"  # Botched job, must optimize
+            return redirect(to=url)
+        else:
+            messages.error(request, "Please correct the error(s) below.")
+    else:
+        form = ProgramUpdateForm(instance=instance)
+    return render(
+        request,
+        "accounts/edit_program.html",
+        context={
+            "title": "Edit-program",
+            "form": form
+        },
+    )
 
 
 # ########################################################
