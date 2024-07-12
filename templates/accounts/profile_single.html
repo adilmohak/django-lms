@@ -38,11 +38,10 @@
                 <a class="edit-btn" href="{% url 'student_edit' pk=user.id %}">
                     <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
                 </a>
-                <div class="p-2"></div>
                 {# had to name out of convention because it clashes with 'edit_[whatever]program', which directs to 'program/[id]/edit/ #}
-                <a class="edit-btn" href="{% url 'student_program_edit' user.id %}">
-                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Change Program</span>
-                </a>
+{#                <a class="edit-btn" href="{% url 'student_program_edit' user.id %}">#}
+{#                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Change Program</span>#}
+{#                </a>#}
                 {% endif %}
                 {% if user.is_lecturer %}
                 <a class="edit-btn" href="{% url 'staff_edit' pk=user.id %}">

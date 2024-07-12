@@ -420,6 +420,10 @@ def edit_student(request, pk):
         if form.is_valid():
             form.save()
 
+            student = Student.objects.get(student_id=instance.id)
+            student.program = form.cleaned_data["program"]
+            student.save()
+
             messages.success(request, ("Student " + full_name + " has been updated."))
             return redirect("student_list")
         else:
@@ -477,6 +481,7 @@ def delete_student(request, pk):
     messages.success(request, "Student has been deleted.")
     return redirect("student_list")
 
+#  REDUNDANT
 @login_required
 @admin_required
 def edit_program(request, pk):
