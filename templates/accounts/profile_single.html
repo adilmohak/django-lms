@@ -38,6 +38,10 @@
                 <a class="edit-btn" href="{% url 'student_edit' pk=user.id %}">
                     <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
                 </a>
+                {# had to name out of convention because it clashes with 'edit_[whatever]program', which directs to 'program/[id]/edit/ #}
+{#                <a class="edit-btn" href="{% url 'student_program_edit' user.id %}">#}
+{#                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Change Program</span>#}
+{#                </a>#}
                 {% endif %}
                 {% if user.is_lecturer %}
                 <a class="edit-btn" href="{% url 'staff_edit' pk=user.id %}">
@@ -93,6 +97,7 @@
                 <div class="dashboard-description">
                     <p><strong>School: </strong>Hawas Preparatory School</p>
                     <p><strong>Level: </strong>{{ level.level }}</p>
+                    <p><strong>Program: </strong>{{ student.program }}</p>
                 </div>
                 {% endif %}
     
