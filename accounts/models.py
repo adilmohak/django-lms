@@ -153,7 +153,7 @@ class Student(models.Model):
     # id_number = models.CharField(max_length=20, unique=True, blank=True)
     level = models.CharField(max_length=25, choices=LEVEL, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
-
+    parent = models.ForeignKey('Parent', related_name='students', on_delete=models.CASCADE, null=True)
     objects = StudentManager()
 
     class Meta:
@@ -184,7 +184,7 @@ class Parent(models.Model):
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    student = models.OneToOneField(Student, null=True, on_delete=models.SET_NULL)
+    # student = models.OneToOneField(Student, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=60, blank=True, null=True)

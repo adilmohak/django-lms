@@ -50,7 +50,7 @@ urlpatterns = [
     path("students/<int:pk>/delete/", delete_student, name="student_delete"),
     path("edit_program/<int:pk>/", edit_program, name="student_program_edit"),
     path("parents/add/", ParentAdd.as_view(), name="add_parent"),
-    path("ajax/validate-username/", validate_username, name="validate_username"),
+        path("ajax/validate-username/", validate_username, name="validate_username"),
     path("register/", register, name="register"),
     #paths to pdf
     path("create_lecturers_pdf_list/", render_lecturer_pdf_list, name="lecturer_list_pdf"), #new
