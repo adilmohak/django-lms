@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         choices=[
                             ("Level course", "Level course"),
-                            ("Bachloar", "Bachloar"),
+                            ("Bachelor", "Bachelor"),
                             ("Master", "Master"),
                         ],
                         max_length=25,
