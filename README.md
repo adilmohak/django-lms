@@ -66,25 +66,9 @@ git clone https://github.com/adilmohak/django-lms.git
 pip install -r requirements.txt
 ```
 
-- Create `.env` file inside the root directory and include the following variables
+- Create `.env` file inside the root directory
 
-```bash
-# Database config
-DB_NAME=[YOUR_DB_NAME]
-DB_USER=[DB_ADMIN_NAME]
-DB_PASSWORD=[DB_ADMIN_PASSWORD]
-DB_HOST=localhost
-DB_PORT=[YOUR_POSTGRES_PORT default is 5432]
-
-# Email config
-EMAIL_FROM_ADDRESS=Django LMS <youremail@example.com>
-EMAIL_HOST_USER=[YOUR_EMAIL]
-EMAIL_HOST_PASSWORD=[YOUR_EMAIL_PASSWORD]
-
-# Other
-DEBUG=True
-SECRET_KEY=[YOUR_SECRET_KEY]
-```
+- Copy and paste everything in the `.env.example` file into the `.env` file. Don't forget to customize the variable values
 
 ```bash
 python manage.py migrate
