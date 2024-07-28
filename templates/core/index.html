@@ -92,10 +92,10 @@
                     {% endif %}
                 </div>
 
-                <div class="p-2">{{ item.summary }}</div>
+                <div class="p-2 my-2" style="min-height: 120px;">{{ item.summary }}</div>
 
-                <div class="date-wrapper">
-                    <i class="fa fa-calendar mr-2"></i>
+                <div class="bg-light p-1 small text-secondary text-end pe-3">
+                    <i class="fa fa-calendar small unstyled"></i>
                     {{ item.updated_date|timesince }} ago
                 </div>
 

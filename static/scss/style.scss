@@ -955,6 +955,10 @@ a {
   height: 34px;
   background-color: rgba(0, 0, 0, 0.093);
   border-radius: 50%;
+  &.unstyled {
+    background-color: unset;
+    border-radius: unset;
+  }
 }
 
 /* Exclude styles for .fas and .fa elements inside dashboard page */
