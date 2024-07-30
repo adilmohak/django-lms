@@ -12,15 +12,24 @@ from core.models import Session, Semester
 from course.models import Course
 from result.models import TakenCourse
 from .decorators import admin_required
-from .forms import StaffAddForm, StudentAddForm, ProfileUpdateForm, ParentAddForm
+from .forms import (
+    StaffAddForm,
+    StudentAddForm,
+    ProfileUpdateForm,
+    ParentAddForm,
+    ProgramUpdateForm,
+)
 from .models import User, Student, Parent
 from .filters import LecturerFilter, StudentFilter
 
-#to generate pdf from template we need the following
+# to generate pdf from template we need the following
 from django.http import HttpResponse
-from django.template.loader import get_template # to get template which render as pdf
+from django.template.loader import get_template  # to get template which render as pdf
 from xhtml2pdf import pisa
-from django.template.loader import render_to_string #to render a template into a string
+from django.template.loader import (
+    render_to_string,
+)  # to render a template into a string
+
 
 def validate_username(request):
     username = request.GET.get("username", None)
@@ -96,20 +105,18 @@ def profile(request):
             },
         )
 
-#function that generate pdf by taking Django template and its context,
+
+# function that generate pdf by taking Django template and its context,
 def render_to_pdf(template_name, context):
     """Renders a given template to PDF format."""
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="profile.pdf"'  # Set default filename
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'filename="profile.pdf"'  # Set default filename
 
     template = render_to_string(template_name, context)
-    pdf = pisa.CreatePDF(
-        template,
-        dest=response
-    )
+    pdf = pisa.CreatePDF(template, dest=response)
     if pdf.err:
-        return HttpResponse('We had some problems generating the PDF')
-    
+        return HttpResponse("We had some problems generating the PDF")
+
     return response
 
 
@@ -131,7 +138,7 @@ def profile_single(request, id):
     pass the context dictionary built for the specific user type 
     (lecturer, student, or superuser) to the render_to_pdf function.
     """
-    if request.GET.get('download_pdf'):
+    if request.GET.get("download_pdf"):
         if user.is_lecturer:
             courses = Course.objects.filter(allocated_course__lecturer__pk=id).filter(
                 semester=current_semester
@@ -339,26 +346,26 @@ class LecturerFilterView(FilterView):
         return context
 
 
-#lecturers list pdf
+# lecturers list pdf
 def render_lecturer_pdf_list(request):
     lecturers = User.objects.filter(is_lecturer=True)
-    template_path = 'pdf/lecturer_list.html'
-    context = {'lecturers':lecturers}
-    response = HttpResponse(content_type='application/pdf') # convert the response to pdf
-    response['Content-Disposition'] = 'filename="lecturers_list.pdf"'
+    template_path = "pdf/lecturer_list.html"
+    context = {"lecturers": lecturers}
+    response = HttpResponse(
+        content_type="application/pdf"
+    )  # convert the response to pdf
+    response["Content-Disposition"] = 'filename="lecturers_list.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
     # create a pdf
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
+    pisa_status = pisa.CreatePDF(html, dest=response)
     # if error then show some funny view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse("We had some errors <pre>" + html + "</pre>")
     return response
-    
 
-    
+
 # @login_required
 # @lecturer_required
 # def delete_staff(request, pk):
@@ -449,22 +456,23 @@ class StudentListView(FilterView):
         return context
 
 
-#student list pdf
+# student list pdf
 def render_student_pdf_list(request):
     students = Student.objects.all()
-    template_path = 'pdf/student_list.html'
-    context = {'students':students}
-    response = HttpResponse(content_type='application/pdf') # convert the response to pdf
-    response['Content-Disposition'] = 'filename="students_list.pdf"'
+    template_path = "pdf/student_list.html"
+    context = {"students": students}
+    response = HttpResponse(
+        content_type="application/pdf"
+    )  # convert the response to pdf
+    response["Content-Disposition"] = 'filename="students_list.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
     # create a pdf
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
+    pisa_status = pisa.CreatePDF(html, dest=response)
     # if error then show some funny view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse("We had some errors <pre>" + html + "</pre>")
     return response
 
 
@@ -476,6 +484,33 @@ def delete_student(request, pk):
     student.delete()
     messages.success(request, "Student has been deleted.")
     return redirect("student_list")
+
+
+@login_required
+@admin_required
+def edit_student_program(request, pk):
+
+    instance = get_object_or_404(Student, student_id=pk)
+    user = get_object_or_404(User, pk=pk)
+    if request.method == "POST":
+        form = ProgramUpdateForm(request.POST, request.FILES, instance=instance)
+        full_name = user.get_full_name
+        if form.is_valid():
+            form.save()
+            messages.success(request, message=full_name + " program has been updated.")
+            url = (
+                "/accounts/profile/" + user.id.__str__() + "/detail/"
+            )  # Botched job, must optimize
+            return redirect(to=url)
+        else:
+            messages.error(request, "Please correct the error(s) below.")
+    else:
+        form = ProgramUpdateForm(instance=instance)
+    return render(
+        request,
+        "accounts/edit_student_program.html",
+        context={"title": "Edit-program", "form": form, "student": instance},
+    )
 
 
 # ########################################################

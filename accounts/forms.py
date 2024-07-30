@@ -337,6 +337,20 @@ class ProfileUpdateForm(UserChangeForm):
         ]
 
 
+class ProgramUpdateForm(UserChangeForm):
+    program = forms.ModelChoiceField(
+        queryset=Program.objects.all(),
+        widget=forms.Select(
+            attrs={"class": "browser-default custom-select form-control"}
+        ),
+        label="Program",
+    )
+
+    class Meta:
+        model = Student
+        fields = ["program"]
+
+
 class EmailValidationOnForgotPassword(PasswordResetForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
