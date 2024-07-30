@@ -37,7 +37,7 @@ Let's enhance the project by contributing! 👩‍💻👩‍💻
 - True/False question type
 - Essay question type
 - Custom message displayed for those that pass or fail a quiz
-- Custom permission (view_sittings) added, allowing users with that permission to view quiz results from users
+- Custom permission (view_settings) added, allowing users with that permission to view quiz results from users
 - A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
 
 # Quick note for future contributors

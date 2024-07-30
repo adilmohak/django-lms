@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #: .\quiz\models.py:89 .\quiz\models.py:216 .\quiz\models.py:350
-#: .\quiz\templates\quiz\sitting_list.html:31
+#: .\quiz\templates\quiz\setting_list.html:31
 msgid "Quiz"
 msgstr ""
 
@@ -133,14 +133,14 @@ msgid "Quizzes"
 msgstr ""
 
 #: .\quiz\models.py:123 .\quiz\models.py:215
-#: .\quiz\templates\quiz\sitting_detail.html:18
-#: .\quiz\templates\quiz\sitting_list.html:29
+#: .\quiz\templates\quiz\setting_detail.html:18
+#: .\quiz\templates\quiz\setting_list.html:29
 msgid "User"
 msgstr ""
 
 #: .\quiz\models.py:124 .\quiz\templates\progress.html:63
-#: .\quiz\templates\quiz\sitting_detail.html:20
-#: .\quiz\templates\quiz\sitting_list.html:33
+#: .\quiz\templates\quiz\setting_detail.html:20
+#: .\quiz\templates\quiz\setting_list.html:33
 msgid "Score"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "category does not exist or invalid score"
 msgstr ""
 
-#: .\quiz\models.py:217 .\quiz\templates\quiz\sitting_list.html:30
+#: .\quiz\models.py:217 .\quiz\templates\quiz\setting_list.html:30
 msgid "Course"
 msgstr ""
 
@@ -188,11 +188,11 @@ msgstr ""
 msgid "User Answers"
 msgstr ""
 
-#: .\quiz\models.py:231 .\quiz\templates\quiz\sitting_detail.html:21
+#: .\quiz\models.py:231 .\quiz\templates\quiz\setting_detail.html:21
 msgid "Start"
 msgstr ""
 
-#: .\quiz\models.py:232 .\quiz\templates\quiz\sitting_detail.html:22
+#: .\quiz\models.py:232 .\quiz\templates\quiz\setting_detail.html:22
 msgid "End"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 
 #: .\quiz\models.py:353 .\quiz\models.py:361 .\quiz\models.py:409
 #: .\quiz\templates\question.html:115
-#: .\quiz\templates\quiz\sitting_detail.html:28
+#: .\quiz\templates\quiz\setting_detail.html:28
 msgid "Question"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 msgid "Is this a correct answer?"
 msgstr ""
 
-#: .\quiz\models.py:417 .\quiz\templates\quiz\sitting_detail.html:50
+#: .\quiz\models.py:417 .\quiz\templates\quiz\setting_detail.html:50
 msgid "Correct"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgid "Question Category Scores"
 msgstr ""
 
 #: .\quiz\templates\progress.html:20 .\quiz\templates\quiz\quiz_list.html:71
-#: .\quiz\templates\quiz\sitting_detail.html:13
+#: .\quiz\templates\quiz\setting_detail.html:13
 msgid "Category"
 msgstr ""
 
@@ -362,52 +362,52 @@ msgstr ""
 msgid "Start quiz"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:4
+#: .\quiz\templates\quiz\setting_detail.html:4
 msgid "Result of"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:4
+#: .\quiz\templates\quiz\setting_detail.html:4
 msgid "for"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:12
+#: .\quiz\templates\quiz\setting_detail.html:12
 msgid "Quiz title"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:19
-#: .\quiz\templates\quiz\sitting_list.html:32
+#: .\quiz\templates\quiz\setting_detail.html:19
+#: .\quiz\templates\quiz\setting_list.html:32
 msgid "Completed"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:29
+#: .\quiz\templates\quiz\setting_detail.html:29
 msgid "User answer"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:48
+#: .\quiz\templates\quiz\setting_detail.html:48
 msgid "incorrect"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_detail.html:56
+#: .\quiz\templates\quiz\setting_detail.html:56
 msgid "Toggle whether correct"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_list.html:3
+#: .\quiz\templates\quiz\setting_list.html:3
 msgid "All Quizzes"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_list.html:9
+#: .\quiz\templates\quiz\setting_list.html:9
 msgid "List of complete exams"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_list.html:18
+#: .\quiz\templates\quiz\setting_list.html:18
 msgid "Filter"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_list.html:48
+#: .\quiz\templates\quiz\setting_list.html:48
 msgid "View details"
 msgstr ""
 
-#: .\quiz\templates\quiz\sitting_list.html:56
+#: .\quiz\templates\quiz\setting_list.html:56
 msgid "There are no matching results for your search..."
 msgstr ""
 

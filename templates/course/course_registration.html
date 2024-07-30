@@ -21,21 +21,24 @@
 {% if is_calender_on == False %}
 
 <div class="alert bg-danger">
-    <h1 class="text-light text-center">Calender is off</h1>
-    <h5 class="text-light text-center">Check the university calender</h5>
+    <h1 class="text-light text-center">Calendar is off</h1>
+    <h5 class="text-light text-center">Check the university calendar</h5>
 </div>
 
 {% else %}
 
 {% if not all_courses_are_registered %}
 
-<form action="{% url 'course_registration' %}" method="POST">{% csrf_token %}
+<form action="{% url 'course_registration' %}" method="POST" id="course_registration" enctype="multipart/form-data">
+    {% csrf_token %}
+{#    {% load custom_filter %}#}
     <div class="col-md-12 p-0 bg-white">
         <p class="form-title fw-bold">Course Add</p>
         <div class="container">
             <div class="d-flex justify-content-between mb-3">
-                <button title="Save Score" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add
-                    Selected</button>
+                <button title="Save Score" type="submit" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Add Selected
+                </button>
             </div>
 
             <div class="table-responsive p-0 px-2 mt-2">
@@ -51,6 +54,7 @@
                                 <th>Year</th>
                                 <th>Classification</th>
                                 <th>Elective Group</th>
+                                <th>Class</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +62,8 @@
                             {% if course.semester == "First" %}
                             <tr>
                                 <th scope="row">
-                                    <input name="{{ course.pk }}" value="{{ course.courseUnit }}" type="checkbox">
+                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox" 
+                                           form="course_registration" required>
                                 </th>
                                 <td>{{ course.code }}</td>
                                 <td>{{ course.title }}</td>
@@ -69,7 +74,19 @@
                                 {% else %}
                                 <td>Core</td>
                                 {% endif %}
-                                <th>-</th>
+                                <td>-</td>
+                                <td>
+                                    <label for="class_{{ course.pk }}"></label>
+                                    <select name="class_{{ course.pk }}" id="class_{{ course.pk }}" form="course_registration" required>
+                                        <option disabled selected value>Select Class</option>
+                                        {% for cls in classes %}
+                                            {% if cls.course.id == course.id %}
+                                                <option value="{{ cls.id }}">{{ cls }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                <input type="hidden" name="class_{{ course.pk }}_hidden" id="class_{{ course.pk }}_hidden">
+                                </td>
                             </tr>
                             {% endif %}
                             {% empty %}
@@ -78,10 +95,9 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <span class="text-danger">
-                                        No Course.
-                                    </span>
+                                    <span class="text-danger">No Course.</span>
                                 </td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -114,6 +130,7 @@
                                 <th>Year</th>
                                 <th>Classification</th>
                                 <th>Elective Group</th>
+                                <th>Class</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +149,17 @@
                                 {% else %}
                                 <td>Core</td>
                                 {% endif %}
-                                <th>-</th>
+                                <td>-</td>
+                                <td>
+                                    <select name="class_{{ course.pk }}">
+                                        <option value="">Select Class</option>
+                                        {% for cls in classes %}
+                                            {% if cls.course.id == course.id %}
+                                                <option value="{{ cls.id }}">{{ cls }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
                             </tr>
                             {% endif %}
                             {% empty %}
@@ -161,7 +188,7 @@
                             </tr>
                             <tr>
                                 <th scope="row"></th>
-                                <td><b>Registerd course credit(s): <a id="units">{{ total_registered_credit }}</a></b>
+                                <td><b>Registered course credit(s): <a id="units">{{ total_registered_credit }}</a></b>
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -183,7 +210,7 @@
 {% if not no_course_is_registered %}
 
 <a class="btn btn-warning" href="{% url 'course_registration_form' %}" target="_blank" title="Print Registration Form">
-    <i class="fas fa-print"></i> Print Registerd Courses
+    <i class="fas fa-print"></i> Print Registered Courses
 </a>
 
 <div class="col-md-12 p-0 bg-white">
@@ -267,6 +294,15 @@
                 </div>
             </div>
         </form>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('select[name^="class_"]').forEach(function(select) {
+            select.addEventListener("change", function() {
+                document.getElementById(select.name + "_hidden").value = select.value;
+            });
+        });
+    });
+    </script>
     </div>
 </div>
 

@@ -13,6 +13,7 @@
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
     <a class="btn btn-primary" href="{% url 'add_program' %}"><i class="fas fa-plus"></i>Add Program</a>
+    <a class="btn btn-primary" role="button" href="{% url 'add_timeslot' %}"><i class="fas fa-plus"></i>Add TimeSlot</a>
 </div>
 {% endif %}
 

@@ -16,7 +16,7 @@ from django.db.models.signals import pre_save
 from django.db.models import Q
 
 from model_utils.managers import InheritanceManager
-from course.models import Course
+from course.models import Class
 from .utils import *
 
 CHOICE_ORDER_OPTIONS = (
@@ -49,7 +49,7 @@ class QuizManager(models.Manager):
 
 
 class Quiz(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    class_model = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
     title = models.CharField(verbose_name=_("Title"), max_length=60, blank=False)
     slug = models.SlugField(blank=True, unique=True)
     description = models.TextField(
@@ -141,7 +141,7 @@ class Quiz(models.Model):
 
     def get_absolute_url(self):
         # return reverse('quiz_start_page', kwargs={'pk': self.pk})
-        return reverse("quiz_index", kwargs={"slug": self.course.slug})
+        return reverse("quiz_index", kwargs={"pk": self.class_model.class_id})
 
 
 def quiz_pre_save_receiver(sender, instance, *args, **kwargs):
@@ -227,15 +227,15 @@ class Progress(models.Model):
 
     def show_exams(self):
         if self.user.is_superuser:
-            return Sitting.objects.filter(complete=True).order_by("-end")
+            return Setting.objects.filter(complete=True).order_by("-end")
         else:
-            return Sitting.objects.filter(user=self.user, complete=True).order_by(
+            return Setting.objects.filter(user=self.user, complete=True).order_by(
                 "-end"
             )
 
 
-class SittingManager(models.Manager):
-    def new_sitting(self, user, quiz, course):
+class SettingManager(models.Manager):
+    def new_setting(self, user, quiz, class_model):
         if quiz.random_order is True:
             question_set = quiz.question_set.all().select_subclasses().order_by("?")
         else:
@@ -253,10 +253,10 @@ class SittingManager(models.Manager):
 
         questions = ",".join(map(str, question_set)) + ","
 
-        new_sitting = self.create(
+        new_setting = self.create(
             user=user,
             quiz=quiz,
-            course=course,
+            class_model=class_model,
             question_order=questions,
             question_list=questions,
             incorrect_questions="",
@@ -264,32 +264,32 @@ class SittingManager(models.Manager):
             complete=False,
             user_answers="{}",
         )
-        return new_sitting
+        return new_setting
 
-    def user_sitting(self, user, quiz, course):
+    def user_setting(self, user, quiz, class_model):
         if (
             quiz.single_attempt is True
-            and self.filter(user=user, quiz=quiz, course=course, complete=True).exists()
+            and self.filter(user=user, quiz=quiz, class_model=class_model, complete=True).exists()
         ):
             return False
         try:
-            sitting = self.get(user=user, quiz=quiz, course=course, complete=False)
-        except Sitting.DoesNotExist:
-            sitting = self.new_sitting(user, quiz, course)
-        except Sitting.MultipleObjectsReturned:
-            sitting = self.filter(user=user, quiz=quiz, course=course, complete=False)[
+            setting = self.get(user=user, quiz=quiz, class_model=class_model, complete=False)
+        except Setting.DoesNotExist:
+            setting = self.new_setting(user, quiz, class_model)
+        except Setting.MultipleObjectsReturned:
+            setting = self.filter(user=user, quiz=quiz, class_model=class_model, complete=False)[
                 0
             ]
-        return sitting
+        return setting
 
 
-class Sitting(models.Model):
+class Setting(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE
     )
     quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
-    course = models.ForeignKey(
-        Course, null=True, verbose_name=_("Course"), on_delete=models.CASCADE
+    class_model = models.ForeignKey(
+        Class, null=True, verbose_name=_("Class"), on_delete=models.CASCADE
     )
 
     question_order = models.CharField(
@@ -321,10 +321,10 @@ class Sitting(models.Model):
     start = models.DateTimeField(auto_now_add=True, verbose_name=_("Start"))
     end = models.DateTimeField(null=True, blank=True, verbose_name=_("End"))
 
-    objects = SittingManager()
+    objects = SettingManager()
 
     class Meta:
-        permissions = (("view_sittings", _("Can see completed exams.")),)
+        permissions = (("view_settings", _("Can see completed exams.")),)
 
     def get_first_question(self):
         if not self.question_list:

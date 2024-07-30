@@ -33,6 +33,7 @@
 		{% url 'course_registration' as cr %} {% url 'edit_profile' as ep %} {% url 'change_password' as cp %}
 		{% url 'quiz_progress' as qpr %} {% url 'quiz_marking' as qce %} {% url 'user_course_list' as ucl %}
 		{% url 'admin_panel' as admin_p %}
+        {% url 'class_list' as clv %}
 		<ul>
 			{% if request.user.is_superuser %}
 			<li class="{% if request.path == dash %}active{% endif %}">
@@ -80,6 +81,9 @@
 			</li>
 			<li class="{% if request.path == cav %}active{% endif %}">
 				<a href="{% url 'course_allocation_view' %}"><i class="fas fa-tasks"></i>Course Allocation</a>
+			</li>
+            <li class="{% if request.path == clv %}active{% endif %}">
+                <a href="{% url 'class_list' %}"><i class="fas fa-calendar"></i>Class Allocation</a>
 			</li>
 			<li class="{% if request.path == sess %}active{% endif %}">
 				<a href="{% url 'session_list' %}"><i class="fas fa-calendar-week"></i>Manage Session</a>

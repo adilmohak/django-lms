@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' class.course.program.id %}">{{ class.course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_detail' class.course.slug %}">{{ class.course }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ class.class_session }}</li>
+    </ol>
+</nav>
+
+<div class="manage-wrap">
+    <div class="d-flex">
+        <div class="">
+            {% if request.user.is_superuser or request.user.is_lecturer %}
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' class.class_id %}">
+                <i class="fas fa-plus"></i> Upload new file
+            </a>
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_video' class.class_id %}">
+                <i class="fas fa-plus"></i> Upload new video
+            </a>
+            {% endif %}
+        </div>
+        <div class="ms-auto">
+            <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' class.class_id %}">
+                <i class="fas fa-list"></i> Take a Quiz
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="title-1">{{ class.class_session }}</div>
+<p class="small text-muted">{{ class.course.title }} - {{ class.time_slot.start_time }} to {{ class.time_slot.end_time }}</p>
+
+{% include 'snippets/messages.html' %}
+
+<div class="container">
+
+    <div class="row mb-5">
+        <div class="col-md-12 p-0">
+            <p class="form-title m-0">Video Tutorials</p>
+            <div class="table-responsive">
+                <table class="table table-shadow table-light table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Video Title</th>
+                            <th>Uploaded Date</th>
+                            <th>Get Started</th>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for video in videos %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <a href="{{ video.get_absolute_url }}" title="{{ video }}" class="d-flex align-items-center">
+                                    <i class="fas fa-video me-1"></i> {{ video.title|title }}
+                                </a>
+                            </td>
+                            <td>{{ video.timestamp|date }}</td>
+                            <td>
+                                <div>
+                                    <a class="download-btn" href="{{ video.get_absolute_url }}" title="Play video">
+                                        <i class="fas fa-play me-1"></i> Play now
+                                    </a>
+                                </div>
+                            </td>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <td>
+                                <div class="update-delete">
+                                    <a href="{% url 'upload_video_edit' class.class_id video_slug=video.slug %}" class="update" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="{% url 'upload_video_delete' class.class_id video_slug=video.slug %}" class="delete" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="{% if request.user.is_superuser or request.user.is_lecturer %}5{% else %}4{% endif %}">
+                                <span class="text-danger">
+                                    No video uploaded.
+                                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                                    <a href="{% url 'upload_video' class.class_id %}">
+                                        <i class="primary" style="font-size: 22px;">Upload now.</i>
+                                    </a>
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 p-0">
+            <p class="form-title m-0">Documentations</p>
+            <div class="table-responsive">
+                <table class="table table-shadow table-light table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File Name</th>
+                            <th>Uploaded Date</th>
+                            <th>Updated Date</th>
+                            <th>Downloads</th>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{{ file.file.url }}" title="{{ file }}" class="d-flex align-items-center">
+                                    <i class="fas fa-file-{{ file.get_extension_short }} me-1"></i>
+                                    {{ file.title|title }}
+                                </a>
+                            </td>
+                            <td>{{ file.upload_time|date }}</td>
+                            <td>{{ file.updated_date|date }}</td>
+                            <td>
+                                <div>
+                                    <a class="download-btn" href="{{ file.file.url }}" title="Download to your device">
+                                        <i class="fas fa-download me-1"></i> Download
+                                    </a>
+                                </div>
+                            </td>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <td>
+                                <div class="update-delete">
+                                    <a href="{% url 'upload_file_edit' class.class_id file.pk %}" class="update" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="{% url 'upload_file_delete' class.class_id file.pk %}" class="delete" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="{% if request.user.is_superuser or request.user.is_lecturer %}6{% else %}5{% endif %}">
+                                <span class="text-danger">
+                                    No file uploaded.
+                                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                                    <a href="{% url 'upload_file_view' class.class_id %}">
+                                        <i class="primary" style="font-size: 22px;">Upload now.</i>
+                                    </a>
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="site-section mb-5 mt-4">
+    <div class="title-1">Lecturer(s)</div>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            {% for lecturer in lecturers %}
+            <div class="col-lg-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        {% if lecturer.picture %}
+                        <img class="avatar avatar-lg" src="{{ lecturer.picture.url }}" alt="">
+                        {% endif %}
+                        <h5 class="fw-bold mb-0">{{ lecturer.get_full_name }}</h5>
+                        <p class="mb-0">{{ lecturer.email }}</p>
+                        <p class="text-muted small">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i class="fab fa-linkedin-in"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <h6 class="text-muted mt-3">No lecturer assigned for this class</h6>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

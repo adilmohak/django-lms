@@ -7,7 +7,7 @@ from django.db import transaction
 from django.forms.models import inlineformset_factory
 
 from accounts.models import User
-from .models import Question, Quiz, MCQuestion, Choice
+from .models import Question, Quiz, MCQuestion, Choice, Class
 
 
 class QuestionForm(forms.Form):
@@ -28,6 +28,11 @@ class EssayForm(forms.Form):
 
 
 class QuizAddForm(forms.ModelForm):
+    class_model = forms.ModelChoiceField(
+        queryset=Class.objects.all(),
+        widget=forms.HiddenInput()
+    )
+
     class Meta:
         model = Quiz
         exclude = []
@@ -48,9 +53,11 @@ class QuizAddForm(forms.ModelForm):
 
     def save(self, commit=True):
         quiz = super(QuizAddForm, self).save(commit=False)
-        quiz.save()
-        quiz.question_set.set(self.cleaned_data["questions"])
-        self.save_m2m()
+        quiz.class_model = self.cleaned_data['class_model']
+        if commit:
+            quiz.save()
+            quiz.question_set.set(self.cleaned_data["questions"])
+            self.save_m2m()
         return quiz
 
 

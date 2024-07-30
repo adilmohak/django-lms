@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Class Allocation List</li>
+    </ol>
+</nav>
+
+{% if request.user.is_superuser %}
+<div class="manage-wrap">
+    <a class="btn btn-primary" href="{% url 'class_assign' %}"><i class="fas fa-plus"></i> Add Class</a>
+</div>
+{% endif %}
+
+<div class="title-1"><i class="fas fa-tasks"></i>Class Allocations</div>
+<br>
+<br>
+
+{% include 'snippets/messages.html' %}
+<form method="get" class="row g-3 align-items-center">
+    {{ filter.form.non_field_errors }}
+    <div class="col-auto">
+        {{ filter.form.lecturer.label_tag }} {{ filter.form.lecturer }}
+    </div>
+    <div class="col-auto">
+        {{ filter.form.course.label_tag }} {{ filter.form.course }}
+    </div>
+    <div class="col-auto">
+        {{ filter.form.time_slot.label_tag }} {{ filter.form.time_slot }}
+    </div>
+    <button type="submit" class="col-auto">Filter</button>
+</form>
+
+<div class="table-responsive table-shadow p-0 mt-4">
+    <table class="table table-light table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Lecturer</th>
+                <th>Course</th>
+                <th>Time Slot</th>
+                {% if request.user.is_superuser %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for cls in filter.qs %}
+            <tr>
+                <td>{{ forloop.counter }}.</td>
+                <td><a href="{{ cls.lecturer.get_absolute_url }}">{{ cls.lecturer.get_full_name }}</a></td>
+                <td><a class="edit-btn" href="{{ cls.course.get_absolute_url }}">{{ cls.course.title }}</a></td>
+                <td>{{ cls.time_slot.start_time }} - {{ cls.time_slot.end_time }}</td>
+                {% if request.user.is_superuser %}
+                <td>
+                    <div class="update-delete">
+                        <a href="{% url 'class_edit' pk=cls.pk %}" class="update" title="Edit or Update">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'class_delete' pk=cls.pk %}" class="delete" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">
+                    <span class="text-danger">No Classes Allocated.</span>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'class_assign' %}">
+                        <i class="primary" style="font-size: 22px;">
+                            Add Class
+                        </i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

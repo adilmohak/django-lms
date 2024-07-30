@@ -8,13 +8,14 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'course_detail' course.slug %}">{{ course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' class.course.program.id %}">{{ class.course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_detail' class.course.slug %}">{{ class.course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'class_detail' class.class_id %}">{{ class }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Video upload</li>
     </ol>
 </nav>
     
-<p class="title-1">Video upload for {{ course|truncatechars:25 }}</p>
+<p class="title-1">Video upload for {{ class|truncatechars:25 }}</p>
 <div class="title-line"></div><br>
 
 {% include 'snippets/messages.html' %}
@@ -29,7 +30,7 @@
             
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Upload</button>
-                <a class="btn btn-danger" href="{% url 'course_detail' course.slug %}" style="float: right;">Cancel</a>
+                <a class="btn btn-danger" href="{% url 'class_detail' class.class_id %}" style="float: right;">Cancel</a>
             </div>
         </form>
     </div>

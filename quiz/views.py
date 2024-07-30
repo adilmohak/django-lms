@@ -15,7 +15,8 @@ from django.contrib import messages
 from django.db import transaction
 
 from accounts.decorators import lecturer_required
-from .models import Course, Progress, Sitting, EssayQuestion, Quiz, MCQuestion, Question
+from .models import Progress, Setting, EssayQuestion, Quiz, MCQuestion, Question
+from course.models import Class
 from .forms import (
     QuizAddForm,
     MCQuestionForm,
@@ -24,74 +25,74 @@ from .forms import (
     EssayForm,
 )
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class QuizCreateView(CreateView):
     model = Quiz
     form_class = QuizAddForm
+    template_name = 'quiz/quiz_form.html'  # Ensure you have this template
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(QuizCreateView, self).get_context_data(**kwargs)
-        context["course"] = Course.objects.get(slug=self.kwargs["slug"])
-        if self.request.POST:
-            context["form"] = QuizAddForm(self.request.POST)
-            # context['quiz'] = self.request.POST.get('quiz')
-        else:
-            context["form"] = QuizAddForm(
-                initial={"course": Course.objects.get(slug=self.kwargs["slug"])}
-            )
+        class_instance = Class.objects.get(class_id=self.kwargs["pk"])
+        context["class_instance"] = class_instance
         return context
 
-    def form_valid(self, form, **kwargs):
-        context = self.get_context_data()
-        form = context["form"]
-        with transaction.atomic():
-            self.object = form.save()
-            if form.is_valid():
-                form.instance = self.object
-                form.save()
-                return redirect(
-                    "mc_create", slug=self.kwargs["slug"], quiz_id=form.instance.id
-                )
+    def get_form_kwargs(self):
+        kwargs = super(QuizCreateView, self).get_form_kwargs()
+        kwargs['initial'] = {'class_model': Class.objects.get(class_id=self.kwargs['pk'])}
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.class_model = Class.objects.get(class_id=self.kwargs["pk"])
+        response = super(QuizCreateView, self).form_valid(form)
+        return redirect('mc_create', self.kwargs["pk"], form.instance.id)
+
+    def form_invalid(self, form):
+        print("Form is invalid")
+        print(form.errors)
         return super(QuizCreateView, self).form_invalid(form)
+
+
 
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class QuizUpdateView(UpdateView):
     model = Quiz
     form_class = QuizAddForm
+    template_name = 'quiz/quiz_form.html'  # Ensure you have this template
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(QuizUpdateView, self).get_context_data(**kwargs)
-        context["course"] = Course.objects.get(slug=self.kwargs["slug"])
-        quiz = Quiz.objects.get(pk=self.kwargs["pk"])
+        class_instance = get_object_or_404(Class, class_id=self.kwargs["class_id"])
+        context["class_instance"] = class_instance
         if self.request.POST:
-            context["form"] = QuizAddForm(self.request.POST, instance=quiz)
+            context["form"] = QuizAddForm(self.request.POST, instance=self.object)
         else:
-            context["form"] = QuizAddForm(instance=quiz)
+            context["form"] = QuizAddForm(instance=self.object)
         return context
 
-    def form_valid(self, form, **kwargs):
-        context = self.get_context_data()
-        course = context["course"]
-        form = context["form"]
-        with transaction.atomic():
-            self.object = form.save()
-            if form.is_valid():
-                form.instance = self.object
-                form.save()
-                return redirect("quiz_index", course.slug)
+    def form_valid(self, form):
+        form.instance.class_model = get_object_or_404(Class, class_id=self.kwargs["class_id"])
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("Form is invalid")
+        print(form.errors)
         return super(QuizUpdateView, self).form_invalid(form)
 
 
 @login_required
 @lecturer_required
-def quiz_delete(request, slug, pk):
+def quiz_delete(request, class_id, pk):
     quiz = Quiz.objects.get(pk=pk)
-    course = Course.objects.get(slug=slug)
+    class_instance = Class.objects.get(class_id=class_id)
     quiz.delete()
     messages.success(request, f"successfuly deleted.")
-    return redirect("quiz_index", quiz.course.slug)
+    return redirect("quiz_index", class_instance.class_id)
 
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
@@ -101,7 +102,7 @@ class MCQuestionCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(MCQuestionCreate, self).get_context_data(**kwargs)
-        context["course"] = Course.objects.get(slug=self.kwargs["slug"])
+        context["class_instance"] = Class.objects.get(class_id=self.kwargs["pk"])
         context["quiz_obj"] = Quiz.objects.get(id=self.kwargs["quiz_id"])
         context["quizQuestions"] = Question.objects.filter(
             quiz=self.kwargs["quiz_id"]
@@ -118,7 +119,7 @@ class MCQuestionCreate(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context["formset"]
-        course = context["course"]
+        class_instance = context["class_instance"]
         with transaction.atomic():
             form.instance.question = self.request.POST.get("content")
             self.object = form.save()
@@ -128,19 +129,19 @@ class MCQuestionCreate(CreateView):
                 if "another" in self.request.POST:
                     return redirect(
                         "mc_create",
-                        slug=self.kwargs["slug"],
+                        pk=self.kwargs["pk"],
                         quiz_id=self.kwargs["quiz_id"],
                     )
-                return redirect("quiz_index", course.slug)
+                return redirect("quiz_index", class_instance.class_id)
         return super(MCQuestionCreate, self).form_invalid(form)
 
 
 @login_required
-def quiz_list(request, slug):
-    quizzes = Quiz.objects.filter(course__slug=slug).order_by("-timestamp")
-    course = Course.objects.get(slug=slug)
+def quiz_list(request, pk):
+    quizzes = Quiz.objects.filter(class_model__class_id=pk).order_by("-timestamp")
+    class_instance = Class.objects.get(class_id=pk)
     return render(
-        request, "quiz/quiz_list.html", {"quizzes": quizzes, "course": course}
+        request, "quiz/quiz_list.html", {"quizzes": quizzes, "class_instance": class_instance}
     )
     # return render(request, 'quiz/quiz_list.html', {'quizzes': quizzes})
 
@@ -148,15 +149,15 @@ def quiz_list(request, slug):
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
-    # @method_decorator(permission_required('quiz.view_sittings'))
+    # @method_decorator(permission_required('quiz.view_settings'))
     def dispatch(self, *args, **kwargs):
         return super(QuizMarkerMixin, self).dispatch(*args, **kwargs)
 
 
 # @method_decorator([login_required, lecturer_required], name='get_queryset')
-class SittingFilterTitleMixin(object):
+class SettingFilterTitleMixin(object):
     def get_queryset(self):
-        queryset = super(SittingFilterTitleMixin, self).get_queryset()
+        queryset = super(SettingFilterTitleMixin, self).get_queryset()
         quiz_filter = self.request.GET.get("quiz_filter")
         if quiz_filter:
             queryset = queryset.filter(quiz__title__icontains=quiz_filter)
@@ -181,8 +182,8 @@ class QuizUserProgressView(TemplateView):
 
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
-class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
-    model = Sitting
+class QuizMarkingList(QuizMarkerMixin, SettingFilterTitleMixin, ListView):
+    model = Setting
 
     # def get_context_data(self, **kwargs):
     #     context = super(QuizMarkingList, self).get_context_data(**kwargs)
@@ -197,7 +198,7 @@ class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
                 super(QuizMarkingList, self)
                 .get_queryset()
                 .filter(
-                    quiz__course__allocated_course__lecturer__pk=self.request.user.id
+                    quiz__class_model__lecturer=self.request.user.id
                 )
                 .filter(complete=True)
             )
@@ -212,24 +213,24 @@ class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
 
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class QuizMarkingDetail(QuizMarkerMixin, DetailView):
-    model = Sitting
+    model = Setting
 
     def post(self, request, *args, **kwargs):
-        sitting = self.get_object()
+        setting = self.get_object()
 
         q_to_toggle = request.POST.get("qid", None)
         if q_to_toggle:
             q = Question.objects.get_subclass(id=int(q_to_toggle))
-            if int(q_to_toggle) in sitting.get_incorrect_questions:
-                sitting.remove_incorrect_question(q)
+            if int(q_to_toggle) in setting.get_incorrect_questions:
+                setting.remove_incorrect_question(q)
             else:
-                sitting.add_incorrect_question(q)
+                setting.add_incorrect_question(q)
 
         return self.get(request)
 
     def get_context_data(self, **kwargs):
         context = super(QuizMarkingDetail, self).get_context_data(**kwargs)
-        context["questions"] = context["sitting"].get_questions(with_answers=True)
+        context["questions"] = context["setting"].get_questions(with_answers=True)
         return context
 
 
@@ -243,34 +244,34 @@ class QuizTake(FormView):
 
     def dispatch(self, request, *args, **kwargs):
         self.quiz = get_object_or_404(Quiz, slug=self.kwargs["slug"])
-        self.course = get_object_or_404(Course, pk=self.kwargs["pk"])
+        self.class_instance = get_object_or_404(Class, class_id=self.kwargs["pk"])
         quizQuestions = Question.objects.filter(quiz=self.quiz).count()
-        course = get_object_or_404(Course, pk=self.kwargs["pk"])
+        # course = get_object_or_404(Course, pk=self.kwargs["pk"])
 
         if quizQuestions <= 0:
             messages.warning(request, f"Question set of the quiz is empty. try later!")
-            return redirect("quiz_index", self.course.slug)
+            return redirect("quiz_index", self.class_instance.class_id)
 
         if self.quiz.draft and not request.user.has_perm("quiz.change_quiz"):
             raise PermissionDenied
 
-        self.sitting = Sitting.objects.user_sitting(
-            request.user, self.quiz, self.course
+        self.setting = Setting.objects.user_setting(
+            request.user, self.quiz, self.class_instance
         )
 
-        if self.sitting is False:
+        if self.setting is False:
             # return render(request, self.single_complete_template_name)
             messages.info(
                 request,
-                f"You have already sat this exam and only one sitting is permitted",
+                f"You have already set this exam and only one setting is permitted",
             )
-            return redirect("quiz_index", self.course.slug)
+            return redirect("quiz_index", self.class_instance.class_id)
 
         return super(QuizTake, self).dispatch(request, *args, **kwargs)
 
     def get_form(self, *args, **kwargs):
-        self.question = self.sitting.get_first_question()
-        self.progress = self.sitting.progress()
+        self.question = self.setting.get_first_question()
+        self.progress = self.setting.progress()
 
         if self.question.__class__ is EssayQuestion:
             form_class = EssayForm
@@ -286,7 +287,7 @@ class QuizTake(FormView):
 
     def form_valid(self, form):
         self.form_valid_user(form)
-        if self.sitting.get_first_question() is False:
+        if self.setting.get_first_question() is False:
             return self.final_result_user()
 
         self.request.POST = {}
@@ -297,7 +298,7 @@ class QuizTake(FormView):
         context = super(QuizTake, self).get_context_data(**kwargs)
         context["question"] = self.question
         context["quiz"] = self.quiz
-        context["course"] = get_object_or_404(Course, pk=self.kwargs["pk"])
+        context["class_instance"] = get_object_or_404(Class, class_id=self.kwargs["pk"])
         if hasattr(self, "previous"):
             context["previous"] = self.previous
         if hasattr(self, "progress"):
@@ -310,10 +311,10 @@ class QuizTake(FormView):
         is_correct = self.question.check_if_correct(guess)
 
         if is_correct is True:
-            self.sitting.add_to_score(1)
+            self.setting.add_to_score(1)
             progress.update_score(self.question, 1, 1)
         else:
-            self.sitting.add_incorrect_question(self.question)
+            self.setting.add_incorrect_question(self.question)
             progress.update_score(self.question, 0, 1)
 
         if self.quiz.answers_at_end is not True:
@@ -327,32 +328,32 @@ class QuizTake(FormView):
         else:
             self.previous = {}
 
-        self.sitting.add_user_answer(self.question, guess)
-        self.sitting.remove_first_question()
+        self.setting.add_user_answer(self.question, guess)
+        self.setting.remove_first_question()
 
     def final_result_user(self):
         results = {
-            "course": get_object_or_404(Course, pk=self.kwargs["pk"]),
+            "class_instance": get_object_or_404(Class, class_id=self.kwargs["pk"]),
             "quiz": self.quiz,
-            "score": self.sitting.get_current_score,
-            "max_score": self.sitting.get_max_score,
-            "percent": self.sitting.get_percent_correct,
-            "sitting": self.sitting,
+            "score": self.setting.get_current_score,
+            "max_score": self.setting.get_max_score,
+            "percent": self.setting.get_percent_correct,
+            "setting": self.setting,
             "previous": self.previous,
-            "course": get_object_or_404(Course, pk=self.kwargs["pk"]),
+            # "course": get_object_or_404(Course, pk=self.kwargs["pk"]),
         }
 
-        self.sitting.mark_quiz_complete()
+        self.setting.mark_quiz_complete()
 
         if self.quiz.answers_at_end:
-            results["questions"] = self.sitting.get_questions(with_answers=True)
-            results["incorrect_questions"] = self.sitting.get_incorrect_questions
+            results["questions"] = self.setting.get_questions(with_answers=True)
+            results["incorrect_questions"] = self.setting.get_incorrect_questions
 
         if (
             self.quiz.exam_paper is False
             or self.request.user.is_superuser
             or self.request.user.is_lecturer
         ):
-            self.sitting.delete()
+            self.setting.delete()
 
         return render(self.request, self.result_template_name, results)

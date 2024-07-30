@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}
-{% trans "Result of" %} {{ sitting.quiz.title }} {% trans "for" %} {{ sitting.user }} | Learning management system
+{% trans "Result of" %} {{ setting.quiz.title }} {% trans "for" %} {{ setting.user }} | Learning management system
 {% endblock %}
 
 {% block content %}
@@ -15,17 +15,17 @@
 </nav>
 
 <div class="row col-12 justify-content-between">
-	<div class="header-title-md">{% trans "Quiz title" %}: {{ sitting.quiz.title }}</div>
-	<em class="info-text title-danger">{% trans "Category" %}: {{ sitting.quiz.category }}</em>
+	<div class="header-title-md">{% trans "Quiz title" %}: {{ setting.quiz.title }}</div>
+	<em class="info-text title-danger">{% trans "Category" %}: {{ setting.quiz.category }}</em>
 </div>
 
-<p>{{ sitting.quiz.description }}</p>
+<p>{{ setting.quiz.description }}</p>
 <hr>
-<p><b>{% trans "User" %}:</b> {{ sitting.user }}</p>
-<p><b>{% trans "Completed" %}:</b> {{ sitting.end|date }}</p>
-<p><b>{% trans "Score" %}:</b> {{ sitting.get_percent_correct }}%</p>
-<!-- <p><b>{% trans "Start" %}:</b> {{ sitting.start }}</p>
-<p><b>{% trans "End" %}:</b> {{ sitting.end }}</p> -->
+<p><b>{% trans "User" %}:</b> {{ setting.user }}</p>
+<p><b>{% trans "Completed" %}:</b> {{ setting.end|date }}</p>
+<p><b>{% trans "Score" %}:</b> {{ setting.get_percent_correct }}%</p>
+<!-- <p><b>{% trans "Start" %}:</b> {{ setting.start }}</p>
+<p><b>{% trans "End" %}:</b> {{ setting.end }}</p> -->
 
 <table class="table table-bordered table-striped">
 
@@ -50,7 +50,7 @@
       </td>
 	  <td>{{ question }}</td>
 	  <td>
-		{% if question.id in sitting.get_incorrect_questions %}
+		{% if question.id in setting.get_incorrect_questions %}
 		  <p>{% trans "incorrect" %}</p>
 		{% else %}
 		  <p>{% trans "Correct" %}</p>

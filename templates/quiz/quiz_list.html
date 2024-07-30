@@ -10,15 +10,16 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'program_detail' pk=1 %}">{{ course.program }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' class_instance.course.program.id %}">{{ class_instance.course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ class_instance.course.get_absolute_url }}">{{ class_instance.course }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ class_instance.get_absolute_url }}">{{ class_instance }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Quizzes</li>
     </ol>
 </nav>
 
 {% if request.user.is_superuser or request.user.is_lecturer %}
 <div class="manage-wrap">
-    <a class="btn btn-primary" href="{% url 'quiz_create' course.slug %}"><i class="fas fa-plus"></i> Add Quiz</a>
+    <a class="btn btn-primary" href="{% url 'quiz_create' class_instance.class_id %}"><i class="fas fa-plus"></i> Add Quiz</a>
 </div>
 {% endif %}
 
@@ -54,17 +55,17 @@
                 {% endif %}
 
                 <div class="d-flex align-items-center">
-                    <a class="btn btn-block btn-secondary w-100" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Start quiz" %} &raquo;</a>
+                    <a class="btn btn-block btn-secondary w-100" href="{% url 'quiz_take' pk=class_instance.class_id slug=quiz.slug %}">{% trans "Start quiz" %} &raquo;</a>
 
                     {% if request.user.is_superuser or request.user.is_lecturer %}
                         <div class="dropup">
                             <button class="btn btn-sm p-0 ms-2" type="button" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v m-0"></i></button>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
                                 <div class="dropdown-item">
-                                    <a href="{% url 'quiz_update' slug=course.slug pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                    <a href="{% url 'quiz_update' class_id=class_instance.class_id pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i> Edit</a>
                                 </div>
                                 <div class="dropdown-item">
-                                    <a href="{% url 'quiz_delete' slug=course.slug pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                                    <a href="{% url 'quiz_delete' class_id=class_instance.class_id pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i> Delete</a>
                                 </div>
                             </div>
                         </div>

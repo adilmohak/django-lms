@@ -85,6 +85,7 @@ class TakenCourse(models.Model):
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="taken_courses"
     )
+    retake = models.BooleanField(default=False)
     assignment = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     mid_exam = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     quiz = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)

@@ -10,7 +10,7 @@ from .models import (
     MCQuestion,
     Choice,
     EssayQuestion,
-    Sitting,
+    Setting,
 )
 
 
@@ -90,4 +90,4 @@ admin.site.register(Quiz, QuizAdmin)
 admin.site.register(MCQuestion, MCQuestionAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(EssayQuestion, EssayQuestionAdmin)
-admin.site.register(Sitting)
+admin.site.register(Setting)

@@ -24,9 +24,9 @@
 	<button type="submit" class="btn btn-outline-secondary">{% trans "Filter"%}</button>
 </form>
 
-{% if sitting_list %}
+{% if setting_list %}
 
-	<div class="info-text bg-danger my-2">Total complete exams: {{ sitting_list.count }}</div>
+	<div class="info-text bg-danger my-2">Total complete exams: {{ setting_list.count }}</div>
 
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -41,16 +41,16 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for sitting in sitting_list %}
+		{% for setting in setting_list %}
 		<tr>
 			<td>{{ forloop.counter }}</td>
-			<td>{{ sitting.user }}</td>
-			<td>{{ sitting.quiz.course }}</td>
-			<td>{{ sitting.quiz }}</td>
-			<td>{{ sitting.end|date }}</td>
-			<td>{{ sitting.get_percent_correct }}%</td>
+			<td>{{ setting.user }}</td>
+			<td>{{ setting.quiz.course }}</td>
+			<td>{{ setting.quiz }}</td>
+			<td>{{ setting.end|date }}</td>
+			<td>{{ setting.get_percent_correct }}%</td>
 			<td>
-			<a href="{% url 'quiz_marking_detail' pk=sitting.id %}">
+			<a href="{% url 'quiz_marking_detail' pk=setting.id %}">
 				{% trans "View details" %}
 			</a>
 			</td>
