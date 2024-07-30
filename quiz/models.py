@@ -27,7 +27,9 @@ CHOICE_ORDER_OPTIONS = (
 
 CATEGORY_OPTIONS = (
     ("assignment", _("Assignment")),
-    ("exam", _("Exam")),
+    ("attend", _("Attendance")),
+    ("mid_exam", _("Midterm Exam")),
+    ("final_exam", _("Final Exam")),
     ("practice", _("Practice Quiz")),
 )
 
@@ -57,7 +59,7 @@ class Quiz(models.Model):
         blank=True,
         help_text=_("A detailed description of the quiz"),
     )
-    category = models.TextField(choices=CATEGORY_OPTIONS, blank=True)
+    category = models.TextField(choices=CATEGORY_OPTIONS, blank=False)
     random_order = models.BooleanField(
         blank=False,
         default=False,
@@ -312,6 +314,7 @@ class Setting(models.Model):
     )
 
     current_score = models.IntegerField(verbose_name=_("Current Score"))
+    prev_score = models.IntegerField(verbose_name=_("Previous Score"), blank=True, null = True)
     complete = models.BooleanField(
         default=False, blank=False, verbose_name=_("Complete")
     )

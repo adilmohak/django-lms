@@ -42,4 +42,29 @@
         </div>
     </div>
 </div>
+{#    <script>#}
+{#    document.addEventListener("DOMContentLoaded", function() {#}
+{#        var courseSelect = document.getElementById("id_course");#}
+{#        var lecturerSelect = document.getElementById("id_lecturer");#}
+{#    #}
+{#        courseSelect.addEventListener("change", function() {#}
+{#            var courseId = this.value;#}
+{#    #}
+{#            fetch(`/get_lecturers_by_course/${courseId}/`)#}
+{#                .then(response => response.json())#}
+{#                .then(data => {#}
+{#                    // Clear current options#}
+{#                    lecturerSelect.innerHTML = '';#}
+{#    #}
+{#                    // Add new options#}
+{#                    data.lecturers.forEach(function(lecturer) {#}
+{#                        var option = document.createElement("option");#}
+{#                        option.value = lecturer.id;#}
+{#                        option.text = lecturer.name;#}
+{#                        lecturerSelect.add(option);#}
+{#                    });#}
+{#                });#}
+{#        });#}
+{#    });#}
+{#    </script>#}
 {% endblock content %}

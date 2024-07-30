@@ -490,7 +490,7 @@ def course_registration_form(request):
     school.fontSize = 10
     school.leading = 18
     school_title = (
-        "<b>SCHOOL OF ELECTRICAL ENGINEERING & COMPUTING</b>"  # TODO: Make this dynamic
+        "<b>UPSKILLS ACADEMY</b>"  # TODO: Make this dynamic
     )
     school_title = Paragraph(school_title.upper(), school)
     Story.append(school_title)
@@ -503,7 +503,7 @@ def course_registration_form(request):
     department.fontSize = 9
     department.leading = 18
     department_title = (
-        "<b>DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>"  # TODO: Make this dynamic
+        "<b>UNDERGRADUATE DEPARTMENT</b>"  # TODO: Make this dynamic
     )
     department_title = Paragraph(department_title, department)
     Story.append(department_title)

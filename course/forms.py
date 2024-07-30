@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from accounts.models import User
-from .models import Program, Course, CourseAllocation, Upload, UploadVideo, TimeSlot, Class
+from .models import Program, Course, CourseAllocation, Upload, UploadVideo, TimeSlot, Class, Course
 
 
 class TimeSlotForm(forms.ModelForm):
@@ -58,23 +58,24 @@ class ClassAddForm(forms.ModelForm):
     course = forms.ModelChoiceField(
         queryset=Course.objects.all().order_by("level"),
         widget=forms.Select(
-            attrs={"class": "browser-default custom-select"}
+            attrs={"class": "browser-default custom-select", "id": "id_course"}
         ),
         label="Course",
         required=True,
     )
     lecturer = forms.ModelChoiceField(
         queryset=User.objects.filter(is_lecturer=True),
-        widget=forms.Select(attrs={"class": "browser-default custom-select"}),
+        widget=forms.Select(attrs={"class": "browser-default custom-select", "id": "id_lecturer"}),
         label="lecturer",
         required=True,
     )
     time_slot = forms.ModelChoiceField(
         queryset=TimeSlot.objects.all(),
-        widget=forms.Select(attrs={"class": "browser-default custom-select"}),
+        widget=forms.Select(attrs={"class": "browser-default custom-select", "id": "id_time_slot"}),
         label="timeslot",
         required=True,
     )
+
     class Meta:
         model = Class
         fields = "__all__"
@@ -85,6 +86,14 @@ class ClassAddForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Save Class'))
         self.fields["session"].widget.attrs.update({"class": "form-control"})
+
+        # if self.instance and self.instance.pk:
+        #     course_id = self.instance.course.id
+        #     self.fields['lecturer'].queryset = User.objects.filter(
+        #         id__in=CourseAllocation.objects.filter(courses=course_id).values_list('lecturer_id', flat=True)
+        #     )
+        # else:
+        #     self.fields['lecturer'].queryset = User.objects.none()
 
 class EditClassAllocationForm(forms.ModelForm):
     course = forms.ModelChoiceField(

@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum, Avg, Max, Min, Count
@@ -65,9 +66,6 @@ def add_timeslot(request):
         }
     )
 
-
-
-
 @login_required
 @lecturer_required
 def program_add(request):
@@ -97,7 +95,19 @@ def program_add(request):
 @login_required
 def program_detail(request, pk):
     program = Program.objects.get(pk=pk)
-    courses = Course.objects.filter(program_id=pk).order_by("-year")
+
+    if request.user.is_lecturer:
+        course_allocations = CourseAllocation.objects.filter(lecturer_id=request.user.id)
+        course_ids = course_allocations.values_list('courses', flat=True).distinct()
+        courses = Course.objects.filter(program_id=pk, id__in=course_ids).order_by("-year")
+    elif request.user.is_student:
+        course_allocations = Enrollment.objects.filter(student_id=request.user.id)
+        course_ids = course_allocations.values_list('courses', flat=True).distinct()
+        courses = Course.objects.filter(program_id=pk, id__in=course_ids).order_by("-year")
+    else:
+        courses = Course.objects.filter(program_id=pk).order_by("-year")
+
+    # courses = Course.objects.filter(program_id=pk).order_by("-year")
     credits = Course.objects.aggregate(Sum("credit"))
 
     paginator = Paginator(courses, 10)
@@ -160,7 +170,16 @@ def program_delete(request, pk):
 @login_required
 def course_single(request, slug):
     course = Course.objects.get(slug=slug)
-    classes = Class.objects.filter(course_id=course.id).order_by("-session")
+    if request.user.is_lecturer:
+        class_allocations = Class.objects.filter(lecturer_id=request.user.id)
+        class_ids = class_allocations.values_list('class_id', flat=True).distinct()
+        classes = Class.objects.filter(course_id=course.id, class_id__in = class_ids).order_by("-session")
+    elif request.user.is_student:
+        class_allocations = Enrollment.objects.filter(student_id=request.user.id)
+        class_ids = class_allocations.values_list('class_id', flat=True).distinct()
+        classes = Class.objects.filter(course_id=course.id, class_id__in=class_ids).order_by("-session")
+    else:
+        classes = Class.objects.filter(course_id=course.id).order_by("-session")
 
     lecturer_ids = classes.values_list('lecturer', flat=True).distinct()
     lecturers = User.objects.filter(id__in=lecturer_ids)
@@ -256,6 +275,13 @@ def course_delete(request, slug):
 ##########################################################
 # Class Allocation
 ##########################################################
+
+def get_lecturers_by_course(request, course_id):
+    lecturers = User.objects.filter(
+        id__in=CourseAllocation.objects.filter(courses=course_id).values_list('lecturer_id', flat=True)
+    )
+    lecturers_data = [{'id': lecturer.id, 'name': lecturer.get_full_name()} for lecturer in lecturers]
+    return JsonResponse({'lecturers': lecturers_data})
 @method_decorator([admin_required], name="dispatch")
 class ClassAddView(CreateView):
     # model = Class

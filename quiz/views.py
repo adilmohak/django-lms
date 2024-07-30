@@ -13,8 +13,11 @@ from django.views.generic import (
 )
 from django.contrib import messages
 from django.db import transaction
-
+from django.db.models import Q, Sum
 from accounts.decorators import lecturer_required
+from accounts.models import Student
+from core.models import Semester
+from result.models import TakenCourse, Result
 from .models import Progress, Setting, EssayQuestion, Quiz, MCQuestion, Question
 from course.models import Class
 from .forms import (
@@ -355,5 +358,45 @@ class QuizTake(FormView):
             or self.request.user.is_lecturer
         ):
             self.setting.delete()
+        with transaction.atomic():
+            taken_courses = TakenCourse.objects.filter(
+                Q(student__student__id=self.setting.user.id) &
+                Q(course__id=self.class_instance.course.id)
+            )
+            current_score = self.setting.current_score
+            for taken_course in taken_courses:
+                if self.quiz.category == "assignment":
+                    taken_course.assignment += current_score
+                elif self.quiz.category == 'attend':
+                    taken_course.attendance += current_score
+                elif self.quiz.category == 'mid_exam':
+                    taken_course.mid_exam += current_score
+                elif self.quiz.category == 'final_exam':
+                    taken_course.final_exam += current_score
+                elif self.quiz.category == 'practice':
+                    taken_course.quiz += current_score
+                taken_course.total = (taken_course.assignment +
+                    taken_course.attendance +
+                    taken_course.mid_exam +
+                    taken_course.final_exam +
+                    taken_course.quiz)
+                taken_course.save()
 
+                current_semester = Semester.objects.get(is_current_semester=True)
+                total_credits_in_semester = TakenCourse.objects.filter(
+                    student__student__id=self.setting.user.id,
+                    course__semester= current_semester
+                ).aggregate(total_credits=Sum('course__credit'))['total_credits'] or 0
+                gpa = taken_course.calculate_gpa(total_credits_in_semester)  # Assuming this method exists on TakenCourse
+                cgpa = taken_course.calculate_cgpa()  # Assuming this method exists on TakenCourse
+                result, created = Result.objects.update_or_create(
+                    student=Student.objects.get(student_id=self.setting.user.id),
+                    semester=self.setting.class_model.course.semester,  # Assuming semester is available from the class model
+                    defaults={
+                        'gpa': gpa,
+                        'cgpa': cgpa,
+                        'session': Semester.objects.get(semester=self.setting.class_model.course.semester),  # Assuming session is available from the class model
+                        'level': self.setting.class_model.course.level  # Assuming level is available from the class model
+                    }
+                )
         return render(self.request, self.result_template_name, results)

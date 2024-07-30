@@ -40,6 +40,7 @@ urlpatterns = [
     ###############################################################
     # Class urls
     ###############################################################
+    path('get_lecturers_by_course/<int:course_id>/', get_lecturers_by_course, name='get_lecturers_by_course'),
     path("class_assign", ClassAddView.as_view(), name="class_assign"),
     path("class_list", ClassAllocationFilterView.as_view(), name="class_list"),
     path("class/<int:pk>/detail/", class_single, name="class_detail"),

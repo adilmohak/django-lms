@@ -138,7 +138,8 @@
                             {% if course.semester == "Second" %}
                             <tr>
                                 <th scope="row">
-                                    <input name="{{ course.pk }}" value="{{ course.courseUnit }}" type="checkbox">
+                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox" 
+                                           form="course_registration" required>
                                 </th>
                                 <td>{{ course.code }}</td>
                                 <td>{{ course.title }}</td>
@@ -151,14 +152,16 @@
                                 {% endif %}
                                 <td>-</td>
                                 <td>
-                                    <select name="class_{{ course.pk }}">
-                                        <option value="">Select Class</option>
+                                    <label for="class_{{ course.pk }}"></label>
+                                    <select name="class_{{ course.pk }}" id="class_{{ course.pk }}" form="course_registration" required>
+                                        <option disabled selected value>Select Class</option>
                                         {% for cls in classes %}
                                             {% if cls.course.id == course.id %}
                                                 <option value="{{ cls.id }}">{{ cls }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
+                                <input type="hidden" name="class_{{ course.pk }}_hidden" id="class_{{ course.pk }}_hidden">
                                 </td>
                             </tr>
                             {% endif %}
