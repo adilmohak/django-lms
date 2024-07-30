@@ -24,6 +24,8 @@
                 <p class="form-title">Program</p>
 
                 <div class="card-body">
+                    <p>Change <a href="{{ student.student.get_absolute_url }}">{{ student.student.get_full_name }}'s</a> program</p>
+                    <hr>
                     {{ form.program|as_crispy_field }}
                 </div>
             </div>

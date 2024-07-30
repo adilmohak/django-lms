@@ -22,12 +22,12 @@ from .views import (
     student_add_view,
     edit_student,
     delete_student,
-    edit_program,
+    edit_student_program,
     ParentAdd,
     validate_username,
     register,
-    render_lecturer_pdf_list, #new
-    render_student_pdf_list #new
+    render_lecturer_pdf_list,  # new
+    render_student_pdf_list,  # new
 )
 
 # from .forms import EmailValidationOnForgotPassword
@@ -48,13 +48,21 @@ urlpatterns = [
     path("student/add/", student_add_view, name="add_student"),
     path("student/<int:pk>/edit/", edit_student, name="student_edit"),
     path("students/<int:pk>/delete/", delete_student, name="student_delete"),
-    path("edit_program/<int:pk>/", edit_program, name="student_program_edit"),
+    path(
+        "edit_student_program/<int:pk>/",
+        edit_student_program,
+        name="student_program_edit",
+    ),
     path("parents/add/", ParentAdd.as_view(), name="add_parent"),
     path("ajax/validate-username/", validate_username, name="validate_username"),
     path("register/", register, name="register"),
-    #paths to pdf
-    path("create_lecturers_pdf_list/", render_lecturer_pdf_list, name="lecturer_list_pdf"), #new
-    path("create_students_pdf_list/", render_student_pdf_list, name="student_list_pdf"), #new
+    # paths to pdf
+    path(
+        "create_lecturers_pdf_list/", render_lecturer_pdf_list, name="lecturer_list_pdf"
+    ),  # new
+    path(
+        "create_students_pdf_list/", render_student_pdf_list, name="student_list_pdf"
+    ),  # new
     # path('add-student/', StudentAddView.as_view(), name='add_student'),
     # path('programs/course/delete/<int:pk>/', course_delete, name='delete_course'),
     # Setting urls

@@ -33,19 +33,18 @@
             </div>
             <hr>
             {% if request.user.is_superuser %}
-            <div class="btn-flex">
+            <div class="d-flex flex-column">
                 {% if user.is_student %}
-                <a class="edit-btn" href="{% url 'student_edit' pk=user.id %}">
-                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
+                <a href="{% url 'student_edit' pk=user.id %}">
+                    <i class="fas fa-user-edit unstyled"></i><span class="mobile-hide">Edit Profile</span>
                 </a>
-                {# had to name out of convention because it clashes with 'edit_[whatever]program', which directs to 'program/[id]/edit/ #}
-{#                <a class="edit-btn" href="{% url 'student_program_edit' user.id %}">#}
-{#                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Change Program</span>#}
-{#                </a>#}
+                <a href="{% url 'student_program_edit' user.id %}">
+                    <i class="fas fa-pen-to-square unstyled"></i><span class="mobile-hide">Change Program</span>
+                </a>
                 {% endif %}
                 {% if user.is_lecturer %}
-                <a class="edit-btn" href="{% url 'staff_edit' pk=user.id %}">
-                    <i class="fas fa-user-edit"></i><span class="mobile-hide">Edit Profile</span>
+                <a href="{% url 'staff_edit' pk=user.id %}">
+                    <i class="fas fa-user-edit unstyled"></i><span class="mobile-hide">Edit Profile</span>
                 </a>
                 {% endif %}
             </div>

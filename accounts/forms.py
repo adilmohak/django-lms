@@ -324,14 +324,6 @@ class ProfileUpdateForm(UserChangeForm):
         label="Address / city",
     )
 
-    program = forms.ModelChoiceField(
-        queryset=Program.objects.all(),
-        widget=forms.Select(
-            attrs={"class": "browser-default custom-select form-control"}
-        ),
-        label="Program",
-    )
-
     class Meta:
         model = User
         fields = [
@@ -356,9 +348,8 @@ class ProgramUpdateForm(UserChangeForm):
 
     class Meta:
         model = Student
-        fields = [
-            "program"
-        ]
+        fields = ["program"]
+
 
 class EmailValidationOnForgotPassword(PasswordResetForm):
     def clean_email(self):
