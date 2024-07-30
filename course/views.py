@@ -101,8 +101,10 @@ def program_detail(request, pk):
         course_ids = course_allocations.values_list('courses', flat=True).distinct()
         courses = Course.objects.filter(program_id=pk, id__in=course_ids).order_by("-year")
     elif request.user.is_student:
-        course_allocations = Enrollment.objects.filter(student_id=request.user.id)
-        course_ids = course_allocations.values_list('courses', flat=True).distinct()
+        student_ids = Student.objects.filter(student_id=request.user.id).values_list('id', flat=True).distinct()
+        course_allocations = Enrollment.objects.filter(student_id__in= student_ids)
+        course_ids = course_allocations.values_list('course_enrolled_id', flat=True).distinct()
+        # print(course_allocations, request.user.id)
         courses = Course.objects.filter(program_id=pk, id__in=course_ids).order_by("-year")
     else:
         courses = Course.objects.filter(program_id=pk).order_by("-year")
@@ -175,8 +177,9 @@ def course_single(request, slug):
         class_ids = class_allocations.values_list('class_id', flat=True).distinct()
         classes = Class.objects.filter(course_id=course.id, class_id__in = class_ids).order_by("-session")
     elif request.user.is_student:
-        class_allocations = Enrollment.objects.filter(student_id=request.user.id)
-        class_ids = class_allocations.values_list('class_id', flat=True).distinct()
+        student_ids = Student.objects.filter(student_id=request.user.id).values_list('id', flat=True).distinct()
+        class_allocations = Enrollment.objects.filter(student_id__in=student_ids)
+        class_ids = class_allocations.values_list('class_enrolled_id', flat=True).distinct()
         classes = Class.objects.filter(course_id=course.id, class_id__in=class_ids).order_by("-session")
     else:
         classes = Class.objects.filter(course_id=course.id).order_by("-session")
