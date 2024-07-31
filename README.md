@@ -4,7 +4,7 @@ Feature-rich learning management system. You may want to build a learning manage
 
 Let's enhance the project by contributing! 👩‍💻👩‍💻
 
-![Screenshot from 2023-12-31 17-36-31](https://github.com/adilmohak/django-lms/assets/60693922/e7fb628a-6275-4160-ae0f-ab27099ab3ca)
+![Screenshot from 2023-12-31 17-36-31]([https://github.com/adilmohak/django-lms/assets/60693922/e7fb628a-6275-4160-ae0f-ab27099ab3ca](https://github.com/mnymkr/django-lms/blob/main/templates/Django_homepage.png)
 
 ## Current features
 
@@ -28,6 +28,7 @@ Let's enhance the project by contributing! 👩‍💻👩‍💻
 - Previous quiz scores can be viewed on the category page
 - Correct answers can be shown after each question or all at once at the end
 - Logged-in users can return to an incomplete quiz to finish it and non-logged-in users can complete a quiz if their session persists
+- Logged-in users can only view courses and classes that they are assigned to
 - The quiz can be limited to one attempt per user
 - Questions can be given a category
 - Success rate for each category can be monitored on a progress page
@@ -39,6 +40,8 @@ Let's enhance the project by contributing! 👩‍💻👩‍💻
 - Custom message displayed for those that pass or fail a quiz
 - Custom permission (view_settings) added, allowing users with that permission to view quiz results from users
 - A marking page which lists completed quizzes, can be filtered by quiz or user, and is used to mark essay questions
+- A class allocation to allocate lecturers to classes in a course
+- A course management to manage the students' enrollment status 
 
 # Quick note for future contributors
 
@@ -110,7 +113,7 @@ Start the celery worker
 celery -A config.celery worker -l INFO
 ```
 
-Last but not least, go to this address http://127.0.0.1:8000
+Last but not least, go to this address http://127.0.0.1:8000 or http://localhost:8000 or http://<your_domain>:8000
 
 ### References
 
@@ -119,16 +122,16 @@ Last but not least, go to this address http://127.0.0.1:8000
 # Connect with me
 
 <div>
-<a href="https://www.linkedin.com/in/adilmohak" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
-</a>
-<a href="https://github.com/adilmohak" target="_blank">
+<a href="https://github.com/mnymkr" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
 </a>
-<a href="https://stackoverflow.com/users/12872688/adil-mohak" target="_blank">
-<img src=https://img.shields.io/badge/stackoverflow-%23F28032.svg?&style=for-the-badge&logo=stackoverflow&logoColor=white alt=stackoverflow style="margin-bottom: 5px;" />
+<a href="https://github.com/HoanNhi" target="_blank">
+<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
 </a>
-<a href="https://www.facebook.com/adilmohak1" target="_blank">
+<a href="https://www.facebook.com/thomastran263/" target="_blank">
+<img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
+</a>
+<a href="https://www.facebook.com/thomastran263/" target="_blank">
 <img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
 </a>
 </div>
