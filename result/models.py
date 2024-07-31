@@ -95,6 +95,7 @@ class TakenCourse(models.Model):
     grade = models.CharField(choices=GRADE, max_length=2, blank=True)
     point = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     comment = models.CharField(choices=COMMENT, max_length=200, blank=True)
+    maximum_point_possible = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     def get_absolute_url(self):
         return reverse("course_detail", kwargs={"slug": self.course.slug})
@@ -117,6 +118,10 @@ class TakenCourse(models.Model):
         # total = float(assignment) + float(mid_exam) + float(quiz) + float(attendance) + float(final_exam)
         # total = self.get_total(assignment=assignment, mid_exam=mid_exam, quiz=quiz, attendance=attendance, final_exam=final_exam)
         # total = total
+        # try:
+        #     percentage = (total / max_point) * 100
+        # except ZeroDivisionError:
+        #     percentage = 0
         if total >= 90:
             grade = A_PLUS
         elif total >= 85:

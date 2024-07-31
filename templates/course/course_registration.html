@@ -62,7 +62,7 @@
                             {% if course.semester == "First" %}
                             <tr>
                                 <th scope="row">
-                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox" 
+                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox"
                                            form="course_registration" required>
                                 </th>
                                 <td>{{ course.code }}</td>
@@ -138,7 +138,7 @@
                             {% if course.semester == "Second" %}
                             <tr>
                                 <th scope="row">
-                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox" 
+                                    <input name="course_{{ course.pk }}" value="{{ course.pk }}" type="checkbox"
                                            form="course_registration" required>
                                 </th>
                                 <td>{{ course.code }}</td>
@@ -248,7 +248,8 @@
                                 <th>Cr.Hr(s)</th>
                                 <th>Year</th>
                                 <th>Classification</th>
-                                <th>Elective Group</th>
+{#                                <th>Elective Group</th>#}
+                                <th>Class</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -266,7 +267,15 @@
                                 {% else %}
                                 <td>Core</td>
                                 {% endif %}
-                                <th>-</th>
+                                {% for cls in registered_classes %}
+                                    {% if cls.course.id == course.pk %}
+                                        <td>{{ cls.class_session }}</td>
+                                    {% else %}
+                                        <td>-</td>
+                                    {% endif %}
+                                {% endfor %}
+
+{#                                <th>-</th>#}
                             </tr>
                             {% empty %}
                             <tr>

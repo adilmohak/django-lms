@@ -17,6 +17,7 @@ def post_save_account_receiver(sender, instance=None, created=False, *args, **kw
 
         if instance.is_lecturer:
             username, password = generate_lecturer_credentials()
+            print(username)
             instance.username = username
             instance.set_password(password)
             instance.save()

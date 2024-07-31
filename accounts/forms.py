@@ -115,6 +115,7 @@ class StaffAddForm(UserCreationForm):
         user.email = self.cleaned_data.get("email")
 
         if commit:
+            print(user)
             user.save()
 
         return user
@@ -343,6 +344,37 @@ class ProfileUpdateForm(UserChangeForm):
             "address",
             "picture",
         ]
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('instance', None)
+        super(ProfileUpdateForm, self).__init__(*args, **kwargs)
+        print(user)
+        if user and user.is_superuser:
+            self.fields['program'] = forms.ModelChoiceField(
+                queryset=Program.objects.all(),
+                widget=forms.Select(
+                    attrs={"class": "browser-default custom-select form-control"}
+                ),
+                required=False,
+                label="Program",
+            )
+        else:
+            self.fields['program'] = forms.ModelChoiceField(
+                queryset=Program.objects.all(),
+                widget=forms.Select(
+                    attrs={"class": "browser-default custom-select form-control"}
+                ),
+                required=True,
+                label="Program",
+            )
+
+    def save(self, commit=True):
+        user = super(ProfileUpdateForm, self).save(commit=False)
+        if 'program' in self.cleaned_data:
+            user.program = self.cleaned_data['program']
+        if commit:
+            user.save()
+        return user
 
 
 class ProgramUpdateForm(UserChangeForm):

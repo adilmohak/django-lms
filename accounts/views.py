@@ -231,6 +231,7 @@ def profile_update(request):
             messages.success(request, "Your profile has been updated successfully.")
             return redirect("profile")
         else:
+            print(form.errors)
             messages.error(request, "Please correct the error(s) below.")
     else:
         form = ProfileUpdateForm(instance=request.user)

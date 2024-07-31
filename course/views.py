@@ -317,8 +317,8 @@ class ClassAllocationFilterView(FilterView):
         return context
 
 
-def class_add(request, pk):
-    course = get_object_or_404(Course, pk=pk)
+def class_add(request, slug):
+    course = get_object_or_404(Course, slug=slug)
     if request.method == "POST":
         form = ClassAddForm(request.POST)
         if form.is_valid():
@@ -682,10 +682,13 @@ def course_registration(request):
         # student = Student.objects.get(student__pk=request.user.id)
         student = get_object_or_404(Student, student__id=request.user.id)
         taken_courses = TakenCourse.objects.filter(student__student__id=request.user.id)
+        taken_classes = Enrollment.objects.filter(student__student__id=request.user.id)
         t = ()
+        c = ()
         for i in taken_courses:
             t += (i.course.pk,)
-
+        for i in taken_classes:
+            c += (i.class_enrolled.class_id,)
         courses = (
             Course.objects.filter(
                 program__pk=student.program.id,
@@ -709,6 +712,10 @@ def course_registration(request):
         all_courses_are_registered = False
 
         registered_courses = Course.objects.filter(level=student.level).filter(id__in=t)
+        registered_classes = Class.objects.filter(class_id__in = c)
+        course_class_maps = {}
+        for cls in registered_classes:
+            course_class_maps[cls.course.id] = cls.class_id
         if (
             registered_courses.count() == 0
         ):  # Check if number of registered courses is 0
@@ -739,6 +746,7 @@ def course_registration(request):
             "total_registered_credit": total_registered_credit,
             "student": student,
             "classes": classes,
+            "registered_classes": registered_classes
         }
         print(no_course_is_registered)
         return render(request, "course/course_registration.html", context)

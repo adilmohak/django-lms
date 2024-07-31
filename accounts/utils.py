@@ -18,6 +18,7 @@ def generate_lecturer_id():
     # Generate a username based on first and last name and registration date
     registered_year = datetime.now().strftime("%Y")
     lecturers_count = get_user_model().objects.filter(is_lecturer=True).count()
+    print(f"{settings.LECTURER_ID_PREFIX}-{registered_year}-{lecturers_count}")
     return f"{settings.LECTURER_ID_PREFIX}-{registered_year}-{lecturers_count}"
 
 
