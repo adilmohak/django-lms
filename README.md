@@ -4,7 +4,7 @@ Feature-rich learning management system. You may want to build a learning manage
 
 Let's enhance the project by contributing! 👩‍💻👩‍💻
 
-![Screenshot from 2023-12-31 17-36-31](https://github.com/mnymkr/django-lms/blob/main/templates/Django_homepage.png)
+![Screenshot from 2024-07-31 23:14 UTC+07](https://github.com/mnymkr/django-lms/blob/main/templates/Django_homepage.png)
 
 ## Current features
 
