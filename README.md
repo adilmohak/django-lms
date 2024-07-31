@@ -120,15 +120,22 @@ Last but not least, go to this address http://127.0.0.1:8000 or http://localhost
 - Quiz part: https://github.com/tomwalker/django_quiz
 
 # Connect with me
-
 <div>
-<a href="https://github.com/mnymkr" target="_blank">
+<a href="https://www.linkedin.com/in/adilmohak" target="_blank">
+<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
+</a>
+<a href="https://github.com/adilmohak" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
 </a>
-<a href="https://github.com/HoanNhi" target="_blank">
-<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
+<a href="https://stackoverflow.com/users/12872688/adil-mohak" target="_blank">
+<img src=https://img.shields.io/badge/stackoverflow-%23F28032.svg?&style=for-the-badge&logo=stackoverflow&logoColor=white alt=stackoverflow style="margin-bottom: 5px;" />
 </a>
-<a href="https://www.facebook.com/thomastran263/" target="_blank">
+<a href="https://www.facebook.com/adilmohak1" target="_blank">
 <img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
 </a>
 </div>
+### Help me improve the project and upgrade my trusty old laptop
+
+<p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="adilmohak" /></a></p><br><br>
+
+#### Show your support by ⭐️ this project!
