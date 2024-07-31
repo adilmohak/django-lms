@@ -134,6 +134,7 @@ Last but not least, go to this address http://127.0.0.1:8000 or http://localhost
 <img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
 </a>
 </div>
+
 ### Help me improve the project and upgrade my trusty old laptop
 
 <p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="adilmohak" /></a></p><br><br>
