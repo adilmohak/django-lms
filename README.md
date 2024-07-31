@@ -131,9 +131,6 @@ Last but not least, go to this address http://127.0.0.1:8000 or http://localhost
 <a href="https://www.facebook.com/thomastran263/" target="_blank">
 <img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
 </a>
-<a href="https://www.facebook.com/thomastran263/" target="_blank">
-<img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
-</a>
 </div>
 
 ### Help me improve the project and upgrade my trusty old laptop
