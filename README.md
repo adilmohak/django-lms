@@ -96,9 +96,27 @@ celery -A config.celery worker -l INFO
 
 Last but not least, go to this address http://127.0.0.1:8000
 
-### References
+# References
 
 - Quiz part: https://github.com/tomwalker/django_quiz
+
+# Professional help
+
+<a href="https://adilmohak.github.io/dj-lms-starter/" style="display: flex; background-color: #ddd; border-radius: 8px; color: #000; padding: 20px;">
+    <div>
+        <h4 style="margin-top: 0; font-size: 32px;">Need professional help?</h4>
+        <div style="display: flex; text-align: center; justify-content: center; border-radius: 8px; padding: 14px; background-color: #FFC530; border: 1px solid #000; font-size: 18px;">Learn more</div>
+    </div>
+    <ul>
+        <li>Step-by-Step Guide</li>
+        <li>Installation and Setup</li>
+        <li>Custom Development</li>
+        <li>Support and Maintenance</li>
+        <li>Performance Optimization</li>
+        <li>...And much more</li>
+    </ul>
+</a>
+<br>
 
 # Connect with me
 
@@ -119,6 +137,6 @@ Last but not least, go to this address http://127.0.0.1:8000
 
 ### Help me improve the project and upgrade my trusty old laptop
 
-<p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="adilmohak" /></a></p><br><br>
+<p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="36" width="160" alt="adilmohak" /></a></p><br><br>
 
 #### Show your support by ⭐️ this project!

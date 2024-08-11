@@ -149,3 +149,4 @@ media/result_sheet/*
 
 # Custom
 dump.rdb
+*.DS_Store
