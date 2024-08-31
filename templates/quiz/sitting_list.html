@@ -18,7 +18,7 @@
 {% for student in students %}<h3>{{ student.student.user.get_full_name }}</h3>{% endfor %}
 {% for marking in marking_list %}<h3>{{ marking }} <small>{{ forloop.counter }}</small></h3>{% endfor %}
 
-<form action="" method="GET" class="form-inline justify-content-center bg-white p-4 my-3">
+<form action="" method="GET" class="form-inline justify-content-center bg-white p-4 my-3 d-flex gap-3">
 	<input type="text" name="user_filter" class="form-control" placeholder="User" value="{{ request.GET.user_filter }}">
 	<input type="text" name="quiz_filter" class="form-control" placeholder="Quiz" value="{{ request.GET.quiz_filter }}">
 	<button type="submit" class="btn btn-outline-secondary">{% trans "Filter"%}</button>

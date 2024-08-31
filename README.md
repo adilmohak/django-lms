@@ -49,7 +49,6 @@ If you would like to contribute, simply begin by implementing one from the list 
 > The following programs are required to run the project
 
 - [Python3.8+](https://www.python.org/downloads/)
-- [PostgreSQL database](https://www.postgresql.org/download/)
 - [Redis](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
 
 # Installation
