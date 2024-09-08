@@ -4,7 +4,7 @@
 
 ### Access credentials:
   - username: **admin**
-  - password: **securetest@123**
+  - password: **secure@test**
 
 ## Click here [if you need updates or additional features](https://adilmohak.github.io/dj-lms-starter/)
 
