@@ -7,7 +7,7 @@ class LecturerFilter(django_filters.FilterSet):
     username = django_filters.CharFilter(lookup_expr="exact", label="")
     name = django_filters.CharFilter(method="filter_by_name", label="")
     email = django_filters.CharFilter(lookup_expr="icontains", label="")
-    
+
     class Meta:
         model = User
         fields = ["username", "email"]
@@ -43,7 +43,7 @@ class StudentFilter(django_filters.FilterSet):
         field_name="student__email", lookup_expr="icontains", label=""
     )
     program = django_filters.CharFilter(
-        field_name="student__program", lookup_expr="icontains", label=""
+        field_name="program__title", lookup_expr="icontains", label=""
     )
 
     class Meta:
