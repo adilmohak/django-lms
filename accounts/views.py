@@ -296,7 +296,7 @@ def staff_add_view(request):
                 + last_name
                 + " has been created. An email with account credentials will be sent to "
                 + email
-                + " within a minute",
+                + " within a minute.",
             )
             return redirect("lecturer_list")
     else:
@@ -400,11 +400,18 @@ def student_add_view(request):
         form = StudentAddForm(request.POST)
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
         if form.is_valid():
             form.save()
             messages.success(
                 request,
-                "Account for " + first_name + " " + last_name + " has been created.",
+                "Account for "
+                + first_name
+                + " "
+                + last_name
+                + " has been created. An email with account credentials will be sent to "
+                + email
+                + " within a minute.",
             )
             return redirect("student_list")
         else:
