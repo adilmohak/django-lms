@@ -8,7 +8,6 @@ from django.views.generic import (
     TemplateView,
     FormView,
     CreateView,
-    FormView,
     UpdateView,
 )
 from django.contrib import messages
