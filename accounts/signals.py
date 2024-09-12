@@ -1,5 +1,8 @@
-from .tasks import send_new_student_email, send_new_lecturer_email
-from .utils import generate_student_credentials, generate_lecturer_credentials
+from .utils import (
+    generate_student_credentials,
+    generate_lecturer_credentials,
+    send_new_account_email,
+)
 
 
 def post_save_account_receiver(sender, instance=None, created=False, *args, **kwargs):
@@ -13,7 +16,7 @@ def post_save_account_receiver(sender, instance=None, created=False, *args, **kw
             instance.set_password(password)
             instance.save()
             # Send email with the generated credentials
-            send_new_student_email.delay(instance.pk, password)
+            send_new_account_email(instance, password)
 
         if instance.is_lecturer:
             username, password = generate_lecturer_credentials()
@@ -21,4 +24,4 @@ def post_save_account_receiver(sender, instance=None, created=False, *args, **kw
             instance.set_password(password)
             instance.save()
             # Send email with the generated credentials
-            send_new_lecturer_email.delay(instance.pk, password)
+            send_new_account_email(instance, password)

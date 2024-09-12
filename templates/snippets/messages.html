@@ -2,16 +2,16 @@
 {% if messages %}
     {% for message in messages %}
         {% if message.tags == 'error' %}
-            <div class="alert py-2 alert-danger">
-                <i class="fas fa-exclamation-circle me-2"></i>{{ message }}
+            <div class="alert py-2 alert-danger d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-2" style="min-width: 35px;"></i><span>{{ message }}</span>
             </div>
         {% elif message.tags == 'warning' %}
-            <div class="alert py-2 alert-warning">
-                <i class="fas fa-exclamation-circle me-2"></i>{{ message }}
+            <div class="alert py-2 alert-warning d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-2" style="min-width: 35px;"></i><span>{{ message }}</span>
             </div>
         {% else %}
-            <div class="alert py-2 alert-success">
-                <i class="fas fa-check-circle me-2"></i>{{ message }}
+            <div class="alert py-2 alert-success d-flex align-items-center">
+                <i class="fas fa-check-circle me-2" style="min-width: 35px;"></i><span>{{ message }}</span>
             </div>
         {% endif %}
     {% endfor %}

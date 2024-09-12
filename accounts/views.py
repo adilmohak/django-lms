@@ -283,6 +283,7 @@ def staff_add_view(request):
         form = StaffAddForm(request.POST)
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
 
         if form.is_valid():
 
@@ -293,7 +294,9 @@ def staff_add_view(request):
                 + first_name
                 + " "
                 + last_name
-                + " has been created.",
+                + " has been created. An email with account credentials will be sent to "
+                + email
+                + " within a minute",
             )
             return redirect("lecturer_list")
     else:
