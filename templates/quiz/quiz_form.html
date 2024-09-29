@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
         <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
         <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">Quizzes</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Quiz Form</li>
+        <li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">{% trans 'Quizzes' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Quiz Form' %}</li>
     </ol>
 </nav>
 
-<div class="title-1">Quiz form for {{ course|truncatechars:15 }}</div>
+<div class="title-1">{% trans 'Quiz form for' %} {{ course|truncatechars:15 }}</div>
 <br><br>
 
 <div class="container">
@@ -51,7 +52,7 @@
                         <div hidden>
                             <label for="questions">{{ form.questions.label }}</label><br> {{ form.questions }}
                             <span class="danger">{{ form.questions.errors }}</span>
-                            <small class="d-block text-muted">Hold down "Control", or "Command" on a Mac, to select more than one.</small>
+                            <small class="d-block text-muted">{% trans 'Hold down' %} "Control", {% trans 'or' %} "Command" {% trans 'on a Mac, to select more than one.' %}</small>
                         </div>
                         {{ form.random_order|as_crispy_field }}                    
                         {{ form.answers_at_end|as_crispy_field }}                    
@@ -62,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">Save &amp; Continue</button>
+        <button class="btn btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">{% trans 'Save' %} &amp; {% trans 'Continue' %}</button>
     </form>
 </div>
 

@@ -1,4 +1,5 @@
 {% block content %}
+{% load i18n %}
 
 <style>
 .user-picture {
@@ -37,8 +38,8 @@ table .info{
             </td>
             <td class="info">
                 <p>{{ user.get_full_name|title }}</p>
-                <p><strong>Last login:</strong> {{ user.last_login|date }}</p>
-                <p><strong>Role:</strong> {{ user.get_user_role }}</p>
+                <p><strong>{% trans 'Last login:' %}</strong> {{ user.last_login|date }}</p>
+                <p><strong>{% trans 'Role:' %}</strong> {{ user.get_user_role }}</p>
             </td>
         </tr>
     </table>
@@ -48,7 +49,7 @@ table .info{
   <div class="card">
     <div class="card-body">
       {% if user.is_lecturer %}
-      <p class="h5">My Courses</p>
+      <p class="h5">{% trans 'My Courses' %}</p>
       {% if courses %}
       <ul class="list-group">
         {% for course in courses %}
@@ -56,43 +57,43 @@ table .info{
         {% endfor %}
       </ul>
       {% else %}
-      <div class="text-danger">No courses assigned!</div>
+      <div class="text-danger">{% trans 'No courses assigned!' %}</div>
       {% endif %}
       <hr class="my-0">
       {% endif %}
 
-      <p class="h5">Personal Info</p>
+      <p class="h5">{% trans 'Personal Info' %}</p>
       <div class="dashboard-description">
-        <p><strong>First Name:</strong> {{ user.first_name|title }}</p>
-        <p><strong>Last Name:</strong> {{ user.last_name|title }}</p>
-        <p><strong>ID No.:</strong> {{ user.username }}</p>
+        <p><strong>{% trans 'First Name:' %}</strong> {{ user.first_name|title }}</p>
+        <p><strong>{% trans 'Last Name:' %}</strong> {{ user.last_name|title }}</p>
+        <p><strong>{% trans 'ID No.:' %}</strong> {{ user.username }}</p>
       </div>
 
       {% if user.is_student %}
       <hr>
-      <p class="h5">Applicant Info</p>
+      <p class="h5">{% trans 'Applicant Info' %}</p>
       <div class="dashboard-description">
-        <p><strong>School:</strong> Hawas Preparatory School</p>
-        <p><strong>Level:</strong> {{ level.level }}</p>
+        <p><strong>{% trans 'School:' %}</strong>{% trans 'Hawas Preparatory School' %}</p>
+        <p><strong>{% trans 'Level:' %}</strong> {{ level.level }}</p>
       </div>
       {% endif %}
 
       <hr>
-      <p class="h5">Contact Info</p>
+      <p class="h5">{% trans 'Contact Info' %}</p>
       <div class="dashboard-description">
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Tel No.:</strong> {{ user.phone }}</p>
-        <p><strong>Address/city:</strong> {{ user.address }}</p>
+        <p><strong>{% trans 'Email:' %}</strong> {{ user.email }}</p>
+        <p><strong>{% trans 'Tel No.:' %}</strong> {{ user.phone }}</p>
+        <p><strong>{% trans 'Address/city:' %}</strong> {{ user.address }}</p>
       </div>
 
       <hr>
-      <p class="h5">Important Dates</p>
+      <p class="h5">{% trans 'Important Dates' %}</p>
       <div class="dashboard-description">
-        <p><strong>Last login:</strong> {{ user.last_login }}</p>
+        <p><strong>{% trans 'Last login:' %}</strong> {{ user.last_login }}</p>
         {% if current_semester and current_session %}
-        <p><strong>Academic Year:</strong> {{ current_semester }} Semester {{ current_session }}</p>
+        <p><strong>{% trans 'Academic Year:' %}</strong> {{ current_semester }} {% trans 'Semester' %} {{ current_session }}</p>
         {% endif %}
-        <p><strong>Registered Date:</strong> {{ user.date_joined|date }}</p>
+        <p><strong>{% trans 'Registered Date:' %}</strong> {{ user.date_joined|date }}</p>
       </div>
     </div>
   </div>

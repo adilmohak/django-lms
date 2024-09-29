@@ -3,15 +3,23 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views import defaults as default_views
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import JavaScriptCatalog
 
 admin.site.site_header = "Dj-LMS Admin"
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
+]
+
+urlpatterns += i18n_patterns(
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
+    path("", include("core.urls")),
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
     path(
         "jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
     ),  # Django JET dashboard URLS
-    path("", include("core.urls")),
     path("accounts/", include("accounts.urls")),
     path("programs/", include("course.urls")),
     path("result/", include("result.urls")),
@@ -19,8 +27,8 @@ urlpatterns = [
     path("quiz/", include("quiz.urls")),
     path("payments/", include("payments.urls")),
     path("accounts/api/", include("accounts.api.urls", namespace="accounts-api")),
-    path("admin/", admin.site.urls),
-]
+)
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,4 +1,5 @@
 {% block content %}
+{% load i18n %}
 <style>
   .table {
     width: 100%;
@@ -31,18 +32,18 @@
 
 </style>
 
-<p class="title-1">Lecturers</p>
+<p class="title-1">{% trans 'Lecturers' %}</p>
 
 <div>
   <table class="table">
     <thead>
       <tr>
         <th>#</th>
-        <th>ID No.</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Mob No.</th>
-        <th>Address/City</th>
+        <th>{% trans 'ID No.' %}</th>
+        <th>{% trans 'Full Name' %}</th>
+        <th>{% trans 'Email' %}</th>
+        <th>{% trans 'Mob No.' %}</th>
+        <th>{% trans 'Address/City' %}</th>
       </tr>
     </thead>
     <tbody>
@@ -59,7 +60,7 @@
       <tr>
         <td>
           <span class="text-danger">
-            No Lecturer(s).
+            {% trans 'No Lecturer(s).' %}
           </span>
         </td>
       </tr>

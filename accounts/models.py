@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
-
+from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from PIL import Image
 
@@ -11,31 +11,31 @@ from .validators import ASCIIUsernameValidator
 
 
 # LEVEL_COURSE = "Level course"
-BACHELOR_DEGREE = "Bachelor"
-MASTER_DEGREE = "Master"
+BACHELOR_DEGREE = _("Bachelor")
+MASTER_DEGREE = _("Master")
 
 LEVEL = (
     # (LEVEL_COURSE, "Level course"),
-    (BACHELOR_DEGREE, "Bachelor Degree"),
-    (MASTER_DEGREE, "Master Degree"),
+    (BACHELOR_DEGREE, _("Bachelor Degree")),
+    (MASTER_DEGREE, _("Master Degree")),
 )
 
-FATHER = "Father"
-MOTHER = "Mother"
-BROTHER = "Brother"
-SISTER = "Sister"
-GRAND_MOTHER = "Grand mother"
-GRAND_FATHER = "Grand father"
-OTHER = "Other"
+FATHER = _("Father")
+MOTHER = _("Mother")
+BROTHER = _("Brother")
+SISTER = _("Sister")
+GRAND_MOTHER = _("Grand mother")
+GRAND_FATHER = _("Grand father")
+OTHER = _("Other")
 
 RELATION_SHIP = (
-    (FATHER, "Father"),
-    (MOTHER, "Mother"),
-    (BROTHER, "Brother"),
-    (SISTER, "Sister"),
-    (GRAND_MOTHER, "Grand mother"),
-    (GRAND_FATHER, "Grand father"),
-    (OTHER, "Other"),
+    (FATHER, _("Father")),
+    (MOTHER, _("Mother")),
+    (BROTHER, _("Brother")),
+    (SISTER, _("Sister")),
+    (GRAND_MOTHER, _("Grand mother")),
+    (GRAND_FATHER, _("Grand father")),
+    (OTHER, _("Other")),
 )
 
 
@@ -64,7 +64,7 @@ class CustomUserManager(UserManager):
         return self.model.objects.filter(is_superuser=True).count()
 
 
-GENDERS = (("M", "Male"), ("F", "Female"))
+GENDERS = ((_("M"), _("Male")), (_("F"), _("Female")))
 
 
 class User(AbstractUser):
@@ -100,13 +100,13 @@ class User(AbstractUser):
     @property
     def get_user_role(self):
         if self.is_superuser:
-            role = "Admin"
+            role = _("Admin")
         elif self.is_student:
-            role = "Student"
+            role = _("Student")
         elif self.is_lecturer:
-            role = "Lecturer"
+            role = _("Lecturer")
         elif self.is_parent:
-            role = "Parent"
+            role = _("Parent")
 
         return role
 

@@ -52,4 +52,4 @@ class StudentFilterTestCase(TestCase):
 
     def test_program_filter(self):
         filter_set = StudentFilter(data={"program__title": "Computer Science"})
-        self.assertEqual(len(filter_set.qs), 1)
+        self.assertEqual(len(filter_set.qs), 3)

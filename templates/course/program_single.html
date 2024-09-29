@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
-{% block title %} {{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %} {{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load static %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ program.title }}</li>
     </ol>
 </nav>
 
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
-    <a class="btn btn-sm btn-primary" href="{% url 'course_add' pk=program.pk %}"><i class="fas fa-plus"></i>Add
-        Course</a>
+    <a class="btn btn-sm btn-primary" href="{% url 'course_add' pk=program.pk %}"><i class="fas fa-plus"></i>{% trans 'Add Course' %}</a>
 </div>
 {% endif %}
 
@@ -36,15 +36,15 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th> Course Name </th>
-                    <th> Course Code </th>
-                    <th> Cr.Hr </th>
-                    <th> Level </th>
-                    <th> Year </th>
-                    <th> Semester </th>
-                    <th> Current Semester </th>
+                    <th> {% trans 'Course Name' %} </th>
+                    <th> {% trans 'Course Code' %} </th>
+                    <th> {% trans 'Cr.Hr' %} </th>
+                    <th> {% trans 'Level' %} </th>
+                    <th> {% trans 'Year' %} </th>
+                    <th> {% trans 'Semester' %} </th>
+                    <th> {% trans 'Current Semester' %} </th>
                     {% if request.user.is_superuser %}
-                    <th>Action</th>
+                    <th>{% trans 'Action' %}</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -75,10 +75,10 @@
                             </button>
                             <div class="dropdown-menu position-fixed">
                                 <a class="dropdown-item" href="{% url 'edit_course' slug=course.slug %}">
-                                    <i class="fas fa-pencil-alt"></i> Edit
+                                    <i class="fas fa-pencil-alt"></i> {% trans 'Edit' %}
                                 </a>
                                 <a class="dropdown-item" href="{% url 'delete_course' slug=course.slug %}">
-                                    <i class="fas fa-trash-alt"></i> Delete
+                                    <i class="fas fa-trash-alt"></i> {% trans 'Delete' %}
                                 </a>
                             </div>
                         </div>
@@ -89,11 +89,11 @@
                 <tr>
                   <td colspan="9">
                   <span class="text-danger">
-                    No course for this progrm.
+                    {% trans 'No course for this progrm.' %}
                     {% if request.user.is_superuser %}
                     <a href="{% url 'course_add' pk=program.pk %}">
                     <i class="primary" style="font-size: 22px;">
-                       Add one now.
+                        {% trans 'Add one now.' %}
                     </i>
                     {% endif %}
                     </a>

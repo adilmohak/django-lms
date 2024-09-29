@@ -35,6 +35,7 @@ AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 DJANGO_APPS = [
+    "modeltranslation",  # Translation
     "jet.dashboard",
     "jet",
     "django.contrib.admin",
@@ -75,6 +76,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # whitenoise to serve static files
 ]
 
@@ -140,6 +142,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+gettext = lambda s: s
+
+LANGUAGES = (
+    ("en", gettext("English")),
+    ("fr", gettext("French")),
+    ("es", gettext("Spanish")),
+    ("ru", gettext("Russia")),
+)
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"

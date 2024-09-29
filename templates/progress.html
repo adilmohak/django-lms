@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} {% trans "Progress Page" %} | Learning management system {% endblock %}
+{% block title %} {% trans "Progress Page" %} | {% trans 'Learning management system' %} {% endblock %}
 {% block description %} {% trans "User Progress Page" %} {% endblock %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Progress Page</li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Progress Page' %}</li>
     </ol>
 </nav>
 
@@ -57,7 +57,7 @@
   <p class="lead text-muted">
 	{% trans "Below are the results of exams that you have sat." %}
   </p>
-  <div class="info-text bg-danger mb-2">Total complete exams: {{ exams_counter }}</div>
+  <div class="info-text bg-danger mb-2">{% trans 'Total complete exams:' %} {{ exams_counter }}</div>
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
 
@@ -67,7 +67,7 @@
 		<th>{% trans "Quiz Title" %}</th>
 		<th>{% trans "Score" %}</th>
 		<th>{% trans "Possible Score" %}</th>
-		<th>Out of 100%</th>
+		<th>{% trans 'Out of 100%' %}</th>
 	  </tr>
 	</thead>
 
@@ -91,7 +91,7 @@
 </div>
   {% endif %}
   {% if not cat_scores and not exams %}
- 	<div class="col-12 p-4 text-center"><h3><i class="far fa-frown"></i></h3> No recordes yet. Try to do some quizzes in your course.</div> 
+ 	<div class="col-12 p-4 text-center"><h3><i class="far fa-frown"></i></h3> {% trans 'No recordes yet. Try to do some quizzes in your course.' %}</div> 
   {% endif %}
 
 {% endblock %}

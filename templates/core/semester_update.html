@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load crispy_forms_tags %}
 {% load static %}
 
@@ -7,9 +8,9 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item"><a href="{% url 'semester_list' %}">Semester List</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Semester Form</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'semester_list' %}">{% trans 'Semester List' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Semester Form' %}</li>
     </ol>
 </nav>
 
@@ -30,11 +31,11 @@
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div class="card pb-3">
-            <p class="form-title">Semester Add & update Form</p>
+            <p class="form-title">{% trans 'Semester Add & update Form' %}</p>
             <div class="container"><br>
                 <form action="" method="POST">{% csrf_token %}
                     {{ form|crispy }}
-                    <input class="btn btn-primary" type="submit" value="Save">
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}">
                 </form>
             </div>
         </div>

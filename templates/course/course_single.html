@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load static %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'programs' %}">Programs</a></li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
         <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ course }}</li>
     </ol>
@@ -18,21 +19,21 @@
         <div class="">
             {% if request.user.is_superuser %}
             <a class="btn btn-sm btn-light" href="{% url 'edit_course' course.slug %}">
-                <i class="fas fa-pencil-alt"></i> Edit course
+                <i class="fas fa-pencil-alt"></i> {% trans 'Edit course' %}
             </a>
             {% endif %}
             {% if request.user.is_superuser or request.user.is_lecturer %}
             <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
-                Upload new file
+                {% trans 'Upload new file' %}
             </a>
             <a class="btn btn-sm btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
-                Upload new video
+                {% trans 'Upload new video' %}
             </a>
             {% endif %}
         </div>
         <div class="ms-auto">
             <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
-                Take a Quiz
+                {% trans 'Take a Quiz' %}
             </a>
         </div>
     </div>
@@ -47,17 +48,17 @@
 
     <div class="row mb-5">
         <div class="col-md-12 p-0">
-            <p class="form-title m-0">Video Tutorials</p>
+            <p class="form-title m-0">{% trans 'Video Tutorials' %}</p>
             <div class="table-responsive">
                 <table class="table table-shadow table-light table-striped m-0">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Video Title</th>
-                            <th>Uploaded Date</th>
-                            <th>Get Started</th>
+                            <th>{% trans 'Video Title' %}</th>
+                            <th>{% trans 'Uploaded Date' %}</th>
+                            <th>{% trans 'Get Started' %}</th>
                             {% if request.user.is_superuser or request.user.is_lecturer %}
-                            <th>Actions</th>
+                            <th>{% trans 'Actions' %}</th>
                             {% endif %}
                         </tr>
                     </thead>
@@ -75,7 +76,7 @@
                                 <div>
                                     <a class="download-btn" href="{{ video.get_absolute_url }}"
                                         title="Download to your device">
-                                        <i class="fas fa-play me-1"></i>Play now</a>
+                                        <i class="fas fa-play me-1"></i>{% trans 'Play now' %}</a>
                                 </div>
                             </th>
 
@@ -83,11 +84,11 @@
                             <td>
                                 <div class="update-delete">
                                     <a href="{% url 'upload_video_edit' slug=course.slug video_slug=video.slug %}"
-                                        class="update" title="Edit">
+                                        class="update" title="{% trans 'Edit' %}">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     <a href="{% url 'upload_video_delete' slug=course.slug video_slug=video.slug %}"
-                                        class="delete" title="Delete">
+                                        class="delete" title="{% trans 'Delete' %}">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -100,11 +101,11 @@
                             <td></td>
                             <td>
                                 <span class="text-danger">
-                                    No video Uploaded.
+                                    {% trans 'No video Uploaded.' %}
                                     {% if request.user.is_superuser or request.user.is_lecturer %}
                                     <a href="{% url 'upload_video' course.slug %}">
                                         <i class="primary" style="font-size: 22px;">
-                                            Upload now.
+                                            {% trans 'Upload now.' %}
                                         </i>
                                         {% endif %}
                                     </a>
@@ -123,18 +124,18 @@
 
     <div class="row">
         <div class="col-md-12 p-0">
-            <p class="form-title m-0">Documentations</p>
+            <p class="form-title m-0">{% trans 'Documentations' %}</p>
             <div class="table-responsive">
                 <table class="table table-shadow table-light table-striped m-0">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>File name</th>
-                            <th>Uploaded Date</th>
-                            <th>Updated Date</th>
-                            <th>Downloads</th>
+                            <th>{% trans 'File name' %}</th>
+                            <th>{% trans 'Uploaded Date' %}</th>
+                            <th>{% trans 'Updated Date' %}</th>
+                            <th>{% trans 'Downloads' %}</th>
                             {% if request.user.is_superuser or request.user.is_lecturer %}
-                            <th>Actions</th>
+                            <th>{% trans 'Actions' %}</th>
                             {% endif %}
                         </tr>
                     </thead>
@@ -152,7 +153,7 @@
                             <th>
                                 <div>
                                     <a class="download-btn" href="{{ file.file.url }}" title="Download to your device">
-                                        <i class="fas fa-download me-1"></i>Download</a>
+                                        <i class="fas fa-download me-1"></i>{% trans 'Download' %}</a>
                                 </div>
                             </th>
 
@@ -160,11 +161,11 @@
                             <td>
                                 <div class="update-delete">
                                     <a href="{% url 'upload_file_edit' slug=course.slug file_id=file.pk %}"
-                                        class="update" title="Edit">
+                                        class="update" title="{% trans 'Edit' %}">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     <a href="{% url 'upload_file_delete' slug=course.slug file_id=file.pk %}"
-                                        class="delete" title="Delete">
+                                        class="delete" title="{% trans 'Delete' %}">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -177,11 +178,11 @@
                             <td></td>
                             <td>
                                 <span class="text-danger">
-                                    No File Uploaded.
+                                    {% trans 'No File Uploaded.' %}
                                     {% if request.user.is_superuser or request.user.is_lecturer %}
                                     <a href="{% url 'upload_file_view' course.slug %}">
                                         <i class="primary" style="font-size: 22px;">
-                                            Upload now.
+                                            {% trans 'Upload now.' %}
                                         </i>
                                         {% endif %}
                                     </a>
@@ -201,7 +202,7 @@
 </div>
 
 <div class="site-section mb-5 mt-4">
-    <div class="title-1">Lecturer(s)</div>
+    <div class="title-1">{% trans 'Lecturer(s)' %}</div>
     <br>
     <br>
     <div class="container-fluid">
@@ -228,7 +229,7 @@
                 </div>
             </div>
             {% empty %}
-            <h6 class="text-muted mt-3">No lecturer assigned for this course</h6>
+            <h6 class="text-muted mt-3">{% trans 'No lecturer assigned for this course' %}</h6>
             {% endfor %}
 
         </div>

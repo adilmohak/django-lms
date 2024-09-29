@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Grade Results</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Grade Results' %}</li>
   </ol>
 </nav>
 
@@ -24,21 +25,21 @@
     {% endfor %}
 {% endif %}
 
-<div class="title-1"><i class="fas fa-table"></i>Grade Results</div>
-<p>{{ student.level }} Result</p>
+<div class="title-1"><i class="fas fa-table"></i>{% trans 'Grade Results' %}</div>
+<p>{{ student.level }} {% trans 'Result' %}</p>
 
 <div class="table-responsive">
-  <div class="table-title"><u>First Semester:</u></div>
+  <div class="table-title"><u>{% trans 'First Semester:' %}</u></div>
   <table class="table table-light">
     <thead>
       <tr>
         <th>#</th>
-        <th>Course Title</th>
-        <th>Course Code</th>
-        <th>Cr.Hr</th>
-        <th>Grade</th>
-        <th>Points</th>
-        <th>Comment</th>
+        <th>{% trans 'Course Title' %}</th>
+        <th>{% trans 'Course Code' %}</th>
+        <th>{% trans 'Cr.Hr' %}</th>
+        <th>{% trans 'Grade' %}</th>
+        <th>{% trans 'Points' %}</th>
+        <th>{% trans 'Comment' %}</th>
       </tr>
     </thead>
     {% for course in courses %}
@@ -54,9 +55,9 @@
         <td>{{ course.point }}</td>
 
         {% if course.comment == 'PASS' %}
-          <td class="success"><i class="fas fa-check-circle"></i> PASS</td>
+          <td class="success"><i class="fas fa-check-circle"></i>{% trans 'PASS' %}</td>
         {% elif course.comment == 'FAIL' %}
-          <td class="danger"><i class="fas fa-exclamation-circle"></i> FAIL</td>
+          <td class="danger"><i class="fas fa-exclamation-circle"></i>{% trans 'FAIL' %}</td>
         {% else %}
           <td></td>
         {% endif %}
@@ -75,7 +76,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <th>Total first semester credit: {{ total_first_semester_credit }}</th>
+      <th>{% trans 'Total first semester credit:' %} {{ total_first_semester_credit }}</th>
     </tr>
     <tr class="bg-orange text-white">
       <th></th>
@@ -84,7 +85,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <th>First Semester GPA: {{ result.gpa }}</th>
+      <th>{% trans 'First Semester GPA:' %} {{ result.gpa }}</th>
     </tr>
     {% endif %}
     {% endfor %}
@@ -93,17 +94,17 @@
 </div>
   
 <div class="table-responsive p-0 px-2 mt-3">
-  <div class="table-title"><u>Second Semester:</u></div>
+  <div class="table-title"><u>{% trans 'Second Semester:' %}</u></div>
   <table class="table table-light">
     <thead>
       <tr>
         <th>#</th>
-        <th>Course Title</th>
-        <th>Course Code</th>
-        <th>Cr.Hr</th>
-        <th>GRADE</th>
-        <th>Points</th>
-        <th>Comment</th>
+        <th>{% trans 'Course Title' %}</th>
+        <th>{% trans 'Course Code' %}</th>
+        <th>{% trans 'Cr.Hr' %}</th>
+        <th>{% trans 'GRADE' %}</th>
+        <th>{% trans 'Points' %}</th>
+        <th>{% trans 'Comment' %}</th>
       </tr>
     </thead>
     {% for course in courses %}
@@ -119,9 +120,9 @@
         <td>{{ course.point }}</td>
         
         {% if course.comment == 'PASS' %}
-          <td class="success"><i class="fas fa-check-circle"></i> PASS</td>
+          <td class="success"><i class="fas fa-check-circle"></i>{% trans 'PASS' %}</td>
         {% elif course.comment == 'FAIL' %}
-          <td class="danger"><i class="fas fa-exclamation-circle"></i> FAIL</td>
+          <td class="danger"><i class="fas fa-exclamation-circle"></i>{% trans 'FAIL' %}</td>
         {% else %}
           <td></td>
         {% endif %}
@@ -135,12 +136,12 @@
     {% if result.semester == "Second" %}
     <tr style="background: #f3f2f2;">
       <th></th>
-      <th>Total second semester credit: {{ total_sec_semester_credit }}</th>
+      <th>{% trans 'Total second semester credit:' %} {{ total_sec_semester_credit }}</th>
       <th></th>
       <th></th>
       <th></th>
       <th></th>
-      <th>Total Credit: {{ total_first_and_second_semester_credit }}</th>
+      <th>{% trans 'Total Credit:' %} {{ total_first_and_second_semester_credit }}</th>
     </tr>
     <tr style="background: #f3f2f2;">
       <th></th>
@@ -149,7 +150,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <th>Second Semester GPA: {{ result.gpa }}</th>
+      <th>{% trans 'Second Semester GPA:' %} {{ result.gpa }}</th>
     </tr>
     <tr style="background: #fd7e14; color: #fff;">
       <th></th>
@@ -158,7 +159,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <th>Previous CGPA: {{ previousCGPA }}</th>
+      <th>{% trans 'Previous CGPA:' %} {{ previousCGPA }}</th>
     </tr>
     {% endif %}
     {% endfor %}
@@ -173,14 +174,14 @@
   <tr>
     <th></th>
     <th></th>
-    <th><label>First Semester GPA:</label> {{ result.gpa }}</th>
+    <th><label>{% trans 'First Semester GPA:' %}</label> {{ result.gpa }}</th>
   </tr>
   <br>
   {% elif result.semester == "Second" %}
     <tr>
     <th></th>
     <th></th>
-    <th><label>Second Semester GPA:</label> {{ result.gpa }}</th>
+    <th><label>{% trans 'Second Semester GPA:' %}</label> {{ result.gpa }}</th>
   </tr>
   <br>
   {% endif %}
@@ -188,7 +189,7 @@
   <tr>
     <th></th>
     <th></th>
-    <th><label>Previous CGPA:</label> {{ previousCGPA }}</th>
+    <th><label>{% trans 'Previous CGPA:' %}</label> {{ previousCGPA }}</th>
   </tr>
 </tbody>
 <br>
