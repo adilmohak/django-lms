@@ -22,7 +22,8 @@
         <p class="form-title">{% trans 'Program Add Form' %}</p>
         <div class="p-3"><br>
             <form action="" method="POST">{% csrf_token %}
-                {{ form|crispy }}
+                {{ form.title|as_crispy_field }}
+                {{ form.summary|as_crispy_field }}
                 <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}">
             </form>
         </div>
