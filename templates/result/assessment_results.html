@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Assesment Results</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Assesment Results' %}</li>
   </ol>
 </nav>
 
@@ -24,24 +25,24 @@
     {% endfor %}
 {% endif %}
 
-<div class="title-1"><i class="fa fa-spell-check"></i>Assesment Results</div>
-<p>{{ student.level }} Result</p>
+<div class="title-1"><i class="fa fa-spell-check"></i>{% trans 'Assesment Results' %}</div>
+<p>{{ student.level }} {% trans 'Result' %}</p>
 
 <div class="table-responsive p-0 px-2 mt-3">
-  <div class="table-title"><u>First Semester:</u></div>
+  <div class="table-title"><u>{% trans 'First Semester:' %}</u></div>
   <table class="table table-light">
     <thead>
       <tr>
         <th>#</th>
-        <th>Course Title</th>
-        <th>Course Code</th>
-        <th>Cr.Hr(s)</th>
-        <th>Assignment</th>
-        <th>Mid exam</th>
-        <th>Quiz</th>
-        <th>Attendance</th>
-        <th>Final exam</th>
-        <th>Total</th>
+        <th>{% trans 'Course Title' %}</th>
+        <th>{% trans 'Course Code' %}</th>
+        <th>{% trans 'Cr.Hr(s)' %}</th>
+        <th>{% trans 'Assignment' %}</th>
+        <th>{% trans 'Mid exam' %}</th>
+        <th>{% trans 'Quiz' %}</th>
+        <th>{% trans 'Attendance' %}</th>
+        <th>{% trans 'Final exam' %}</th>
+        <th>{% trans 'Total' %}</th>
       </tr>
     </thead>
     {% for course in courses %}
@@ -70,20 +71,20 @@
   </div>
 
   <div class="table-responsive p-3 mt-3">
-    <div class="table-title"><u>Second Semester:</u></div>
+    <div class="table-title"><u>{% trans 'Second Semester:' %}</u></div>
     <table class="table table-light">
     <thead>
       <tr>
         <th>#</th>
-        <th>Course Title</th>
-        <th>Course Code</th>
-        <th>Cr.Hr(s)</th>
-        <th>Assignment</th>
-        <th>Mid exam</th>
-        <th>Quiz</th>
-        <th>Attendance</th>
-        <th>Final exam</th>
-        <th>Total</th>
+        <th>{% trans 'Course Title' %}</th>
+        <th>{% trans 'Course Code %}</th>
+        <th>{% trans 'Cr.Hr(s)' %}</th>
+        <th>{% trans 'Assignment' %}</th>
+        <th>{% trans 'Mid exam' %}</th>
+        <th>{% trans 'Quiz' %}</th>
+        <th>{% trans 'Attendance' %}</th>
+        <th>{% trans 'Final exam' %}</th>
+        <th>{% trans 'Total' %}</th>
       </tr>
     </thead>
     {% for course in courses %}

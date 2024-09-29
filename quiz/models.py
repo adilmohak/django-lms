@@ -245,7 +245,7 @@ class SittingManager(models.Manager):
 
         if len(question_set) == 0:
             raise ImproperlyConfigured(
-                "Question set of the quiz is empty. Please configure questions properly"
+                _("Question set of the quiz is empty. Please configure questions properly")
             )
 
         # if quiz.max_questions and quiz.max_questions < len(question_set):
@@ -401,9 +401,9 @@ class Sitting(models.Model):
     @property
     def result_message(self):
         if self.check_if_passed:
-            return f"You have passed this quiz, congratulation"
+            return _(f"You have passed this quiz, congratulation")
         else:
-            return f"You failed this quiz, give it one chance again."
+            return _(f"You failed this quiz, give it one chance again.")
 
     def add_user_answer(self, question, guess):
         current = json.loads(self.user_answers)

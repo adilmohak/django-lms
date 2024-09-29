@@ -9,6 +9,7 @@ django-model-utils==4.3.1  # https://github.com/jazzband/django-model-utils
 django-crispy-forms==1.14.0  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==0.7  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-filter==23.5 # https://github.com/carltongibson/django-filter
+django-modeltranslation==0.18.11  # https://github.com/Buren/django-modeltranslation
 
 # Django REST Framework
 djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework

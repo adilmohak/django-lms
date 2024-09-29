@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Programs</li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Programs' %}</li>
     </ol>
 </nav>
 
 {% if request.user.is_superuser %}
 <div class="manage-wrap">
-    <a class="btn btn-primary" href="{% url 'add_program' %}"><i class="fas fa-plus"></i>Add Program</a>
+    <a class="btn btn-primary" href="{% url 'add_program' %}"><i class="fas fa-plus"></i>{% trans 'Add Program' %}</a>
 </div>
 {% endif %}
 
-<div class="title-1"><i class="fas fa-book-open"></i>Program List</div>
+<div class="title-1"><i class="fas fa-book-open"></i>{% trans 'Program List' %}</div>
 <br><br>
 
 {% include 'snippets/messages.html' %}
@@ -28,10 +29,10 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Program Name</th>
-                    <th>Summary</th>
+                    <th>{% trans 'Program Name' %}</th>
+                    <th>{% trans 'Summary' %}</th>
                     {% if request.user.is_superuser %}
-                    <th>Action</th>
+                    <th>{% trans 'Action' %}</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -52,8 +53,8 @@
                                 <i class="fa fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu position-fixed">
-                              <li><a class="dropdown-item" href="{% url 'edit_program' pk=program.pk %}"><i class="fas fa-edit"></i> Update</a></li>
-                              <li><a class="dropdown-item text-danger" href="{% url 'program_delete' pk=program.pk %}"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                              <li><a class="dropdown-item" href="{% url 'edit_program' pk=program.pk %}"><i class="fas fa-edit"></i>{% trans 'Update' %}</a></li>
+                              <li><a class="dropdown-item text-danger" href="{% url 'program_delete' pk=program.pk %}"><i class="fas fa-trash-alt"></i>{% trans 'Delete' %}</a></li>
                             </ul>
                         </div>
                     </td>
@@ -65,11 +66,11 @@
                   <td></td>
                   <td>
                   <span class="text-danger">
-                    No program.
+                    {% trans 'No program.' %}
                     {% if request.user.is_superuser %}
                     <a href="{% url 'add_program' %}">
                     <i class="primary" style="font-size: 22px;">
-                       Add program now.
+                        {% trans 'Add program now.' %}
                     </i>
                     {% endif %}
                     </a>

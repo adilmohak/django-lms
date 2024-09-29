@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }} | Learning management system{% endblock title %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load static %}
 
 {% block content %}
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
         <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Manage Score</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Manage Score' %}</li>
     </ol>
 </nav>
 
@@ -20,13 +21,13 @@
         {% for course in courses %}
             <a class="dropdown-item" href="{% url 'add_score_for' course.id %}" title="{{ course.code }}">{{ course.title }}</a>
         {% empty %}
-            <p class="dropdown-item">No course.</p>
+            <p class="dropdown-item">{% trans 'No course.' %}</p>
         {% endfor %}
     </div>
 </div>
 
 <br>
-<h4 class="title-1">Students result form | {{ course|truncatechars:15 }}</h4>
+<h4 class="title-1">{% trans 'Students result form' %} | {{ course|truncatechars:15 }}</h4>
 <p>{{ course.summary }}</p>
 
 {% include 'snippets/messages.html' %}
@@ -34,30 +35,30 @@
 <form action="" method="POST">
     {% csrf_token %}
     <div class="btn-flex">
-        <button title="Save Score" type="submit" class="btn btn-primary">Save</button>
+        <button title="Save Score" type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
         <a target="_blank" href="{% url 'result_sheet_pdf_view' id=course.id %}">
             <span data-toggle="tooltip" title="Print Result sheet" class="btn btn-warning">
-                <i class="far fa-file-pdf"></i> Grade report
+                <i class="far fa-file-pdf"></i> {% trans 'Grade report' %}
             </span>
         </a>
     </div>
 
-    <h4 class="mt-3">{{ current_semester }} Semester <i class="text-light px-2 rounded small bg-danger">{{ current_session }}</i></h4>
+    <h4 class="mt-3">{{ current_semester }} {% trans 'Semester' %} <i class="text-light px-2 rounded small bg-danger">{{ current_session }}</i></h4>
     <div class="table-responsive">
         <table class="table table-light">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Student</th>
-                    <th>Assignment</th>
-                    <th>Mid exam</th>
-                    <th>Quiz</th>
-                    <th>Attendance</th>
-                    <th>Final exam</th>
-                    <th>Total</th>
-                    <th>Point</th>
-                    <th>Grade</th>
-                    <th>Comment</th>
+                    <th>{% trans 'Student' %}</th>
+                    <th>{% trans 'Assignment' %}</th>
+                    <th>{% trans 'Mid exam' %}</th>
+                    <th>{% trans 'Quiz' %}</th>
+                    <th>{% trans 'Attendance' %}</th>
+                    <th>{% trans 'Final exam' %}</th>
+                    <th>{% trans 'Total' %}</th>
+                    <th>{% trans 'Point' %}</th>
+                    <th>{% trans 'Grade' %}</th>
+                    <th>{% trans 'Comment' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +102,7 @@
                     <td></td>
                     <td>
                         <span class="text-danger">
-                            No Student.
+                            {% trans 'No Student.' %}
                         </span>
                     </td>
                     <td></td>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}PayPal{% endblock title %}
 {% load static %}
 
@@ -20,8 +21,8 @@
 </style>
 <div class="container">
 	<center>
-		<h3><i class="fa fa-check-circle-o text-success" aria-hidden="true"></i> Payment Succeed, You has been make payment successfuly.</h3>
-		<div class="counter-wrapper">Redirect to your dashboard in <span class="bg-counter" id="counter">8</span></div>
+		<h3><i class="fa fa-check-circle-o text-success" aria-hidden="true"></i>{% trans 'Payment Succeed, You has been make payment successfuly.' %}</h3>
+		<div class="counter-wrapper">{% trans 'Redirect to your dashboard in' %} <span class="bg-counter" id="counter">8</span></div>
 	</center>
 
 </div>

@@ -3,23 +3,25 @@ from django.urls import reverse
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
-NEWS = "News"
-EVENTS = "Event"
+
+NEWS = _("News")
+EVENTS = _("Event")
 
 POST = (
-    (NEWS, "News"),
-    (EVENTS, "Event"),
+    (NEWS, _("News")),
+    (EVENTS, _("Event")),
 )
 
-FIRST = "First"
-SECOND = "Second"
-THIRD = "Third"
+FIRST = _("First")
+SECOND = _("Second")
+THIRD = _("Third")
 
 SEMESTER = (
-    (FIRST, "First"),
-    (SECOND, "Second"),
-    (THIRD, "Third"),
+    (FIRST, _("First")),
+    (SECOND, _("Second")),
+    (THIRD, _("Third")),
 )
 
 

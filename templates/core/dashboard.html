@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} Dashboard | Learning management system {% endblock title %}
+{% load i18n %}
+{% block title %} {% trans 'Dashboard' %} | {% trans 'Learning management system' %} {% endblock title %}
 {% load static %}
 
 {% block header %}
@@ -9,13 +10,13 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Dashboard' %}</li>
     </ol>
 </nav>
 
 {% if messages %}
-{% for message in messages %}
+{% for message in messages %}Program
 {% if message.tags == 'error' %}
 <div class="alert alert-danger">
 	<i class="fas fa-exclamation-circle"></i>{{ message }}
@@ -29,18 +30,18 @@
 {% endif %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-	<h1 class="title-1">Dashboard</h1>
+	<h1 class="title-1">{% trans 'Dashboard' %}</h1>
 	<div class="dropdown">
 		<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
 			aria-expanded="false">
 			<i class="fas fa-cog"></i>
 		</button>
 		<div class="dropdown-menu">
-			<h6 class="dropdown-header">Dashboard settings</h6>
-			<button class="dropdown-item active" type="button">Display grid</button>
-			<button class="dropdown-item" type="button">Display table</button>
+			<h6 class="dropdown-header">{% trans 'Dashboard settings' %}</h6>
+			<button class="dropdown-item active" type="button">{% trans 'Display grid' %}</button>
+			<button class="dropdown-item" type="button">{% trans 'Display table' %}</button>
 			<hr>
-			<button class="dropdown-item" type="button">Manage dashboard</button>
+			<button class="dropdown-item" type="button">{% trans 'Manage dashboard' %}</button>
 		</div>
 	</div>
 </div>
@@ -50,7 +51,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-aqua"></i></h3>
 			<div class="text-right">
-				Students
+				{% trans 'Students' %}
 				<h2>{{ student_count }}</h2>
 			</div>
 		</div>
@@ -59,7 +60,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-orange"></i></h3>
 			<div class="text-right">
-				Lecturers
+				{% trans 'Lecturers' %}
 				<h2>{{ lecturer_count }}</h2>
 			</div>
 		</div>
@@ -68,7 +69,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-red"></i></h3>
 			<div class="text-right">
-				Administrators
+				{% trans 'Administrators' %}
 				<h2>{{ superuser_count }}</h2>
 			</div>
 		</div>
@@ -77,7 +78,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-purple"></i></h3>
 			<div class="text-right">
-				Lab Assistance
+				{% trans 'Lab Assistance' %}
 				<h2>500</h2>
 			</div>
 		</div>
@@ -86,7 +87,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-red"></i></h3>
 			<div class="text-right">
-				Librarians
+				{% trans 'Librarians' %}
 				<h2>300</h2>
 			</div>
 		</div>
@@ -95,7 +96,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-purple"></i></h3>
 			<div class="text-right">
-				Supervisors
+				{% trans 'Supervisors' %}
 				<h2>660</h2>
 			</div>
 		</div>
@@ -104,7 +105,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-orange"></i></h3>
 			<div class="text-right pl-2">
-				Office Assistance
+				{% trans 'Office Assistance' %}
 				<h2>1,700</h2>
 			</div>
 		</div>
@@ -113,7 +114,7 @@
 		<div class="card-count p-3">
 			<h3><i class="fas fa-users bg-light-aqua"></i></h3>
 			<div class="text-right">
-				Others
+				{% trans 'Others' %}
 				<h2>1,250</h2>
 			</div>
 		</div>
@@ -141,12 +142,12 @@
 	</div>
 	<div class="col-md-6 p-2">
 		<div class="card w-100 h-100 p-3">
-			<h5>Latest activities</h5>
+			<h5>{% trans 'Latest activities' %}</h5>
 			<ul class="ps-2 small">
 				{% for log in logs %}
 				<li>{{ log.message }} <span class="text-muted">- {{ log.created_at }}</span></li>
 				{% empty %}
-				<li>No recent activity</li>
+				<li>{% trans 'No recent activity' %}</li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -154,7 +155,7 @@
 </div>
 <br>
 <div class="bg-white p-3">
-	<h5 class="border-bottom pb-2">School Demographics</h5>
+	<h5 class="border-bottom pb-2">{% trans 'School Demographics' %}</h5>
 	<div class="row">
 		<div class="col-md-4">
 			<i class="fas fa-expand-alt"></i>
@@ -175,276 +176,9 @@
 
 {% block js %}
 
+<script src="{% url 'javascript-catalog' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-	const malesCount = {{ males_count }}
-	const femalesCount = {{ females_count }}
-	
-	$(document).ready(function () {
-
-		// Setup
-		const labels = [
-			'January',
-			'February',
-			'March',
-			'April',
-			'May',
-			'June',
-		];
-		const data = {
-			labels: labels,
-			datasets: [{
-				label: 'Students',
-				backgroundColor: 'rgba(86, 224, 224, 0.5)',
-				borderColor: 'rgb(86, 224, 224)',
-				hoverBorderWidth: 3,
-				data: [0, 10, 5, 2, 20, 30, 45]
-			}, {
-				label: 'Teachers',
-				backgroundColor: 'rgba(253, 174, 28, 0.5)',
-				borderColor: 'rgb(253, 174, 28)',
-				hoverBorderWidth: 3,
-				data: [20, 0, 15, 4, 6, 4, 60],
-			}, {
-				label: 'Admins',
-				backgroundColor: 'rgba(203, 31, 255, 0.5)',
-				borderColor: 'rgb(203, 31, 255)',
-				hoverBorderWidth: 3,
-				data: [85, 30, 34, 20, 20, 55, 45],
-			}, {
-				label: 'Stuffs',
-				backgroundColor: 'rgba(255, 19, 157, 0.5)',
-				borderColor: 'rgb(255, 19, 157)',
-				hoverBorderWidth: 3,
-				data: [45, 75, 70, 80, 20, 30, 90],
-			}]
-		};
-
-		var traffic = document.getElementById('traffic');
-		var chart = new Chart(traffic, {
-			type: 'line',
-			data: data,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Website Traffic',
-						padding: 15
-					}
-				}
-			}
-		});
-
-		// Setup
-		const labelsEnrollment = [
-			'2016',
-			'2017',
-			'2018',
-			'2019',
-			'2020',
-			'2021',
-		];
-		const dataEnrollment = {
-			labels: labelsEnrollment,
-			datasets: [{
-				label: 'Comp.S',
-				backgroundColor: 'rgba(86, 224, 224, 0.5)',
-				borderColor: 'rgb(86, 224, 224)',
-				hoverBorderWidth: 3,
-				data: [0, 10, 5, 2, 20, 30, 45]
-			}, {
-				label: 'Architecture',
-				backgroundColor: 'rgba(253, 174, 28, 0.5)',
-				borderColor: 'rgb(253, 174, 28)',
-				hoverBorderWidth: 3,
-				data: [20, 0, 15, 4, 6, 4, 60],
-			}, {
-				label: 'Civil Eng',
-				backgroundColor: 'rgba(203, 31, 255, 0.5)',
-				borderColor: 'rgb(203, 31, 255)',
-				hoverBorderWidth: 3,
-				data: [85, 30, 34, 20, 20, 55, 45],
-			}, {
-				label: 'Accounting',
-				backgroundColor: 'rgba(255, 19, 157, 0.5)',
-				borderColor: 'rgb(255, 19, 157)',
-				hoverBorderWidth: 3,
-				data: [45, 75, 70, 80, 20, 30, 90],
-			}, {
-				label: 'Business M.',
-				backgroundColor: 'rgba(0, 0, 0, 0.5)',
-				borderColor: 'rgb(0, 0, 0)',
-				hoverBorderWidth: 3,
-				data: [15, 75, 45, 90, 60, 30, 90],
-			}]
-		};
-
-		var enrollement = document.getElementById('enrollement');
-		var chart = new Chart(enrollement, {
-			type: 'bar',
-			data: dataEnrollment,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Enrollment per course',
-						padding: 20
-					}
-				}
-			}
-		});
-
-		// Average grade setup
-		const labelsGrade = [
-			'2017',
-			'2018',
-			'2019',
-			'2020',
-			'2022',
-		];
-		const dataGrade = {
-			labels: labelsGrade,
-			datasets: [{
-				label: "Comp sci.",
-				backgroundColor: 'rgba(86, 224, 224, 0.5)',
-				borderColor: 'rgb(86, 224, 224)',
-				hoverBorderWidth: 3,
-				data: [0, 10, 5, 2, 20, 30, 45]
-			}, {
-				label: "Civil eng.",
-				backgroundColor: 'rgba(253, 174, 28, 0.5)',
-				borderColor: 'rgb(253, 174, 28)',
-				hoverBorderWidth: 3,
-				data: [20, 0, 15, 4, 6, 4, 60],
-			}, {
-				label: "Architect.",
-				backgroundColor: 'rgba(203, 31, 255, 0.5)',
-				borderColor: 'rgb(203, 31, 255)',
-				hoverBorderWidth: 3,
-				data: [85, 30, 34, 20, 20, 55, 45],
-			}, {
-				label: "Economics",
-				backgroundColor: 'rgba(255, 19, 157, 0.5)',
-				borderColor: 'rgb(255, 19, 157)',
-				hoverBorderWidth: 3,
-				data: [45, 75, 70, 80, 20, 30, 90],
-			}]
-		};
-		
-		var students_grade = document.getElementById('students_grade');
-		var chart = new Chart(students_grade, {
-			type: 'bar',
-			data: dataGrade,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Students average grade (performance)',
-						padding: 20
-					}
-				}
-			}
-		});
-
-		const dataGender = {
-			labels: [
-				'Man',
-				'Women'
-			],
-			datasets: [{
-				label: "Students Gender Dataset",
-				data: [malesCount, femalesCount],
-				backgroundColor: [
-				'rgb(255, 99, 132)',
-				'rgb(54, 162, 235)'
-				],
-				hoverOffset: 4
-			}]
-		};
-
-		var gender = document.getElementById('gender');
-		var chart = new Chart(gender, {
-			type: 'pie',
-			data: dataGender,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Students Gender',
-						padding: 20
-					}
-				}
-			}
-		});
-
-		const dataQualification = {
-			labels: [
-				'PHD',
-				'Masters',
-				'BSc degree'
-			],
-			datasets: [{
-				label: "Lecturer Qualifications Dataset",
-				data: [24, 30, 26],
-				backgroundColor: [
-				'rgb(255, 99, 132)',
-				'rgb(255, 193, 7)',
-				'rgb(54, 162, 235)'
-				],
-				hoverOffset: 4
-			}]
-		};
-		var ethnicity = document.getElementById('ethnicity');
-		var chart = new Chart(ethnicity, {
-			type: 'pie',
-			data: dataQualification,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Lecturer qualifications',
-						padding: 20
-					}
-				}
-			}
-		});
-
-		const dataLevels = {
-			labels: [
-				'PHD',
-				'Masters',
-				'BSc degree'
-			],
-			datasets: [{
-				label: "Students level",
-				data: [14, 30, 56],
-				backgroundColor: [
-				'rgb(255, 99, 132)',
-				'rgb(255, 193, 7)',
-				'rgb(54, 162, 235)'
-				],
-				hoverOffset: 4
-			}]
-		};
-		var language = document.getElementById('language');
-		var chart = new Chart(language, {
-			type: 'pie',
-			data: dataLevels,
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Student levels',
-						padding: 20
-					}
-				}
-			}
-		});
-	})
-
-</script>
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 <script>
 	$('.fa-expand-alt').click(function () {
 		if ($(this).parent('.chart-wrap').parent('.col-md-6').hasClass('expand')) {
@@ -455,6 +189,273 @@
 			$(this).parent('.chart-wrap').parent('.col-md-6').addClass('expand');
 		}
 	})
+</script>
+<script>
+	const malesCount = {{ males_count }}
+const femalesCount = {{ females_count }}
+
+$(document).ready(function () {
+
+    // Setup
+    const labels = [
+        gettext('January'),
+        gettext('February'),
+        gettext('March'),
+        gettext('April'),
+        gettext('May'),
+        gettext('June'),
+    ];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: gettext('Students'),
+            backgroundColor: 'rgba(86, 224, 224, 0.5)',
+            borderColor: 'rgb(86, 224, 224)',
+            hoverBorderWidth: 3,
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }, {
+            label: gettext('Teachers'),
+            backgroundColor: 'rgba(253, 174, 28, 0.5)',
+            borderColor: 'rgb(253, 174, 28)',
+            hoverBorderWidth: 3,
+            data: [20, 0, 15, 4, 6, 4, 60],
+        }, {
+            label: gettext('Admins'),
+            backgroundColor: 'rgba(203, 31, 255, 0.5)',
+            borderColor: 'rgb(203, 31, 255)',
+            hoverBorderWidth: 3,
+            data: [85, 30, 34, 20, 20, 55, 45],
+        }, {
+            label: gettext('Stuffs'),
+            backgroundColor: 'rgba(255, 19, 157, 0.5)',
+            borderColor: 'rgb(255, 19, 157)',
+            hoverBorderWidth: 3,
+            data: [45, 75, 70, 80, 20, 30, 90],
+        }]
+    };
+
+    var traffic = document.getElementById('traffic');
+    var chart = new Chart(traffic, {
+        type: 'line',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Website Traffic'),
+                    padding: 15
+                }
+            }
+        }
+    });
+
+    // Setup
+    const labelsEnrollment = [
+        '2016',
+        '2017',
+        '2018',
+        '2019',
+        '2020',
+        '2021',
+    ];
+    const dataEnrollment = {
+        labels: labelsEnrollment,
+        datasets: [{
+            label: gettext('Comp.S'),
+            backgroundColor: 'rgba(86, 224, 224, 0.5)',
+            borderColor: 'rgb(86, 224, 224)',
+            hoverBorderWidth: 3,
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }, {
+            label: gettext('Architecture'),
+            backgroundColor: 'rgba(253, 174, 28, 0.5)',
+            borderColor: 'rgb(253, 174, 28)',
+            hoverBorderWidth: 3,
+            data: [20, 0, 15, 4, 6, 4, 60],
+        }, {
+            label: gettext('Civil Eng'),
+            backgroundColor: 'rgba(203, 31, 255, 0.5)',
+            borderColor: 'rgb(203, 31, 255)',
+            hoverBorderWidth: 3,
+            data: [85, 30, 34, 20, 20, 55, 45],
+        }, {
+            label: gettext('Accounting'),
+            backgroundColor: 'rgba(255, 19, 157, 0.5)',
+            borderColor: 'rgb(255, 19, 157)',
+            hoverBorderWidth: 3,
+            data: [45, 75, 70, 80, 20, 30, 90],
+        }, {
+            label: gettext('Business M.'),
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            borderColor: 'rgb(0, 0, 0)',
+            hoverBorderWidth: 3,
+            data: [15, 75, 45, 90, 60, 30, 90],
+        }]
+    };
+
+    var enrollement = document.getElementById('enrollement');
+    var chart = new Chart(enrollement, {
+        type: 'bar',
+        data: dataEnrollment,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Enrollment per course'),
+                    padding: 20
+                }
+            }
+        }
+    });
+
+    // Average grade setup
+    const labelsGrade = [
+        '2017',
+        '2018',
+        '2019',
+        '2020',
+        '2022',
+    ];
+    const dataGrade = {
+        labels: labelsGrade,
+        datasets: [{
+            label: gettext("Comp sci."),
+            backgroundColor: 'rgba(86, 224, 224, 0.5)',
+            borderColor: 'rgb(86, 224, 224)',
+            hoverBorderWidth: 3,
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }, {
+            label: gettext("Civil eng."),
+            backgroundColor: 'rgba(253, 174, 28, 0.5)',
+            borderColor: 'rgb(253, 174, 28)',
+            hoverBorderWidth: 3,
+            data: [20, 0, 15, 4, 6, 4, 60],
+        }, {
+            label: gettext("Architect."),
+            backgroundColor: 'rgba(203, 31, 255, 0.5)',
+            borderColor: 'rgb(203, 31, 255)',
+            hoverBorderWidth: 3,
+            data: [85, 30, 34, 20, 20, 55, 45],
+        }, {
+            label: gettext("Economics"),
+            backgroundColor: 'rgba(255, 19, 157, 0.5)',
+            borderColor: 'rgb(255, 19, 157)',
+            hoverBorderWidth: 3,
+            data: [45, 75, 70, 80, 20, 30, 90],
+        }]
+    };
+    
+    var students_grade = document.getElementById('students_grade');
+    var chart = new Chart(students_grade, {
+        type: 'bar',
+        data: dataGrade,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Students average grade (performance)'),
+                    padding: 20
+                }
+            }
+        }
+    });
+
+    const dataGender = {
+        labels: [
+            gettext('Man'),
+            gettext('Women')
+        ],
+        datasets: [{
+            label: gettext("Students Gender Dataset"),
+            data: [malesCount, femalesCount],
+            backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    var gender = document.getElementById('gender');
+    var chart = new Chart(gender, {
+        type: 'pie',
+        data: dataGender,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Students Gender'),
+                    padding: 20
+                }
+            }
+        }
+    });
+
+    const dataQualification = {
+        labels: [
+            gettext('PHD'),
+            gettext('Masters'),
+            gettext('BSc degree')
+        ],
+        datasets: [{
+            label: gettext("Lecturer Qualifications Dataset"),
+            data: [24, 30, 26],
+            backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 193, 7)',
+            'rgb(54, 162, 235)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    var ethnicity = document.getElementById('ethnicity');
+    var chart = new Chart(ethnicity, {
+        type: 'pie',
+        data: dataQualification,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Lecturer qualifications'),
+                    padding: 20
+                }
+            }
+        }
+    });
+
+    const dataLevels = {
+        labels: [
+            gettext('PHD'),
+            gettext('Masters'),
+            gettext('BSc degree')
+        ],
+        datasets: [{
+            label: gettext("Students level"),
+            data: [14, 30, 56],
+            backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 193, 7)',
+            'rgb(54, 162, 235)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    var language = document.getElementById('language');
+    var chart = new Chart(language, {
+        type: 'pie',
+        data: dataLevels,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: gettext('Student levels'),
+                    padding: 20
+                }
+            }
+        }
+    });
+})
+
 </script>
 
 {% endblock %}
