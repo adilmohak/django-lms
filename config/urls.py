@@ -9,24 +9,12 @@ from django.views.i18n import JavaScriptCatalog
 admin.site.site_header = "Dj-LMS Admin"
 
 urlpatterns = [
-    path("jet/", include("jet.urls", "jet")),  # Django JET URLS
-    path(
-        "jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
-    ),  # Django JET dashboard URLS
-    path("", include("core.urls")),
-    path("accounts/", include("accounts.urls")),
-    path("programs/", include("course.urls")),
-    path("result/", include("result.urls")),
-    path("search/", include("search.urls")),
-    path("quiz/", include("quiz.urls")),
-    path("payments/", include("payments.urls")),
-    path("accounts/api/", include("accounts.api.urls", namespace="accounts-api")),
     path("admin/", admin.site.urls),
-    path("i18n/", include('django.conf.urls.i18n')),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 urlpatterns += i18n_patterns(
-    path("jsi18n/", JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("", include("core.urls")),
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
     path(
@@ -40,8 +28,6 @@ urlpatterns += i18n_patterns(
     path("payments/", include("payments.urls")),
     path("accounts/api/", include("accounts.api.urls", namespace="accounts-api")),
 )
-
-
 
 
 if settings.DEBUG:
