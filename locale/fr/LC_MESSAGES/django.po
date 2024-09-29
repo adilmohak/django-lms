@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-29 13:25+0300\n"
+"POT-Creation-Date: 2024-09-29 15:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: accounts/models.py:14 course/models.py:24
 msgid "Bachelor"
@@ -102,11 +100,19 @@ msgid ""
 "numbers, and @/./+/-/_ characters."
 msgstr ""
 
-#: config/settings.py:147
+#: config/settings.py:148
 msgid "English"
 msgstr ""
 
-#: config/settings.py:148
+#: config/settings.py:149
+msgid "French"
+msgstr ""
+
+#: config/settings.py:150
+msgid "Spanish"
+msgstr ""
+
+#: config/settings.py:151
 msgid "Russia"
 msgstr ""
 

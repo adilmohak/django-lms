@@ -35,7 +35,7 @@ AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 DJANGO_APPS = [
-    "modeltranslation",
+    "modeltranslation",  # Translation
     "jet.dashboard",
     "jet",
     "django.contrib.admin",
@@ -143,15 +143,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 gettext = lambda s: s
+
 LANGUAGES = (
-    ('en', gettext('English')),
-    ('ru', gettext('Russia')),
-)
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+    ("en", gettext("English")),
+    ("fr", gettext("French")),
+    ("es", gettext("Spanish")),
+    ("ru", gettext("Russia")),
 )
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -249,5 +251,3 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STUDENT_ID_PREFIX = config("STUDENT_ID_PREFIX", "ugr")
 LECTURER_ID_PREFIX = config("LECTURER_ID_PREFIX", "lec")
-
-
