@@ -118,10 +118,10 @@ class MCQuestionCreate(CreateView):
         context = self.get_context_data()
         formset = context["formset"]
         course = context["course"]
-        with transaction.atomic():
-            form.instance.question = self.request.POST.get("content")
-            self.object = form.save()
-            if formset.is_valid():
+        if formset.is_valid():
+            with transaction.atomic():
+                form.instance.question = self.request.POST.get("content")
+                self.object = form.save()
                 formset.instance = self.object
                 formset.save()
                 if "another" in self.request.POST:
@@ -131,6 +131,8 @@ class MCQuestionCreate(CreateView):
                         quiz_id=self.kwargs["quiz_id"],
                     )
                 return redirect("quiz_index", course.slug)
+        else:
+            return self.form_invalid(form)
         return super(MCQuestionCreate, self).form_invalid(form)
 
 
