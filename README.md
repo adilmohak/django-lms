@@ -1,7 +1,5 @@
 # Learning management system using django web framework
 
-### [Get started here](https://adilmohak.github.io/dj-lms-starter/)
-
 Feature-rich learning management system. You may want to build a learning management system(AKA school management system) for a school organization or just for the sake of learning the tech stack and building your portfolio, either way, this project would be a good kickstart for you.
 
 Let's enhance the project by contributing! 👩‍💻👩‍💻
@@ -88,11 +86,6 @@ Last but not least, go to this address http://127.0.0.1:8000
 
 - Quiz part: https://github.com/tomwalker/django_quiz
 
-# Professional help
-
-[![Learn more](https://github.com/user-attachments/assets/0960dd62-820b-4b4c-b297-db9b61f3cbe5)](https://adilmohak.github.io/dj-lms-starter/)
-<br>
-
 # Connect with me
 
 <div>
@@ -112,3 +105,5 @@ Last but not least, go to this address http://127.0.0.1:8000
 <p><a href="https://www.buymeacoffee.com/adilmohak"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="36" width="160" alt="adilmohak" /></a></p><br>
 
 #### Show your support by ⭐️ this project!
+
+#### Check [this page](https://adilmohak.github.io/dj-lms-starter/) for quick up and running.
