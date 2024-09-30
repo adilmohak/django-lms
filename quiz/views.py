@@ -246,14 +246,13 @@ class QuizTake(FormView):
         self.quiz = get_object_or_404(Quiz, slug=self.kwargs["slug"])
         self.course = get_object_or_404(Course, pk=self.kwargs["pk"])
         quizQuestions = Question.objects.filter(quiz=self.quiz).count()
-        course = get_object_or_404(Course, pk=self.kwargs["pk"])
 
         if quizQuestions <= 0:
             messages.warning(request, f"Question set of the quiz is empty. try later!")
             return redirect("quiz_index", self.course.slug)
 
-        if self.quiz.draft and not request.user.has_perm("quiz.change_quiz"):
-            raise PermissionDenied
+        # if self.quiz.draft and not request.user.has_perm("quiz.change_quiz"):
+        #     raise PermissionDenied
 
         self.sitting = Sitting.objects.user_sitting(
             request.user, self.quiz, self.course
