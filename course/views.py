@@ -25,7 +25,7 @@ from .filters import ProgramFilter, CourseAllocationFilter
 from .models import Program, Course, CourseAllocation, Upload, UploadVideo
 
 
-@method_decorator([login_required], name="dispatch")
+@method_decorator([login_required, lecturer_required], name="dispatch")
 class ProgramFilterView(FilterView):
     filterset_class = ProgramFilter
     template_name = "course/program_list.html"

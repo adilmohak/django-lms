@@ -68,9 +68,11 @@
 			</li>
 			{% endif %}
 
+			{% if request.user.is_superuser or request.user.is_lecturer %}
 			<li class="{% if request.path == pro %}active{% endif %}">
 				<a href="{% url 'programs' %}"><i class="fas fa-book-open"></i>{% trans 'Programs & Courses' %}</a>
 			</li>
+			{% endif %}
 
 			{% if request.user.is_superuser or request.user.is_lecturer %}
 			<li class="{% if request.path == qce %}active{% endif %}">
