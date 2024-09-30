@@ -51,13 +51,11 @@
 
   {% if exams %}
 
-  <hr>
-
   <div class="header-title-xl">{% trans "Previous exam papers" %}</div>
-  <p class="lead text-muted">
+  <p class="lead fw-bold">
 	{% trans "Below are the results of exams that you have sat." %}
   </p>
-  <div class="info-text bg-danger mb-2">{% trans 'Total complete exams:' %} {{ exams_counter }}</div>
+  <div class="text-light bg-secondary mb-2 p-1">{% trans 'Total complete exams:' %} {{ exams_counter }}</div>
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
 
