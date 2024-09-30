@@ -1,5 +1,5 @@
-{% load i18n %}
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}{{ title }} | {% trans 'Learning management system' %}{% endblock title %}
 {% load crispy_forms_tags %}
 {% load static %}
@@ -14,19 +14,7 @@
     </ol>
 </nav>
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'error' %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>{{ message }}
-            </div>
-        {% else %}
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>{{ message }}
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'snippets/messages.html' %}
 
 <div class="row">
     <div class="col-md-6 mx-auto">
@@ -34,15 +22,8 @@
             <p class="form-title">{% trans 'Course Allocation Form' %}</p>
             <div class="p-3">
                 <form action="" method="POST">{% csrf_token %}
-                    <!-- {{ form|crispy }} -->
-                        <div class="form-group">
-                            {{ form.lecturer.label }}{{ form.lecturer }}
-                            <span class="danger">{{ form.lecturer.errors }}</span>
-                        </div>
-                        <div class="form-group">
-                            {{ form.courses.label }}{{ form.courses }}
-                            <span class="danger">{{ form.courses.errors }}</span>
-                        </div>
+                      {{ form.lecturer|as_crispy_field }}
+                      {{ form.courses|as_crispy_field }}
                         
                     {% for course in form.courses.all %}{{ course }}{% endfor %}
 
